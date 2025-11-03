@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Wars Outer Rim Automa Simulator v3.5</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #111; color: #eee; text-align: center; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 20px auto; padding: 10px; background: #222; border-radius: 12px; box-shadow: 0 0 10px #000; transition: all 0.3s; }
+        h1 { color: #FFD700; margin: 0 0 10px 0; transition: all 0.3s; }
+        select, input[type="text"], button { width: 100%; padding: 10px; margin: 5px 0; border-radius: 8px; border: none; font-size: 16px; }
+        button { cursor: pointer; background: #444; color: white; }
+        button:hover { background: #666; }
+        .hidden { display: none; }
+        img { max-width: 100%; max-height: 75vh; height: auto; border-radius: 8px; display: block; margin: 5px auto; }
+        .header-row { display: flex; align-items: center; justify-content: flex-start; margin-bottom: 10px; }
+        .header-row button { width: auto; margin-right: 10px; }
+        .header-row h2 { margin: 0; flex-grow: 1; text-align: center; }
+    </style>
+</head>
+<body>
+<div class="container" id="container">
+    <h1 id="mainTitle">Star Wars Outer Rim Automa Simulator</h1>
+
+    <div id="step1">
+        <h2>Select Game Mode</h2>
+        <select id="gameMode">
+            <option value="expansion" selected>Unfinished Business Expansion</option>
+            <option value="base">Base Game Only</option>
+        </select>
+        <button id="nextToPlayers">Next</button>
+    </div>
+
+    <div id="step2" class="hidden">
+        <h2>Add Player</h2>
+        <select id="playerType">
+            <option value="human">Human Player</option>
+            <option value="ai">AI Player</option>
+        </select>
+
+        <select id="playerCharacter"></select>
+        <input type="text" id="playerNickname" placeholder="Player 1">
+        <select id="playerColor"></select>
+
+        <button id="addAnother">Add Another Player</button>
+        <button id="goToGame">Start Game</button>
+        <button id="backPlayer">Back</button>
+    </div>
+
+    <div id="gameStep" class="hidden">
+        <div class="header-row">
+            <button id="backCard">Back</button>
+            <h2 id="turnHeader"></h2>
+        </div>
+        <div id="cardDisplay"></div>
+    </div>
+</div>
+
+<script>
+    const characters = [
+        {name:"Cad Bane", origin:"expansion", type:"bounty", image:"bane.png"},
+        {name:"Boba Fett", origin:"base", type:"bounty", image:"boba.png"},
+        {name:"Bossk", origin:"base", type:"bounty", image:"bossk.png"},
+        {name:"Dengar", origin:"expansion", type:"bounty", image:"dengar.png"},
+        {name:"IG-88", origin:"base", type:"bounty", image:"ig88.png"},
+        {name:"Ketsu Onio", origin:"base", type:"bounty", image:"ketsu.png"},
+        {name:"Black Krrsantan", origin:"expansion", type:"bounty", image:"krrsantan.png"},
+        {name:"Doctor Aphra", origin:"base", type:"smuggler", image:"afra.png"},
+        {name:"Chewbacca", origin:"expansion", type:"smuggler", image:"chewbacca.png"},
+        {name:"Enfys Nest", origin:"expansion", type:"smuggler", image:"enfys.png"},
+        {name:"Jyn Erso", origin:"base", type:"smuggler", image:"erso.png"},
+        {name:"Han Solo", origin:"base", type:"smuggler", image:"han.png"},
+        {name:"Hera Syndulla", origin:"expansion", type:"smuggler", image:"hera.png"},
+        {name:"Hondo Ohnaka", origin:"expansion", type:"smuggler", image:"hondo.png"},
+        {name:"Lando Calrissian", origin:"base", type:"smuggler", image:"lando.png"},
+        {name:"Maz Kanata", origin:"expansion", type:"smuggler", image:"maz.png"}
+    ];
+
+    let players=[], usedCharacters=[], currentPlayerIndex=0, playerCounter=1, gameMode='expansion', aiDecks={};
+    const addAnotherBtn = document.getElementById("addAnother");
+    const mainTitle = document.getElementById("mainTitle");
+    const container = document.getElementById("container");
+
+    // Player type & character dropdowns
+    document.getElementById("nextToPlayers").addEventListener("click", ()=>{
+        gameMode=document.getElementById("gameMode").value;
+        populateCharacterDropdown();
+        populateColorDropdown();
+        document.getElementById("step1").classList.add("hidden");
+        document.getElementById("step2").classList.remove("hidden");
+        updatePlayerForm();
+    });
+
+    function populateCharacterDropdown(){
+        const select=document.getElementById("playerCharacter");
+        select.innerHTML="";
+        const emptyOption=document.createElement("option");
+        emptyOption.value=""; emptyOption.textContent="-- Select Character --";
+        emptyOption.disabled=true; emptyOption.selected=true;
+        select.appendChild(emptyOption);
+
+        const type=document.getElementById("playerType").value;
+        const allowed=characters.filter(c=>!usedCharacters.includes(c.name) && (gameMode==="expansion" || c.origin==="base"));
+        const smugglers=allowed.filter(c=>c.type==="smuggler").sort((a,b)=>a.name.localeCompare(b.name));
+        const bounty=allowed.filter(c=>c.type==="bounty").sort((a,b)=>a.name.localeCompare(b.name));
+
+        if(smugglers.length>0){
+            const group=document.createElement("optgroup");
+            group.label="Smugglers";
+            smugglers.forEach(c=>{
+                const opt=document.createElement("option");
+                opt.value=c.name; opt.textContent=`${c.name} (${c.origin[0]})`;
+                group.appendChild(opt);
+            });
+            select.appendChild(group);
+        }
+        if(type==="ai" && gameMode==="base") bounty.length=0;
+        if(bounty.length>0){
+            const group=document.createElement("optgroup");
+            group.label="Bounty Hunters";
+            bounty.forEach(c=>{
+                const opt=document.createElement("option");
+                opt.value=c.name; opt.textContent=`${c.name} (${c.origin[0]})`;
+                group.appendChild(opt);
+            });
+            select.appendChild(group);
+        }
+    }
+
+    // Color dropdown with human-readable names
+    function populateColorDropdown(){
+        const colorSelect = document.getElementById("playerColor");
+        colorSelect.innerHTML = "";
+        const availableColors = [
+            {value:"#FF4C4C", name:"Red"},
+            {value:"#4C9EFF", name:"Blue"},
+            {value:"#4CFF4C", name:"Green"},
+            {value:"#FFD74C", name:"Yellow"}
+        ];
+        availableColors
+            .filter(c => !players.map(p => p.color).includes(c.value))
+            .forEach(c=>{
+                const opt = document.createElement("option");
+                opt.value = c.value;
+                opt.textContent = c.name;
+                colorSelect.appendChild(opt);
+            });
+    }
+
+    document.getElementById("playerType").addEventListener("change", updatePlayerForm);
+
+    function updatePlayerForm(){
+        const type=document.getElementById("playerType").value;
+        const nickname=document.getElementById("playerNickname");
+        nickname.placeholder=type==="ai"?"AI "+playerCounter:"Player "+playerCounter;
+        nickname.value=type==="ai"?"":"Player "+playerCounter;
+        populateCharacterDropdown();
+        populateColorDropdown();
+        toggleAddButton();
+    }
+
+    function toggleAddButton(){ addAnotherBtn.style.display=players.length>=3?"none":"inline-block"; }
+
+    addAnotherBtn.addEventListener("click", ()=>{
+        if(players.length>=4) return;
+        if(!addPlayerFromForm()) return;
+        playerCounter++;
+        updatePlayerForm();
+    });
+
+    document.getElementById("goToGame").addEventListener("click", ()=>{
+        if(!addPlayerFromForm()) return;
+        if(!hasMinimumPlayers()){ alert("At least 2 players required, with at least 1 human!"); return; }
+        startGame();
+    });
+
+    function addPlayerFromForm(){
+        const type=document.getElementById("playerType").value;
+        const nickname=document.getElementById("playerNickname").value.trim() || document.getElementById("playerNickname").placeholder;
+        const charName=document.getElementById("playerCharacter").value;
+        const color=document.getElementById("playerColor").value;
+        if(!charName){ alert("Select a character!"); return false; }
+        if(!color){ alert("Select a color!"); return false; }
+
+        const charObj=characters.find(c=>c.name===charName);
+        usedCharacters.push(charObj.name);
+        players.push({type,nickname,character:charObj,color,personalGoalAchieved:false});
+
+        if(type==="ai"){
+            let deck=[];
+            if(charObj.type==="smuggler"){
+                deck = gameMode==="base"?shuffleArray([...Array(10).keys()].map(n=>n+1)):shuffleArray([1,2,6,7,9,"special"]);
+            } else {
+                deck = gameMode==="base"?shuffleArray([1,2,3,4,5]):shuffleArray([1,2,3,4,5,"special"]);
+            }
+            aiDecks[nickname]=deck;
+            console.log(`AI ${nickname} initial deck:`, deck);
+        }
+
+        toggleAddButton();
+        return true;
+    }
+
+    function hasMinimumPlayers(){ return players.length>=2 && players.some(p=>p.type==="human"); }
+
+    document.getElementById("backPlayer").addEventListener("click", ()=>{
+        if(players.length===0){
+            document.getElementById("step2").classList.add("hidden");
+            document.getElementById("step1").classList.remove("hidden");
+            return;
+        }
+        const last=players.pop();
+        usedCharacters=usedCharacters.filter(c=>c!==last.character.name);
+        playerCounter=players.length+1;
+        updatePlayerForm();
+        toggleAddButton();
+    });
+
+    function startGame(){
+        document.getElementById("step1").classList.add("hidden");
+        document.getElementById("step2").classList.add("hidden");
+        mainTitle.classList.add("hidden");
+        container.style.padding="5px";
+        currentPlayerIndex=0;
+        document.getElementById("gameStep").classList.remove("hidden");
+        showTurn();
+    }
+
+    function showTurn(){
+        const player=players[currentPlayerIndex];
+        const header=document.getElementById("turnHeader");
+        const cardDisplay=document.getElementById("cardDisplay");
+        cardDisplay.innerHTML="";
+
+        if(player.type==="human"){
+            // Human card row
+            const row1=document.createElement("div"); row1.style.display="flex"; row1.style.justifyContent="center"; row1.style.gap="10px";
+            const cardFile=gameMode==="base"?"base a.png":"expansion a.png";
+            const img=document.createElement("img");
+            img.src=`./images/player/${cardFile}`;
+            const curSrc = img.src;
+            img.addEventListener("click", ()=>{
+                const filename=img.src.split("/").pop();
+                const prefix = filename.slice(0,-5); // remove " a.png" or " b.png"
+                const suffix = filename.match(/([a-zA-Z])\.png$/)?.[1];
+                img.src=`./images/player/${prefix}${suffix == "a"?"b":"a"}.png`;
+            });
+            row1.appendChild(img); cardDisplay.appendChild(row1);
+
+            // Next button
+            const row2=document.createElement("div");
+            const nextBtn=document.createElement("button");
+            nextBtn.textContent="Next Card";
+            nextBtn.onclick=()=>{ currentPlayerIndex=(currentPlayerIndex+1)%players.length; showTurn(); };
+            row2.appendChild(nextBtn); cardDisplay.appendChild(row2);
+
+            // Personal goal
+            const row3=document.createElement("div");
+            row3.textContent="Personal Goal Achieved: "+player.personalGoalAchieved;
+            cardDisplay.appendChild(row3);
+
+            // Character image
+            const row4=document.createElement("div");
+            const charImg=document.createElement("img");
+            const [name,ext]=player.character.image.split(".");
+            charImg.src=`./images/characters/${name}${player.personalGoalAchieved?"_":""}.${ext}`;
+            charImg.addEventListener("click", ()=>{
+                player.personalGoalAchieved=!player.personalGoalAchieved;
+                charImg.src=`./images/characters/${name}${player.personalGoalAchieved?"_":""}.${ext}`;
+                row3.textContent="Personal Goal Achieved: "+player.personalGoalAchieved;
+            });
+            row4.appendChild(charImg); cardDisplay.appendChild(row4);
+
+            // Set header
+            header.textContent = player.nickname;
+            header.style.color = player.color;
+
+        } else {
+            // AI turn
+            let deck=aiDecks[player.nickname];
+            if(!deck || deck.length===0){
+                deck = player.character.type==="smuggler"?
+                    (gameMode==="base"?shuffleArray([...Array(10).keys()].map(n=>n+1)):shuffleArray([1,2,6,7,9,"special"])) :
+                    (gameMode==="base"?shuffleArray([1,2,3,4,5]):shuffleArray([1,2,3,4,5,"special"]));
+                aiDecks[player.nickname]=deck;
+            }
+
+            const card = deck.shift();
+            aiDecks[player.nickname] = deck;
+
+            // Log AI deck
+            console.log(`AI ${player.nickname} played card: ${card}, remaining deck:`, deck);
+
+            const row0=document.createElement("div");
+            const cardImg=document.createElement("img");
+            cardImg.style.maxHeight="75vh";
+
+            if(card==="special"){
+                const dir = player.character.type==="smuggler"?"smuggler":"bounty";
+                cardImg.src=`./images/${dir}/${player.character.image}`;
+                header.textContent=`${player.nickname} (${player.character.name}) #Special`;
+            } else {
+                const dir = player.character.type==="smuggler"?"smuggler":"bounty";
+                cardImg.src=`./images/${dir}/${card}.png`;
+                header.textContent=`${player.nickname} (${player.character.name}) #${card}`;
+            }
+
+            row0.appendChild(cardImg); cardDisplay.appendChild(row0);
+
+            // Next button
+            const row2=document.createElement("div");
+            const nextBtn=document.createElement("button");
+            nextBtn.textContent="Next Card";
+            nextBtn.onclick=()=>{ currentPlayerIndex=(currentPlayerIndex+1)%players.length; showTurn(); };
+            row2.appendChild(nextBtn); cardDisplay.appendChild(row2);
+
+            // Personal goal
+            const row3=document.createElement("div");
+            row3.textContent="Personal Goal Achieved: "+player.personalGoalAchieved;
+            cardDisplay.appendChild(row3);
+
+            // Character image
+            const row4=document.createElement("div");
+            const charImg2=document.createElement("img");
+            const [name,ext]=player.character.image.split(".");
+            charImg2.src=`./images/characters/${name}${player.personalGoalAchieved?"_":""}.${ext}`;
+            charImg2.addEventListener("click", ()=>{
+                player.personalGoalAchieved=!player.personalGoalAchieved;
+                charImg2.src=`./images/characters/${name}${player.personalGoalAchieved?"_":""}.${ext}`;
+                row3.textContent="Personal Goal Achieved: "+player.personalGoalAchieved;
+            });
+            row4.appendChild(charImg2); cardDisplay.appendChild(row4);
+
+            // Header color
+            header.style.color = player.color;
+        }
+    }
+
+    function shuffleArray(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
+</script>
+</body>
+</html>
