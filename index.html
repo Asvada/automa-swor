@@ -32,7 +32,7 @@
     </div>
 
     <div id="step2" class="hidden">
-        <h2>Add Player</h2>
+        <h2>Add Player #<span id="playerNumber">1</span></h2>
         <select id="playerType">
             <option value="human">Human Player</option>
             <option value="ai">AI Player</option>
@@ -136,6 +136,23 @@
             {value:"#4C9EFF", name:"Blue"},
             {value:"#4CFF4C", name:"Green"},
             {value:"#FFD74C", name:"Yellow"}
+
+            ,
+            {value:"#4CFF41", name:"Green"},
+            {value:"#4CFF42", name:"Green"},
+            {value:"#4CFF43", name:"Green"},
+            {value:"#4CFF44", name:"Green"},
+            {value:"#4CFF45", name:"Green"},
+            {value:"#4CFF46", name:"Green"},
+            {value:"#4CFF47", name:"Green"},
+            {value:"#4CFF48", name:"Green"},
+            {value:"#4CFF49", name:"Green"},
+            {value:"#4CFF4a", name:"Green"},
+            {value:"#4CFF4b", name:"Green"},
+            {value:"#4CFF4d", name:"Green"},
+            {value:"#4CFF4e", name:"Green"},
+            {value:"#4CFF4f", name:"Green"},
+
         ];
         availableColors
             .filter(c => !players.map(p => p.color).includes(c.value))
@@ -157,6 +174,8 @@
         populateCharacterDropdown();
         populateColorDropdown();
         toggleAddButton();
+        const playerNo=document.getElementById("playerNumber");
+        playerNo.innerHTML = players.length+1;
     }
 
     function toggleAddButton(){ addAnotherBtn.style.display=players.length>=3?"none":"inline-block"; }
