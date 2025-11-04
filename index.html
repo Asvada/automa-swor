@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Star Wars Outer Rim Automa Simulator v3.5</title>
+    <title>Star Wars Outer Rim Automa Simulator</title>
     <style>
         body { font-family: Arial, sans-serif; background: #111; color: #eee; text-align: center; margin: 0; padding: 0; }
         .container { max-width: 600px; margin: 20px auto; padding: 10px; background: #222; border-radius: 12px; box-shadow: 0 0 10px #000; transition: all 0.3s; }
@@ -57,7 +57,8 @@
 </div>
 
 <script>
-	let maxPlayer = 16
+	const version = '3.6';
+	let maxPlayer = 4
     const characters = [
         {name:"Cad Bane", origin:"expansion", type:"bounty", image:"bane.png"},
         {name:"Boba Fett", origin:"base", type:"bounty", image:"boba.png"},
@@ -257,13 +258,13 @@
             const row1=document.createElement("div"); row1.style.display="flex"; row1.style.justifyContent="center"; row1.style.gap="10px";
             const cardFile=gameMode==="base"?"base a.png":"expansion a.png";
             const img=document.createElement("img");
-            img.src=`./images/player/${cardFile}`;
+            img.src=`./images/player/${cardFile}`+'?'+version;
             const curSrc = img.src;
             img.addEventListener("click", ()=>{
-                const filename=img.src.split("/").pop();
+				const filename = new URL(img.src).pathname.split('/').pop();
                 const prefix = filename.slice(0,-5); // remove " a.png" or " b.png"
                 const suffix = filename.match(/([a-zA-Z])\.png$/)?.[1];
-                img.src=`./images/player/${prefix}${suffix == "a"?"b":"a"}.png`;
+                img.src=`./images/player/${prefix}${suffix == "a"?"b":"a"}.png`+'?'+version;
             });
             row1.appendChild(img); cardDisplay.appendChild(row1);
 
@@ -283,10 +284,10 @@
             const row4=document.createElement("div");
             const charImg=document.createElement("img");
             const [name,ext]=player.character.image.split(".");
-            charImg.src=`./images/characters/${name}${player.personalGoalAchieved?"_":""}.${ext}`;
+            charImg.src=`./images/characters/${name}${player.personalGoalAchieved?"_":""}.${ext}`+'?'+version;
             charImg.addEventListener("click", ()=>{
                 player.personalGoalAchieved=!player.personalGoalAchieved;
-                charImg.src=`./images/characters/${name}${player.personalGoalAchieved?"_":""}.${ext}`;
+                charImg.src=`./images/characters/${name}${player.personalGoalAchieved?"_":""}.${ext}`+'?'+version;
                 row3.textContent="Personal Goal Achieved: "+player.personalGoalAchieved;
             });
             row4.appendChild(charImg); cardDisplay.appendChild(row4);
@@ -317,11 +318,11 @@
 
             if(card==="special"){
                 const dir = player.character.type==="smuggler"?"smuggler":"bounty";
-                cardImg.src=`./images/${dir}/${player.character.image}`;
+                cardImg.src=`./images/${dir}/${player.character.image}`+'?'+version;
                 header.textContent=`${player.nickname} (${player.character.name}) #Special`;
             } else {
                 const dir = player.character.type==="smuggler"?"smuggler":"bounty";
-                cardImg.src=`./images/${dir}/${card}.png`;
+                cardImg.src=`./images/${dir}/${card}.png`+'?'+version;
                 header.textContent=`${player.nickname} (${player.character.name}) #${card}`;
             }
 
@@ -343,10 +344,10 @@
             const row4=document.createElement("div");
             const charImg2=document.createElement("img");
             const [name,ext]=player.character.image.split(".");
-            charImg2.src=`./images/characters/${name}${player.personalGoalAchieved?"_":""}.${ext}`;
+            charImg2.src=`./images/characters/${name}${player.personalGoalAchieved?"_":""}.${ext}`+'?'+version;
             charImg2.addEventListener("click", ()=>{
                 player.personalGoalAchieved=!player.personalGoalAchieved;
-                charImg2.src=`./images/characters/${name}${player.personalGoalAchieved?"_":""}.${ext}`;
+                charImg2.src=`./images/characters/${name}${player.personalGoalAchieved?"_":""}.${ext}`+'?'+version;
                 row3.textContent="Personal Goal Achieved: "+player.personalGoalAchieved;
             });
             row4.appendChild(charImg2); cardDisplay.appendChild(row4);
@@ -357,6 +358,9 @@
     }
 
     function shuffleArray(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
+	
+	document.title += ' v'+version;
+	
 </script>
 </body>
 </html>
