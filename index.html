@@ -57,6 +57,7 @@
 </div>
 
 <script>
+	let maxPlayer = 16
     const characters = [
         {name:"Cad Bane", origin:"expansion", type:"bounty", image:"bane.png"},
         {name:"Boba Fett", origin:"base", type:"bounty", image:"boba.png"},
@@ -178,10 +179,10 @@
         playerNo.innerHTML = players.length+1;
     }
 
-    function toggleAddButton(){ addAnotherBtn.style.display=players.length>=3?"none":"inline-block"; }
+    function toggleAddButton(){ addAnotherBtn.style.display=players.length>=maxPlayer-1?"none":"inline-block"; }
 
     addAnotherBtn.addEventListener("click", ()=>{
-        if(players.length>=4) return;
+        if(players.length>=maxPlayer) return;
         if(!addPlayerFromForm()) return;
         playerCounter++;
         updatePlayerForm();
