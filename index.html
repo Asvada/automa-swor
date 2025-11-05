@@ -48,6 +48,34 @@
             margin: 2px 5px;
         }
 
+        /* Make cardDisplay fill available height and be scrollable if needed */
+        #cardDisplay {
+            display: block;
+            min-height: 80vh;   /* or 100vh */
+            box-sizing: border-box;
+            position: relative;
+            overflow: auto;     /* allow scrolling */
+            padding-bottom: 80px; /* give space so sticky footer won't overlap content */
+        }
+
+        /* Make the actual footer sticky to bottom of the scroll container */
+        .cardFooter {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(34,34,34,0.9);
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .turnHeaderHint{
+            color: white;
+            font-size: 14px;
+        }
+
         button:hover {
             background: #666;
         }
@@ -91,7 +119,7 @@
             background-color: #cfd2d1;
             color: #111111;
             text-align: left;
-            font-size: 13px;
+            font-size: 14px;
         }
         .phaseItem {
             position: relative; /* needed for absolute positioning of number */
@@ -180,6 +208,7 @@
         <select id="playerCharacter"></select>
         <input type="text" id="playerNickname" placeholder="Player 1">
         <select id="playerColor"></select>
+        <div id="playerFormError" style="color: #ff5555; margin: 5px 0; display: none;"></div>
 
         <button id="addAnother">Add Another Player</button>
         <button id="goToGame">Start Game</button>
@@ -196,7 +225,7 @@
 </div>
 
 <script>
-    const version = '3.7';
+    const version = '3.8';
     let maxPlayer = 4
     const characters = [
         {name: "Cad Bane", origin: "expansion", type: "bounty", image: "bane.png"},
@@ -222,7 +251,7 @@
     const addAnotherBtn = document.getElementById("addAnother");
     const mainTitle = document.getElementById("mainTitle");
     const container = document.getElementById("container");
-
+    let aiHistory = {}; // stores full move history per AI player
     // Player type & character dropdowns
     document.getElementById("nextToPlayers").addEventListener("click", () => {
         gameMode = document.getElementById("gameMode").value;
@@ -321,37 +350,34 @@
     document.getElementById("goToGame").addEventListener("click", () => {
         if (!addPlayerFromForm()) return;
         if (!hasMinimumPlayers()) {
-            alert("At least 2 players required, with at least 1 human!");
+            showError("At least 2 players are required, with at least 1 human player!");
             return;
         }
         startGame();
     });
 
-    function addPlayerFromForm() {
+    function addPlayerFromForm()
+    {
+        clearError();
         const type = document.getElementById("playerType").value;
         const nickname = document.getElementById("playerNickname").value.trim() || document.getElementById("playerNickname").placeholder;
         const charName = document.getElementById("playerCharacter").value;
         const color = document.getElementById("playerColor").value;
         if (!charName) {
-            alert("Select a character!");
+            showError("Please select a character!");
             return false;
         }
         if (!color) {
-            alert("Select a color!");
+            showError("Please select a color!");
             return false;
         }
 
         const charObj = characters.find(c => c.name === charName);
         usedCharacters.push(charObj.name);
-        players.push({type, nickname, character: charObj, color, personalGoalAchieved: false});
+        players.push({type, nickname, character: charObj, color, personalGoalAchieved: false, currentCardIndex: 0});
 
         if (type === "ai") {
-            let deck = [];
-            if (charObj.type === "smuggler") {
-                deck = gameMode === "base" ? shuffleArray([...Array(10).keys()].map(n => n + 1)) : shuffleArray([1, 2, 6, 7, 9, "special"]);
-            } else {
-                deck = gameMode === "base" ? shuffleArray([1, 2, 3, 4, 5]) : shuffleArray([1, 2, 3, 4, 5, "special"]);
-            }
+            let deck = shuffleAiDeck(charObj.type);
             aiDecks[nickname] = deck;
             console.log(`AI ${nickname} initial deck:`, deck);
         }
@@ -377,6 +403,18 @@
         toggleAddButton();
     });
 
+    document.getElementById("backCard").addEventListener("click", () => {
+        currentPlayerIndex = (currentPlayerIndex - 1 + players.length) % players.length;
+        const player = players[currentPlayerIndex];
+
+        if (player.type === "ai") {
+            player.currentCardIndex = Math.max(0, player.currentCardIndex - 1);
+        }
+        showTurn();
+    });
+
+
+
     function startGame() {
         document.getElementById("step1").classList.add("hidden");
         document.getElementById("step2").classList.add("hidden");
@@ -384,6 +422,9 @@
         container.style.padding = "5px";
         currentPlayerIndex = 0;
         document.getElementById("gameStep").classList.remove("hidden");
+        players.forEach(p => {
+            if (p.type === "ai") aiHistory[p.nickname] = [];
+        });
         showTurn();
     }
 
@@ -398,26 +439,27 @@
         if (player.type === "human") {
             // Human card row
             cardType = 'human';
-            const row1 = document.createElement("div");
-            row1.style.display = "flex";
-            row1.className = "phaseImage";
-            row1.style.justifyContent = "center";
-            row1.style.gap = "10px";
-            const cardFile = gameMode === "base" ? "base a.png" : "expansion a.png";
-            const img = document.createElement("img");
-            img.src = `./images/player/${cardFile}` + '?' + version;
-            const curSrc = img.src;
-            img.addEventListener("click", () => {
-                const filename = new URL(img.src).pathname.split('/').pop();
-                const prefix = filename.slice(0, -5); // remove " a.png" or " b.png"
-                const suffix = filename.match(/([a-zA-Z])\.png$/)?.[1];
-                img.src = `./images/player/${prefix}${suffix == "a" ? "b" : "a"}.png` + '?' + version;
-            });
-            row1.appendChild(img);
-            cardDisplay.appendChild(row1);
+            // const row1 = document.createElement("div");
+            // row1.style.display = "flex";
+            // row1.className = "phaseImage";
+            // row1.style.justifyContent = "center";
+            // row1.style.gap = "10px";
+            // const cardFile = gameMode === "base" ? "base a.png" : "expansion a.png";
+            // const img = document.createElement("img");
+            // img.src = `./images/player/${cardFile}` + '?' + version;
+            // const curSrc = img.src;
+            // img.addEventListener("click", () => {
+            //     const filename = new URL(img.src).pathname.split('/').pop();
+            //     const prefix = filename.slice(0, -5); // remove " a.png" or " b.png"
+            //     const suffix = filename.match(/([a-zA-Z])\.png$/)?.[1];
+            //     img.src = `./images/player/${prefix}${suffix == "a" ? "b" : "a"}.png` + '?' + version;
+            // });
+            // row1.appendChild(img);
+            // cardDisplay.appendChild(row1);
 
             // Next button
             const row2 = document.createElement("div");
+            row2.className = 'cardFooter';
             const nextBtn = document.createElement("button");
             nextBtn.textContent = "Next Card";
             nextBtn.onclick = () => {
@@ -451,17 +493,29 @@
 
         } else {
             // AI turn
-            cardType = player.character.type === "smuggler" ?? "bounty";
+            cardType = player.character.type === "smuggler" ? "smuggler" : "bounty";
             let deck = aiDecks[player.nickname];
             if (!deck || deck.length === 0) {
-                deck = player.character.type === "smuggler" ?
-                    (gameMode === "base" ? shuffleArray([...Array(10).keys()].map(n => n + 1)) : shuffleArray([1, 2, 6, 7, 9, "special"])) :
-                    (gameMode === "base" ? shuffleArray([1, 2, 3, 4, 5]) : shuffleArray([1, 2, 3, 4, 5, "special"]));
-                aiDecks[player.nickname] = deck;
+                aiDecks[player.nickname] = deck = shuffleAiDeck(player.character.type);
             }
 
-            const card = deck.shift();
+            if (!aiHistory[player.nickname]) aiHistory[player.nickname] = [];
+
             aiDecks[player.nickname] = deck;
+
+            let card;
+
+// Check if we have a history card for "back" navigation
+            if (player.currentCardIndex < aiHistory[player.nickname].length) {
+                console.log('using card from history');
+                card = aiHistory[player.nickname][player.currentCardIndex];
+            } else {
+                // Draw from deck and remove it
+                console.log('drawing new card from deck');
+                card = deck.shift();
+                aiHistory[player.nickname].push(card);
+            }
+
 
             // Log AI deck
             console.log(`AI ${player.nickname} played card: ${card}, remaining deck:`, deck);
@@ -471,14 +525,29 @@
             cardImg.style.maxHeight = "75vh";
             cardName = card;
 
+            let headerMarker = "";
+
+// Case 1: first card after a shuffle
+            if (player.currentCardIndex === aiHistory[player.nickname].length - 1 &&
+                aiDecks[player.nickname].justShuffled) {
+                headerMarker = ' <span class="turnHeaderHint" title="Deck shuffled">↻</span>';
+                aiDecks[player.nickname].justShuffled = false; // only show once
+            }
+
+// Case 2: iterating through history (back navigation)
+            else if (player.currentCardIndex < aiHistory[player.nickname].length - 1) {
+                const depth = aiHistory[player.nickname].length - player.currentCardIndex - 1;
+                headerMarker = ` <span class="turnHeaderHint" title="History depth">-${depth}</span>`;
+            }
+
             if (card === "special") {
                 const dir = player.character.type === "smuggler" ? "smuggler" : "bounty";
                 cardImg.src = `./images/${dir}/${player.character.image}` + '?' + version;
-                header.textContent = `${player.nickname} (${player.character.name}) #Special`;
+                header.innerHTML  = `${player.nickname} (${player.character.name}) #Special${headerMarker}`;
             } else {
                 const dir = player.character.type === "smuggler" ? "smuggler" : "bounty";
                 cardImg.src = `./images/${dir}/${card}.png` + '?' + version;
-                header.textContent = `${player.nickname} (${player.character.name}) #${card}`;
+                header.innerHTML  = `${player.nickname} (${player.character.name}) #${card}${headerMarker}`;
             }
 
             row0.appendChild(cardImg);
@@ -486,9 +555,22 @@
 
             // Next button
             const row2 = document.createElement("div");
+            row2.className = 'cardFooter';
             const nextBtn = document.createElement("button");
             nextBtn.textContent = "Next Card";
             nextBtn.onclick = () => {
+                const player = players[currentPlayerIndex];
+
+                if (player.type === "ai") {
+                    player.currentCardIndex++;
+
+                    // Reshuffle only if deck is empty
+                    if (aiDecks[player.nickname].length === 0) {
+                        aiDecks[player.nickname] = shuffleAiDeck(player.character.type);
+                        console.log(`AI ${player.nickname} reshuffled deck:`, aiDecks[player.nickname]);
+                    }
+                }
+
                 currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
                 showTurn();
             };
@@ -520,6 +602,13 @@
         describeCard(cardName, cardType);
     }
 
+    function shuffleAiDeck(characterType){
+        let deck = characterType === "smuggler"
+            ? (gameMode === "base" ? shuffleArray([...Array(10).keys()].map(n => n + 1)) : shuffleArray([1,2,6,7,9,"special"]))
+            : (gameMode === "base" ? shuffleArray([1,2,3,4,5]) : shuffleArray([1,2,3,4,5,"special"]));
+        deck.justShuffled = true; // mark that the next card is first after shuffle
+        return deck;
+    }
     function describeCard(cardName, type) {
         /**  type: "human" | "bounty" | "smuggler"*/
         let cardContent = {
@@ -634,7 +723,7 @@
         html = '<div class="phaseContainer">' + html + '</div>';
         cardDisplay.insertAdjacentHTML('afterbegin',html);
 
-        document.querySelector('.phaseImage').style.display = 'none';
+        // document.querySelector('.phaseImage').style.display = 'none';
 
 
         attachPhaseElementListeners();
@@ -678,6 +767,18 @@
                 }
             });
         });
+    }
+
+    function showError(message) {
+        const errorDiv = document.getElementById("playerFormError");
+        errorDiv.textContent = message;
+        errorDiv.style.display = "block";
+    }
+
+    function clearError() {
+        const errorDiv = document.getElementById("playerFormError");
+        errorDiv.textContent = "";
+        errorDiv.style.display = "none";
     }
 
     document.title += ' v' + version;
