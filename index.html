@@ -574,11 +574,11 @@
             if (card === "special") {
                 const dir = player.character.type === "smuggler" ? "smuggler" : "bounty";
                 cardImg.src = `./images/${dir}/${player.character.image}` + '?' + version;
-                header.innerHTML = `${player.nickname} (${player.character.name}) #Special${headerMarker}`;
+                header.innerHTML = `<span  class="turnHeaderHint">AI</span>&nbsp;${player.character.name} #special${headerMarker}`;
             } else {
                 const dir = player.character.type === "smuggler" ? "smuggler" : "bounty";
                 cardImg.src = `./images/${dir}/${card}.png` + '?' + version;
-                header.innerHTML = `${player.nickname} (${player.character.name}) #${card}${headerMarker}`;
+                header.innerHTML = `<span class="turnHeaderHint">AI</span>&nbsp;${player.character.name} #${card}${headerMarker}`;
             }
 
             row0.appendChild(cardImg);
