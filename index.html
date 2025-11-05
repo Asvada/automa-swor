@@ -38,6 +38,9 @@
             border: none;
             font-size: 16px;
         }
+        #mainTitle{
+            margin: 5px;
+        }
 
         button {
             cursor: pointer;
@@ -121,7 +124,8 @@
             background-color: #cfd2d1;
             color: #111111;
             text-align: left;
-            font-size: 14px;
+            font-size: 15px;
+            line-height: 19px;
         }
 
         .phaseItem {
@@ -231,7 +235,7 @@
 </div>
 
 <script>
-    const version = '3.9';
+    const version = '3.10';
     const useHumanCharacterImages = false;
     let maxPlayers = 4;
     const characters = [
@@ -810,6 +814,7 @@
     }
 
     document.title += ' v' + version;
+    document.getElementById("mainTitle").innerHTML +=  ' v' + version;
 
 </script>
 </body>
