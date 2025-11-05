@@ -505,17 +505,31 @@
 
             let card;
 
-// Check if we have a history card for "back" navigation
+            // Check if we have a history card for "back" navigation
             if (player.currentCardIndex < aiHistory[player.nickname].length) {
                 console.log('using card from history');
                 card = aiHistory[player.nickname][player.currentCardIndex];
             } else {
                 // Draw from deck and remove it
                 console.log('drawing new card from deck');
-                card = deck.shift();
+
+                let availableDeck = deck.slice();
+
+                // Prevent drawing special twice in a row
+                const lastCard = aiHistory[player.nickname].length
+                    ? aiHistory[player.nickname][aiHistory[player.nickname].length - 1]
+                    : null;
+                if (lastCard === "special") {
+                    availableDeck = availableDeck.filter(c => c !== "special");
+                    if (!availableDeck.length) availableDeck = deck.slice(); // fallback if only specials left
+                }
+
+                card = availableDeck.shift();
+                const idx = deck.indexOf(card);
+                if (idx > -1) deck.splice(idx, 1);
+
                 aiHistory[player.nickname].push(card);
             }
-
 
             // Log AI deck
             console.log(`AI ${player.nickname} played card: ${card}, remaining deck:`, deck);
@@ -527,14 +541,14 @@
 
             let headerMarker = "";
 
-// Case 1: first card after a shuffle
+            // Case 1: first card after a shuffle
             if (player.currentCardIndex === aiHistory[player.nickname].length - 1 &&
                 aiDecks[player.nickname].justShuffled) {
                 headerMarker = ' <span class="turnHeaderHint" title="Deck shuffled">↻</span>';
                 aiDecks[player.nickname].justShuffled = false; // only show once
             }
 
-// Case 2: iterating through history (back navigation)
+            // Case 2: iterating through history (back navigation)
             else if (player.currentCardIndex < aiHistory[player.nickname].length - 1) {
                 const depth = aiHistory[player.nickname].length - player.currentCardIndex - 1;
                 headerMarker = ` <span class="turnHeaderHint" title="History depth">-${depth}</span>`;
