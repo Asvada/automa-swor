@@ -5,17 +5,156 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Star Wars Outer Rim Automa Simulator</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #111; color: #eee; text-align: center; margin: 0; padding: 0; }
-        .container { max-width: 600px; margin: 20px auto; padding: 10px; background: #222; border-radius: 12px; box-shadow: 0 0 10px #000; transition: all 0.3s; }
-        h1 { color: #FFD700; margin: 0 0 10px 0; transition: all 0.3s; }
-        select, input[type="text"], button { width: 100%; padding: 10px; margin: 5px 0; border-radius: 8px; border: none; font-size: 16px; }
-        button { cursor: pointer; background: #444; color: white; }
-        button:hover { background: #666; }
-        .hidden { display: none; }
-        img { max-width: 100%; max-height: 75vh; height: auto; border-radius: 8px; display: block; margin: 5px auto; }
-        .header-row { display: flex; align-items: center; justify-content: flex-start; margin-bottom: 10px; }
-        .header-row button { width: auto; margin-right: 10px; }
-        .header-row h2 { margin: 0; flex-grow: 1; text-align: center; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: #eee;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 5px auto;
+            /*padding: 10px;*/
+            background: #222;
+            border-radius: 12px;
+            box-shadow: 0 0 10px #000;
+            transition: all 0.3s;
+        }
+
+        h1 {
+            color: #FFD700;
+            margin: 0 0 10px 0;
+            transition: all 0.3s;
+        }
+
+        select, input[type="text"], button {
+            width: 90%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+        }
+
+        button {
+            cursor: pointer;
+            background: #444;
+            color: white;
+        }
+        #backCard{
+            margin: 2px 5px;
+        }
+
+        button:hover {
+            background: #666;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 75vh;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            margin: 5px auto;
+        }
+
+        .header-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .header-row button {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .header-row h2 {
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+
+        .phaseContainer {
+            counter-reset: phaseItemCounter;
+        }
+        .phaseContainer,
+        .phaseContainer * {
+            background-color: #cfd2d1;
+            color: #111111;
+            text-align: left;
+            font-size: 13px;
+        }
+        .phaseItem {
+            position: relative; /* needed for absolute positioning of number */
+            padding: 5px 5px 5px 30px; /* extra left padding for the number */
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+        }
+        .phaseItem::before {
+            counter-increment: phaseItemCounter; /* increment counter */
+            content: counter(phaseItemCounter);  /* display number */
+            position: absolute;
+            left: 5px;  /* distance from left edge of phaseItem */
+            top: 20px;
+            font-size: 1.5em;
+            /*top: 50%;    !* vertical center *!*/
+            transform: translateY(-50%); /* center vertically */
+            width: 20px; /* optional, gives space for number */
+            height: 30px;
+            line-height: 30px; /* center number vertically inside box */
+            text-align: center; /* center horizontally */
+            /*background-color: #999; !* optional styling *!*/
+            /*color: #fff;            !* number color *!*/
+            /*border-radius: 50%;     !* make it circular *!*/
+            font-weight: bold;
+        }
+        .phaseName{
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .phaseHint{
+            display: inline;
+            text-transform: none;
+        }
+
+        .phaseElement{
+            padding-left:5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        /* Highlighted element */
+        .phaseElement.active {
+            background-color: #d4edda; /* green highlight */
+            color: #155724;
+        }
+        .phaseElement.active, .phaseElement.active * {
+            background-color: #d4edda; /* green highlight */
+            color: #155724;
+        }
+
+        /* Crossed out elements */
+        .phaseElement.crossed {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+
+        .phaseElement:before{
+            content: "•";
+            margin-right: 2px;
+        }
+
+
     </style>
 </head>
 <body>
@@ -57,35 +196,36 @@
 </div>
 
 <script>
-	const version = '3.6';
-	let maxPlayer = 4
+    const version = '3.7';
+    let maxPlayer = 4
     const characters = [
-        {name:"Cad Bane", origin:"expansion", type:"bounty", image:"bane.png"},
-        {name:"Boba Fett", origin:"base", type:"bounty", image:"boba.png"},
-        {name:"Bossk", origin:"base", type:"bounty", image:"bossk.png"},
-        {name:"Dengar", origin:"expansion", type:"bounty", image:"dengar.png"},
-        {name:"IG-88", origin:"base", type:"bounty", image:"ig88.png"},
-        {name:"Ketsu Onio", origin:"base", type:"bounty", image:"ketsu.png"},
-        {name:"Black Krrsantan", origin:"expansion", type:"bounty", image:"krrsantan.png"},
-        {name:"Doctor Aphra", origin:"base", type:"smuggler", image:"afra.png"},
-        {name:"Chewbacca", origin:"expansion", type:"smuggler", image:"chewbacca.png"},
-        {name:"Enfys Nest", origin:"expansion", type:"smuggler", image:"enfys.png"},
-        {name:"Jyn Erso", origin:"base", type:"smuggler", image:"erso.png"},
-        {name:"Han Solo", origin:"base", type:"smuggler", image:"han.png"},
-        {name:"Hera Syndulla", origin:"expansion", type:"smuggler", image:"hera.png"},
-        {name:"Hondo Ohnaka", origin:"expansion", type:"smuggler", image:"hondo.png"},
-        {name:"Lando Calrissian", origin:"base", type:"smuggler", image:"lando.png"},
-        {name:"Maz Kanata", origin:"expansion", type:"smuggler", image:"maz.png"}
+        {name: "Cad Bane", origin: "expansion", type: "bounty", image: "bane.png"},
+        {name: "Boba Fett", origin: "base", type: "bounty", image: "boba.png"},
+        {name: "Bossk", origin: "base", type: "bounty", image: "bossk.png"},
+        {name: "Dengar", origin: "expansion", type: "bounty", image: "dengar.png"},
+        {name: "IG-88", origin: "base", type: "bounty", image: "ig88.png"},
+        {name: "Ketsu Onio", origin: "base", type: "bounty", image: "ketsu.png"},
+        {name: "Black Krrsantan", origin: "expansion", type: "bounty", image: "krrsantan.png"},
+        {name: "Doctor Aphra", origin: "base", type: "smuggler", image: "afra.png"},
+        {name: "Chewbacca", origin: "expansion", type: "smuggler", image: "chewbacca.png"},
+        {name: "Enfys Nest", origin: "expansion", type: "smuggler", image: "enfys.png"},
+        {name: "Jyn Erso", origin: "base", type: "smuggler", image: "erso.png"},
+        {name: "Han Solo", origin: "base", type: "smuggler", image: "han.png"},
+        {name: "Hera Syndulla", origin: "expansion", type: "smuggler", image: "hera.png"},
+        {name: "Hondo Ohnaka", origin: "expansion", type: "smuggler", image: "hondo.png"},
+        {name: "Lando Calrissian", origin: "base", type: "smuggler", image: "lando.png"},
+        {name: "Maz Kanata", origin: "expansion", type: "smuggler", image: "maz.png"}
     ];
 
-    let players=[], usedCharacters=[], currentPlayerIndex=0, playerCounter=1, gameMode='expansion', aiDecks={};
+    let players = [], usedCharacters = [], currentPlayerIndex = 0, playerCounter = 1, gameMode = 'expansion',
+        aiDecks = {};
     const addAnotherBtn = document.getElementById("addAnother");
     const mainTitle = document.getElementById("mainTitle");
     const container = document.getElementById("container");
 
     // Player type & character dropdowns
-    document.getElementById("nextToPlayers").addEventListener("click", ()=>{
-        gameMode=document.getElementById("gameMode").value;
+    document.getElementById("nextToPlayers").addEventListener("click", () => {
+        gameMode = document.getElementById("gameMode").value;
         populateCharacterDropdown();
         populateColorDropdown();
         document.getElementById("step1").classList.add("hidden");
@@ -93,36 +233,40 @@
         updatePlayerForm();
     });
 
-    function populateCharacterDropdown(){
-        const select=document.getElementById("playerCharacter");
-        select.innerHTML="";
-        const emptyOption=document.createElement("option");
-        emptyOption.value=""; emptyOption.textContent="-- Select Character --";
-        emptyOption.disabled=true; emptyOption.selected=true;
+    function populateCharacterDropdown() {
+        const select = document.getElementById("playerCharacter");
+        select.innerHTML = "";
+        const emptyOption = document.createElement("option");
+        emptyOption.value = "";
+        emptyOption.textContent = "-- Select Character --";
+        emptyOption.disabled = true;
+        emptyOption.selected = true;
         select.appendChild(emptyOption);
 
-        const type=document.getElementById("playerType").value;
-        const allowed=characters.filter(c=>!usedCharacters.includes(c.name) && (gameMode==="expansion" || c.origin==="base"));
-        const smugglers=allowed.filter(c=>c.type==="smuggler").sort((a,b)=>a.name.localeCompare(b.name));
-        const bounty=allowed.filter(c=>c.type==="bounty").sort((a,b)=>a.name.localeCompare(b.name));
+        const type = document.getElementById("playerType").value;
+        const allowed = characters.filter(c => !usedCharacters.includes(c.name) && (gameMode === "expansion" || c.origin === "base"));
+        const smugglers = allowed.filter(c => c.type === "smuggler").sort((a, b) => a.name.localeCompare(b.name));
+        const bounty = allowed.filter(c => c.type === "bounty").sort((a, b) => a.name.localeCompare(b.name));
 
-        if(smugglers.length>0){
-            const group=document.createElement("optgroup");
-            group.label="Smugglers";
-            smugglers.forEach(c=>{
-                const opt=document.createElement("option");
-                opt.value=c.name; opt.textContent=`${c.name} (${c.origin[0]})`;
+        if (smugglers.length > 0) {
+            const group = document.createElement("optgroup");
+            group.label = "Smugglers";
+            smugglers.forEach(c => {
+                const opt = document.createElement("option");
+                opt.value = c.name;
+                opt.textContent = `${c.name} (${c.origin[0]})`;
                 group.appendChild(opt);
             });
             select.appendChild(group);
         }
-        if(type==="ai" && gameMode==="base") bounty.length=0;
-        if(bounty.length>0){
-            const group=document.createElement("optgroup");
-            group.label="Bounty Hunters";
-            bounty.forEach(c=>{
-                const opt=document.createElement("option");
-                opt.value=c.name; opt.textContent=`${c.name} (${c.origin[0]})`;
+        if (type === "ai" && gameMode === "base") bounty.length = 0;
+        if (bounty.length > 0) {
+            const group = document.createElement("optgroup");
+            group.label = "Bounty Hunters";
+            bounty.forEach(c => {
+                const opt = document.createElement("option");
+                opt.value = c.name;
+                opt.textContent = `${c.name} (${c.origin[0]})`;
                 group.appendChild(opt);
             });
             select.appendChild(group);
@@ -130,35 +274,18 @@
     }
 
     // Color dropdown with human-readable names
-    function populateColorDropdown(){
+    function populateColorDropdown() {
         const colorSelect = document.getElementById("playerColor");
         colorSelect.innerHTML = "";
         const availableColors = [
-            {value:"#FF4C4C", name:"Red"},
-            {value:"#4C9EFF", name:"Blue"},
-            {value:"#4CFF4C", name:"Green"},
-            {value:"#FFD74C", name:"Yellow"}
-
-            ,
-            {value:"#4CFF41", name:"Green"},
-            {value:"#4CFF42", name:"Green"},
-            {value:"#4CFF43", name:"Green"},
-            {value:"#4CFF44", name:"Green"},
-            {value:"#4CFF45", name:"Green"},
-            {value:"#4CFF46", name:"Green"},
-            {value:"#4CFF47", name:"Green"},
-            {value:"#4CFF48", name:"Green"},
-            {value:"#4CFF49", name:"Green"},
-            {value:"#4CFF4a", name:"Green"},
-            {value:"#4CFF4b", name:"Green"},
-            {value:"#4CFF4d", name:"Green"},
-            {value:"#4CFF4e", name:"Green"},
-            {value:"#4CFF4f", name:"Green"},
-
+            {value: "#FF4C4C", name: "Red"},
+            {value: "#4C9EFF", name: "Blue"},
+            {value: "#4CFF4C", name: "Green"},
+            {value: "#FFD74C", name: "Yellow"}
         ];
         availableColors
             .filter(c => !players.map(p => p.color).includes(c.value))
-            .forEach(c=>{
+            .forEach(c => {
                 const opt = document.createElement("option");
                 opt.value = c.value;
                 opt.textContent = c.name;
@@ -168,53 +295,64 @@
 
     document.getElementById("playerType").addEventListener("change", updatePlayerForm);
 
-    function updatePlayerForm(){
-        const type=document.getElementById("playerType").value;
-        const nickname=document.getElementById("playerNickname");
-        nickname.placeholder=type==="ai"?"AI "+playerCounter:"Player "+playerCounter;
-        nickname.value=type==="ai"?"":"Player "+playerCounter;
+    function updatePlayerForm() {
+        const type = document.getElementById("playerType").value;
+        const nickname = document.getElementById("playerNickname");
+        nickname.placeholder = type === "ai" ? "AI " + playerCounter : "Player " + playerCounter;
+        nickname.value = type === "ai" ? "" : "Player " + playerCounter;
         populateCharacterDropdown();
         populateColorDropdown();
         toggleAddButton();
-        const playerNo=document.getElementById("playerNumber");
-        playerNo.innerHTML = players.length+1;
+        const playerNo = document.getElementById("playerNumber");
+        playerNo.innerHTML = players.length + 1;
     }
 
-    function toggleAddButton(){ addAnotherBtn.style.display=players.length>=maxPlayer-1?"none":"inline-block"; }
+    function toggleAddButton() {
+        addAnotherBtn.style.display = players.length >= maxPlayer - 1 ? "none" : "inline-block";
+    }
 
-    addAnotherBtn.addEventListener("click", ()=>{
-        if(players.length>=maxPlayer) return;
-        if(!addPlayerFromForm()) return;
+    addAnotherBtn.addEventListener("click", () => {
+        if (players.length >= maxPlayer) return;
+        if (!addPlayerFromForm()) return;
         playerCounter++;
         updatePlayerForm();
     });
 
-    document.getElementById("goToGame").addEventListener("click", ()=>{
-        if(!addPlayerFromForm()) return;
-        if(!hasMinimumPlayers()){ alert("At least 2 players required, with at least 1 human!"); return; }
+    document.getElementById("goToGame").addEventListener("click", () => {
+        if (!addPlayerFromForm()) return;
+        // if (!hasMinimumPlayers()) {
+        //     alert("At least 2 players required, with at least 1 human!");
+        //     return;
+        // }
         startGame();
     });
 
-    function addPlayerFromForm(){
-        const type=document.getElementById("playerType").value;
-        const nickname=document.getElementById("playerNickname").value.trim() || document.getElementById("playerNickname").placeholder;
-        const charName=document.getElementById("playerCharacter").value;
-        const color=document.getElementById("playerColor").value;
-        if(!charName){ alert("Select a character!"); return false; }
-        if(!color){ alert("Select a color!"); return false; }
+    function addPlayerFromForm() {
+        const type = document.getElementById("playerType").value;
+        const nickname = document.getElementById("playerNickname").value.trim() || document.getElementById("playerNickname").placeholder;
+        const charName = document.getElementById("playerCharacter").value;
+        const color = document.getElementById("playerColor").value;
+        if (!charName) {
+            alert("Select a character!");
+            return false;
+        }
+        if (!color) {
+            alert("Select a color!");
+            return false;
+        }
 
-        const charObj=characters.find(c=>c.name===charName);
+        const charObj = characters.find(c => c.name === charName);
         usedCharacters.push(charObj.name);
-        players.push({type,nickname,character:charObj,color,personalGoalAchieved:false});
+        players.push({type, nickname, character: charObj, color, personalGoalAchieved: false});
 
-        if(type==="ai"){
-            let deck=[];
-            if(charObj.type==="smuggler"){
-                deck = gameMode==="base"?shuffleArray([...Array(10).keys()].map(n=>n+1)):shuffleArray([1,2,6,7,9,"special"]);
+        if (type === "ai") {
+            let deck = [];
+            if (charObj.type === "smuggler") {
+                deck = gameMode === "base" ? shuffleArray([...Array(10).keys()].map(n => n + 1)) : shuffleArray([1, 2, 6, 7, 9, "special"]);
             } else {
-                deck = gameMode==="base"?shuffleArray([1,2,3,4,5]):shuffleArray([1,2,3,4,5,"special"]);
+                deck = gameMode === "base" ? shuffleArray([1, 2, 3, 4, 5]) : shuffleArray([1, 2, 3, 4, 5, "special"]);
             }
-            aiDecks[nickname]=deck;
+            aiDecks[nickname] = deck;
             console.log(`AI ${nickname} initial deck:`, deck);
         }
 
@@ -222,75 +360,90 @@
         return true;
     }
 
-    function hasMinimumPlayers(){ return players.length>=2 && players.some(p=>p.type==="human"); }
+    function hasMinimumPlayers() {
+        return players.length >= 2 && players.some(p => p.type === "human");
+    }
 
-    document.getElementById("backPlayer").addEventListener("click", ()=>{
-        if(players.length===0){
+    document.getElementById("backPlayer").addEventListener("click", () => {
+        if (players.length === 0) {
             document.getElementById("step2").classList.add("hidden");
             document.getElementById("step1").classList.remove("hidden");
             return;
         }
-        const last=players.pop();
-        usedCharacters=usedCharacters.filter(c=>c!==last.character.name);
-        playerCounter=players.length+1;
+        const last = players.pop();
+        usedCharacters = usedCharacters.filter(c => c !== last.character.name);
+        playerCounter = players.length + 1;
         updatePlayerForm();
         toggleAddButton();
     });
 
-    function startGame(){
+    function startGame() {
         document.getElementById("step1").classList.add("hidden");
         document.getElementById("step2").classList.add("hidden");
         mainTitle.classList.add("hidden");
-        container.style.padding="5px";
-        currentPlayerIndex=0;
+        container.style.padding = "5px";
+        currentPlayerIndex = 0;
         document.getElementById("gameStep").classList.remove("hidden");
         showTurn();
     }
 
-    function showTurn(){
-        const player=players[currentPlayerIndex];
-        const header=document.getElementById("turnHeader");
-        const cardDisplay=document.getElementById("cardDisplay");
-        cardDisplay.innerHTML="";
+    function showTurn() {
+        const player = players[currentPlayerIndex];
+        const header = document.getElementById("turnHeader");
+        const cardDisplay = document.getElementById("cardDisplay");
+        cardDisplay.innerHTML = "";
+        let cardName = "";
+        let cardType = "";
 
-        if(player.type==="human"){
+        if (player.type === "human") {
             // Human card row
-            const row1=document.createElement("div"); row1.style.display="flex"; row1.style.justifyContent="center"; row1.style.gap="10px";
-            const cardFile=gameMode==="base"?"base a.png":"expansion a.png";
-            const img=document.createElement("img");
-            img.src=`./images/player/${cardFile}`+'?'+version;
+            cardType = 'human';
+            const row1 = document.createElement("div");
+            row1.style.display = "flex";
+            row1.className = "phaseImage";
+            row1.style.justifyContent = "center";
+            row1.style.gap = "10px";
+            const cardFile = gameMode === "base" ? "base a.png" : "expansion a.png";
+            const img = document.createElement("img");
+            img.src = `./images/player/${cardFile}` + '?' + version;
             const curSrc = img.src;
-            img.addEventListener("click", ()=>{
-				const filename = new URL(img.src).pathname.split('/').pop();
-                const prefix = filename.slice(0,-5); // remove " a.png" or " b.png"
+            img.addEventListener("click", () => {
+                const filename = new URL(img.src).pathname.split('/').pop();
+                const prefix = filename.slice(0, -5); // remove " a.png" or " b.png"
                 const suffix = filename.match(/([a-zA-Z])\.png$/)?.[1];
-                img.src=`./images/player/${prefix}${suffix == "a"?"b":"a"}.png`+'?'+version;
+                img.src = `./images/player/${prefix}${suffix == "a" ? "b" : "a"}.png` + '?' + version;
             });
-            row1.appendChild(img); cardDisplay.appendChild(row1);
+            row1.appendChild(img);
+            cardDisplay.appendChild(row1);
 
             // Next button
-            const row2=document.createElement("div");
-            const nextBtn=document.createElement("button");
-            nextBtn.textContent="Next Card";
-            nextBtn.onclick=()=>{ currentPlayerIndex=(currentPlayerIndex+1)%players.length; showTurn(); };
-            row2.appendChild(nextBtn); cardDisplay.appendChild(row2);
+            const row2 = document.createElement("div");
+            const nextBtn = document.createElement("button");
+            nextBtn.textContent = "Next Card";
+            nextBtn.onclick = () => {
+                currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+                showTurn();
+            };
+            row2.appendChild(nextBtn);
+            cardDisplay.appendChild(row2);
 
             // Personal goal
-            const row3=document.createElement("div");
-            row3.textContent="Personal Goal Achieved: "+player.personalGoalAchieved;
+            const row3 = document.createElement("div");
+            row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
             cardDisplay.appendChild(row3);
 
             // Character image
-            const row4=document.createElement("div");
-            const charImg=document.createElement("img");
-            const [name,ext]=player.character.image.split(".");
-            charImg.src=`./images/characters/${name}${player.personalGoalAchieved?"_":""}.${ext}`+'?'+version;
-            charImg.addEventListener("click", ()=>{
-                player.personalGoalAchieved=!player.personalGoalAchieved;
-                charImg.src=`./images/characters/${name}${player.personalGoalAchieved?"_":""}.${ext}`+'?'+version;
-                row3.textContent="Personal Goal Achieved: "+player.personalGoalAchieved;
+            const row4 = document.createElement("div");
+            const charImg = document.createElement("img");
+            const [name, ext] = player.character.image.split(".");
+            charImg.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}` + '?' + version;
+            charImg.addEventListener("click", () => {
+                player.personalGoalAchieved = !player.personalGoalAchieved;
+                charImg.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}` + '?' + version;
+                row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
             });
-            row4.appendChild(charImg); cardDisplay.appendChild(row4);
+            row4.appendChild(charImg);
+            cardDisplay.appendChild(row4);
 
             // Set header
             header.textContent = player.nickname;
@@ -298,12 +451,13 @@
 
         } else {
             // AI turn
-            let deck=aiDecks[player.nickname];
-            if(!deck || deck.length===0){
-                deck = player.character.type==="smuggler"?
-                    (gameMode==="base"?shuffleArray([...Array(10).keys()].map(n=>n+1)):shuffleArray([1,2,6,7,9,"special"])) :
-                    (gameMode==="base"?shuffleArray([1,2,3,4,5]):shuffleArray([1,2,3,4,5,"special"]));
-                aiDecks[player.nickname]=deck;
+            cardType = player.character.type === "smuggler" ?? "bounty";
+            let deck = aiDecks[player.nickname];
+            if (!deck || deck.length === 0) {
+                deck = player.character.type === "smuggler" ?
+                    (gameMode === "base" ? shuffleArray([...Array(10).keys()].map(n => n + 1)) : shuffleArray([1, 2, 6, 7, 9, "special"])) :
+                    (gameMode === "base" ? shuffleArray([1, 2, 3, 4, 5]) : shuffleArray([1, 2, 3, 4, 5, "special"]));
+                aiDecks[player.nickname] = deck;
             }
 
             const card = deck.shift();
@@ -312,55 +466,222 @@
             // Log AI deck
             console.log(`AI ${player.nickname} played card: ${card}, remaining deck:`, deck);
 
-            const row0=document.createElement("div");
-            const cardImg=document.createElement("img");
-            cardImg.style.maxHeight="75vh";
+            const row0 = document.createElement("div");
+            const cardImg = document.createElement("img");
+            cardImg.style.maxHeight = "75vh";
+            cardName = card;
 
-            if(card==="special"){
-                const dir = player.character.type==="smuggler"?"smuggler":"bounty";
-                cardImg.src=`./images/${dir}/${player.character.image}`+'?'+version;
-                header.textContent=`${player.nickname} (${player.character.name}) #Special`;
+            if (card === "special") {
+                const dir = player.character.type === "smuggler" ? "smuggler" : "bounty";
+                cardImg.src = `./images/${dir}/${player.character.image}` + '?' + version;
+                header.textContent = `${player.nickname} (${player.character.name}) #Special`;
             } else {
-                const dir = player.character.type==="smuggler"?"smuggler":"bounty";
-                cardImg.src=`./images/${dir}/${card}.png`+'?'+version;
-                header.textContent=`${player.nickname} (${player.character.name}) #${card}`;
+                const dir = player.character.type === "smuggler" ? "smuggler" : "bounty";
+                cardImg.src = `./images/${dir}/${card}.png` + '?' + version;
+                header.textContent = `${player.nickname} (${player.character.name}) #${card}`;
             }
 
-            row0.appendChild(cardImg); cardDisplay.appendChild(row0);
+            row0.appendChild(cardImg);
+            cardDisplay.appendChild(row0);
 
             // Next button
-            const row2=document.createElement("div");
-            const nextBtn=document.createElement("button");
-            nextBtn.textContent="Next Card";
-            nextBtn.onclick=()=>{ currentPlayerIndex=(currentPlayerIndex+1)%players.length; showTurn(); };
-            row2.appendChild(nextBtn); cardDisplay.appendChild(row2);
+            const row2 = document.createElement("div");
+            const nextBtn = document.createElement("button");
+            nextBtn.textContent = "Next Card";
+            nextBtn.onclick = () => {
+                currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+                showTurn();
+            };
+            row2.appendChild(nextBtn);
+            cardDisplay.appendChild(row2);
 
             // Personal goal
-            const row3=document.createElement("div");
-            row3.textContent="Personal Goal Achieved: "+player.personalGoalAchieved;
+            const row3 = document.createElement("div");
+            row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
             cardDisplay.appendChild(row3);
 
             // Character image
-            const row4=document.createElement("div");
-            const charImg2=document.createElement("img");
-            const [name,ext]=player.character.image.split(".");
-            charImg2.src=`./images/characters/${name}${player.personalGoalAchieved?"_":""}.${ext}`+'?'+version;
-            charImg2.addEventListener("click", ()=>{
-                player.personalGoalAchieved=!player.personalGoalAchieved;
-                charImg2.src=`./images/characters/${name}${player.personalGoalAchieved?"_":""}.${ext}`+'?'+version;
-                row3.textContent="Personal Goal Achieved: "+player.personalGoalAchieved;
+            const row4 = document.createElement("div");
+            const charImg2 = document.createElement("img");
+            const [name, ext] = player.character.image.split(".");
+            charImg2.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}` + '?' + version;
+            charImg2.addEventListener("click", () => {
+                player.personalGoalAchieved = !player.personalGoalAchieved;
+                charImg2.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}` + '?' + version;
+                row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
             });
-            row4.appendChild(charImg2); cardDisplay.appendChild(row4);
+            row4.appendChild(charImg2);
+            cardDisplay.appendChild(row4);
 
             // Header color
             header.style.color = player.color;
         }
+
+        describeCard(cardName, cardType);
     }
 
-    function shuffleArray(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
-	
-	document.title += ' v'+version;
-	
+    function describeCard(cardName, type) {
+        /**  type: "human" | "bounty" | "smuggler"*/
+        let cardContent = {
+            "planning": '',
+            "action": '',
+            "encounter": '',
+            "special": ''
+        };
+
+        if (type === "human") {
+            cardContent.planning =
+                '<div class="phaseItem">' +
+                '<div class="phaseName">Planning step' +
+                '<div class="phaseHint"> - Choose <strong>only 1</strong></div>' +
+                '</div>' +
+                '<div class="phase1Element phaseElement">Move up to your ship\'s <span class="icon speed">speed</span></div>' +
+                '<div class="phase1Element phaseElement">Gain 2 000 <span class="icon credits">credits</span></div>' +
+                '<div class="phase1Element phaseElement">' +
+                'Recover all <span class="icon damage">damage</span> from character and ship' + '<br>' +
+                '<div style="padding-left: 30px;">' +
+                    '<em>*(required if you are defeated)</em>:' + '<br>' +
+                    ' · Pay 3 000 <span class="icon credits">credits</span>' + '<br>' +
+                    ' · Lose all <span class="icon secret">secrets</span>' +
+                '</div>' +
+                '</div>' +
+                '<div class="phase1Element phaseElement">Play any "<strong>Planning</strong>" on Player, Ship or any other card in your hand</div>' +
+                '</div>';
+
+            cardContent.action =
+                '<div class="phaseItem multiplePhaseElements">' +
+                '<div class="phaseName">Action step' +
+                '<div class="phaseHint"> - Perform  <strong>any or all</strong></div>' +
+                '</div>' +
+                '<div class="phase2Element phaseElement">Deliver <span class="icon cargo">cargo</span> <strong>and</strong> <span class="icon bounty">bounties</span></div>' +
+                '<div class="phase2Element phaseElement">Market action (<strong>if on a planet</strong>)' +
+                '<div style="padding-left: 30px;">' +
+                '  ·  May discard ' + (gameMode === "base" ? 'a card' : 'up to 2 cards') + ' from top of a <strong>single</strong> market deck' + '<br>' +
+                '  ·  May buy top card of a market deck. Then, resolve patrol movement' + (gameMode === "base" ? '' : ' and reveal contact icons') + ' on next card, if any.' +
+                '</div>' +
+                '</div>' +
+                '<div class="phase2Element phaseElement">Trade cards with a player in your space</div>' +
+                '<div class="phase2Element phaseElement">Play any "<strong>Action</strong>" on Player, Ship or any other card in your hand</div>' +
+                '</div>' +
+                '';
+
+            cardContent.encounter =
+                '<div class="phaseItem">' +
+                '<div class="phaseName">Encounter step' +
+                '<div class="phaseHint"> - Choose <strong>only 1</strong></div>' +
+                '</div>' +
+                '<div class="phase3Element phaseElement">Fight a patrol (required if you have <span class="icon negative">negative</span> reputation with a patrol in your space)</div>' +
+                '<div class="phase3Element phaseElement">Resolve a space encounter card (Planet, Maelstrom, Navpoint' + (gameMode === "base" ? '' : ', Core Worlds') + ').</div>' +
+                '<div class="phase3Element phaseElement">Play any "<strong>Encounter</strong>" on Player, Ship or any other card in your hand</div>' +
+                '</div>' +
+                '';
+
+            cardContent.special = '';
+
+
+        } else {
+            //todo text from cards
+            return true;
+            //ai
+            cardContent.planning =
+                '<div class="phaseItem">' +
+                '<div class="phaseName">Planning step' +
+                '<div class="phaseHint"> - Do <strong>the first</strong> that applies</div>' +
+                '</div>' +
+                '<div class="phase1Element phaseElement">todo</div>' +
+                '<div class="phase1Element phaseElement">todo</div>' +
+                '<div class="phase1Element phaseElement">todo</div>' +
+                '</div>' +
+                '';
+
+            cardContent.action =
+                '<div class="phaseItem multiplePhaseElements">' +
+                '<div class="phaseName">Action step' +
+                '<div class="phaseHint"> - Do  <strong>all</strong> that apply</div>' +
+                '</div>' +
+                '<div class="phase2Element phaseElement">todo</div>' +
+                '<div class="phase2Element phaseElement">todo</div>' +
+                '<div class="phase2Element phaseElement">todo</div>' +
+                '</div>' +
+                '';
+
+            cardContent.encounter =
+                '<div class="phaseItem">' +
+                '<div class="phaseName">Encounter step' +
+                '<div class="phaseHint"> - Do <strong>the first</strong> that applies</div>' +
+                '</div>' +
+                '<div class="phase3Element phaseElement">todo</div>' +
+                '<div class="phase3Element phaseElement">todo</div>' +
+                '<div class="phase3Element phaseElement">todo</div>' +
+                '</div>' +
+                '';
+
+            cardContent.special =
+                '<div class="phaseItem multiplePhaseElements">' +
+                '<div class="phaseName">Special </div>' +
+                '<div class="phase3Element phaseElement">todo</div>'+
+                '<div class="phase3Element phaseElement">todo</div>'+
+                '<div class="phase3Element phaseElement">todo</div>'+
+                '</div>';
+
+
+        }
+
+        const cardDisplay = document.querySelector('#cardDisplay');
+        let html = Object.values(cardContent)
+            .filter(value => value != null && value !== "")
+            .join(''); // join into a single string
+        html = '<div class="phaseContainer">' + html + '</div>';
+        cardDisplay.insertAdjacentHTML('afterbegin',html);
+        
+        document.querySelector('.phaseImage').style.display = 'none';
+
+
+        attachPhaseElementListeners();
+    }
+
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    function attachPhaseElementListeners() {
+        document.querySelectorAll('.phaseItem .phaseElement').forEach(el => {
+            const newEl = el.cloneNode(true); // remove old listeners
+            el.replaceWith(newEl);
+
+            newEl.addEventListener('click', function() {
+                const parentPhaseItem = newEl.closest('.phaseItem');
+                const allElements = parentPhaseItem.querySelectorAll('.phaseElement');
+
+                if (parentPhaseItem.classList.contains('multiplePhaseElements')) {
+                    // Toggle only this element
+                    if (newEl.classList.contains('active')) {
+                        newEl.classList.remove('active');
+                    } else {
+                        newEl.classList.add('active');
+                    }
+                } else {
+                    // Normal behavior: reset all first
+                    const isActive = newEl.classList.contains('active');
+                    allElements.forEach(e => e.classList.remove('active', 'crossed'));
+
+                    if (!isActive) {
+                        newEl.classList.add('active');
+                        allElements.forEach(e => {
+                            if (e !== newEl) e.classList.add('crossed');
+                        });
+                    }
+                }
+            });
+        });
+    }
+
+    document.title += ' v' + version;
+
 </script>
 </body>
 </html>
