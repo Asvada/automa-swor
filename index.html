@@ -320,10 +320,10 @@
 
     document.getElementById("goToGame").addEventListener("click", () => {
         if (!addPlayerFromForm()) return;
-        // if (!hasMinimumPlayers()) {
-        //     alert("At least 2 players required, with at least 1 human!");
-        //     return;
-        // }
+        if (!hasMinimumPlayers()) {
+            alert("At least 2 players required, with at least 1 human!");
+            return;
+        }
         startGame();
     });
 
@@ -633,7 +633,7 @@
             .join(''); // join into a single string
         html = '<div class="phaseContainer">' + html + '</div>';
         cardDisplay.insertAdjacentHTML('afterbegin',html);
-        
+
         document.querySelector('.phaseImage').style.display = 'none';
 
 
