@@ -198,16 +198,20 @@
         }
 
         .icon{
-            border: 1px solid red;
+            border: 1px solid grey;
         }
-        img.icon{
+        img.icon {
+            display: inline-block;
+            vertical-align: middle;
+            height: 1.5em;
+            width: auto;
+            margin: 0 2px;
             border: 0;
-            max-height: 18px;
-            display: inline;
-            margin: 0;
-            vertical-align: baseline;
         }
 
+        .personalGoalText{
+            padding-top: 50px;
+        }
 
     </style>
 </head>
@@ -253,7 +257,7 @@
 <script>
     const debug = false;
     const debugSpecial = false;
-    const version = '3.15'
+    const version = '3.16'
         +(debug?'&_='+Math.random():'');
     const useHumanCharacterImages = false;
     const useAiCharacterImages = false;
@@ -604,6 +608,7 @@
 
             const row3 = document.createElement("div");
             row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
+            row3.className = "personalGoalText";
             row3.style.color = player.personalGoalAchieved?'#4CFF4C':'white';
             cardDisplay.appendChild(row3);
 
@@ -712,7 +717,8 @@
 
             const row3 = document.createElement("div");
             row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
-            row3.style.color = player.personalGoalAchieved?'#4CFF4C':'white';
+            row3.className = "personalGoalText";
+row3.style.color = player.personalGoalAchieved?'#4CFF4C':'white';
             cardDisplay.appendChild(row3);
 
             const row4 = document.createElement("div");
