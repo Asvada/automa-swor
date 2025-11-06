@@ -125,8 +125,8 @@
             background-color: #cfd2d1;
             color: #111111;
             text-align: left;
-            font-size: 15px;
-            line-height: 19px;
+            font-size: 16px;
+            line-height: 20px;
         }
 
         .phaseItem {
@@ -246,7 +246,7 @@
 <script>
     const debug = false;
     const debugSpecial = false;
-    const version = '3.12'
+    const version = '3.13'
         +(debug?'&_='+Math.random():'');
     const useHumanCharacterImages = false;
     const useAiCharacterImages = false;
@@ -613,7 +613,7 @@
             row4.appendChild(charImg);
             cardDisplay.appendChild(row4);
 
-            header.textContent = player.nickname;
+            header.innerHTML = `<span class="turnHeaderHint">${player.nickname}</span>&nbsp;${player.character.name}`;
             header.style.color = player.color;
 
         } else {
