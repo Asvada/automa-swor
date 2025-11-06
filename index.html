@@ -38,7 +38,8 @@
             border: none;
             font-size: 16px;
         }
-        #mainTitle{
+
+        #mainTitle {
             margin: 5px;
         }
 
@@ -148,9 +149,6 @@
             height: 30px;
             line-height: 30px; /* center number vertically inside box */
             text-align: center; /* center horizontally */
-            /*background-color: #999; !* optional styling *!*/
-            /*color: #fff;            !* number color *!*/
-            /*border-radius: 50%;     !* make it circular *!*/
             font-weight: bold;
         }
 
@@ -235,9 +233,10 @@
 </div>
 
 <script>
-    const version = '3.10';
+    const version = '3.11';
     const useHumanCharacterImages = false;
     let maxPlayers = 4;
+    let minPlayers = 1;
     const characters = [
         {name: "Cad Bane", origin: "expansion", type: "bounty", image: "bane.png"},
         {name: "Boba Fett", origin: "base", type: "bounty", image: "boba.png"},
@@ -257,13 +256,100 @@
         {name: "Maz Kanata", origin: "expansion", type: "smuggler", image: "maz.png"}
     ];
 
-    let players = [], usedCharacters = [], currentPlayerIndex = 0, playerCounter = 1, gameMode = 'expansion',
-        aiDecks = {};
+    let players = [];
+    let usedCharacters = [];
+    let currentPlayerIndex = 0;
+    let playerCounter = 1;
+    let gameMode = 'expansion';
+    let aiDecks = {};
+    let aiHistory = {};
+
+    /** SAVE / LOAD SYSTEM — 180 DAYS PERSISTENCE **/
+    function saveGameState() {
+        const data = {
+            players,
+            usedCharacters,
+            currentPlayerIndex,
+            playerCounter,
+            gameMode,
+            aiDecks,
+            aiHistory,
+            savedAt: new Date().toISOString()
+        };
+        localStorage.setItem('gameSave', JSON.stringify(data));
+    }
+
+    function loadGameState() {
+        const saved = localStorage.getItem('gameSave');
+        return saved ? JSON.parse(saved) : null;
+    }
+
+    function clearGameState() {
+        localStorage.removeItem('gameSave');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const saved = loadGameState();
+        if (saved) {
+            const date = new Date(saved.savedAt).toLocaleString();
+            const promptDiv = document.createElement('div');
+            promptDiv.style.position = 'fixed';
+            promptDiv.style.top = '20px';
+            promptDiv.style.left = '50%';
+            promptDiv.style.transform = 'translateX(-50%)';
+            promptDiv.style.background = '#eee';
+            promptDiv.style.border = '2px solid #666';
+            promptDiv.style.padding = '15px';
+            promptDiv.style.zIndex = 1000;
+            promptDiv.style.textAlign = 'center';
+            promptDiv.innerHTML = `
+                <div style="color: #111111">Continue saved game from <strong>${date}</strong>?</div>
+                <div style="margin-top:10px;">
+                    <button id="continueGame">Continue</button>
+                    <button id="newGame">New Game</button>
+                </div>`;
+            document.body.appendChild(promptDiv);
+
+            document.getElementById('continueGame').onclick = () => {
+                document.body.removeChild(promptDiv);
+                restoreGame(saved);
+            };
+            document.getElementById('newGame').onclick = () => {
+                clearGameState();
+                document.body.removeChild(promptDiv);
+                startNewGame();
+            };
+        } else {
+            startNewGame();
+        }
+    });
+
+    function restoreGame(saved) {
+        players = saved.players || [];
+        usedCharacters = saved.usedCharacters || [];
+        currentPlayerIndex = saved.currentPlayerIndex || 0;
+        playerCounter = saved.playerCounter || 1;
+        gameMode = saved.gameMode || 'expansion';
+        aiDecks = saved.aiDecks || {};
+        aiHistory = saved.aiHistory || {};
+
+        document.getElementById('step1').classList.add("hidden");
+        document.getElementById('step2').classList.add("hidden");
+        document.getElementById('gameStep').classList.remove("hidden");
+        document.getElementById('mainTitle').classList.add("hidden");
+        showTurn();
+    }
+
+    function startNewGame() {
+        document.getElementById('step1').classList.remove("hidden");
+        document.getElementById('step2').classList.add("hidden");
+        document.getElementById('gameStep').classList.add("hidden");
+    }
+
     const addAnotherBtn = document.getElementById("addAnother");
     const mainTitle = document.getElementById("mainTitle");
     const container = document.getElementById("container");
-    let aiHistory = {}; // stores full move history per AI player
-    // Player type & character dropdowns
+
     document.getElementById("nextToPlayers").addEventListener("click", () => {
         gameMode = document.getElementById("gameMode").value;
         populateCharacterDropdown();
@@ -313,7 +399,6 @@
         }
     }
 
-    // Color dropdown with human-readable names
     function populateColorDropdown() {
         const colorSelect = document.getElementById("playerColor");
         colorSelect.innerHTML = "";
@@ -361,7 +446,7 @@
     document.getElementById("goToGame").addEventListener("click", () => {
         if (!addPlayerFromForm()) return;
         if (!hasMinimumPlayers()) {
-            showError("At least 2 players are required, with at least 1 human player!");
+            showError("At least " + minPlayers + " players are required!");
             return;
         }
         startGame();
@@ -397,7 +482,7 @@
     }
 
     function hasMinimumPlayers() {
-        return players.length >= 2 && players.some(p => p.type === "human");
+        return players.length >= minPlayers; // minimal requirement
     }
 
     document.getElementById("backPlayer").addEventListener("click", () => {
@@ -416,13 +501,11 @@
     document.getElementById("backCard").addEventListener("click", () => {
         currentPlayerIndex = (currentPlayerIndex - 1 + players.length) % players.length;
         const player = players[currentPlayerIndex];
-
         if (player.type === "ai") {
             player.currentCardIndex = Math.max(0, player.currentCardIndex - 1);
         }
         showTurn();
     });
-
 
     function startGame() {
         document.getElementById("step1").classList.add("hidden");
@@ -446,9 +529,8 @@
         let cardType = "";
 
         if (player.type === "human") {
-            // Human card row
             cardType = 'human';
-            if (useHumanCharacterImages){
+            if (useHumanCharacterImages) {
                 const row1 = document.createElement("div");
                 row1.style.display = "flex";
                 row1.className = "phaseImage";
@@ -456,19 +538,17 @@
                 row1.style.gap = "10px";
                 const cardFile = gameMode === "base" ? "base a.png" : "expansion a.png";
                 const img = document.createElement("img");
-                img.src = `./images/player/${cardFile}` + '?' + version;
-                const curSrc = img.src;
+                img.src = `./images/player/${cardFile}?${version}`;
                 img.addEventListener("click", () => {
                     const filename = new URL(img.src).pathname.split('/').pop();
-                    const prefix = filename.slice(0, -5); // remove " a.png" or " b.png"
+                    const prefix = filename.slice(0, -5);
                     const suffix = filename.match(/([a-zA-Z])\.png$/)?.[1];
-                    img.src = `./images/player/${prefix}${suffix == "a" ? "b" : "a"}.png` + '?' + version;
+                    img.src = `./images/player/${prefix}${suffix == "a" ? "b" : "a"}.png?${version}`;
                 });
                 row1.appendChild(img);
                 cardDisplay.appendChild(row1);
             }
 
-            // Next button
             const row2 = document.createElement("div");
             row2.className = 'cardFooter';
             const nextBtn = document.createElement("button");
@@ -480,59 +560,48 @@
             row2.appendChild(nextBtn);
             cardDisplay.appendChild(row2);
 
-            // Personal goal
             const row3 = document.createElement("div");
             row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
             cardDisplay.appendChild(row3);
 
-            // Character image
             const row4 = document.createElement("div");
             const charImg = document.createElement("img");
             const [name, ext] = player.character.image.split(".");
-            charImg.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}` + '?' + version;
+            charImg.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}?${version}`;
             charImg.addEventListener("click", () => {
                 player.personalGoalAchieved = !player.personalGoalAchieved;
-                charImg.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}` + '?' + version;
+                charImg.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}?${version}`;
                 row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
             });
             row4.appendChild(charImg);
             cardDisplay.appendChild(row4);
 
-            // Set header
             header.textContent = player.nickname;
             header.style.color = player.color;
 
         } else {
-            // AI turn
             cardType = player.character.type === "smuggler" ? "smuggler" : "bounty";
             let deck = aiDecks[player.nickname];
             if (!deck || deck.length === 0) {
                 aiDecks[player.nickname] = deck = shuffleAiDeck(player.character.type);
             }
-
             if (!aiHistory[player.nickname]) aiHistory[player.nickname] = [];
 
             aiDecks[player.nickname] = deck;
 
             let card;
-
-            // Check if we have a history card for "back" navigation
             if (player.currentCardIndex < aiHistory[player.nickname].length) {
                 console.log('using card from history');
                 card = aiHistory[player.nickname][player.currentCardIndex];
             } else {
-                // Draw from deck and remove it
                 console.log('drawing new card from deck');
 
                 let availableDeck = deck.slice();
 
-                // Prevent drawing special twice in a row
-                const lastCard = aiHistory[player.nickname].length
-                    ? aiHistory[player.nickname][aiHistory[player.nickname].length - 1]
-                    : null;
+                const lastCard = aiHistory[player.nickname].length ? aiHistory[player.nickname][aiHistory[player.nickname].length - 1] : null;
                 if (lastCard === "special") {
                     availableDeck = availableDeck.filter(c => c !== "special");
-                    if (!availableDeck.length) availableDeck = deck.slice(); // fallback if only specials left
+                    if (!availableDeck.length) availableDeck = deck.slice();
                 }
 
                 card = availableDeck.shift();
@@ -541,14 +610,12 @@
 
                 aiHistory[player.nickname].push(card);
 
-                // Reshuffle immediately after special
                 if (card === "special") {
-                    aiDecks[player.nickname] = [];
-                    console.log(`AI ${player.nickname} reshuffle deck after special is triggered`);
+                    aiDecks[player.nickname] = shuffleAiDeck(player.character.type);
+                    console.log(`AI ${player.nickname} reshuffled deck after special:`, aiDecks[player.nickname]);
                 }
             }
 
-            // Log AI deck
             console.log(`AI ${player.nickname} played card: ${card}, remaining deck:`, deck);
 
             const row0 = document.createElement("div");
@@ -557,92 +624,80 @@
             cardName = card;
 
             let headerMarker = "";
-
-            // Case 1: first card after a shuffle
-            if (player.currentCardIndex === aiHistory[player.nickname].length - 1 &&
-                aiDecks[player.nickname].justShuffled) {
+            if (player.currentCardIndex === aiHistory[player.nickname].length - 1 && aiDecks[player.nickname].justShuffled) {
                 headerMarker = ' <span class="turnHeaderHint" title="Deck shuffled">↻</span>';
-                aiDecks[player.nickname].justShuffled = false; // only show once
-            }
-
-            // Case 2: iterating through history (back navigation)
-            else if (player.currentCardIndex < aiHistory[player.nickname].length - 1) {
+                aiDecks[player.nickname].justShuffled = false;
+            } else if (player.currentCardIndex < aiHistory[player.nickname].length - 1) {
                 const depth = aiHistory[player.nickname].length - player.currentCardIndex - 1;
                 headerMarker = ` <span class="turnHeaderHint" title="History depth">-${depth}</span>`;
             }
 
             if (card === "special") {
                 const dir = player.character.type === "smuggler" ? "smuggler" : "bounty";
-                cardImg.src = `./images/${dir}/${player.character.image}` + '?' + version;
-                header.innerHTML = `<span  class="turnHeaderHint">AI</span>&nbsp;${player.character.name} #special${headerMarker}`;
+                cardImg.src = `./images/${dir}/${player.character.image}?${version}`;
+                header.innerHTML = `<span class="turnHeaderHint">AI</span>&nbsp;${player.character.name} #special${headerMarker}`;
             } else {
                 const dir = player.character.type === "smuggler" ? "smuggler" : "bounty";
-                cardImg.src = `./images/${dir}/${card}.png` + '?' + version;
+                cardImg.src = `./images/${dir}/${card}.png?${version}`;
                 header.innerHTML = `<span class="turnHeaderHint">AI</span>&nbsp;${player.character.name} #${card}${headerMarker}`;
             }
 
             row0.appendChild(cardImg);
             cardDisplay.appendChild(row0);
 
-            // Next button
             const row2 = document.createElement("div");
             row2.className = 'cardFooter';
             const nextBtn = document.createElement("button");
             nextBtn.textContent = "Next Card";
             nextBtn.onclick = () => {
                 const player = players[currentPlayerIndex];
-
                 if (player.type === "ai") {
                     player.currentCardIndex++;
-
-                    // Reshuffle only if deck is empty
                     if (aiDecks[player.nickname].length === 0) {
                         aiDecks[player.nickname] = shuffleAiDeck(player.character.type);
                         console.log(`AI ${player.nickname} reshuffled deck:`, aiDecks[player.nickname]);
                     }
                 }
-
                 currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
                 showTurn();
             };
             row2.appendChild(nextBtn);
             cardDisplay.appendChild(row2);
 
-            // Personal goal
             const row3 = document.createElement("div");
             row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
             cardDisplay.appendChild(row3);
 
-            // Character image
             const row4 = document.createElement("div");
             const charImg2 = document.createElement("img");
             const [name, ext] = player.character.image.split(".");
-            charImg2.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}` + '?' + version;
+            charImg2.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}?${version}`;
             charImg2.addEventListener("click", () => {
                 player.personalGoalAchieved = !player.personalGoalAchieved;
-                charImg2.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}` + '?' + version;
+                charImg2.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}?${version}`;
                 row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
             });
             row4.appendChild(charImg2);
             cardDisplay.appendChild(row4);
 
-            // Header color
             header.style.color = player.color;
         }
 
         describeCard(cardName, cardType);
+
+        saveGameState();
     }
 
     function shuffleAiDeck(characterType) {
         let deck = characterType === "smuggler"
             ? (gameMode === "base" ? shuffleArray([...Array(10).keys()].map(n => n + 1)) : shuffleArray([1, 2, 6, 7, 9, "special"]))
             : (gameMode === "base" ? shuffleArray([1, 2, 3, 4, 5]) : shuffleArray([1, 2, 3, 4, 5, "special"]));
-        deck.justShuffled = true; // mark that the next card is first after shuffle
+        deck.justShuffled = true;
         return deck;
     }
 
     function describeCard(cardName, type) {
-        /**  type: "human" | "bounty" | "smuggler"*/
+        /**  type: "human" | "bounty" | "smuggler" */
         let cardContent = {
             "planning": '',
             "action": '',
@@ -677,7 +732,7 @@
                 '<div class="phase2Element phaseElement">Deliver <span class="icon cargo">cargo</span> <strong>and</strong> <span class="icon bounty">bounties</span></div>' +
                 '<div class="phase2Element phaseElement">Market action (<strong>if on a planet</strong>)' +
                 '<div style="padding-left: 30px;">' +
-                '  ·  May discard ' + (gameMode === "base" ? 'a card' : 'up to 2 cards') + ' from top of a <strong>single</strong> market deck' + '<br>' +
+                '  ·  May discard ' + (gameMode === "base" ? 'a card' : 'up to 2 cards') + ' from top of a ' + (gameMode === "base" ? '' : '<strong>single</strong>') + ' market deck' + '<br>' +
                 '  ·  May buy top card of a market deck. Then, resolve patrol movement' + (gameMode === "base" ? '' : ' and reveal contact icons') + ' on next card, if any.' +
                 '</div>' +
                 '</div>' +
@@ -698,10 +753,8 @@
                 '';
 
             cardContent.special = '';
-
-
         } else {
-            //todo text from cards
+            // todo: text from cards
             return true;
             //ai
             cardContent.planning =
@@ -751,13 +804,9 @@
         const cardDisplay = document.querySelector('#cardDisplay');
         let html = Object.values(cardContent)
             .filter(value => value != null && value !== "")
-            .join(''); // join into a single string
+            .join('');
         html = '<div class="phaseContainer">' + html + '</div>';
         cardDisplay.insertAdjacentHTML('afterbegin', html);
-
-        // document.querySelector('.phaseImage').style.display = 'none';
-
-
         attachPhaseElementListeners();
     }
 
@@ -771,7 +820,7 @@
 
     function attachPhaseElementListeners() {
         document.querySelectorAll('.phaseItem .phaseElement').forEach(el => {
-            const newEl = el.cloneNode(true); // remove old listeners
+            const newEl = el.cloneNode(true);
             el.replaceWith(newEl);
 
             newEl.addEventListener('click', function () {
@@ -779,17 +828,14 @@
                 const allElements = parentPhaseItem.querySelectorAll('.phaseElement');
 
                 if (parentPhaseItem.classList.contains('multiplePhaseElements')) {
-                    // Toggle only this element
                     if (newEl.classList.contains('active')) {
                         newEl.classList.remove('active');
                     } else {
                         newEl.classList.add('active');
                     }
                 } else {
-                    // Normal behavior: reset all first
                     const isActive = newEl.classList.contains('active');
                     allElements.forEach(e => e.classList.remove('active', 'crossed'));
-
                     if (!isActive) {
                         newEl.classList.add('active');
                         allElements.forEach(e => {
@@ -814,7 +860,7 @@
     }
 
     document.title += ' v' + version;
-    document.getElementById("mainTitle").innerHTML +=  ' v' + version;
+    document.getElementById("mainTitle").innerHTML += ' v' + version;
 
 </script>
 </body>
