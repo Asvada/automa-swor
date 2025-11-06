@@ -1,0 +1,19 @@
+{
+  "planning": [
+    "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+    "b. Move toward nearest other player, if Hondo Onaka careach their space.",
+    "c. Move towards nearest goal."
+  ],
+  "action": [
+    "If at cargo destination, deliver it.",
+    "If there is another player in Hondo's space, discard the other player's cargo, gear or mod with the highest cost. Hondo gains <span class=\"icon credits\">credits</span> equal to its cost",
+    "Buy a <span class=\"icon job\">job card</span> and place a goal token on card's destination."
+  ],
+  "encounter": [
+    "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+    "b. If at job destination, complete it."
+  ],
+  "special": [
+    "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+  ]
+}

@@ -15,7 +15,7 @@
         }
 
         .container {
-            max-width: 600px;
+            max-width: 450px;
             margin: 5px auto;
             /*padding: 10px;*/
             background: #222;
@@ -190,6 +190,17 @@
             margin-right: 2px;
         }
 
+        .icon{
+            border: 1px solid red;
+        }
+        img.icon{
+            border: 0;
+            max-height: 18px;
+            display: inline;
+            margin: 0;
+            vertical-align: baseline;
+        }
+
 
     </style>
 </head>
@@ -233,27 +244,31 @@
 </div>
 
 <script>
-    const version = '3.11';
+    const version = '3.11'+Math.random();
     const useHumanCharacterImages = false;
-    let maxPlayers = 4;
+    const useAiCharacterImages = false;
+    const debug = false;
+    const debugSpecial = false;
+
+    let maxPlayers = debug ? 16: 4;
     let minPlayers = 1;
     const characters = [
-        {name: "Cad Bane", origin: "expansion", type: "bounty", image: "bane.png"},
-        {name: "Boba Fett", origin: "base", type: "bounty", image: "boba.png"},
-        {name: "Bossk", origin: "base", type: "bounty", image: "bossk.png"},
-        {name: "Dengar", origin: "expansion", type: "bounty", image: "dengar.png"},
-        {name: "IG-88", origin: "base", type: "bounty", image: "ig88.png"},
-        {name: "Ketsu Onio", origin: "base", type: "bounty", image: "ketsu.png"},
-        {name: "Black Krrsantan", origin: "expansion", type: "bounty", image: "krrsantan.png"},
-        {name: "Doctor Aphra", origin: "base", type: "smuggler", image: "afra.png"},
-        {name: "Chewbacca", origin: "expansion", type: "smuggler", image: "chewbacca.png"},
-        {name: "Enfys Nest", origin: "expansion", type: "smuggler", image: "enfys.png"},
-        {name: "Jyn Erso", origin: "base", type: "smuggler", image: "erso.png"},
-        {name: "Han Solo", origin: "base", type: "smuggler", image: "han.png"},
-        {name: "Hera Syndulla", origin: "expansion", type: "smuggler", image: "hera.png"},
-        {name: "Hondo Ohnaka", origin: "expansion", type: "smuggler", image: "hondo.png"},
-        {name: "Lando Calrissian", origin: "base", type: "smuggler", image: "lando.png"},
-        {name: "Maz Kanata", origin: "expansion", type: "smuggler", image: "maz.png"}
+        {name: "Cad Bane", origin: "expansion", type: "bounty", image: "bane.png", id: "bane"},
+        {name: "Boba Fett", origin: "base", type: "bounty", image: "boba.png", id: "boba"},
+        {name: "Bossk", origin: "base", type: "bounty", image: "bossk.png", id: "bossk"},
+        {name: "Dengar", origin: "expansion", type: "bounty", image: "dengar.png", id: "dengar"},
+        {name: "IG-88", origin: "base", type: "bounty", image: "ig88.png", id: "ig88"},
+        {name: "Ketsu Onio", origin: "base", type: "bounty", image: "ketsu.png", id: "ketsu"},
+        {name: "Black Krrsantan", origin: "expansion", type: "bounty", image: "krrsantan.png", id: "krrsantan"},
+        {name: "Doctor Aphra", origin: "base", type: "smuggler", image: "afra.png", id: "afra"},
+        {name: "Chewbacca", origin: "expansion", type: "smuggler", image: "chewbacca.png", id: "chewbacca"},
+        {name: "Enfys Nest", origin: "expansion", type: "smuggler", image: "enfys.png", id: "enfys"},
+        {name: "Jyn Erso", origin: "base", type: "smuggler", image: "erso.png", id: "erso"},
+        {name: "Han Solo", origin: "base", type: "smuggler", image: "han.png", id: "han"},
+        {name: "Hera Syndulla", origin: "expansion", type: "smuggler", image: "hera.png", id: "hera"},
+        {name: "Hondo Ohnaka", origin: "expansion", type: "smuggler", image: "hondo.png", id: "hondo"},
+        {name: "Lando Calrissian", origin: "base", type: "smuggler", image: "lando.png", id: "lando"},
+        {name: "Maz Kanata", origin: "expansion", type: "smuggler", image: "maz.png", id: "maz"}
     ];
 
     let players = [];
@@ -408,6 +423,25 @@
             {value: "#4CFF4C", name: "Green"},
             {value: "#FFD74C", name: "Yellow"}
         ];
+
+        if (maxPlayers > availableColors.length) {
+            const needed = maxPlayers - availableColors.length;
+
+            for (let i = 0; i < needed; i++) {
+                // generate a random hex color
+                const randomColor = '#' + Math.floor(Math.random() * 0xFFFFFF)
+                    .toString(16)
+                    .padStart(6, '0')
+                    .toUpperCase();
+
+                // give it a simple name (e.g., "Color 5")
+                availableColors.push({
+                    value: randomColor,
+                    name: `Color ${availableColors.length + 1}`
+                });
+            }
+        }
+
         availableColors
             .filter(c => !players.map(p => p.color).includes(c.value))
             .forEach(c => {
@@ -562,6 +596,7 @@
 
             const row3 = document.createElement("div");
             row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
+            row3.style.color = player.personalGoalAchieved?'#4CFF4C':'white';
             cardDisplay.appendChild(row3);
 
             const row4 = document.createElement("div");
@@ -572,6 +607,7 @@
                 player.personalGoalAchieved = !player.personalGoalAchieved;
                 charImg.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}?${version}`;
                 row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
+                row3.style.color = player.personalGoalAchieved?'#4CFF4C':'white';
             });
             row4.appendChild(charImg);
             cardDisplay.appendChild(row4);
@@ -610,7 +646,7 @@
 
                 aiHistory[player.nickname].push(card);
 
-                if (card === "special") {
+                if (card === "special" || card == 10) {
                     aiDecks[player.nickname] = shuffleAiDeck(player.character.type);
                     console.log(`AI ${player.nickname} reshuffled deck after special:`, aiDecks[player.nickname]);
                 }
@@ -618,9 +654,7 @@
 
             console.log(`AI ${player.nickname} played card: ${card}, remaining deck:`, deck);
 
-            const row0 = document.createElement("div");
             const cardImg = document.createElement("img");
-            cardImg.style.maxHeight = "75vh";
             cardName = card;
 
             let headerMarker = "";
@@ -642,8 +676,12 @@
                 header.innerHTML = `<span class="turnHeaderHint">AI</span>&nbsp;${player.character.name} #${card}${headerMarker}`;
             }
 
-            row0.appendChild(cardImg);
-            cardDisplay.appendChild(row0);
+            if (useAiCharacterImages){
+                const row0 = document.createElement("div");
+                cardImg.style.maxHeight = "75vh";
+                row0.appendChild(cardImg);
+                cardDisplay.appendChild(row0);
+            }
 
             const row2 = document.createElement("div");
             row2.className = 'cardFooter';
@@ -666,6 +704,7 @@
 
             const row3 = document.createElement("div");
             row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
+            row3.style.color = player.personalGoalAchieved?'#4CFF4C':'white';
             cardDisplay.appendChild(row3);
 
             const row4 = document.createElement("div");
@@ -676,6 +715,7 @@
                 player.personalGoalAchieved = !player.personalGoalAchieved;
                 charImg2.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}?${version}`;
                 row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
+                row3.style.color = player.personalGoalAchieved?'#4CFF4C':'white';
             });
             row4.appendChild(charImg2);
             cardDisplay.appendChild(row4);
@@ -696,16 +736,128 @@
         return deck;
     }
 
-    function describeCard(cardName, type) {
-        /**  type: "human" | "bounty" | "smuggler" */
-        let cardContent = {
-            "planning": '',
-            "action": '',
-            "encounter": '',
-            "special": ''
-        };
+    // function describeCard(cardName, type) {
+    //     /**  type: "human" | "bounty" | "smuggler" */
+    //     let cardContent = {
+    //         "planning": '',
+    //         "action": '',
+    //         "encounter": '',
+    //         "special": ''
+    //     };
+    //
+    //     if (type === "human") {
+    //         cardContent.planning =
+    //             '<div class="phaseItem">' +
+    //             '<div class="phaseName">Planning step' +
+    //             '<div class="phaseHint"> - Choose <strong>only 1</strong></div>' +
+    //             '</div>' +
+    //             '<div class="phase1Element phaseElement">Move up to your ship\'s <span class="icon speed">speed</span></div>' +
+    //             '<div class="phase1Element phaseElement">Gain 2 000 <span class="icon credits">credits</span></div>' +
+    //             '<div class="phase1Element phaseElement">' +
+    //             'Recover all <span class="icon damage">damage</span> from character and ship' + '<br>' +
+    //             '<div style="padding-left: 30px;">' +
+    //             '<em>*(required if you are defeated)</em>:' + '<br>' +
+    //             ' · Pay 3 000 <span class="icon credits">credits</span>' + '<br>' +
+    //             ' · Lose all secrets' +
+    //             '</div>' +
+    //             '</div>' +
+    //             '<div class="phase1Element phaseElement">Play any "<strong>Planning</strong>" on Player, Ship or any other card in your hand</div>' +
+    //             '</div>';
+    //
+    //         cardContent.action =
+    //             '<div class="phaseItem multiplePhaseElements">' +
+    //             '<div class="phaseName">Action step' +
+    //             '<div class="phaseHint"> - Perform  <strong>any or all</strong></div>' +
+    //             '</div>' +
+    //             '<div class="phase2Element phaseElement">Deliver <span class="icon cargo">cargo</span> <strong>and</strong> <span class="icon bounty">bounties</span></div>' +
+    //             '<div class="phase2Element phaseElement">Market action (<strong>if on a planet</strong>)' +
+    //             '<div style="padding-left: 30px;">' +
+    //             '  ·  May discard ' + (gameMode === "base" ? 'a card' : 'up to 2 cards') + ' from top of a ' + (gameMode === "base" ? '' : '<strong>single</strong>') + ' market deck' + '<br>' +
+    //             '  ·  May buy top card of a market deck. Then, resolve patrol movement' + (gameMode === "base" ? '' : ' and reveal contact icons') + ' on next card, if any.' +
+    //             '</div>' +
+    //             '</div>' +
+    //             '<div class="phase2Element phaseElement">Trade cards with a player in your space</div>' +
+    //             '<div class="phase2Element phaseElement">Play any "<strong>Action</strong>" on Player, Ship or any other card in your hand</div>' +
+    //             '</div>' +
+    //             '';
+    //
+    //         cardContent.encounter =
+    //             '<div class="phaseItem">' +
+    //             '<div class="phaseName">Encounter step' +
+    //             '<div class="phaseHint"> - Choose <strong>only 1</strong></div>' +
+    //             '</div>' +
+    //             '<div class="phase3Element phaseElement">Fight a patrol (required if you have <span class="icon negative">negative</span> reputation with a patrol in your space)</div>' +
+    //             '<div class="phase3Element phaseElement">Resolve a space encounter card (Planet, Maelstrom, Navpoint' + (gameMode === "base" ? '' : ', Core Worlds') + ').</div>' +
+    //             '<div class="phase3Element phaseElement">Play any "<strong>Encounter</strong>" on Player, Ship or any other card in your hand</div>' +
+    //             '</div>' +
+    //             '';
+    //
+    //         cardContent.special = '';
+    //     } else {
+    //         // todo: text from cards
+    //         return true;
+    //         //ai
+    //         cardContent.planning =
+    //             '<div class="phaseItem">' +
+    //             '<div class="phaseName">Planning step' +
+    //             '<div class="phaseHint"> - Do <strong>the first</strong> that applies</div>' +
+    //             '</div>' +
+    //             '<div class="phase1Element phaseElement">todo</div>' +
+    //             '<div class="phase1Element phaseElement">todo</div>' +
+    //             '<div class="phase1Element phaseElement">todo</div>' +
+    //             '</div>' +
+    //             '';
+    //
+    //         cardContent.action =
+    //             '<div class="phaseItem multiplePhaseElements">' +
+    //             '<div class="phaseName">Action step' +
+    //             '<div class="phaseHint"> - Do  <strong>all</strong> that apply</div>' +
+    //             '</div>' +
+    //             '<div class="phase2Element phaseElement">todo</div>' +
+    //             '<div class="phase2Element phaseElement">todo</div>' +
+    //             '<div class="phase2Element phaseElement">todo</div>' +
+    //             '</div>' +
+    //             '';
+    //
+    //         cardContent.encounter =
+    //             '<div class="phaseItem">' +
+    //             '<div class="phaseName">Encounter step' +
+    //             '<div class="phaseHint"> - Do <strong>the first</strong> that applies</div>' +
+    //             '</div>' +
+    //             '<div class="phase3Element phaseElement">todo</div>' +
+    //             '<div class="phase3Element phaseElement">todo</div>' +
+    //             '<div class="phase3Element phaseElement">todo</div>' +
+    //             '</div>' +
+    //             '';
+    //
+    //         cardContent.special =
+    //             '<div class="phaseItem multiplePhaseElements">' +
+    //             '<div class="phaseName">Special </div>' +
+    //             '<div class="phase3Element phaseElement">todo</div>' +
+    //             '<div class="phase3Element phaseElement">todo</div>' +
+    //             '<div class="phase3Element phaseElement">todo</div>' +
+    //             '</div>';
+    //
+    //
+    //     }
+    //
+    //     const cardDisplay = document.querySelector('#cardDisplay');
+    //     let html = Object.values(cardContent)
+    //         .filter(value => value != null && value !== "")
+    //         .join('');
+    //     html = '<div class="phaseContainer">' + html + '</div>';
+    //     cardDisplay.insertAdjacentHTML('afterbegin', html);
+    //     attachPhaseElementListeners();
+    // }
+
+    async function describeCard(cardName, type) {
+        const player = players[currentPlayerIndex];
+        /** type: "human" | "bounty" | "smuggler" */
+        const cardDisplay = document.querySelector('#cardDisplay');
+        let cardContent = { planning: '', action: '', encounter: '', special: '' };
 
         if (type === "human") {
+            // Preserve canonical human card content exactly
             cardContent.planning =
                 '<div class="phaseItem">' +
                 '<div class="phaseName">Planning step' +
@@ -718,7 +870,7 @@
                 '<div style="padding-left: 30px;">' +
                 '<em>*(required if you are defeated)</em>:' + '<br>' +
                 ' · Pay 3 000 <span class="icon credits">credits</span>' + '<br>' +
-                ' · Lose all <span class="icon secret">secrets</span>' +
+                ' · Lose all secret cards' +
                 '</div>' +
                 '</div>' +
                 '<div class="phase1Element phaseElement">Play any "<strong>Planning</strong>" on Player, Ship or any other card in your hand</div>' +
@@ -738,8 +890,7 @@
                 '</div>' +
                 '<div class="phase2Element phaseElement">Trade cards with a player in your space</div>' +
                 '<div class="phase2Element phaseElement">Play any "<strong>Action</strong>" on Player, Ship or any other card in your hand</div>' +
-                '</div>' +
-                '';
+                '</div>';
 
             cardContent.encounter =
                 '<div class="phaseItem">' +
@@ -749,68 +900,55 @@
                 '<div class="phase3Element phaseElement">Fight a patrol (required if you have <span class="icon negative">negative</span> reputation with a patrol in your space)</div>' +
                 '<div class="phase3Element phaseElement">Resolve a space encounter card (Planet, Maelstrom, Navpoint' + (gameMode === "base" ? '' : ', Core Worlds') + ').</div>' +
                 '<div class="phase3Element phaseElement">Play any "<strong>Encounter</strong>" on Player, Ship or any other card in your hand</div>' +
-                '</div>' +
-                '';
+                '</div>';
 
             cardContent.special = '';
         } else {
-            // todo: text from cards
-            return true;
-            //ai
-            cardContent.planning =
-                '<div class="phaseItem">' +
-                '<div class="phaseName">Planning step' +
-                '<div class="phaseHint"> - Do <strong>the first</strong> that applies</div>' +
-                '</div>' +
-                '<div class="phase1Element phaseElement">todo</div>' +
-                '<div class="phase1Element phaseElement">todo</div>' +
-                '<div class="phase1Element phaseElement">todo</div>' +
-                '</div>' +
-                '';
+            // AI cards: fetch JSON dynamically
+            try {
+                const typeDir = type === 'smuggler' ? 'smuggler' : 'bounty';
+                const cardFileName = cardName == 'special' ? player.character.id : cardName;
+                const url = `./cards/${typeDir}/${cardFileName}.json?${version}`;
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Card JSON not found');
+                const data = await response.json();
 
-            cardContent.action =
-                '<div class="phaseItem multiplePhaseElements">' +
-                '<div class="phaseName">Action step' +
-                '<div class="phaseHint"> - Do  <strong>all</strong> that apply</div>' +
-                '</div>' +
-                '<div class="phase2Element phaseElement">todo</div>' +
-                '<div class="phase2Element phaseElement">todo</div>' +
-                '<div class="phase2Element phaseElement">todo</div>' +
-                '</div>' +
-                '';
-
-            cardContent.encounter =
-                '<div class="phaseItem">' +
-                '<div class="phaseName">Encounter step' +
-                '<div class="phaseHint"> - Do <strong>the first</strong> that applies</div>' +
-                '</div>' +
-                '<div class="phase3Element phaseElement">todo</div>' +
-                '<div class="phase3Element phaseElement">todo</div>' +
-                '<div class="phase3Element phaseElement">todo</div>' +
-                '</div>' +
-                '';
-
-            cardContent.special =
-                '<div class="phaseItem multiplePhaseElements">' +
-                '<div class="phaseName">Special </div>' +
-                '<div class="phase3Element phaseElement">todo</div>' +
-                '<div class="phase3Element phaseElement">todo</div>' +
-                '<div class="phase3Element phaseElement">todo</div>' +
-                '</div>';
-
-
+                // Convert arrays to HTML for phaseElement divs
+                ['planning', 'action', 'encounter', 'special'].forEach(section => {
+                    if (data[section] && data[section].length) {
+                        const multiple = (section === 'action' || section === 'special') ? ' multiplePhaseElements' : '';
+                        cardContent[section] = `<div class="phaseItem${multiple}">
+                        <div class="phaseName">${section.charAt(0).toUpperCase() + section.slice(1)} step`+
+                            (multiple ? '<div class="phaseHint"> - Do  <strong>all</strong> that apply</div>':'<div class="phaseHint"> - Do the  <strong>first</strong> that applies</div>')
+                            +`</div>
+                        ${data[section].map(item => `<div class="phaseElement">${item}</div>`).join('')}
+                    </div>`;
+                    }
+                });
+            } catch (err) {
+                console.warn('Failed to load card JSON:', cardName, err);
+                ['planning', 'action', 'encounter', 'special'].forEach(section => {
+                    cardContent[section] = `<div class="phaseItem"><div class="phaseName">${section}</div><div class="phaseElement">[No data]</div></div>`;
+                });
+            }
         }
 
-        const cardDisplay = document.querySelector('#cardDisplay');
-        let html = Object.values(cardContent)
-            .filter(value => value != null && value !== "")
-            .join('');
-        html = '<div class="phaseContainer">' + html + '</div>';
-        cardDisplay.insertAdjacentHTML('afterbegin', html);
+        // Insert HTML into cardDisplay
+        const html = Object.values(cardContent).filter(v => v).join('');
+        cardDisplay.insertAdjacentHTML('afterbegin', `<div class="phaseContainer">${html}</div>`);
         attachPhaseElementListeners();
+        replaceIconsWithImages();
+
     }
 
+
     function shuffleArray(arr) {
+        if (debug) {
+            if (debugSpecial)
+                return ['special'];
+            return arr;
+        }
+
         for (let i = arr.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -858,9 +996,25 @@
         errorDiv.textContent = "";
         errorDiv.style.display = "none";
     }
+    function replaceIconsWithImages() {
+        document.querySelectorAll('.icon').forEach(span => {
+            const iconType = span.classList[1]; // e.g. "damage"
+            console.log(span.classList);
+            if (!iconType) return; // skip if no second class
+
+            const altText = span.textContent.trim();
+            const img = document.createElement('img');
+            img.src = `./images/assets/${iconType}.png`;
+            img.alt = altText;
+            img.className = `icon ${iconType}`;
+
+            span.replaceWith(img);
+        });
+    }
+
 
     document.title += ' v' + version;
-    document.getElementById("mainTitle").innerHTML += ' v' + version;
+    document.getElementById("mainTitle").innerHTML += ' v' + version + (debug?'<span style="color:red">DEBUG</span>':'');
 
 </script>
 </body>

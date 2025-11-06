@@ -1,0 +1,19 @@
+{
+  "planning": [
+    "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+    "b. Move toward a bounty target (character, crew, faceup/facedown contact)",
+    "c. Gain 2 000 <span class=\"icon credits\">credits</span>."
+  ],
+  "action": [
+    "If bounty slots are full, buy a <span class=\"icon gear\">gear card</span>. Otherwise, buy a <span class=\"icon bounty\">bounty card</span>, even if at a navpoint",
+    "Reveal a facedown contact on this planet that matches one of Boba Fett's bounties."
+  ],
+  "encounter": [
+    "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+    "b. Encounter a bounty target in this space (character, crew, faceup contact)",
+    "c. Gain 4 000 <span class=\"icon credits\">credits</span>."
+  ],
+  "special": [
+    "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+  ]
+}

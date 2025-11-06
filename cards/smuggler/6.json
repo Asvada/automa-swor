@@ -1,0 +1,18 @@
+{
+  "planning": [
+    "a. Recover all <span class=\"icon damage\">damage</span>",
+    "b. Move toward closest goal",
+    "c. Gain 2 000 <span class=\"icon credits\">credits</span>"
+  ],
+  "action": [
+    "If at cargo destination, deliver it. If cargo is <strong>illegal</strong> <em>character</em> suffers 2 <span class=\"icon damage\">damage</span>.",
+    "Buy a <span class=\"icon job\">job card</span> and place a goal token on card's destination."
+  ],
+  "encounter": [
+    "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+    "b. If at job destination, complete it.",
+    "c. Spend 8 000 <span class=\"icon credits\">credits</span> to gain 1 fame."
+  ],
+  "special": [
+  ]
+}

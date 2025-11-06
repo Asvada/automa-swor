@@ -1,0 +1,19 @@
+{
+  "planning": [
+    "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+    "b. Move toward nearest goal.",
+    "c. Gain 2 000 <span class=\"icon credits\">credits</span>"
+  ],
+  "action": [
+    "If at cargo destination, deliver it.",
+    "If Maz can buy a <span class=\"icon luxury\">luxury card</span> - she additionally gains 1 fame. Otherwise, she gains 2 000 <span class=\"icon credits\">credits</span> for each of her crew."
+  ],
+  "encounter": [
+    "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+    "b. If at job destination, complete it.",
+    "c. Reveal the facedown contact token of the lowest class on this planet and gain the crew on its card for free."
+  ],
+  "special": [
+    "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+  ]
+}

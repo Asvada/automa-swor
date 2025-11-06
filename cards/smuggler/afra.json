@@ -1,0 +1,18 @@
+{
+  "planning": [
+    "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+    "b. Move toward nearest goal.",
+    "c. Buy a <span class=\"icon ship\">ship card</span>. If unable, buy a <span class=\"icon gear\">gear card</span>."
+  ],
+  "action": [
+    "If at cargo destination, deliver it.",
+    "If all job slots full, buy <span class=\"icon cargo\">cargo card</span>. Otherwise,buy a <span class=\"icon job\">job card</span>. Then, place a goal token on card's destination.\n."
+  ],
+  "encounter": [
+    "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+    "b. Gain 1 000 <span class=\"icon credits\">credits</span> for each different skill Doctor Aphra and her crew have."
+  ],
+  "special": [
+    "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "planning": [
+    "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+    "b. Move directly to the space of the other player with the most <span class=\"icon negative\">negative</span> reputations (minimum of 1) - if reachable by Dengar's ship <span class=\"icon speed\">speed</span>.",
+    "c. Each other player (<strong>across all of the world</strong>) loses 1 reputation of their choice."
+  ],
+  "action": [
+    "Each other player in this space suffers 2 <span class=\"icon damage\">damage</span> on their <strong>character</strong> for each of their <span class=\"icon negative\">negative</span> reputations. If a character is defeated this way, Dengar gains 1 fame\n"
+  ],
+  "encounter": [
+    "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+    "b. Spend 8 000 <span class=\"icon credits\">credits</span> to gain 1 fame.",
+    "c. Gain 4 000 <span class=\"icon credits\">credits</span>."
+  ],
+  "special": [
+    "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+  ]
+}

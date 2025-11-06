@@ -1,0 +1,20 @@
+{
+  "planning": [
+    "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+    "b. Move toward nearest goal.",
+    "c. Gain 2 000 <span class=\"icon credits\">credits</span>"
+  ],
+  "action": [
+    "Move 2 spaces toward nearest goal, ignoring patrols. If Hera Syndulla moves, her ship suffers 1 <span class=\"icon damage\">damage</span>.",
+    "If at cargo destination, deliver it.",
+    "Buy a <span class=\"icon cargo\">cargo card</span> and place a goal token on card's destination."
+  ],
+  "encounter": [
+    "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+    "b. If at job destination, complete it.",
+    "c.  Recover all <span class=\"icon damage\">damage</span>."
+  ],
+  "special": [
+    "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+  ]
+}

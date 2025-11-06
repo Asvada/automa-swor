@@ -1,0 +1,18 @@
+{
+  "planning": [
+    "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+    "b. Move toward nearest goal.",
+    "c. Gain 2 000 <span class=\"icon credits\">credits</span>"
+  ],
+  "action": [
+    "Buy a <span class=\"icon ship\">ship card</span>. If unable, buy a <span class=\"icon gear\">gear card</span>."
+  ],
+  "encounter": [
+    "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+    "b. If Enfys Nest has an empty crew slot, reveal the facedown contact token of the lowest class on this planet and gain the crew on its card for free.",
+    "c. Gain 4 000 <span class=\"icon credits\">credits</span> and additional 1 000 <span class=\"icon credits\">credits</span> for each Enfys Nest's crew. Then, lose 1 reputation with this planet's faction (if any)."
+  ],
+  "special": [
+    "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+  ]
+}

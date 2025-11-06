@@ -1,0 +1,19 @@
+{
+  "planning": [
+    "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+    "b. Move toward closest goal.",
+    "c. Gain 2 000 <span class=\"icon credits\">credits</span>."
+  ],
+  "action": [
+    "If at cargo destination, deliver it. If cargo is <strong>illegal</strong> <em>ship</em> suffers 2 <span class=\"icon damage\">damage</span>.",
+    "If no free cargo slots, buy a <span class=\"icon job\">job card</span>. Otherwise, buy a <span class=\"icon cargo\">cargo card</span> and place a goal token on card's destination."
+  ],
+  "encounter": [
+    "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+    "b. If at job destination, complete it.",
+    "c. Spend 8 000 <span class=\"icon credits\">credits</span> to gain 1 fame.",
+    "d. If the planet you are on has faction, gain 1 reputation with that faction."
+  ],
+  "special": [
+  ]
+}

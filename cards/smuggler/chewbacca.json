@@ -1,0 +1,18 @@
+{
+  "planning": [
+    "a. Recover all <span class=\"icon damage\">damage</span>. Gain 1 000 <span class=\"icon credits\">credits</span> for each damage recovered this way.",
+    "b. Move toward nearest goal."
+  ],
+  "action": [
+    "If at cargo destination, deliver it. If cargo is <strong>illegal</strong> <em>ship</em> suffers 2 <span class=\"icon damage\">damage</span>.",
+    "Buy a <span class=\"icon ship\">ship card</span>. If unable, buy a <span class=\"icon cargo\">cargo card</span> and place a goal token on card's destination."
+  ],
+  "encounter": [
+    "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+    "b. If at job destination, complete it.",
+    "c. Reveal the highest-rank contact token on your planet that is face-down, and gain this contact as a crew member for free."
+  ],
+  "special": [
+    "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+  ]
+}

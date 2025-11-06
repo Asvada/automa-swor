@@ -1,0 +1,19 @@
+{
+  "planning": [
+    "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+    "b. Move toward nearest <strong>undefeated</strong> character, if Bossk can reach their space.",
+    "c. Move toward a bounty target (character, crew, faceup/facedown contact)",
+    "d. Gain 2 000 <span class=\"icon credits\">credits</span>."
+  ],
+  "action": [
+    "Recover all <span class=\"icon damage\">damage</span>."
+  ],
+  "encounter": [
+    "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+    "b. Fight a combat against another player in this space. If Bossk wins, gain 1 fame.",
+    "c. Encounter a bounty target in this space (character, crew, faceup contact)"
+  ],
+  "special": [
+    "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+  ]
+}
