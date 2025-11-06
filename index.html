@@ -334,9 +334,19 @@
                 <div style="margin-top:10px;">
                     <button id="continueGame">Continue</button>
                     <button id="newGame">New Game</button>
+                    <button id="fullscreen">Go Fullscreen</button>
                 </div>`;
             document.body.appendChild(promptDiv);
 
+
+            document.getElementById('fullscreen').onclick = () => {
+                const elem = document.documentElement;
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.webkitRequestFullscreen) { // Safari/Chrome on iOS
+                    elem.webkitRequestFullscreen();
+                }
+            };
             document.getElementById('continueGame').onclick = () => {
                 document.body.removeChild(promptDiv);
                 restoreGame(saved);
