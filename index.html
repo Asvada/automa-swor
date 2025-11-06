@@ -244,11 +244,12 @@
 </div>
 
 <script>
-    const version = '3.11'+Math.random();
-    const useHumanCharacterImages = false;
-    const useAiCharacterImages = false;
     const debug = false;
     const debugSpecial = false;
+    const version = '3.12'
+        +(debug?'&_='+Math.random():'');
+    const useHumanCharacterImages = false;
+    const useAiCharacterImages = false;
 
     let maxPlayers = debug ? 16: 4;
     let minPlayers = 1;
