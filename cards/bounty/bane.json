@@ -2,16 +2,16 @@
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
     "b. Move toward a bounty target (character, crew, faceup/facedown contact)",
-    "c. Gain 2 000 <span class=\"icon credits\">credits</span>."
+    "c. Gain <span class=\"icon credits\">credits </span>2 000."
   ],
   "action": [
-    "If Bane has at least 1 fame and less than 20 000 <span class=\"icon credits\">credits</span>, he loses 1 fame and gains 10 000 <span class=\"icon credits\">credits</span>",
+    "If Bane has at least 1 fame and less than <span class=\"icon credits\">credits </span>20 000 , he loses 1 fame and gains <span class=\"icon credits\">credits </span>10 000",
     "Buy a <span class=\"icon ship\">ship card</span>. If unable a <span class=\"icon gear\">ship gear</span>"
   ],
   "encounter": [
     "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
     "b. Encounter a bounty target in this space (character, crew, faceup contact)",
-    "c. Spend 15 000 <span class=\"icon credits\">credits</span> to gain 2 fame"
+    "c. Spend <span class=\"icon credits\">credits </span>15 000 to gain 2 fame"
   ],
   "special": [
     "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."

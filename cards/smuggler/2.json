@@ -2,7 +2,7 @@
   "planning": [
     "a. Recover all <span class=\"icon damage\">damage</span>",
     "b. Move toward closest goal",
-    "c. Gain 2 000 <span class=\"icon credits\">credits</span>"
+    "c. Gain <span class=\"icon credits\">credits </span>2 000."
   ],
   "action": [
     "If at cargo destination, deliver it. If cargo is <strong>illegal</strong> <em>ship</em> suffers 2 <span class=\"icon damage\">damage</span>.",

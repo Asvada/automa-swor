@@ -2,16 +2,16 @@
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
     "b. Move toward a bounty target (character, crew, faceup/facedown contact)",
-    "c. Gain 2 000 <span class=\"icon credits\">credits</span>."
+    "c. Gain <span class=\"icon credits\">credits </span>2 000."
   ],
   "action": [
-    "Buy a <span class=\"icon ship\">ship card</span>. If unable <strong>and</strong> on a planet, discard the top card of the <span class=\"icon cargo\">cargo</span> market deck and gain 4 000 <span class=\"icon credits\">credits</span>"
+    "Buy a <span class=\"icon ship\">ship card</span>. If unable <strong>and</strong> on a planet, discard the top card of the <span class=\"icon cargo\">cargo</span> market deck and gain <span class=\"icon credits\">credits </span>4 000"
   ],
   "encounter": [
     "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
     "b. Encounter a patrol in this space that has <span class=\"icon ship_attack\">ship attack</span> less or equal to this player's <span class=\"icon ship_attack\">ship attack</span>.",
     "c. Encounter a bounty target in this space (character, crew, faceup contact)",
-    "d. Gain 4 000 <span class=\"icon credits\">credits</span>. Then, lose 1 reputation with this planet's faction (if any)."
+    "d. Gain <span class=\"icon credits\">credits </span>4 000. Then, lose 1 reputation with this planet's faction (if any)."
   ],
   "special": [
   ]

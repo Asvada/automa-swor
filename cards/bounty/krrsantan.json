@@ -2,7 +2,7 @@
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
     "b. Move toward a bounty target (character, crew, faceup/facedown contact)",
-    "c. Gain 2 000 <span class=\"icon credits\">credits</span>."
+    "c. Gain <span class=\"icon credits\">credits </span>2 000."
   ],
   "action": [
     "Recover 2 <span class=\"icon damage\">damage</span>.",
@@ -11,7 +11,7 @@
   "encounter": [
     "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
     "b. Encounter a bounty target in this space (character, crew, faceup contact)",
-    "c. Roll dice equal to Black Krrsantan's <span class=\"icon land_attack\">land attack</span>. For each <span class=\"icon hit\">hit</span> rolled, Black Krrsantan gains 2,000 <span class=\"icon credits\">credits</span> and suffers 1 <span class=\"icon damage\">damage</span>.\n"
+    "c. Roll dice equal to Black Krrsantan's <span class=\"icon land_attack\">land attack</span>. For each <span class=\"icon hit\">hit</span> rolled, Black Krrsantan gains <span class=\"icon credits\">credits </span>2,000 and suffers 1 <span class=\"icon damage\">damage</span>.\n"
   ],
   "special": [
     "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."

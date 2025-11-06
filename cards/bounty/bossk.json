@@ -3,7 +3,7 @@
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
     "b. Move toward nearest <strong>undefeated</strong> character, if Bossk can reach their space.",
     "c. Move toward a bounty target (character, crew, faceup/facedown contact)",
-    "d. Gain 2 000 <span class=\"icon credits\">credits</span>."
+    "d. Gain <span class=\"icon credits\">credits </span>2 000."
   ],
   "action": [
     "Recover all <span class=\"icon damage\">damage</span>."

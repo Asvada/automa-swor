@@ -1,8 +1,8 @@
 {
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-    "b. Move toward nearest goal. If Han Solo has a ship with cost of 15 000 <span class=\"icon credits\">credits</span> or more, ignore patrols during movement",
-    "c. Gain 2 000 <span class=\"icon credits\">credits</span>"
+    "b. Move toward nearest goal. If Han Solo has a ship with cost of <span class=\"icon credits\">credits </span>15&nbsp;000 or more, ignore patrols during movement",
+    "c. Gain <span class=\"icon credits\">credits </span>2 000."
   ],
   "action": [
     "If at cargo destination, deliver it.",
@@ -11,7 +11,7 @@
   "encounter": [
     "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
     "b. If at job destination, complete it.",
-    "c.  Gain 4 000 <span class=\"icon credits\">credits</span>. Then, lose 1 reputation with this planet's faction (if any)"
+    "c.  Gain <span class=\"icon credits\">credits </span>4 000. Then, lose 1 reputation with this planet's faction (if any)"
   ],
   "special": [
     "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."

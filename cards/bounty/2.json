@@ -2,7 +2,7 @@
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
     "b. Move toward a bounty target (character, crew, faceup/facedown contact)",
-    "c. Gain 2 000 <span class=\"icon credits\">credits</span>."
+    "c. Gain <span class=\"icon credits\">credits </span>2 000."
   ],
   "action": [
     "If <span class=\"icon bounty\">bounty</span> slots are full, buy a <span class=\"icon gear\">gear card</span>. Otherwise, buy a <span class=\"icon bounty\">bounty card</span>, even if at a navpoint"
@@ -11,7 +11,7 @@
     "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
     "b. Encounter a bounty target in this space (character, crew, faceup contact)",
     "c. Reveal the facedown contact of the lowest class on this planet.",
-    "d. Spend 8 000 <span class=\"icon credits\">credits</span> to gain 1 fame."
+    "d. Spend <span class=\"icon credits\">credits </span>8 000 to gain 1 fame."
   ],
   "special": [
     "If not all crew slots are full, gain the crew that matches a faceup contact of the lowest class on this planet for free."

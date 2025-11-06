@@ -246,7 +246,7 @@
 <script>
     const debug = false;
     const debugSpecial = false;
-    const version = '3.13'
+    const version = '3.14'
         +(debug?'&_='+Math.random():'');
     const useHumanCharacterImages = false;
     const useAiCharacterImages = false;
@@ -737,120 +737,6 @@
         return deck;
     }
 
-    // function describeCard(cardName, type) {
-    //     /**  type: "human" | "bounty" | "smuggler" */
-    //     let cardContent = {
-    //         "planning": '',
-    //         "action": '',
-    //         "encounter": '',
-    //         "special": ''
-    //     };
-    //
-    //     if (type === "human") {
-    //         cardContent.planning =
-    //             '<div class="phaseItem">' +
-    //             '<div class="phaseName">Planning step' +
-    //             '<div class="phaseHint"> - Choose <strong>only 1</strong></div>' +
-    //             '</div>' +
-    //             '<div class="phase1Element phaseElement">Move up to your ship\'s <span class="icon speed">speed</span></div>' +
-    //             '<div class="phase1Element phaseElement">Gain 2 000 <span class="icon credits">credits</span></div>' +
-    //             '<div class="phase1Element phaseElement">' +
-    //             'Recover all <span class="icon damage">damage</span> from character and ship' + '<br>' +
-    //             '<div style="padding-left: 30px;">' +
-    //             '<em>*(required if you are defeated)</em>:' + '<br>' +
-    //             ' · Pay 3 000 <span class="icon credits">credits</span>' + '<br>' +
-    //             ' · Lose all secrets' +
-    //             '</div>' +
-    //             '</div>' +
-    //             '<div class="phase1Element phaseElement">Play any "<strong>Planning</strong>" on Player, Ship or any other card in your hand</div>' +
-    //             '</div>';
-    //
-    //         cardContent.action =
-    //             '<div class="phaseItem multiplePhaseElements">' +
-    //             '<div class="phaseName">Action step' +
-    //             '<div class="phaseHint"> - Perform  <strong>any or all</strong></div>' +
-    //             '</div>' +
-    //             '<div class="phase2Element phaseElement">Deliver <span class="icon cargo">cargo</span> <strong>and</strong> <span class="icon bounty">bounties</span></div>' +
-    //             '<div class="phase2Element phaseElement">Market action (<strong>if on a planet</strong>)' +
-    //             '<div style="padding-left: 30px;">' +
-    //             '  ·  May discard ' + (gameMode === "base" ? 'a card' : 'up to 2 cards') + ' from top of a ' + (gameMode === "base" ? '' : '<strong>single</strong>') + ' market deck' + '<br>' +
-    //             '  ·  May buy top card of a market deck. Then, resolve patrol movement' + (gameMode === "base" ? '' : ' and reveal contact icons') + ' on next card, if any.' +
-    //             '</div>' +
-    //             '</div>' +
-    //             '<div class="phase2Element phaseElement">Trade cards with a player in your space</div>' +
-    //             '<div class="phase2Element phaseElement">Play any "<strong>Action</strong>" on Player, Ship or any other card in your hand</div>' +
-    //             '</div>' +
-    //             '';
-    //
-    //         cardContent.encounter =
-    //             '<div class="phaseItem">' +
-    //             '<div class="phaseName">Encounter step' +
-    //             '<div class="phaseHint"> - Choose <strong>only 1</strong></div>' +
-    //             '</div>' +
-    //             '<div class="phase3Element phaseElement">Fight a patrol (required if you have <span class="icon negative">negative</span> reputation with a patrol in your space)</div>' +
-    //             '<div class="phase3Element phaseElement">Resolve a space encounter card (Planet, Maelstrom, Navpoint' + (gameMode === "base" ? '' : ', Core Worlds') + ').</div>' +
-    //             '<div class="phase3Element phaseElement">Play any "<strong>Encounter</strong>" on Player, Ship or any other card in your hand</div>' +
-    //             '</div>' +
-    //             '';
-    //
-    //         cardContent.special = '';
-    //     } else {
-    //         // todo: text from cards
-    //         return true;
-    //         //ai
-    //         cardContent.planning =
-    //             '<div class="phaseItem">' +
-    //             '<div class="phaseName">Planning step' +
-    //             '<div class="phaseHint"> - Do <strong>the first</strong> that applies</div>' +
-    //             '</div>' +
-    //             '<div class="phase1Element phaseElement">todo</div>' +
-    //             '<div class="phase1Element phaseElement">todo</div>' +
-    //             '<div class="phase1Element phaseElement">todo</div>' +
-    //             '</div>' +
-    //             '';
-    //
-    //         cardContent.action =
-    //             '<div class="phaseItem multiplePhaseElements">' +
-    //             '<div class="phaseName">Action step' +
-    //             '<div class="phaseHint"> - Do  <strong>all</strong> that apply</div>' +
-    //             '</div>' +
-    //             '<div class="phase2Element phaseElement">todo</div>' +
-    //             '<div class="phase2Element phaseElement">todo</div>' +
-    //             '<div class="phase2Element phaseElement">todo</div>' +
-    //             '</div>' +
-    //             '';
-    //
-    //         cardContent.encounter =
-    //             '<div class="phaseItem">' +
-    //             '<div class="phaseName">Encounter step' +
-    //             '<div class="phaseHint"> - Do <strong>the first</strong> that applies</div>' +
-    //             '</div>' +
-    //             '<div class="phase3Element phaseElement">todo</div>' +
-    //             '<div class="phase3Element phaseElement">todo</div>' +
-    //             '<div class="phase3Element phaseElement">todo</div>' +
-    //             '</div>' +
-    //             '';
-    //
-    //         cardContent.special =
-    //             '<div class="phaseItem multiplePhaseElements">' +
-    //             '<div class="phaseName">Special </div>' +
-    //             '<div class="phase3Element phaseElement">todo</div>' +
-    //             '<div class="phase3Element phaseElement">todo</div>' +
-    //             '<div class="phase3Element phaseElement">todo</div>' +
-    //             '</div>';
-    //
-    //
-    //     }
-    //
-    //     const cardDisplay = document.querySelector('#cardDisplay');
-    //     let html = Object.values(cardContent)
-    //         .filter(value => value != null && value !== "")
-    //         .join('');
-    //     html = '<div class="phaseContainer">' + html + '</div>';
-    //     cardDisplay.insertAdjacentHTML('afterbegin', html);
-    //     attachPhaseElementListeners();
-    // }
-
     async function describeCard(cardName, type) {
         const player = players[currentPlayerIndex];
         /** type: "human" | "bounty" | "smuggler" */
@@ -865,12 +751,12 @@
                 '<div class="phaseHint"> - Choose <strong>only 1</strong></div>' +
                 '</div>' +
                 '<div class="phase1Element phaseElement">Move up to your ship\'s <span class="icon speed">speed</span></div>' +
-                '<div class="phase1Element phaseElement">Gain 2 000 <span class="icon credits">credits</span></div>' +
+                '<div class="phase1Element phaseElement">Gain <span class="icon credits">credits </span>2 000</div>' +
                 '<div class="phase1Element phaseElement">' +
                 'Recover all <span class="icon damage">damage</span> from character and ship' + '<br>' +
                 '<div style="padding-left: 30px;">' +
                 '<em>*(required if you are defeated)</em>:' + '<br>' +
-                ' · Pay 3 000 <span class="icon credits">credits</span>' + '<br>' +
+                ' · Pay <span class="icon credits">credits </span>3 000' + '<br>' +
                 ' · Lose all secret cards' +
                 '</div>' +
                 '</div>' +

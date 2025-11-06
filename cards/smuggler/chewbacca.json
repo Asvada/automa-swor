@@ -1,6 +1,6 @@
 {
   "planning": [
-    "a. Recover all <span class=\"icon damage\">damage</span>. Gain 1 000 <span class=\"icon credits\">credits</span> for each damage recovered this way.",
+    "a. Recover all <span class=\"icon damage\">damage</span>. Gain <span class=\"icon credits\">credits </span>1 000 for each damage recovered this way.",
     "b. Move toward nearest goal."
   ],
   "action": [

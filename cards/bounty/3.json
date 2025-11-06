@@ -2,7 +2,7 @@
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
     "b. Move toward a bounty target (character, crew, faceup/facedown contact)",
-    "c. Gain 2 000 <span class=\"icon credits\">credits</span>."
+    "c. Gain <span class=\"icon credits\">credits </span>2 000."
   ],
   "action": [
     "If <span class=\"icon bounty\">bounty</span> slots are full, discard this player's highest-class bounty that <strong>does not match</strong> a character, crew or faceup contact anywhere in the world.",

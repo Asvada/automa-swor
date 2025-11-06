@@ -2,7 +2,7 @@
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
     "b. Move toward nearest goal.",
-    "c. Gain 2 000 <span class=\"icon credits\">credits</span>"
+    "c. Gain <span class=\"icon credits\">credits </span>2 000."
   ],
   "action": [
     "Move 2 spaces toward nearest goal, ignoring patrols. If Hera Syndulla moves, her ship suffers 1 <span class=\"icon damage\">damage</span>.",

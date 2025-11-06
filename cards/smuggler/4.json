@@ -2,7 +2,7 @@
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>",
     "b. Move toward closest goal",
-    "c. Gain 2 000 <span class=\"icon credits\">credits</span>"
+    "c. Gain <span class=\"icon credits\">credits </span>2 000."
   ],
   "action": [
     "If at cargo destination, deliver it. If cargo is <strong>illegal</strong> <em>character</em> suffers 2 <span class=\"icon damage\">damage</span>.",
@@ -12,7 +12,7 @@
     "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
     "b. If at job destination, complete it.",
     "c. Reveal the lowest-rank contact token on your planet that is face-down, and gain this contact as a crew member for free.",
-    "d. Spend 8 000 <span class=\"icon credits\">credits</span> to gain 1 fame."
+    "d. Spend <span class=\"icon credits\">credits </span>8 000 to gain 1 fame."
   ],
   "special": [
   ]

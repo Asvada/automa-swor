@@ -9,8 +9,8 @@
   ],
   "encounter": [
     "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
-    "b. Spend 8 000 <span class=\"icon credits\">credits</span> to gain 1 fame.",
-    "c. Gain 4 000 <span class=\"icon credits\">credits</span>."
+    "b. Spend <span class=\"icon credits\">credits </span>8 000 to gain 1 fame.",
+    "c. Gain <span class=\"icon credits\">credits </span>4 000."
   ],
   "special": [
     "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."

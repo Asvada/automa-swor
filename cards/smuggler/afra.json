@@ -10,7 +10,7 @@
   ],
   "encounter": [
     "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
-    "b. Gain 1 000 <span class=\"icon credits\">credits</span> for each different skill Doctor Aphra and her crew have."
+    "b. Gain <span class=\"icon credits\">credits </span>1 000 for each different skill Doctor Aphra and her crew have."
   ],
   "special": [
     "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."

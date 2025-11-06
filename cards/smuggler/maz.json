@@ -2,11 +2,11 @@
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
     "b. Move toward nearest goal.",
-    "c. Gain 2 000 <span class=\"icon credits\">credits</span>"
+    "c. Gain <span class=\"icon credits\">credits </span>2 000"
   ],
   "action": [
     "If at cargo destination, deliver it.",
-    "If Maz can buy a <span class=\"icon luxury\">luxury card</span> - she additionally gains 1 fame. Otherwise, she gains 2 000 <span class=\"icon credits\">credits</span> for each of her crew."
+    "If Maz can buy a <span class=\"icon luxury\">luxury card</span> - she additionally gains 1 fame. Otherwise, she gains <span class=\"icon credits\">credits </span>2&nbsp;000 for each of her crew."
   ],
   "encounter": [
     "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",

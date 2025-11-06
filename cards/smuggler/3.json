@@ -2,7 +2,7 @@
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>",
     "b. Move toward closest goal",
-    "c. Gain 2 000 <span class=\"icon credits\">credits</span>"
+    "c. Gain <span class=\"icon credits\">credits </span>2 000."
   ],
   "action": [
     "If at cargo destination, deliver it. If cargo is <strong>illegal</strong> <em>character</em> suffers 2 <span class=\"icon damage\">damage</span>.",
@@ -10,8 +10,8 @@
   ],
   "encounter": [
     "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
-    "b. Spend 8 000 <span class=\"icon credits\">credits</span> to gain 1 fame.",
-    "c. Gain 4 000 <span class=\"icon credits\">credits</span>. Then lose 1 reputation with the faction of the nearest patrol."
+    "b. Spend <span class=\"icon credits\">credits </span>8 000 to gain 1 fame.",
+    "c. Gain <span class=\"icon credits\">credits </span>4 000. Then lose 1 reputation with the faction of the nearest patrol."
   ],
   "special": [
   ]
