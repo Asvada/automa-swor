@@ -155,6 +155,7 @@
         .phaseName {
             text-transform: uppercase;
             font-weight: bold;
+            padding-left: 15px;
         }
 
         .phaseHint {
@@ -163,9 +164,10 @@
         }
 
         .phaseElement {
-            padding-left: 5px;
+            padding-left: 20px;
             cursor: pointer;
             transition: all 0.2s;
+            text-indent: -20px;
         }
 
         /* Highlighted element */
@@ -187,7 +189,12 @@
 
         .phaseElement:before {
             content: "•";
-            margin-right: 2px;
+            margin-right: 5px;
+            margin-left: -5px;
+        }
+
+        .phaseElement * {
+            /*text-indent: -15px;*/
         }
 
         .icon{
@@ -246,7 +253,7 @@
 <script>
     const debug = false;
     const debugSpecial = false;
-    const version = '3.14'
+    const version = '3.15'
         +(debug?'&_='+Math.random():'');
     const useHumanCharacterImages = false;
     const useAiCharacterImages = false;
@@ -753,9 +760,11 @@
                 '<div class="phase1Element phaseElement">Move up to your ship\'s <span class="icon speed">speed</span></div>' +
                 '<div class="phase1Element phaseElement">Gain <span class="icon credits">credits </span>2 000</div>' +
                 '<div class="phase1Element phaseElement">' +
-                'Recover all <span class="icon damage">damage</span> from character and ship' + '<br>' +
+                'Recover all <span class="icon damage">damage</span> from character and ship' +
                 '<div style="padding-left: 30px;">' +
-                ' · Pay <span class="icon credits">credits </span>3 000 <em>(if defeated)</em>' + '<br>' +
+                ' · Pay <span class="icon credits">credits </span>3 000 <em>(if defeated)</em>' +
+                '</div>' +
+                '<div style="padding-left: 30px;">' +
                 ' · Lose all secret cards <em>(if defeated)</em>' +
                 '</div>' +
                 '</div>' +
@@ -769,10 +778,12 @@
                 '</div>' +
                 '<div class="phase2Element phaseElement">Deliver <span class="icon cargo">cargo</span> <strong>and</strong> <span class="icon bounty">bounties</span></div>' +
                 '<div class="phase2Element phaseElement">Market action (<strong>if on a planet</strong>)' +
-                '<div style="padding-left: 30px;">' +
-                '  ·  May discard ' + (gameMode === "base" ? 'a card' : 'up to 2 cards') + ' from top of a ' + (gameMode === "base" ? '' : '<strong>single</strong>') + ' market deck' + '<br>' +
-                '  ·  May buy top card of a market deck. Then, resolve patrol movement' + (gameMode === "base" ? '' : ' and reveal contact icons') + ' on next card, if any.' +
-                '</div>' +
+                    '<div style="padding-left: 30px;">' +
+                    '  ·  May discard ' + (gameMode === "base" ? 'a card' : 'up to 2 cards') + ' from top of a ' + (gameMode === "base" ? '' : '<strong>single</strong>') + ' market deck' +
+                    '</div>' +
+                    '<div style="padding-left: 30px;">' +
+                    '  ·  May buy top card of a market deck. Then, resolve patrol movement' + (gameMode === "base" ? '' : ' and reveal contact icons') + ' on next card, if any.' +
+                    '</div>' +
                 '</div>' +
                 '<div class="phase2Element phaseElement">Trade cards with a player in your space</div>' +
                 '<div class="phase2Element phaseElement">Play any "<strong>Action</strong>" on Player, Ship or any other card in your hand</div>' +
