@@ -257,7 +257,7 @@
 <script>
     const debug = false;
     const debugSpecial = false;
-    const version = '3.17'
+    const version = '3.18'
         +(debug?'&_='+Math.random():'');
     const useHumanCharacterImages = false;
     const useAiCharacterImages = false;
@@ -773,18 +773,18 @@ row3.style.color = player.personalGoalAchieved?'#4CFF4C':'white';
                 '<div class="phaseName">Planning step' +
                 '<div class="phaseHint"> - Choose <strong>only 1</strong></div>' +
                 '</div>' +
-                '<div class="phase1Element phaseElement">Move up to your ship\'s <span class="icon speed">speed</span></div>' +
-                '<div class="phase1Element phaseElement">Gain <span class="icon credits">credits </span>2 000</div>' +
+                '<div class="phase1Element phaseElement">Move up to your ship\'s <span class="icon speed">speed.</span></div>' +
+                '<div class="phase1Element phaseElement">Gain <span class="icon credits">credits </span>2&nbsp;000.</div>' +
                 '<div class="phase1Element phaseElement">' +
-                'Recover all <span class="icon damage">damage</span> from character and ship' +
+                'Recover all <span class="icon damage">damage</span> from character and ship.' +
                 '<div style="padding-left: 30px;">' +
-                ' · Pay <span class="icon credits">credits </span>3 000 <em>(if defeated)</em>' +
+                ' · Pay <span class="icon credits">credits </span>3 000 <em>(if defeated).</em>' +
                 '</div>' +
                 '<div style="padding-left: 30px;">' +
-                ' · Lose all secret cards <em>(if defeated)</em>' +
+                ' · Lose all secret cards <em>(if defeated).</em>' +
                 '</div>' +
                 '</div>' +
-                '<div class="phase1Element phaseElement">Play any "<strong>Planning</strong>" on Player, Ship or any other card in your hand</div>' +
+                '<div class="phase1Element phaseElement">Play any "<strong>Planning</strong>" on Player, Ship or any other card in your hand.</div>' +
                 '</div>';
 
             cardContent.action =
@@ -792,17 +792,17 @@ row3.style.color = player.personalGoalAchieved?'#4CFF4C':'white';
                 '<div class="phaseName">Action step' +
                 '<div class="phaseHint"> - Perform  <strong>any or all</strong></div>' +
                 '</div>' +
-                '<div class="phase2Element phaseElement">Deliver <span class="icon cargo">cargo</span> <strong>and</strong> <span class="icon bounty">bounties</span></div>' +
-                '<div class="phase2Element phaseElement">Market action (<strong>if on a planet</strong>)' +
+                '<div class="phase2Element phaseElement">Deliver <span class="icon cargo">cargo</span> <strong>and</strong> <span class="icon bounty">bounties</span>.</div>' +
+                '<div class="phase2Element phaseElement">Market action (<strong>if on a planet</strong>).' +
                     '<div style="padding-left: 30px;">' +
-                    '  ·  May discard ' + (gameMode === "base" ? 'a card' : 'up to 2 cards') + ' from top of a ' + (gameMode === "base" ? '' : '<strong>single</strong>') + ' market deck' +
+                    '  ·  May discard ' + (gameMode === "base" ? 'a card' : 'up to 2 cards') + ' from top of a ' + (gameMode === "base" ? '' : '<strong>single</strong>') + ' market deck.' +
                     '</div>' +
                     '<div style="padding-left: 30px;">' +
                     '  ·  May buy top card of a market deck. Then, resolve patrol movement' + (gameMode === "base" ? '' : ' and reveal contact icons') + ' on next card, if any.' +
                     '</div>' +
                 '</div>' +
-                '<div class="phase2Element phaseElement">Trade cards with a player in your space</div>' +
-                '<div class="phase2Element phaseElement">Play any "<strong>Action</strong>" on Player, Ship or any other card in your hand</div>' +
+                '<div class="phase2Element phaseElement">Trade cards with a player in your space.</div>' +
+                '<div class="phase2Element phaseElement">Play any "<strong>Action</strong>" on Player, Ship or any other card in your hand.</div>' +
                 '</div>';
 
             cardContent.encounter =
@@ -810,10 +810,10 @@ row3.style.color = player.personalGoalAchieved?'#4CFF4C':'white';
                 '<div class="phaseName">Encounter step' +
                 '<div class="phaseHint"> - Choose <strong>only 1</strong></div>' +
                 '</div>' +
-                '<div class="phase3Element phaseElement">Fight a patrol (required if you have <span class="icon negative">negative</span> reputation with a patrol in your space)</div>' +
+                '<div class="phase3Element phaseElement">Fight a patrol (required if you have <span class="icon negative">negative</span> reputation with a patrol in your space).</div>' +
                 '<div class="phase3Element phaseElement">Resolve a space encounter card (Planet, Maelstrom, Navpoint' + (gameMode === "base" ? '' : ', Core Worlds') + ').</div>' +
                 '<div class="phase3Element phaseElement">Encounter facedown contact (<strong>must</strong> resolve appropriate databank card) or fight faceup bounty contact.</div>' +
-                '<div class="phase3Element phaseElement">Play any "<strong>Encounter</strong>" on Player, Ship or any other card in your hand</div>' +
+                '<div class="phase3Element phaseElement">Play any "<strong>Encounter</strong>" on Player, Ship or any other card in your hand.</div>' +
                 '</div>';
 
             cardContent.special = '';
@@ -928,7 +928,7 @@ row3.style.color = player.personalGoalAchieved?'#4CFF4C':'white';
 
 
     document.title += ' v' + version;
-    document.getElementById("mainTitle").innerHTML += ' v' + version + (debug?'<span style="color:red">DEBUG</span>':'');
+    document.getElementById("mainTitle").innerHTML += ' v' + version + (debug?' <span style="color:red">DEBUG</span>':'');
 
 </script>
 </body>

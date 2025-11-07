@@ -2,10 +2,10 @@
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
     "b. Move toward nearest goal.",
-    "c. Gain <span class=\"icon credits\">credits </span>2 000."
+    "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
   ],
   "action": [
-    "Move 2 spaces toward nearest goal, ignoring patrols. If Hera Syndulla moves, her ship suffers 1 <span class=\"icon damage\">damage</span>.",
+    "Move 2 spaces toward nearest goal, ignoring patrols. If Hera moves, her ship suffers 1 <span class=\"icon damage\">damage</span>.",
     "If at cargo destination, deliver it.",
     "Buy a <span class=\"icon cargo\">cargo card</span> and place a goal token on card's destination."
   ],

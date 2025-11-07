@@ -2,16 +2,16 @@
   "planning": [
     "!. <strong>If IG-88 has at least 1 <span class=\"icon droid\">droid</span></strong> crew, do the FIRST 2 that apply.",
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-    "b. Move toward a bounty target (character, crew, faceup/facedown contact)",
-    "c. Gain <span class=\"icon credits\">credits </span>2 000 for each of IG-88's <span class=\"icon droid\">droid</span></strong> crew"
+    "b. Move toward a bounty target (character, crew, face-up/face-down contact).",
+    "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000 for each of IG-88's <span class=\"icon droid\">droid</span></strong> crew."
   ],
   "action": [
-    "Buy a <span class=\"icon ship\">ship card</span>. If unable - buy a <span class=\"icon gear\">ship gear</span>",
-    "Gain the crew matching the nearest faceup <span class=\"icon droid\">droid</span></strong> contact for free."
+    "Buy a <span class=\"icon ship\">ship card</span>. If unable - buy a <span class=\"icon gear\">ship gear</span>.",
+    "Gain the crew matching the nearest  <strong>face-up</strong> <span class=\"icon droid\">droid</span></strong> contact for free."
   ],
   "encounter": [
     "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
-    "b. Encounter a bounty target in this space (character, crew, faceup contact)"
+    "b. Encounter a bounty target in this space (character, crew, face-up contact)."
   ],
   "special": [
     "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."

@@ -1,16 +1,16 @@
 {
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-    "b. Move toward a bounty target (character, crew, faceup/facedown contact)",
-    "c. Gain <span class=\"icon credits\">credits </span>2 000."
+    "b. Move toward a bounty target (character, crew, face-up/face-down contact).",
+    "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
   ],
   "action": [
-    "If <span class=\"icon bounty\">bounty</span> slots are full, discard this player's highest-class bounty that <strong>does not match</strong> a character, crew or faceup contact anywhere in the world.",
-    "If not all <span class=\"icon bounty\">bounty</span> slots are full, reveal cards from a <span class=\"icon bounty\">bounty</span> market deck <strong>until</strong> a bounty that matches character, crew or faceup contact is revealed. Gain that bounty. Then shuffle the <span class=\"icon bounty\">bounty</span> market deck"
+    "If <span class=\"icon bounty\">bounty</span> slots are full, discard this player's highest-class bounty that <strong>does not match</strong> a character, crew or face-up contact anywhere in the world.",
+    "If not all <span class=\"icon bounty\">bounty</span> slots are full, reveal cards from a <span class=\"icon bounty\">bounty</span> market deck <strong>until</strong> a bounty that matches character, crew or face-up contact is revealed. Gain that bounty. Then shuffle the <span class=\"icon bounty\">bounty</span> market deck."
   ],
   "encounter": [
     "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
-    "b. Encounter a bounty target in this space (character, crew, faceup contact)"
+    "b. Encounter a bounty target in this space (character, crew, face-up contact)."
   ],
   "special": [
   ]

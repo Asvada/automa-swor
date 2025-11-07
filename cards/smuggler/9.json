@@ -1,8 +1,8 @@
 {
   "planning": [
-    "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>",
-    "b. Move toward closest goal",
-    "c. Gain <span class=\"icon credits\">credits </span>2 000."
+    "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+    "b. Move toward closest goal.",
+    "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
   ],
   "action": [
     "If at cargo destination, deliver it. If cargo is <strong>illegal</strong> <em>character</em> suffers 3 <span class=\"icon damage\">damage</span>.",
@@ -11,7 +11,7 @@
   "encounter": [
     "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
     "b. If at job destination, complete it.",
-    "c. Gain <span class=\"icon credits\">credits </span>4 000. Lose 1 reputation with tha faction of planet, you are on."
+    "c. Gain <span class=\"icon credits\">credits </span>4&nbsp;000. Lose 1 reputation with tha faction of planet, you are on."
   ],
   "special": [
   ]

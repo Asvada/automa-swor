@@ -5,12 +5,12 @@
     "c. Each other player (<strong>across all of the world</strong>) loses 1 reputation of their choice."
   ],
   "action": [
-    "Each other player in this space suffers 2 <span class=\"icon damage\">damage</span> on their <strong>character</strong> for each of their <span class=\"icon negative\">negative</span> reputations. If a character is defeated this way, Dengar gains 1 fame\n"
+    "Each other player in this space suffers 2 <span class=\"icon damage\">damage</span> on their <strong>character</strong> for each of their <span class=\"icon negative\">negative</span> reputations. If a character is defeated this way, Dengar gains 1 fame."
   ],
   "encounter": [
     "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
-    "b. Spend <span class=\"icon credits\">credits </span>8 000 to gain 1 fame.",
-    "c. Gain <span class=\"icon credits\">credits </span>4 000."
+    "b. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame.",
+    "c. Gain <span class=\"icon credits\">credits </span>4&nbsp;000."
   ],
   "special": [
     "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."

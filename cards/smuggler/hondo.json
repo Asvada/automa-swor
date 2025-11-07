@@ -1,12 +1,12 @@
 {
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-    "b. Move toward nearest other player, if Hondo Onaka careach their space.",
+    "b. Move toward nearest other player, if Hondo careach their space.",
     "c. Move towards nearest goal."
   ],
   "action": [
     "If at cargo destination, deliver it.",
-    "If there is another player in Hondo's space, discard the other player's cargo, gear or mod with the highest cost. Hondo gains <span class=\"icon credits\">credits</span> equal to its cost",
+    "If there is another player in Hondo's space, discard the other player's cargo, gear or mod with the highest cost. Hondo gains <span class=\"icon credits\">credits</span> equal to its cost.",
     "Buy a <span class=\"icon job\">job card</span> and place a goal token on card's destination."
   ],
   "encounter": [

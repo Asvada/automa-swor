@@ -1,8 +1,8 @@
 {
   "planning": [
-    "a. Recover all <span class=\"icon damage\">damage</span>",
-    "b. Move toward closest goal",
-    "c. Gain <span class=\"icon credits\">credits </span>2 000."
+    "a. Recover all <span class=\"icon damage\">damage</span>.",
+    "b. Move toward closest goal.",
+    "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
   ],
   "action": [
     "If at cargo destination, deliver it. If cargo is <strong>illegal</strong> <em>ship</em> suffers 2 <span class=\"icon damage\">damage</span>.",
@@ -11,7 +11,7 @@
   "encounter": [
     "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
     "b. If at job destination, complete it.",
-    "c. Reveal the lowest-rank contact token on your planet that is face-down, and gain this contact as a crew member for free."
+    "c. Reveal the <strong>lowest-rank</strong> <strong>face-down</strong> contact token on your planet, and gain this contact as a crew member for free."
   ],
   "special": [
   ]

@@ -2,7 +2,7 @@
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
     "b. Move toward nearest goal.",
-    "c. Gain <span class=\"icon credits\">credits </span>2 000."
+    "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
   ],
   "action": [
     "If at cargo destination, deliver it.",
@@ -11,7 +11,7 @@
   "encounter": [
     "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
     "b. If at job destination, complete it.",
-    "c. Spend <span class=\"icon credits\">credits </span>8 000 to gain 1 fame."
+    "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame."
   ],
   "special": [
     "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."

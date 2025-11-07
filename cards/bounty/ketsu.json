@@ -1,16 +1,16 @@
 {
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-    "b. Move toward a bounty target (character, crew, faceup/facedown contact)",
-    "c. Gain <span class=\"icon credits\">credits </span>2 000."
+    "b. Move toward a bounty target (character, crew, face-up/face-down contact).",
+    "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
   ],
   "action": [
-    "Buy a <span class=\"icon ship\">ship card</span>. If unable buy a <span class=\"icon bounty\">bounty card</span>, even if at a navpoint"
+    "Buy a <span class=\"icon ship\">ship card</span>. If unable buy a <span class=\"icon bounty\">bounty card</span>, even if at a navpoint."
   ],
   "encounter": [
     "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
     "b. Encounter a patrol within <strong>3 spaces</strong> that has <span class=\"icon ship_attack\">ship attack</span> less or equal to this player's <span class=\"icon ship_attack\">ship attack</span>.",
-    "c. Encounter a bounty target within <strong>3 spaces</strong> (character, crew, faceup contact)"
+    "c. Encounter a bounty target within <strong>3 spaces</strong> (character, crew, face-up contact)."
   ],
   "special": [
     "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
