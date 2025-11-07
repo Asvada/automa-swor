@@ -272,7 +272,7 @@
 <script>
     const debug = false;
     const debugSpecial = false;
-    const version = '3.19'
+    const version = '3.20'
         +(debug?'&_='+Math.random():'');
     const useHumanCharacterImages = false;
     const useAiCharacterImages = false;
@@ -801,7 +801,7 @@ row3.style.color = player.personalGoalAchieved?'#4CFF4C':'white';
                 ' · Lose all secret cards <em>(if defeated).</em>' +
                 '</div>' +
                 '</div>' +
-                '<div class="phase1Element phaseElement">Play any "<strong>Planning</strong>" on Player, Ship or any other card in your hand.</div>' +
+                '<div class="phase1Element phaseElement">Play any "<strong>Planning</strong>" on Player, Ship, Crew, Secret or any other card in your hand.</div>' +
                 '</div>';
 
             cardContent.action =
@@ -819,7 +819,7 @@ row3.style.color = player.personalGoalAchieved?'#4CFF4C':'white';
                     '</div>' +
                 '</div>' +
                 '<div class="phase2Element phaseElement">Trade cards with a player in your space.</div>' +
-                '<div class="phase2Element phaseElement">Play any "<strong>Action</strong>" on Player, Ship or any other card in your hand.</div>' +
+                '<div class="phase2Element phaseElement">Play any "<strong>Action</strong>" on Player, Ship, Crew, Cargo, Gear, Mod, Secret, Ambition or any other card in your hand.</div>' +
                 '</div>';
 
             cardContent.encounter =
@@ -830,7 +830,7 @@ row3.style.color = player.personalGoalAchieved?'#4CFF4C':'white';
                 '<div class="phase3Element phaseElement">Fight a patrol (required if you have <span class="icon negative">negative</span> reputation with a patrol in your space).</div>' +
                 '<div class="phase3Element phaseElement">Resolve a space encounter card (Planet, Maelstrom, Navpoint' + (gameMode === "base" ? '' : ', Core Worlds') + ').</div>' +
                 '<div class="phase3Element phaseElement">Encounter facedown contact (<strong>must</strong> resolve appropriate databank card) or fight faceup bounty contact.</div>' +
-                '<div class="phase3Element phaseElement">Play any "<strong>Encounter</strong>" on Player, Ship or any other card in your hand.</div>' +
+                '<div class="phase3Element phaseElement">Play any "<strong>Encounter</strong>" on Player, Ship, Crew, Secret, Ambition or any other card in your hand.</div>' +
                 '</div>';
 
             cardContent.special = '';
