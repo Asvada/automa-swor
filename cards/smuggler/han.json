@@ -1,7 +1,7 @@
 {
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-    "b. Move toward nearest goal. If Han has a ship with cost of <span class=\"icon credits\">credits </span>15&nbsp;000 or more, ignore patrols during movement.",
+    "b. Move toward nearest goal. If Han has a ship with cost of <span class=\"icon credits\">credits </span>15&nbsp;000 or more, ignore patrols during movement. If would stop on a navpoint and passed through a planet not more than 2 spaces - return to that planet. Do not stop on Maelstrom.",
     "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
   ],
   "action": [

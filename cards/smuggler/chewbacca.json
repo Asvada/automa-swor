@@ -1,7 +1,7 @@
 {
   "planning": [
     "a. Recover all <span class=\"icon damage\">damage</span>. Gain <span class=\"icon credits\">credits </span>1&nbsp;000 for each damage recovered this way.",
-    "b. Move toward nearest goal."
+    "b. Move toward closest goal. If would stop on a navpoint and passed through a planet not more than 2 spaces - return to that planet. Do not stop on Maelstrom."
   ],
   "action": [
     "If at cargo destination, deliver it. If cargo is <strong>illegal</strong> <em>ship</em> suffers 2 <span class=\"icon damage\">damage</span>.",

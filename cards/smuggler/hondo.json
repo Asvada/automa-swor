@@ -1,8 +1,8 @@
 {
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-    "b. Move toward nearest other player, if Hondo careach their space.",
-    "c. Move towards nearest goal."
+    "b. Move toward nearest other player, if Hondo careach their space. Do not stop on Maelstrom.",
+    "c. Move toward closest goal. If would stop on a navpoint and passed through a planet not more than 2 spaces - return to that planet. Do not stop on Maelstrom."
   ],
   "action": [
     "If at cargo destination, deliver it.",

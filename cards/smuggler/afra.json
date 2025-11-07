@@ -1,7 +1,7 @@
 {
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-    "b. Move toward nearest goal.",
+    "b. Move toward closest goal. If would stop on a navpoint and passed through a planet not more than 2 spaces - return to that planet. Do not stop on Maelstrom.",
     "c. Buy a <span class=\"icon ship\">ship card</span>. If unable, buy a <span class=\"icon gear\">gear card</span>."
   ],
   "action": [
