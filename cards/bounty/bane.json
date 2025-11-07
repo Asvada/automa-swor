@@ -6,7 +6,7 @@
   ],
   "action": [
     "If Bane has at least 1 fame and less than <span class=\"icon credits\">credits </span>20&nbsp;000 , he loses 1 fame and gains <span class=\"icon credits\">credits </span>10&nbsp;000.",
-    "Buy a <span class=\"icon ship\">ship card</span>. If unable a <span class=\"icon gear\">ship gear</span>."
+    "Buy a <span class=\"icon ship\">ship card</span>. If unable, buy a <span class=\"icon gear\">ship gear</span>."
   ],
   "encounter": [
     "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
