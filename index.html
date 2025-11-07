@@ -129,6 +129,21 @@
             line-height: 20px;
         }
 
+        .phaseContainer-human,
+        .phaseContainer-human * {
+            background-color: #cfd2d1;
+        }
+
+        .phaseContainer-bounty,
+        .phaseContainer-bounty * {
+            background-color: #e0c1c3;
+        }
+
+        .phaseContainer-smuggler,
+        .phaseContainer-smuggler * {
+            background-color: #deccdd;
+        }
+
         .phaseItem {
             position: relative; /* needed for absolute positioning of number */
             padding: 5px 5px 5px 30px; /* extra left padding for the number */
@@ -257,7 +272,7 @@
 <script>
     const debug = false;
     const debugSpecial = false;
-    const version = '3.18'
+    const version = '3.19'
         +(debug?'&_='+Math.random():'');
     const useHumanCharacterImages = false;
     const useAiCharacterImages = false;
@@ -586,6 +601,8 @@
 
         if (player.type === "human") {
             cardType = 'human';
+
+
             if (useHumanCharacterImages) {
                 const row1 = document.createElement("div");
                 row1.style.display = "flex";
@@ -849,7 +866,7 @@ row3.style.color = player.personalGoalAchieved?'#4CFF4C':'white';
 
         // Insert HTML into cardDisplay
         const html = Object.values(cardContent).filter(v => v).join('');
-        cardDisplay.insertAdjacentHTML('afterbegin', `<div class="phaseContainer">${html}</div>`);
+        cardDisplay.insertAdjacentHTML('afterbegin', `<div class="phaseContainer phaseContainer-${type}">${html}</div>`);
         attachPhaseElementListeners();
         replaceIconsWithImages();
 
