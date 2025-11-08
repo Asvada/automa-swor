@@ -272,7 +272,7 @@
 <script>
     const debug = false;
     const debugSpecial = false;
-    const version = '3.21'
+    const version = '3.22'
         +(debug?'&_='+Math.random():'');
     const useHumanCharacterImages = false;
     const useAiCharacterImages = false;
@@ -336,7 +336,8 @@
             const date = new Date(saved.savedAt).toLocaleString();
             const promptDiv = document.createElement('div');
             promptDiv.style.position = 'fixed';
-            promptDiv.style.top = '20px';
+            promptDiv.style.top = '80px';
+            promptDiv.style.width = '85%';
             promptDiv.style.left = '50%';
             promptDiv.style.transform = 'translateX(-50%)';
             promptDiv.style.background = '#eee';
@@ -345,7 +346,7 @@
             promptDiv.style.zIndex = 1000;
             promptDiv.style.textAlign = 'center';
             promptDiv.innerHTML = `
-                <div style="color: #111111">Continue saved game from <strong>${date}</strong>?</div>
+                <div style="color: #111111">Continue saved game from <br><strong>${date}</strong> ?</div>
                 <div style="margin-top:10px;">
                     <button id="continueGame">Continue</button>
                     <button id="newGame">New Game</button>
