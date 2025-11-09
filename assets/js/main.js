@@ -1,0 +1,824 @@
+$('document').ready(function () {
+
+    let minPlayers = 1;
+    const characters = [
+        {name: "Cad Bane", origin: "expansion", type: "bounty", image: "bane.png", id: "bane"},
+        {name: "Boba Fett", origin: "base", type: "bounty", image: "boba.png", id: "boba"},
+        {name: "Bossk", origin: "base", type: "bounty", image: "bossk.png", id: "bossk"},
+        {name: "Dengar", origin: "expansion", type: "bounty", image: "dengar.png", id: "dengar"},
+        {name: "IG-88", origin: "base", type: "bounty", image: "ig88.png", id: "ig88"},
+        {name: "Ketsu Onio", origin: "base", type: "bounty", image: "ketsu.png", id: "ketsu"},
+        {name: "Black Krrsantan", origin: "expansion", type: "bounty", image: "krrsantan.png", id: "krrsantan"},
+        {name: "Doctor Aphra", origin: "base", type: "smuggler", image: "afra.png", id: "afra"},
+        {name: "Chewbacca", origin: "expansion", type: "smuggler", image: "chewbacca.png", id: "chewbacca"},
+        {name: "Enfys Nest", origin: "expansion", type: "smuggler", image: "enfys.png", id: "enfys"},
+        {name: "Jyn Erso", origin: "base", type: "smuggler", image: "erso.png", id: "erso"},
+        {name: "Han Solo", origin: "base", type: "smuggler", image: "han.png", id: "han"},
+        {name: "Hera Syndulla", origin: "expansion", type: "smuggler", image: "hera.png", id: "hera"},
+        {name: "Hondo Ohnaka", origin: "expansion", type: "smuggler", image: "hondo.png", id: "hondo"},
+        {name: "Lando Calrissian", origin: "base", type: "smuggler", image: "lando.png", id: "lando"},
+        {name: "Maz Kanata", origin: "expansion", type: "smuggler", image: "maz.png", id: "maz"}
+    ];
+
+    let players = [];
+    let usedCharacters = [];
+    let currentPlayerIndex = 0;
+    let playerCounter = 1;
+    let gameMode = 'expansion';
+    let aiDecks = {};
+    let aiHistory = {};
+
+
+
+    const saved = loadGameState();
+
+    if (saved) {
+        const date = new Date(saved.savedAt).toLocaleString();
+
+        const $promptDiv = $('<div>', {
+            css: {
+                position: 'fixed',
+                top: '80px',
+                width: '85%',
+                maxWidth: '400px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                background: '#eee',
+                border: '2px solid #666',
+                padding: '15px',
+                zIndex: 1000,
+                textAlign: 'center'
+            },
+            html: `
+                <div style="color: #111111">
+                    Continue saved game from <br><strong>${date}</strong> ?
+                </div>
+                <div style="margin-top:10px;">
+                    <button id="continueGame">Continue</button>
+                    <button id="newGame">New Game</button>
+                    <button id="fullscreen">Go Fullscreen</button>
+                </div>`
+        });
+
+        $('body').append($promptDiv);
+
+        $('#fullscreen').on('click', function() {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { // Safari/Chrome on iOS
+                elem.webkitRequestFullscreen();
+            }
+        });
+
+        $('#continueGame').on('click', function() {
+            $promptDiv.remove();
+            restoreGame(saved);
+        });
+
+        $('#newGame').on('click', function() {
+            clearGameState();
+            $promptDiv.remove();
+            startNewGame();
+        });
+
+    } else {
+        startNewGame();
+    }
+
+
+    function saveGameState() {
+        const data = {
+            players,
+            usedCharacters,
+            currentPlayerIndex,
+            playerCounter,
+            gameMode,
+            aiDecks,
+            aiHistory,
+            savedAt: new Date().toISOString()
+        };
+        localStorage.setItem('gameSave', JSON.stringify(data));
+    }
+
+    function loadGameState() {
+        const saved = localStorage.getItem('gameSave');
+        return saved ? JSON.parse(saved) : null;
+    }
+
+    function clearGameState() {
+        localStorage.removeItem('gameSave');
+    }
+
+
+    function restoreGame(saved) {
+        players = saved.players || [];
+        usedCharacters = saved.usedCharacters || [];
+        currentPlayerIndex = saved.currentPlayerIndex || 0;
+        playerCounter = saved.playerCounter || 1;
+        gameMode = saved.gameMode || 'expansion';
+        aiDecks = saved.aiDecks || {};
+        aiHistory = saved.aiHistory || {};
+
+        document.getElementById('step1').classList.add("hidden");
+        document.getElementById('step2').classList.add("hidden");
+        document.getElementById('gameStep').classList.remove("hidden");
+        document.getElementById('mainTitle').classList.add("hidden");
+        showTurn();
+    }
+
+    function startNewGame() {
+        document.getElementById('step1').classList.remove("hidden");
+        document.getElementById('step2').classList.add("hidden");
+        document.getElementById('gameStep').classList.add("hidden");
+    }
+
+    const addAnotherBtn = document.getElementById("addAnother");
+    const mainTitle = document.getElementById("mainTitle");
+    const container = document.getElementById("container");
+
+    document.getElementById("nextToPlayers").addEventListener("click", () => {
+        gameMode = document.getElementById("gameMode").value;
+        populateCharacterDropdown();
+        populateColorDropdown();
+        document.getElementById("step1").classList.add("hidden");
+        document.getElementById("step2").classList.remove("hidden");
+        updatePlayerForm();
+    });
+
+    function populateCharacterDropdown() {
+        const select = document.getElementById("playerCharacter");
+        select.innerHTML = "";
+        const emptyOption = document.createElement("option");
+        emptyOption.value = "";
+        emptyOption.textContent = "-- Select Character --";
+        emptyOption.disabled = true;
+        emptyOption.selected = true;
+        select.appendChild(emptyOption);
+
+        const type = document.getElementById("playerType").value;
+        const allowed = characters.filter(c => !usedCharacters.includes(c.name) && (gameMode === "expansion" || c.origin === "base"));
+        const smugglers = allowed.filter(c => c.type === "smuggler").sort((a, b) => a.name.localeCompare(b.name));
+        const bounty = allowed.filter(c => c.type === "bounty").sort((a, b) => a.name.localeCompare(b.name));
+
+        if (smugglers.length > 0) {
+            const group = document.createElement("optgroup");
+            group.label = "Smugglers";
+            smugglers.forEach(c => {
+                const opt = document.createElement("option");
+                opt.value = c.name;
+                opt.textContent = `${c.name} (${c.origin[0]})`;
+                group.appendChild(opt);
+            });
+            select.appendChild(group);
+        }
+        if (type === "ai" && gameMode === "base") bounty.length = 0;
+        if (bounty.length > 0) {
+            const group = document.createElement("optgroup");
+            group.label = "Bounty Hunters";
+            bounty.forEach(c => {
+                const opt = document.createElement("option");
+                opt.value = c.name;
+                opt.textContent = `${c.name} (${c.origin[0]})`;
+                group.appendChild(opt);
+            });
+            select.appendChild(group);
+        }
+    }
+
+    function populateColorDropdown() {
+        const colorSelect = document.getElementById("playerColor");
+        colorSelect.innerHTML = "";
+        const availableColors = [
+            {value: "#FF4C4C", name: "Red"},
+            {value: "#4C9EFF", name: "Blue"},
+            {value: "#4CFF4C", name: "Green"},
+            {value: "#FFD74C", name: "Yellow"}
+        ];
+
+        if (maxPlayers > availableColors.length) {
+            const needed = maxPlayers - availableColors.length;
+
+            for (let i = 0; i < needed; i++) {
+                // generate a random hex color
+                const randomColor = '#' + Math.floor(Math.random() * 0xFFFFFF)
+                    .toString(16)
+                    .padStart(6, '0')
+                    .toUpperCase();
+
+                // give it a simple name (e.g., "Color 5")
+                availableColors.push({
+                    value: randomColor,
+                    name: `Color ${availableColors.length + 1}`
+                });
+            }
+        }
+
+        availableColors
+            .filter(c => !players.map(p => p.color).includes(c.value))
+            .forEach(c => {
+                const opt = document.createElement("option");
+                opt.value = c.value;
+                opt.textContent = c.name;
+                colorSelect.appendChild(opt);
+            });
+    }
+
+    document.getElementById("playerType").addEventListener("change", updatePlayerForm);
+
+    function updatePlayerForm() {
+        const type = document.getElementById("playerType").value;
+        const nickname = document.getElementById("playerNickname");
+        nickname.placeholder = type === "ai" ? "AI " + playerCounter : "Player " + playerCounter;
+        nickname.value = type === "ai" ? "" : "Player " + playerCounter;
+        populateCharacterDropdown();
+        populateColorDropdown();
+        toggleAddButton();
+        const playerNo = document.getElementById("playerNumber");
+        playerNo.innerHTML = players.length + 1;
+    }
+
+    function toggleAddButton() {
+        addAnotherBtn.style.display = players.length >= maxPlayers - 1 ? "none" : "inline-block";
+    }
+
+    addAnotherBtn.addEventListener("click", () => {
+        if (players.length >= maxPlayers) return;
+        if (!addPlayerFromForm()) return;
+        playerCounter++;
+        updatePlayerForm();
+    });
+
+    document.getElementById("goToGame").addEventListener("click", () => {
+        if (!addPlayerFromForm()) return;
+        if (!hasMinimumPlayers()) {
+            showError("At least " + minPlayers + " players are required!");
+            return;
+        }
+        startGame();
+    });
+
+    function addPlayerFromForm() {
+        clearError();
+        const type = document.getElementById("playerType").value;
+        const nickname = document.getElementById("playerNickname").value.trim() || document.getElementById("playerNickname").placeholder;
+        const charName = document.getElementById("playerCharacter").value;
+        const color = document.getElementById("playerColor").value;
+        if (!charName) {
+            showError("Please select a character!");
+            return false;
+        }
+        if (!color) {
+            showError("Please select a color!");
+            return false;
+        }
+
+        const charObj = characters.find(c => c.name === charName);
+        usedCharacters.push(charObj.name);
+        players.push({type, nickname, character: charObj, color, personalGoalAchieved: false, currentCardIndex: 0});
+
+        if (type === "ai") {
+            let deck = shuffleAiDeck(charObj.type);
+            aiDecks[nickname] = deck;
+            console.log(`AI ${nickname} initial deck:`, deck);
+        }
+
+        toggleAddButton();
+        return true;
+    }
+
+    function hasMinimumPlayers() {
+        return players.length >= minPlayers; // minimal requirement
+    }
+
+    document.getElementById("backPlayer").addEventListener("click", () => {
+        if (players.length === 0) {
+            document.getElementById("step2").classList.add("hidden");
+            document.getElementById("step1").classList.remove("hidden");
+            return;
+        }
+        const last = players.pop();
+        usedCharacters = usedCharacters.filter(c => c !== last.character.name);
+        playerCounter = players.length + 1;
+        updatePlayerForm();
+        toggleAddButton();
+    });
+
+    function showHelp() {
+        const helpButton = $("#helpButton");
+        helpButton.show();
+
+
+        helpButton.off('click').on("click", handleHelpClick);
+
+        function handleHelpClick() {
+            const hidePhaseContainer = false;
+            const cardDisplay = $("#cardDisplay");
+            const phaseContainer = $("#phaseContainer");
+            const prevScreen = $("#helpScreen");
+
+            if ($(prevScreen).is(':visible')) {
+                $(prevScreen).remove();
+                if (hidePhaseContainer)
+                {
+                    $(phaseContainer).show();
+                }
+
+                return true;
+            }
+            if (hidePhaseContainer)
+            {
+                $(phaseContainer).hide();
+            }
+            const player = players[currentPlayerIndex];
+
+            console.log(player);
+
+            const promptDiv = document.createElement('div');
+            promptDiv.id = 'helpScreen';
+            promptDiv.className = 'helpScreen';
+            // promptDiv.style.position = 'fixed';
+            // promptDiv.style.top = '40px';
+            // promptDiv.style.width = '100%';
+            // promptDiv.style.maxWidth = '400px';
+            // promptDiv.style.height = '100%';
+            // promptDiv.style.left = '50%';
+            // promptDiv.style.transform = 'translateX(-50%)';
+            promptDiv.style.border = '2px solid #666';
+            promptDiv.style.margin = '0px 0px 30px 0px';
+            // promptDiv.style.zIndex = 1000;
+            // promptDiv.style.textAlign = 'center';
+            let content = '';
+            content +=
+                '<div class="phaseItem">' +
+                '<div class="phaseName">Player Bounty Rewards' + '</div>' +
+                '<div class="phaseElement">Instead of gaining rewards from a bounty card  matching a player\'s character, do the following: ' +
+                '<div style="padding-left: 30px"> · Gain <span class=\"icon credits\">credits</span>5&nbsp;000 and 1 fame.</div>' +
+                '<div style="padding-left: 30px"> · Gain 1 reputation with 1  faction of your choice with which that player has <span class=\"icon negative\">negative</span> reputation.</div>' +
+                '<div style="padding-left: 30px"> · Lose 1 reputation with 1 faction of your choice with which that player has <span class=\"icon positive\">positive</span> repoutation.</div>' +
+                '</div>' +
+                '</div>';
+
+            if (player.type === "human"){
+                content +=
+                    '<div class="phaseItem">' +
+                    '<div class="phaseName">Перевірка майстерності' + '</div>' +
+                    '<div class="phaseElement">Подивись, скільки разів у тебе вказано' +
+                    'навичку, яку перевіряєш. Кинь <strong>2 кубики</strong>.' +
+                    'Дпя успіху потрібно, щоб випав <strong>хоча б 1</strong> відповідний результат.' +
+                    '<div style="padding-left: 30px"> · <strong>Падаван</strong>: <span class=\"icon crit\">crit</span> (навички немає).</div>' +
+                    '<div style="padding-left: 30px"> · <strong>Джедай</strong>: <span class=\"icon crit\">crit</span> або <span class=\"icon hit\">hit</span> (навичку вказано 1 раз на Герої чи Екпажі).</div>' +
+                    '<div style="padding-left: 30px"> · <strong>Магістр</strong>: <span class=\"icon crit\">crit</span>, <span class=\"icon hit\">hit</span> або <span class=\"icon focus\">focus</span> (навичку вказано більше 1 разу на Герої чи Екпажі).</div>' +
+                    '</div>' +
+                    '</div>';
+                content +=
+                    '<div class="phaseItem">' +
+                    '<div class="phaseName">Де Здобути славу' + '</div>' +
+                    '<div class="phaseElement">Персональна мета.</div>' +
+                    '<div class="phaseElement">Мета корабля.</div>' +
+                    '<div class="phaseElement">Розшуки.</div>' +
+                    '<div class="phaseElement">Халтурки.</div>' +
+                    '<div class="phaseElement">Доставка <strong>протизаконних</strong> вантажів.</div>' +
+                    '<div class="phaseElement">Перемога над патрулями 2 і 3 рівнів.</div>' +
+                    '<div class="phaseElement">Карти з <span class=\"icon luxury\">luxury</span> колоди ринку.</div>' +
+                    '</div>';
+                content +=
+                    '<div class="phaseItem">' +
+                    '<div class="phaseName">Favors' +
+                    '<div class="phaseHint"> <br>Player can request the following favors from another player (in any space):</div>'
+                    + '</div>' +
+                    '<div class="phaseElement">Advice: Gain 1 of that <strong>player\'s skills</strong> for 1 skill test.</div>' +
+                    '<div class="phaseElement">Combat Strategy: Roll <strong>1 additional die</strong> during a combat.</div>' +
+                    '<div class="phaseElement">Endorsement: Gain 1 of that player\'s <span class=\"icon positive\">positive</span> <strong>reputations</strong> until end of turn.</div>' +
+                    '<div class="phaseElement">Shortcut: Gain +1 <span class=\"icon speed\">speed</span> until end of turn  reputations until end of turn.</div>' +
+                    '</div>';
+
+
+            } else {
+            }
+
+
+            promptDiv.innerHTML = content;
+
+            $(promptDiv).on("click", () => {
+                $(promptDiv).remove();
+                if (hidePhaseContainer)
+                {
+                    $(phaseContainer).show();
+                }
+            });
+            console.log('cardContent:', promptDiv);
+
+            cardDisplay.prepend(promptDiv);
+            replaceIconsWithImages();
+
+
+        }
+
+    }
+
+    function hideHelpButton() {
+        $('#helpButton').hide();
+    }
+
+    function startGame() {
+        document.getElementById("step1").classList.add("hidden");
+        document.getElementById("step2").classList.add("hidden");
+        mainTitle.classList.add("hidden");
+        container.style.padding = "5px";
+        currentPlayerIndex = 0;
+        document.getElementById("gameStep").classList.remove("hidden");
+        players.forEach(p => {
+            if (p.type === "ai") aiHistory[p.nickname] = [];
+        });
+        showTurn();
+    }
+
+    function showTurn() {
+        const player = players[currentPlayerIndex];
+        const header = document.getElementById("turnHeader");
+        const cardDisplay = document.getElementById("cardDisplay");
+        cardDisplay.innerHTML = "";
+        let cardName = "";
+        let cardType = "";
+
+        if (player.type === "human") {
+            cardType = 'human';
+
+
+            if (useHumanCharacterImages) {
+                const row1 = document.createElement("div");
+                row1.style.display = "flex";
+                row1.className = "phaseImage";
+                row1.style.justifyContent = "center";
+                row1.style.gap = "10px";
+                const cardFile = gameMode === "base" ? "base a.png" : "expansion a.png";
+                const img = document.createElement("img");
+                img.src = `./images/player/${cardFile}?${version}`;
+                img.addEventListener("click", () => {
+                    const filename = new URL(img.src).pathname.split('/').pop();
+                    const prefix = filename.slice(0, -5);
+                    const suffix = filename.match(/([a-zA-Z])\.png$/)?.[1];
+                    img.src = `./images/player/${prefix}${suffix == "a" ? "b" : "a"}.png?${version}`;
+                });
+                row1.appendChild(img);
+                cardDisplay.appendChild(row1);
+            }
+
+            const row2 = document.createElement("div");
+            row2.className = 'cardFooter';
+
+            const backBtn = document.createElement("button");
+            backBtn.textContent = "Back";
+            backBtn.className = "backCard";
+            backBtn.onclick = () => {
+                currentPlayerIndex = (currentPlayerIndex - 1 + players.length) % players.length;
+                const player = players[currentPlayerIndex];
+                if (player.type === "ai") {
+                    player.currentCardIndex = Math.max(0, player.currentCardIndex - 1);
+                }
+                showTurn();
+            }
+            row2.appendChild(backBtn);
+            const nextBtn = document.createElement("button");
+            nextBtn.textContent = "Next Card";
+            nextBtn.className = "nextCard";
+            nextBtn.onclick = () => {
+                currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+                showTurn();
+            };
+            row2.appendChild(nextBtn);
+            cardDisplay.appendChild(row2);
+
+            const row3 = document.createElement("div");
+            row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
+            row3.className = "personalGoalText";
+            row3.style.color = player.personalGoalAchieved ? '#4CFF4C' : 'white';
+            cardDisplay.appendChild(row3);
+
+            const row4 = document.createElement("div");
+            const charImg = document.createElement("img");
+            const [name, ext] = player.character.image.split(".");
+            charImg.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}?${version}`;
+            charImg.addEventListener("click", () => {
+                player.personalGoalAchieved = !player.personalGoalAchieved;
+                charImg.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}?${version}`;
+                row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
+                row3.style.color = player.personalGoalAchieved ? '#4CFF4C' : 'white';
+            });
+            row4.appendChild(charImg);
+            cardDisplay.appendChild(row4);
+
+            header.innerHTML = `<span class="turnHeaderHint">${player.nickname}</span>&nbsp;${player.character.name}`;
+            header.style.color = player.color;
+
+        } else {
+            cardType = player.character.type === "smuggler" ? "smuggler" : "bounty";
+            let deck = aiDecks[player.nickname];
+            if (!deck || deck.length === 0) {
+                aiDecks[player.nickname] = deck = shuffleAiDeck(player.character.type);
+            }
+            if (!aiHistory[player.nickname]) aiHistory[player.nickname] = [];
+
+            aiDecks[player.nickname] = deck;
+
+            let card;
+            if (player.currentCardIndex < aiHistory[player.nickname].length) {
+                console.log('using card from history');
+                card = aiHistory[player.nickname][player.currentCardIndex];
+            } else {
+                console.log('drawing new card from deck');
+
+                let availableDeck = deck.slice();
+
+                const lastCard = aiHistory[player.nickname].length ? aiHistory[player.nickname][aiHistory[player.nickname].length - 1] : null;
+                if (lastCard === "special") {
+                    availableDeck = availableDeck.filter(c => c !== "special");
+                    if (!availableDeck.length) availableDeck = deck.slice();
+                }
+
+                card = availableDeck.shift();
+                const idx = deck.indexOf(card);
+                if (idx > -1) deck.splice(idx, 1);
+
+                aiHistory[player.nickname].push(card);
+
+                if (card === "special" || card == 10) {
+                    aiDecks[player.nickname] = shuffleAiDeck(player.character.type);
+                    console.log(`AI ${player.nickname} reshuffled deck after special:`, aiDecks[player.nickname]);
+                }
+            }
+
+            console.log(`AI ${player.nickname} played card: ${card}, remaining deck:`, deck);
+
+            const cardImg = document.createElement("img");
+            cardName = card;
+
+            let headerMarker = "";
+            if (player.currentCardIndex === aiHistory[player.nickname].length - 1 && aiDecks[player.nickname].justShuffled) {
+                headerMarker = ' <span class="turnHeaderHint" title="Deck shuffled">↻</span>';
+                aiDecks[player.nickname].justShuffled = false;
+            } else if (player.currentCardIndex < aiHistory[player.nickname].length - 1) {
+                const depth = aiHistory[player.nickname].length - player.currentCardIndex - 1;
+                headerMarker = ` <span class="turnHeaderHint" title="History depth">-${depth}</span>`;
+            }
+
+            if (card === "special") {
+                const dir = player.character.type === "smuggler" ? "smuggler" : "bounty";
+                cardImg.src = `./images/${dir}/${player.character.image}?${version}`;
+                header.innerHTML = `<span class="turnHeaderHint">AI</span>&nbsp;${player.character.name} #special${headerMarker}`;
+            } else {
+                const dir = player.character.type === "smuggler" ? "smuggler" : "bounty";
+                cardImg.src = `./images/${dir}/${card}.png?${version}`;
+                header.innerHTML = `<span class="turnHeaderHint">AI</span>&nbsp;${player.character.name} #${card}${headerMarker}`;
+            }
+
+            if (useAiCharacterImages) {
+                const row0 = document.createElement("div");
+                cardImg.style.maxHeight = "75vh";
+                row0.appendChild(cardImg);
+                cardDisplay.appendChild(row0);
+            }
+
+            const row2 = document.createElement("div");
+            row2.className = 'cardFooter';
+
+            const backBtn = document.createElement("button");
+            backBtn.textContent = "Back";
+            backBtn.className = "backCard";
+            backBtn.onclick = () => {
+                currentPlayerIndex = (currentPlayerIndex - 1 + players.length) % players.length;
+                const player = players[currentPlayerIndex];
+                if (player.type === "ai") {
+                    player.currentCardIndex = Math.max(0, player.currentCardIndex - 1);
+                }
+                showTurn();
+            }
+
+            row2.appendChild(backBtn);
+
+
+            const nextBtn = document.createElement("button");
+            nextBtn.textContent = "Next Card";
+            nextBtn.className = "nextCard";
+            nextBtn.onclick = () => {
+                const player = players[currentPlayerIndex];
+                if (player.type === "ai") {
+                    player.currentCardIndex++;
+                    if (aiDecks[player.nickname].length === 0) {
+                        aiDecks[player.nickname] = shuffleAiDeck(player.character.type);
+                        console.log(`AI ${player.nickname} reshuffled deck:`, aiDecks[player.nickname]);
+                    }
+                }
+                currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+                showTurn();
+            };
+            row2.appendChild(nextBtn);
+            cardDisplay.appendChild(row2);
+
+            const row3 = document.createElement("div");
+            row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
+            row3.className = "personalGoalText";
+            row3.style.color = player.personalGoalAchieved ? '#4CFF4C' : 'white';
+            cardDisplay.appendChild(row3);
+
+            const row4 = document.createElement("div");
+            const charImg2 = document.createElement("img");
+            const [name, ext] = player.character.image.split(".");
+            charImg2.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}?${version}`;
+            charImg2.addEventListener("click", () => {
+                player.personalGoalAchieved = !player.personalGoalAchieved;
+                charImg2.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}?${version}`;
+                row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
+                row3.style.color = player.personalGoalAchieved ? '#4CFF4C' : 'white';
+            });
+            row4.appendChild(charImg2);
+            cardDisplay.appendChild(row4);
+
+            header.style.color = player.color;
+        }
+
+        describeCard(cardName, cardType);
+        saveGameState();
+    }
+
+    function shuffleAiDeck(characterType) {
+        let deck = characterType === "smuggler"
+            ? (gameMode === "base" ? shuffleArray([...Array(10).keys()].map(n => n + 1)) : shuffleArray([1, 2, 6, 7, 9, "special"]))
+            : (gameMode === "base" ? shuffleArray([1, 2, 3, 4, 5]) : shuffleArray([1, 2, 3, 4, 5, "special"]));
+        deck.justShuffled = true;
+        return deck;
+    }
+
+    async function describeCard(cardName, type) {
+        hideHelpButton();
+        const player = players[currentPlayerIndex];
+        /** type: "human" | "bounty" | "smuggler" */
+        const cardDisplay = document.querySelector('#cardDisplay');
+        let cardContent = {planning: '', action: '', encounter: '', special: ''};
+
+        if (type === "human") {
+            // Preserve canonical human card content exactly
+            cardContent.planning =
+                '<div class="phaseItem">' +
+                '<div class="phaseName">Planning step' +
+                '<div class="phaseHint"> - Choose <strong>only 1</strong></div>' +
+                '</div>' +
+                '<div class="phase1Element phaseElement">Move up to your ship\'s <span class="icon speed">speed.</span></div>' +
+                '<div class="phase1Element phaseElement">Gain <span class="icon credits">credits </span>2&nbsp;000.</div>' +
+                '<div class="phase1Element phaseElement">' +
+                'Recover all <span class="icon damage">damage</span> from character and ship.' +
+                '<div style="padding-left: 30px;">' +
+                ' · Pay <span class="icon credits">credits </span>3 000 <em>(if defeated).</em>' +
+                '</div>' +
+                '<div style="padding-left: 30px;">' +
+                ' · Lose all secret cards <em>(if defeated).</em>' +
+                '</div>' +
+                '</div>' +
+                '<div class="phase1Element phaseElement">Play any "<strong>Planning</strong>" on Player, Ship, Crew, Secret or any other card.</div>' +
+                '</div>';
+
+            cardContent.action =
+                '<div class="phaseItem multiplePhaseElements">' +
+                '<div class="phaseName">Action step' +
+                '<div class="phaseHint"> - Perform  <strong>any or all</strong></div>' +
+                '</div>' +
+                '<div class="phase2Element phaseElement">Deliver <span class="icon cargo">cargo</span> <strong>and</strong> <span class="icon bounty">bounties</span>.</div>' +
+                '<div class="phase2Element phaseElement">Market action (<strong>if on a planet</strong>).' +
+                '<div style="padding-left: 30px;">' +
+                '  ·  May discard ' + (gameMode === "base" ? 'a card' : 'up to 2 cards') + ' from top of a ' + (gameMode === "base" ? '' : '<strong>single</strong>') + ' market deck.' +
+                '</div>' +
+                '<div style="padding-left: 30px;">' +
+                '  ·  May buy top card of a market deck. Then, resolve patrol movement' + (gameMode === "base" ? '' : ' and reveal contact icons') + ' on next card, if any.' +
+                '</div>' +
+                '</div>' +
+                '<div class="phase2Element phaseElement">Trade cards with a player in your space.</div>' +
+                '<div class="phase2Element phaseElement">Play any "<strong>Action</strong>" on Player, Ship, Crew, Cargo, Gear, Mod, Secret, Ambition or any other card.</div>' +
+                '</div>';
+
+            cardContent.encounter =
+                '<div class="phaseItem">' +
+                '<div class="phaseName">Encounter step' +
+                '<div class="phaseHint"> - Choose <strong>only 1</strong></div>' +
+                '</div>' +
+                '<div class="phase3Element phaseElement">Fight a patrol (required if you have <span class="icon negative">negative</span> reputation with a patrol in your space).</div>' +
+                '<div class="phase3Element phaseElement">Resolve a space encounter card (Planet, Maelstrom, Navpoint' + (gameMode === "base" ? '' : ', Core Worlds') + ').</div>' +
+                '<div class="phase3Element phaseElement">Encounter facedown contact (<strong>resolve</strong> a databank card) or fight faceup bounty contact.</div>' +
+                '<div class="phase3Element phaseElement">Play any "<strong>Encounter</strong>" on Player, Ship, Crew, Secret, Ambition or any other card.</div>' +
+                '</div>';
+
+            cardContent.special = '';
+        } else {
+            // AI cards: fetch JSON dynamically
+            try {
+                const typeDir = type === 'smuggler' ? 'smuggler' : 'bounty';
+                const cardFileName = cardName == 'special' ? player.character.id : cardName;
+                const url = `./cards/${typeDir}/${cardFileName}.json?${version}`;
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Card JSON not found');
+                const data = await response.json();
+
+                // Convert arrays to HTML for phaseElement divs
+                ['planning', 'action', 'encounter', 'special'].forEach(section => {
+                    if (data[section] && data[section].length) {
+                        const multiple = (section === 'action' || section === 'special') ? ' multiplePhaseElements' : '';
+                        cardContent[section] = `<div class="phaseItem${multiple}">
+                        <div class="phaseName">${section.charAt(0).toUpperCase() + section.slice(1)} step` +
+                            (multiple ? '<div class="phaseHint"> - Do  <strong>all</strong> that apply</div>' : '<div class="phaseHint"> - Do the  <strong>first</strong> that applies</div>')
+                            + `</div>
+                        ${data[section].map(item => `<div class="phaseElement">${item}</div>`).join('')}
+                    </div>`;
+                    }
+                });
+            } catch (err) {
+                console.warn('Failed to load card JSON:', cardName, err);
+                ['planning', 'action', 'encounter', 'special'].forEach(section => {
+                    cardContent[section] = `<div class="phaseItem"><div class="phaseName">${section}</div><div class="phaseElement">[No data]</div></div>`;
+                });
+            }
+        }
+
+        // Insert HTML into cardDisplay
+        const html = Object.values(cardContent).filter(v => v).join('');
+        cardDisplay.insertAdjacentHTML('afterbegin', `<div id="phaseContainer" class="phaseContainer phaseContainer-${type}">${html}</div>`);
+        attachPhaseElementListeners();
+        showHelp();
+        replaceIconsWithImages();
+
+    }
+
+
+    function shuffleArray(arr) {
+        if (debug) {
+            if (debugSpecial)
+                return ['special'];
+            return arr;
+        }
+
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    function attachPhaseElementListeners() {
+        document.querySelectorAll('.phaseItem .phaseElement').forEach(el => {
+            const newEl = el.cloneNode(true);
+            el.replaceWith(newEl);
+
+            newEl.addEventListener('click', function () {
+                const parentPhaseItem = newEl.closest('.phaseItem');
+                const allElements = parentPhaseItem.querySelectorAll('.phaseElement');
+
+                if (parentPhaseItem.classList.contains('multiplePhaseElements')) {
+                    if (newEl.classList.contains('active')) {
+                        newEl.classList.remove('active');
+                    } else {
+                        newEl.classList.add('active');
+                    }
+                } else {
+                    const isActive = newEl.classList.contains('active');
+                    allElements.forEach(e => e.classList.remove('active', 'crossed'));
+                    if (!isActive) {
+                        newEl.classList.add('active');
+                        allElements.forEach(e => {
+                            if (e !== newEl) e.classList.add('crossed');
+                        });
+                    }
+                }
+            });
+        });
+    }
+
+    function showError(message) {
+        const errorDiv = document.getElementById("playerFormError");
+        errorDiv.textContent = message;
+        errorDiv.style.display = "block";
+    }
+
+    function clearError() {
+        const errorDiv = document.getElementById("playerFormError");
+        errorDiv.textContent = "";
+        errorDiv.style.display = "none";
+    }
+
+    function replaceIconsWithImages() {
+        document.querySelectorAll('.icon').forEach(span => {
+            const iconType = span.classList[1]; // e.g. "damage"
+            if (!iconType) return; // skip if no second class
+
+            const altText = span.textContent.trim();
+            const img = document.createElement('img');
+            img.src = `./images/assets/${iconType}.png`;
+            img.alt = altText;
+            img.className = `icon ${iconType}`;
+
+            span.replaceWith(img);
+        });
+    }
+
+
+    document.title += ' v' + version;
+    document.getElementById("mainTitle").innerHTML += ' v' + version + (debug ? ' <span style="color:red">DEBUG</span>' : '');
+});
