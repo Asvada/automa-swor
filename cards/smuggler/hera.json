@@ -1,11 +1,11 @@
 {
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-    "b. Move toward closest goal. <br>  ·  If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.<br>  ·  Do not stop on Maelstrom.",
+    "b. Move toward closest goal.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
     "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
   ],
   "action": [
-    "Move 2 spaces toward nearest goal, ignoring patrols. If Hera moves, her ship suffers 1 <span class=\"icon damage\">damage</span>.",
+    "Move 2 spaces toward nearest goal, ignoring patrols. <div class=\"phaseSubElement\">If Hera moves, her ship suffers 1 <span class=\"icon damage\">damage</span>.</div>",
     "If at cargo destination, deliver it.",
     "Buy a <span class=\"icon cargo\">cargo card</span> and place a goal token on card's destination."
   ],

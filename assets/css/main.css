@@ -201,6 +201,18 @@ img {
     text-indent: -20px;
 }
 
+.phaseSubElement {
+    padding-left: 20px;
+    text-indent: -20px;
+
+}
+.phaseSubElement:before {
+    content: " · ";
+    margin-right: 5px;
+    margin-left: -5px;
+}
+
+
 /* Highlighted element */
 .phaseElement.active {
     background-color: #d4edda; /* green highlight */

@@ -1,12 +1,12 @@
 {
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-    "b. Move toward nearest other player, if Hondo careach their space. Do not stop on Maelstrom.",
+    "b. Move toward closes Player, if Hondo can reach their space goal.<div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
     "c. Move toward closest goal. <br>  ·  If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.<br>  ·  Do not stop on Maelstrom."
   ],
   "action": [
     "If at cargo destination, deliver it.",
-    "If there is another player in Hondo's space, discard the other player's cargo, gear or mod with the highest cost. Hondo gains <span class=\"icon credits\">credits</span> equal to its cost.",
+    "If there is another player in Hondo's space, discard 1 of the other player's cargo, gear or mod with the highest cost. Hondo gains <span class=\"icon credits\">credits</span> equal to its cost.",
     "Buy a <span class=\"icon job\">job card</span> and place a goal token on card's destination."
   ],
   "encounter": [

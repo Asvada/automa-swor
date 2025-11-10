@@ -316,6 +316,7 @@ $('document').ready(function () {
             const cardDisplay = $("#cardDisplay");
             const phaseContainer = $("#phaseContainer");
             const prevScreen = $("#helpScreen");
+            let content = '';
 
             if ($(prevScreen).is(':visible')) {
                 $(prevScreen).remove();
@@ -333,6 +334,7 @@ $('document').ready(function () {
             const player = players[currentPlayerIndex];
 
             console.log(player);
+            console.log(gameMode);
 
             const promptDiv = document.createElement('div');
             promptDiv.id = 'helpScreen';
@@ -348,27 +350,78 @@ $('document').ready(function () {
             promptDiv.style.margin = '0px 0px 30px 0px';
             // promptDiv.style.zIndex = 1000;
             // promptDiv.style.textAlign = 'center';
-            let content = '';
+
+            if (gameMode == 'expansion') {
+                content +=
+                    '<div class="phaseItem">' +
+                    '<div class="phaseName">Player token as encounter' + '</div>' +
+                    '<div class="phaseElement">When player token is revealed as an encounter, that token is removed from the game and another contact token is revealed.</div>' +
+                    '</div>' +
+                    '</div>';
+            }
+
+            if (gameMode == 'expansion' && (player.type === "human" || player.character.type === "bounty")) {
+                content +=
+                    '<div class="phaseItem">' +
+                    '<div class="phaseName">AI vs <strong>unopposed bounty</strong> <em style="text-transform: none">(not protected)</em>' + '</div>' +
+                    '<div class="phaseElement">If bounty contact token is:' +
+                    '<div class="phaseSubElement">on a planet</div>' +
+                    '<div class="phaseSubElement">is a Crew of another AI.</div>' +
+                    '<div class="phaseSubElement">is a Crew of Player who does not want to protect it.</div>' +
+                    '</div>' +
+                    '<div class="phaseElement">Do all below:' +
+                    '<div class="phaseSubElement"> a. Remove contact from the game.</div>' +
+                    '<div class="phaseSubElement"> b. Gain reward on bounty card.</div>' +
+                    '<div class="phaseSubElement"> c. Suffer <span class="icon damage">damage</span> show on the bounty card (<span class="icon land_attack">land attack</span> or <span class="icon ship_attack">ship attack</span>).</div>' +
+                    '</div>' +
+
+                    '</div>';
             content +=
                 '<div class="phaseItem">' +
-                '<div class="phaseName">Player Bounty Rewards' + '</div>' +
-                '<div class="phaseElement">Instead of gaining rewards from a bounty card  matching a player\'s character, do the following: ' +
-                '<div style="padding-left: 30px"> · Gain <span class=\"icon credits\">credits</span>5&nbsp;000 and 1 fame.</div>' +
-                '<div style="padding-left: 30px"> · Gain 1 reputation with 1  faction of your choice with which that player has <span class=\"icon negative\">negative</span> reputation.</div>' +
-                '<div style="padding-left: 30px"> · Lose 1 reputation with 1 faction of your choice with which that player has <span class=\"icon positive\">positive</span> repoutation.</div>' +
+                '<div class="phaseName">AI vs Player\'s Crew member <strong>opposed bounty</strong> <em style="text-transform: none">(protected by Player)</em>' + '</div>' +
+                '<div class="phaseElement">Fight against protector Player as normal.</div>'+
+                '<div class="phaseElement">If the AI bounty hunter <strong>loses</strong> in a bounty fight, the bounty job is discarded</div>'+
+                '<div class="phaseElement">If the AI bounty hunter <strong>wins</strong> in a bounty fight:' +
+                '<div class="phaseSubElement">Crew card is removed from the game.</div>' +
+                '<div class="phaseSubElement">AI player resolves "After you gain a reward" from the bounty card.</div>' +
+                '</div>'+
                 '</div>' +
+
                 '</div>';
+            }
+
+            if (gameMode == 'expansion' && (player.type === "human" || player.character.type === "bounty"))
+            {
+                content +=
+                    '<div class="phaseItem">' +
+                    '<div class="phaseName">AI vs Player/AI' + '</div>' +
+                    '<div class="phaseElement">Fight is resolved normally.</div>'+
+                    '<div class="phaseElement">Bounty card is <strong>removed</strong> from the game.</div>'+
+                    '<div class="phaseElement">Player bounty reward is gained <em>(see below)</em>.</div>'+
+                    '</div>' +
+
+                    '</div>';
+                content +=
+                    '<div class="phaseItem">' +
+                    '<div class="phaseName">Player Bounty Rewards' + '</div>' +
+                    '<div class="phaseElement">Instead of gaining rewards from a bounty card  matching a player\'s character, do the following: ' +
+                    '<div class="phaseSubElement"">Gain <span class=\"icon credits\">credits</span>5&nbsp;000 and 1 fame.</div>' +
+                    '<div class="phaseSubElement""><strong>Gain</strong> 1 reputation with 1  faction of your choice with which that player has <span class=\"icon negative\">negative</span> reputation.</div>' +
+                    '<div class="phaseSubElement""><strong>Lose</strong> 1 reputation with 1 faction of your choice with which that player has <span class=\"icon positive\">positive</span> repoutation.</div>' +
+                    '</div>' +
+
+                    '</div>';
+            }
 
             if (player.type === "human"){
                 content +=
                     '<div class="phaseItem">' +
                     '<div class="phaseName">Перевірка майстерності' + '</div>' +
-                    '<div class="phaseElement">Подивись, скільки разів у тебе вказано' +
-                    'навичку, яку перевіряєш. Кинь <strong>2 кубики</strong>.' +
+                    '<div class="phaseElement">Порахуй кількість згадок навички, яку перевіряєш (у персонажа та у всіх членів екіпажу).<br> Кинь <strong>2 кубики</strong>. <br>' +
                     'Дпя успіху потрібно, щоб випав <strong>хоча б 1</strong> відповідний результат.' +
-                    '<div style="padding-left: 30px"> · <strong>Падаван</strong>: <span class=\"icon crit\">crit</span> (навички немає).</div>' +
-                    '<div style="padding-left: 30px"> · <strong>Джедай</strong>: <span class=\"icon crit\">crit</span> або <span class=\"icon hit\">hit</span> (навичку вказано 1 раз на Герої чи Екпажі).</div>' +
-                    '<div style="padding-left: 30px"> · <strong>Магістр</strong>: <span class=\"icon crit\">crit</span>, <span class=\"icon hit\">hit</span> або <span class=\"icon focus\">focus</span> (навичку вказано більше 1 разу на Герої чи Екпажі).</div>' +
+                    '<div class="phaseSubElement""><strong>0 навичок</strong>: <span class=\"icon crit\">crit</span> (Падаван).</div>' +
+                    '<div class="phaseSubElement""><strong>1 навичка</strong>: <span class=\"icon crit\">crit</span> або <span class=\"icon hit\">hit</span> (Джедай).</div>' +
+                    '<div class="phaseSubElement""><strong>2+ навичок</strong>: <span class=\"icon crit\">crit</span>, <span class=\"icon hit\">hit</span> або <span class=\"icon focus\">focus</span> (Магістр).</div>' +
                     '</div>' +
                     '</div>';
                 content +=
@@ -395,6 +448,100 @@ $('document').ready(function () {
 
 
             } else {
+                content +=
+                    '<div class="phaseItem">' +
+                    '<div class="phaseName">Cards' + '</div>' +
+                    '<div class="phaseElement">Do not resolve any encounter cards.</div>' +
+                    '<div class="phaseElement">Do not use abilities on cards, except for abilities that increase the values on their ship or character (ground/space combat, HP/hull)</div>' +
+                    '';
+
+                if (gameMode == 'expansion' && player.character.type === "smuggler")
+                {
+                    content +=
+                        '<div class="phaseElement"> If the smuggler AI player delivers a cargo that rotates, rotate that card and place a goal token on the new destination.</div>';
+                }
+
+                content += '</div>' +
+                    '</div>';
+
+                content +=
+                    '<div class="phaseItem">' +
+                    '<div class="phaseName">Movement' + '</div>' +
+                    '<div class="phaseElement">Choose the shortest path to the goal, event if encounter partols.</div>' +
+                    '<div class="phaseElement">Do encounter partols as normal player.</div>' +
+                    '<div class="phaseElement">Do not stop on Maelstrom.</div>' +
+                    '<div class="phaseElement">If AI would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div>' +
+                    '';
+                if (gameMode == 'expansion')
+                {
+                    content +=
+                        '<div class="phaseElement">Cannot go through the Core Worlds.</div>';
+                }
+
+                content += '</div>' +
+                    '</div>';
+
+
+                content +=
+                    '<div class="phaseItem">' +
+                    '<div class="phaseName">Buying' + '</div>' +
+                    '<div class="phaseElement">Buy makert cards as normal (if enough credits and card slotavailable).</div>' +
+                    '<div class="phaseElement">Barter ship cards (pay the difference between current and new ships).</div>' +
+                    '<div class="phaseElement"><strong>Discard</strong> market card '+(gameMode == 'expansion'?'<strong>up to 2 times</strong>':'')+' if:' +
+                        '<div class="phaseSubElement";">' +
+                        'Cannot be bought on AI\'s planet.</em>' +
+                        '</div>' +
+                        '<div class="phaseSubElement";">' +
+                        'Not enough credits.</em>' +
+                        '</div>' +
+                        '<div class="phaseSubElement";">' +
+                        'Not empty slots.</em>' +
+                        '</div>' +
+                        '<div class="phaseSubElement";">' +
+                        'Ship is <strong>not more expensive</strong> than that AI has.</em>' +
+                        '</div>' +
+                        (gameMode == 'expansion' && player.character.type === "smuggler"?
+                            '<div class="phaseSubElement";">' +
+                            'Cargo destination is a patrol.</em>' +
+                            '</div>'
+                            :'')+
+                        (gameMode == 'expansion' ?
+                            '<div class="phaseSubElement";">' +
+                            '"Wanted" job, "Information Broker" or the "Special Order" card' +
+                            '</div>'
+                            :'')+
+                        '<div class="phaseSubElement";">' +
+                        'Card has restrincions (e.g. "Limit 1 Armor per character").</em>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="phaseElement">After buying a card, resolve partol (if instructed by card) to go shortes way possible towards AI space.</div>' +
+                    (gameMode == 'expansion' ?
+                        '<div class="phaseElement">After buying a card, resolve contact token (if instructed by card) '+(player.character.type === "bounty"?'that matches AI\'s <strong>lowest class</strong> bounty or the contact token':'')+' of the lowest class.</div>'
+                        :'')+
+                    '';
+
+                content += '</div>' +
+                    '</div>';
+
+
+
+                if (gameMode == 'expansion' && player.character.type === "bounty")
+                {
+                    content +=
+                        '<div class="phaseItem">' +
+                        '<div class="phaseName">Starting ship' + '</div>' +
+                        '<div class="phaseElement">G-1A Starfighter.</div>' +
+                        '</div>' +
+                        '</div>';
+                } else {
+                    content +=
+                        '<div class="phaseItem">' +
+                        '<div class="phaseName">Starting ship' + '</div>' +
+                        '<div class="phaseElement">G9 Rigger.</div>' +
+                        '</div>' +
+                        '</div>';
+                }
+
             }
 
 
@@ -407,7 +554,6 @@ $('document').ready(function () {
                     $(phaseContainer).show();
                 }
             });
-            console.log('cardContent:', promptDiv);
 
             cardDisplay.prepend(promptDiv);
             replaceIconsWithImages();
@@ -668,11 +814,11 @@ $('document').ready(function () {
                 '<div class="phase1Element phaseElement">Gain <span class="icon credits">credits </span>2&nbsp;000.</div>' +
                 '<div class="phase1Element phaseElement">' +
                 'Recover all <span class="icon damage">damage</span> from character and ship.' +
-                '<div style="padding-left: 30px;">' +
-                ' · Pay <span class="icon credits">credits </span>3 000 <em>(if defeated).</em>' +
+                '<div class="phaseSubElement";">' +
+                'Pay <span class="icon credits">credits </span>3 000 <em>(if defeated).</em>' +
                 '</div>' +
-                '<div style="padding-left: 30px;">' +
-                ' · Lose all secret cards <em>(if defeated).</em>' +
+                '<div class="phaseSubElement";">' +
+                'Lose all secret cards <em>(if defeated).</em>' +
                 '</div>' +
                 '</div>' +
                 '<div class="phase1Element phaseElement">Play any "<strong>Planning</strong>" on Player, Ship, Crew, Secret or any other card.</div>' +
@@ -685,11 +831,11 @@ $('document').ready(function () {
                 '</div>' +
                 '<div class="phase2Element phaseElement">Deliver <span class="icon cargo">cargo</span> <strong>and</strong> <span class="icon bounty">bounties</span>.</div>' +
                 '<div class="phase2Element phaseElement">Market action (<strong>if on a planet</strong>).' +
-                '<div style="padding-left: 30px;">' +
-                '  ·  May discard ' + (gameMode === "base" ? 'a card' : 'up to 2 cards') + ' from top of a ' + (gameMode === "base" ? '' : '<strong>single</strong>') + ' market deck.' +
+                '<div class="phaseSubElement";">' +
+                '  May discard ' + (gameMode === "base" ? 'a card' : 'up to 2 cards') + ' from top of a ' + (gameMode === "base" ? '' : '<strong>single</strong>') + ' market deck.' +
                 '</div>' +
-                '<div style="padding-left: 30px;">' +
-                '  ·  May buy top card of a market deck. Then, resolve patrol movement' + (gameMode === "base" ? '' : ' and reveal contact icons') + ' on next card, if any.' +
+                '<div class="phaseSubElement";">' +
+                '  May buy top card of a market deck. Then, resolve patrol movement' + (gameMode === "base" ? '' : ' and reveal contact icons') + ' on next card, if any.' +
                 '</div>' +
                 '</div>' +
                 '<div class="phase2Element phaseElement">Trade cards with a player in your space.</div>' +

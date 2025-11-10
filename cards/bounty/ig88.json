@@ -2,7 +2,7 @@
   "planning": [
     "!. <strong>If IG-88 has at least 1 <span class=\"icon droid\">droid</span></strong> crew, do the FIRST 2 that apply.",
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-    "b. Move toward a bounty target (character, crew, face-up/face-down contact). <br>  ·  If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.<br>  ·  Do not stop on Maelstrom.",
+    "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
     "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000 for each of IG-88's <span class=\"icon droid\">droid</span></strong> crew."
   ],
   "action": [

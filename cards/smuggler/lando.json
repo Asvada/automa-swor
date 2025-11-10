@@ -1,12 +1,12 @@
 {
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-    "b. Move toward closest goal. <br>  ·  If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.<br>  ·  Do not stop on Maelstrom.",
+    "b. Move toward closest goal.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
     "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
   ],
   "action": [
     "If at cargo destination, deliver it.",
-    "Roll a die. If result is a: <div style=\"padding-left: 30px;\"> · <span class=\"icon crit\">crit</span> - gain 1 fame<br> · <span class=\"icon hit\">hit</span> - gain <span class=\"icon credits\">credits </span>3&nbsp;000<br> · <span class=\"icon focus\">focus</span> - gain 1 reputation with this planet's faction (if any)</span></div>"
+    "Roll a die. If result is a: <div class=\"phaseSubElement\"><span class=\"icon crit\">crit</span> - gain 1 fame</div><div class=\"phaseSubElement\"><span class=\"icon hit\">hit</span> - gain <span class=\"icon credits\">credits </span>3&nbsp;000</div><div class=\"phaseSubElement\"><span class=\"icon focus\">focus</span> - gain 1 reputation with this planet's faction (if any)</div>"
   ],
   "encounter": [
     "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",

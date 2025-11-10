@@ -1,7 +1,7 @@
 {
   "planning": [
     "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-    "b. Move directly to the space of the other player with the most <span class=\"icon negative\">negative</span> reputations (minimum of 1) - if reachable by Dengar's ship <span class=\"icon speed\">speed</span>. Do not stop on Maelstrom.",
+    "b. Move directly to the space of the other player with the most <span class=\"icon negative\">negative</span> reputations (minimum of 1) - if reachable by Dengar's ship <span class=\"icon speed\">speed</span>. <div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
     "c. Each other player (<strong>across all of the world</strong>) loses 1 reputation of their choice."
   ],
   "action": [
