@@ -147,6 +147,15 @@ $('document').ready(function () {
     });
 
     function populateCharacterDropdown() {
+
+        $('#randomCharacter').off('click').on('click', function (e){
+            e.preventDefault();
+            const $select = $('#playerCharacter');
+            const options = $select.find('option:not(:disabled)');
+            const randomIndex = Math.floor(Math.random() * options.length);
+            $select.val(options.eq(randomIndex).val()).change();
+        });
+
         const select = document.getElementById("playerCharacter");
         select.innerHTML = "";
         const emptyOption = document.createElement("option");
