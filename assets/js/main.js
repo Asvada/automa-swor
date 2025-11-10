@@ -176,7 +176,7 @@ $('document').ready(function () {
             smugglers.forEach(c => {
                 const opt = document.createElement("option");
                 opt.value = c.name;
-                opt.textContent = `${c.name} (${c.origin[0]})`;
+                opt.textContent = `${c.name} (${c.origin[0]}) (sm)`;
                 group.appendChild(opt);
             });
             select.appendChild(group);
@@ -188,7 +188,7 @@ $('document').ready(function () {
             bounty.forEach(c => {
                 const opt = document.createElement("option");
                 opt.value = c.name;
-                opt.textContent = `${c.name} (${c.origin[0]})`;
+                opt.textContent = `${c.name} (${c.origin[0]}) (bh)`;
                 group.appendChild(opt);
             });
             select.appendChild(group);
@@ -374,14 +374,14 @@ $('document').ready(function () {
                     '<div class="phaseItem">' +
                     '<div class="phaseName">AI vs <strong>unopposed bounty</strong> <em style="text-transform: none">(not protected)</em>' + '</div>' +
                     '<div class="phaseElement">If bounty contact token is:' +
-                    '<div class="phaseSubElement">on a planet</div>' +
+                    '<div class="phaseSubElement">on a planet.</div>' +
                     '<div class="phaseSubElement">is a Crew of another AI.</div>' +
                     '<div class="phaseSubElement">is a Crew of Player who does not want to protect it.</div>' +
                     '</div>' +
-                    '<div class="phaseElement">Do all below:' +
+                    '<div class="phaseElement">Bounty becomes eliminated. Do all below:' +
                     '<div class="phaseSubElement"> a. Remove contact from the game.</div>' +
                     '<div class="phaseSubElement"> b. Gain reward on bounty card.</div>' +
-                    '<div class="phaseSubElement"> c. Suffer <span class="icon damage">damage</span> show on the bounty card (<span class="icon land_attack">land attack</span> or <span class="icon ship_attack">ship attack</span>).</div>' +
+                    '<div class="phaseSubElement"> c. Suffer <span class="icon damage">damage</span> according to bounty card <span class="icon land_attack">land attack</span> or <span class="icon ship_attack">ship attack</span>.</div>' +
                     '</div>' +
 
                     '</div>';
@@ -389,10 +389,12 @@ $('document').ready(function () {
                 '<div class="phaseItem">' +
                 '<div class="phaseName">AI vs Player\'s Crew member <strong>opposed bounty</strong> <em style="text-transform: none">(protected by Player)</em>' + '</div>' +
                 '<div class="phaseElement">Fight against protector Player as normal.</div>'+
-                '<div class="phaseElement">If the AI bounty hunter <strong>loses</strong> in a bounty fight, the bounty job is discarded</div>'+
                 '<div class="phaseElement">If the AI bounty hunter <strong>wins</strong> in a bounty fight:' +
-                '<div class="phaseSubElement">Crew card is removed from the game.</div>' +
+                '<div class="phaseSubElement">Crew card and token are <strong>removed</strong> from the game.</div>' +
                 '<div class="phaseSubElement">AI player resolves "After you gain a reward" from the bounty card.</div>' +
+                '</div>'+
+                '<div class="phaseElement">If the AI bounty hunter <strong>loses</strong> in a bounty fight.' +
+                '<div class="phaseSubElement">The bounty job is <strong>discarded</strong>.</div>' +
                 '</div>'+
                 '</div>' +
 
@@ -405,9 +407,13 @@ $('document').ready(function () {
                     '<div class="phaseItem">' +
                     '<div class="phaseName">AI vs Player/AI' + '</div>' +
                     '<div class="phaseElement">Fight is resolved normally.</div>'+
-                    '<div class="phaseElement">Bounty card is <strong>removed</strong> from the game.</div>'+
-                    '<div class="phaseElement">Player bounty reward is gained <em>(see below)</em>.</div>'+
-                    '</div>' +
+                    '<div class="phaseElement">If bounty hunter <strong>wins</strong>:' +
+                    '<div class="phaseSubElement">Bounty job card is <strong>removed</strong> from the game.</div>' +
+                    '<div class="phaseSubElement">"Player bounty reward" is gained <em>(see below)</em>.</div>' +
+                    '</div>'+
+                    '<div class="phaseElement">If bounty hunter <strong>loses</strong>:' +
+                    '<div class="phaseSubElement">Bounty job card is <strong>descarded</strong>.</div>' +
+                    '</div>'+
 
                     '</div>';
                 content +=
@@ -452,7 +458,7 @@ $('document').ready(function () {
                     '<div class="phaseElement">Advice: Gain 1 of that <strong>player\'s skills</strong> for 1 skill test.</div>' +
                     '<div class="phaseElement">Combat Strategy: Roll <strong>1 additional die</strong> during a combat.</div>' +
                     '<div class="phaseElement">Endorsement: Gain 1 of that player\'s <span class=\"icon positive\">positive</span> <strong>reputations</strong> until end of turn.</div>' +
-                    '<div class="phaseElement">Shortcut: Gain +1 <span class=\"icon speed\">speed</span> until end of turn  reputations until end of turn.</div>' +
+                    '<div class="phaseElement">Shortcut: Gain <strong>+1 <span class=\"icon speed\">speed</span></strong> until end of turn  reputations until end of turn.</div>' +
                     '</div>';
 
 
@@ -477,7 +483,7 @@ $('document').ready(function () {
                     '<div class="phaseItem">' +
                     '<div class="phaseName">Movement' + '</div>' +
                     '<div class="phaseElement">Choose the shortest path to the goal, event if encounter partols.</div>' +
-                    '<div class="phaseElement">Do encounter partols as normal player.</div>' +
+                    '<div class="phaseElement">Do not fight partols, just stop on those having <span class="icon neutral">neutral</span> or <span class="icon negative">negative</span> reputation.</div>' +
                     '<div class="phaseElement">Do not stop on Maelstrom.</div>' +
                     '<div class="phaseElement">If AI would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div>' +
                     '';
@@ -494,7 +500,7 @@ $('document').ready(function () {
                 content +=
                     '<div class="phaseItem">' +
                     '<div class="phaseName">Buying' + '</div>' +
-                    '<div class="phaseElement">Buy makert cards as normal (if enough credits and card slotavailable).</div>' +
+                    '<div class="phaseElement">Buy makert cards as normal (if enough credits and have a free card slot).</div>' +
                     '<div class="phaseElement">Barter ship cards (pay the difference between current and new ships).</div>' +
                     '<div class="phaseElement"><strong>Discard</strong> market card '+(gameMode == 'expansion'?'<strong>up to 2 times</strong>':'')+' if:' +
                         '<div class="phaseSubElement";">' +
@@ -504,10 +510,10 @@ $('document').ready(function () {
                         'Not enough credits.</em>' +
                         '</div>' +
                         '<div class="phaseSubElement";">' +
-                        'Not empty slots.</em>' +
+                        'No free slots.</em>' +
                         '</div>' +
                         '<div class="phaseSubElement";">' +
-                        'Ship is <strong>not more expensive</strong> than that AI has.</em>' +
+                        'Ship costs <strong>same or less</strong> than that the AI has.</em>' +
                         '</div>' +
                         (gameMode == 'expansion' && player.character.type === "smuggler"?
                             '<div class="phaseSubElement";">' +
@@ -520,12 +526,12 @@ $('document').ready(function () {
                             '</div>'
                             :'')+
                         '<div class="phaseSubElement";">' +
-                        'Card has restrincions (e.g. "Limit 1 Armor per character").</em>' +
+                        'Card has restrictions (e.g. "Limit 1 Armor per character").</em>' +
                         '</div>' +
                     '</div>' +
-                    '<div class="phaseElement">After buying a card, resolve partol (if instructed by card) to go shortes way possible towards AI space.</div>' +
+                    '<div class="phaseElement">After buying a card, resolve partol movement by shortest way possible towards AI space.</div>' +
                     (gameMode == 'expansion' ?
-                        '<div class="phaseElement">After buying a card, resolve contact token (if instructed by card) '+(player.character.type === "bounty"?'that matches AI\'s <strong>lowest class</strong> bounty or the contact token':'')+' of the lowest class.</div>'
+                        '<div class="phaseElement">After buying a card, resolve contact token '+(player.character.type === "bounty"?'that matches AI\'s <strong>lowest class</strong> bounty or the contact token':'')+' of the lowest class.</div>'
                         :'')+
                     '';
 
