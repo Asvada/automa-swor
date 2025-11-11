@@ -873,7 +873,7 @@ $('document').ready(function () {
                 '</div>' +
                 '<div class="phase3Element phaseElement">Fight a patrol (required if you have <span class="icon negative">negative</span> reputation with a patrol in your space).</div>' +
                 '<div class="phase3Element phaseElement">Resolve a space encounter card (Planet, Maelstrom, Navpoint' + (gameMode === "base" ? '' : ', Core Worlds') + ').</div>' +
-                '<div class="phase3Element phaseElement">Encounter facedown contact (<strong>resolve</strong> a databank card) or fight faceup bounty contact.</div>' +
+                '<div class="phase3Element phaseElement">Encounter facedown contact (<strong>resolve</strong> a databank card) or fight bounty.</div>' +
                 '<div class="phase3Element phaseElement">Play any "<strong>Encounter</strong>" on Player, Ship, Crew, Secret, Ambition or any other card.</div>' +
                 '</div>';
 
