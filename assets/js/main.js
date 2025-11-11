@@ -130,7 +130,7 @@ $('document').ready(function () {
     }
 
     function initCards(){
-        $.getJSON('../cards/cards.json?'+version, function(response) {
+        $.getJSON('./cards/cards.json?'+version, function(response) {
             cardsData = response; // assign to global variable
         }).fail(function() {
             console.error('Failed to load JSON file.');
