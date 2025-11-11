@@ -1,4 +1,6 @@
 $('document').ready(function () {
+    let cardsData = null;
+    initCards();
 
     let minPlayers = 1;
     const characters = [
@@ -125,6 +127,14 @@ $('document').ready(function () {
         document.getElementById('gameStep').classList.remove("hidden");
         document.getElementById('mainTitle').classList.add("hidden");
         showTurn();
+    }
+
+    function initCards(){
+        $.getJSON('../cards/cards.json?'+version, function(response) {
+            cardsData = response; // assign to global variable
+        }).fail(function() {
+            console.error('Failed to load JSON file.');
+        });
     }
 
     function startNewGame() {
@@ -705,8 +715,7 @@ $('document').ready(function () {
                 aiHistory[player.nickname].push(card);
 
                 if (card === "special" || card == 10) {
-                    aiDecks[player.nickname] = shuffleAiDeck(player.character.type);
-                    console.log(`AI ${player.nickname} reshuffled deck after special:`, aiDecks[player.nickname]);
+                    aiDecks[player.nickname] = [];
                 }
             }
 
@@ -874,10 +883,11 @@ $('document').ready(function () {
             try {
                 const typeDir = type === 'smuggler' ? 'smuggler' : 'bounty';
                 const cardFileName = cardName == 'special' ? player.character.id : cardName;
-                const url = `./cards/${typeDir}/${cardFileName}.json?${version}`;
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Card JSON not found');
-                const data = await response.json();
+                // const url = `./cards/${typeDir}/${cardFileName}.json?${version}`;
+                // const response = await fetch(url);
+                // if (!response.ok) throw new Error('Card JSON not found');
+                // const data = await response.json();
+                const data = cardsData[typeDir][cardFileName];
 
                 // Convert arrays to HTML for phaseElement divs
                 ['planning', 'action', 'encounter', 'special'].forEach(section => {
