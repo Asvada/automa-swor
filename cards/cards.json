@@ -558,7 +558,7 @@
         "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
       ]
     },
-    "lando": {
+    "maz": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
         "b. Move toward closest goal.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
