@@ -9,7 +9,7 @@
     <script>
         const debug = false;
         const debugSpecial = false;
-        const version = '1.29'
+        const version = '1.30'
             +(debug?'&_='+Math.random():'');
         const useHumanCharacterImages = false;
         const useAiCharacterImages = false;
@@ -34,6 +34,10 @@
         <select id="gameMode">
             <option value="expansion" selected>Unfinished Business Expansion</option>
             <option value="base">Base Game Only</option>
+        </select>
+        <select id="locale">
+            <option value="en" >EN</option>
+            <option value="uk" selected>UK</option>
         </select>
         <button id="nextToPlayers">Next</button>
     </div>
