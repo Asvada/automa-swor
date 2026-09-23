@@ -155,7 +155,7 @@ $('document').ready(function () {
     // at startup races the one startGame() issues after the locale is picked.
     function initCards(){
         const requested = locale;
-        return $.getJSON('./cards/'+requested+'.json?'+version)
+        return $.getJSON('./assets/cards/'+requested+'.json?'+version)
             .done(function (response) {
                 if (requested !== locale) return;
                 cardsData = response;
@@ -489,12 +489,12 @@ $('document').ready(function () {
                 row1.style.gap = "10px";
                 const cardFile = gameMode === "base" ? "base a.png" : "expansion a.png";
                 const img = document.createElement("img");
-                img.src = `./images/player/${cardFile}?${version}`;
+                img.src = `./assets/images/player/${cardFile}?${version}`;
                 img.addEventListener("click", () => {
                     const filename = new URL(img.src).pathname.split('/').pop();
                     const prefix = filename.slice(0, -5);
                     const suffix = filename.match(/([a-zA-Z])\.png$/)?.[1];
-                    img.src = `./images/player/${prefix}${suffix == "a" ? "b" : "a"}.png?${version}`;
+                    img.src = `./assets/images/player/${prefix}${suffix == "a" ? "b" : "a"}.png?${version}`;
                 });
                 row1.appendChild(img);
                 cardDisplay.appendChild(row1);
@@ -534,10 +534,10 @@ $('document').ready(function () {
             const row4 = document.createElement("div");
             const charImg = document.createElement("img");
             const [name, ext] = player.character.image.split(".");
-            charImg.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}?${version}`;
+            charImg.src = `./assets/images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}?${version}`;
             charImg.addEventListener("click", () => {
                 player.personalGoalAchieved = !player.personalGoalAchieved;
-                charImg.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}?${version}`;
+                charImg.src = `./assets/images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}?${version}`;
                 row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
                 row3.style.color = player.personalGoalAchieved ? '#4CFF4C' : 'white';
             });
@@ -598,11 +598,11 @@ $('document').ready(function () {
 
             if (card === "special") {
                 const dir = player.character.type === "smuggler" ? "smuggler" : "bounty";
-                cardImg.src = `./images/${dir}/${player.character.image}?${version}`;
+                cardImg.src = `./assets/images/${dir}/${player.character.image}?${version}`;
                 header.innerHTML = `<span class="turnHeaderHint">AI</span>&nbsp;${player.character.name} #special${headerMarker}`;
             } else {
                 const dir = player.character.type === "smuggler" ? "smuggler" : "bounty";
-                cardImg.src = `./images/${dir}/${card}.png?${version}`;
+                cardImg.src = `./assets/images/${dir}/${card}.png?${version}`;
                 header.innerHTML = `<span class="turnHeaderHint">AI</span>&nbsp;${player.character.name} #${card}${headerMarker}`;
             }
 
@@ -651,7 +651,7 @@ $('document').ready(function () {
             const row4 = document.createElement("div");
             const charImg2 = document.createElement("img");
             const [name, ext] = player.character.image.split(".");
-            charImg2.src = `./images/characters/${name}.${ext}?${version}`;
+            charImg2.src = `./assets/images/characters/${name}.${ext}?${version}`;
             row4.appendChild(charImg2);
             cardDisplay.appendChild(row4);
 
@@ -660,6 +660,20 @@ $('document').ready(function () {
 
         describeCard(cardName, cardType);
         saveGameState();
+    }
+
+    // How many bullets a step lets you select.
+    //   'all' - "Do all that apply" (action, special): free toggle, nothing crossed out.
+    //   '1'   - "Do the first that applies" (planning, encounter): picking one crosses
+    //           out the rest.
+    //   '2'   - IG-88 only. His planning step reads "If IG-88 has at least 1 droid crew,
+    //           do the first 2 that apply instead". Verified against the scans that he is
+    //           the sole exception across all 31 AI cards, so this stays a lookup rather
+    //           than something parsed out of the card text.
+    function picksFor(section, cardFileName) {
+        if (section === 'action' || section === 'special') return 'all';
+        if (cardFileName === 'ig88' && section === 'planning') return '2';
+        return '1';
     }
 
     // Cards carrying "Then, shuffle this AI card back into the AI deck": every character
@@ -703,7 +717,7 @@ $('document').ready(function () {
             // Preserve canonical human card content exactly
             cardContent = cardsData['player'][gameMode];
         } else {
-            // AI cards come from cards/<locale>.json; a character card is stored under
+            // AI cards come from assets/cards/<locale>.json; a character card is stored under
             // the character's id rather than a number.
             try {
                 const typeDir = type === 'smuggler' ? 'smuggler' : 'bounty';
@@ -713,16 +727,20 @@ $('document').ready(function () {
                 // Convert arrays to HTML for phaseElement divs
                 ['planning', 'action', 'encounter', 'special'].forEach(section => {
                     if (data[section] && data[section].length) {
-                        // AI steps are never a free choice: planning/encounter are a
-                        // priority walk ("do the first that applies"), action is "do all
-                        // that apply". Either way, picking one bullet must not cross out
-                        // the others, so AI cards are always non-exclusive.
-                        const multiple = ' multiplePhaseElements';
+                        const pick = picksFor(section, cardFileName);
                         let sectionTitle = cardsData.phases[section].title;
                         let sectionDescription = cardsData.phases[section].hint;
-                        cardContent[section] = `<div class="phaseItem${multiple}">
+                        // A leading "!." marks a condition line rather than an action
+                        // (IG-88's "first 2" clause). It is shown but not selectable, so
+                        // it cannot be clicked or counted against the pick limit.
+                        const body = data[section].map(item => {
+                            const note = item.trim().startsWith('!.');
+                            if (note) return `<div class="phaseNote">${item.trim().slice(2).trim()}</div>`;
+                            return `<div class="phaseElement">${item}</div>`;
+                        }).join('');
+                        cardContent[section] = `<div class="phaseItem" data-pick="${pick}">
                         <div class="phaseName">${sectionTitle} <div class="phaseHint">${sectionDescription}</div>` +
-                        `</div> ${data[section].map(item => `<div class="phaseElement">${item}</div>`).join('')}
+                        `</div> ${body}
                     </div>`;
                     }
                 });
@@ -765,24 +783,33 @@ $('document').ready(function () {
 
             newEl.addEventListener('click', function () {
                 const parentPhaseItem = newEl.closest('.phaseItem');
-                const allElements = parentPhaseItem.querySelectorAll('.phaseElement');
+                const allElements = [...parentPhaseItem.querySelectorAll('.phaseElement')];
+                const pick = parentPhaseItem.dataset.pick || '1';
 
-                if (parentPhaseItem.classList.contains('multiplePhaseElements')) {
-                    if (newEl.classList.contains('active')) {
-                        newEl.classList.remove('active');
-                    } else {
-                        newEl.classList.add('active');
-                    }
-                } else {
-                    const isActive = newEl.classList.contains('active');
-                    allElements.forEach(e => e.classList.remove('active', 'crossed'));
-                    if (!isActive) {
-                        newEl.classList.add('active');
-                        allElements.forEach(e => {
-                            if (e !== newEl) e.classList.add('crossed');
-                        });
-                    }
+                // "Do all that apply" - independent toggles, nothing is ruled out.
+                if (pick === 'all') {
+                    newEl.classList.toggle('active');
+                    return;
                 }
+
+                // "Do the first N that apply" - once N are chosen the rest are crossed
+                // out. N is 1 everywhere except IG-88's planning step.
+                const max = parseInt(pick, 10) || 1;
+                const chosen = allElements.filter(e => e.classList.contains('active'));
+
+                if (newEl.classList.contains('active')) {
+                    newEl.classList.remove('active');
+                } else if (chosen.length < max) {
+                    newEl.classList.add('active');
+                } else {
+                    return; // already at the limit; deselect one first
+                }
+
+                const active = allElements.filter(e => e.classList.contains('active'));
+                allElements.forEach(e => {
+                    const rule = active.length === max && !e.classList.contains('active');
+                    e.classList.toggle('crossed', rule);
+                });
             });
         });
     }
@@ -809,7 +836,7 @@ $('document').ready(function () {
 
             const altText = span.textContent.trim();
             const img = document.createElement('img');
-            img.src = `./images/assets/${iconType}.png`;
+            img.src = `./assets/images/assets/${iconType}.png`;
             img.alt = altText;
             img.className = `icon ${iconType}`;
 

@@ -12,26 +12,26 @@ Static, build-free web app: an **Automa / AI-opponent manager for _Star Wars: Ou
 the player reference card. Served by nginx from the repo root (`docker-compose.yml`).
 
 ```
-index.html            bootstrap; version string + feature flags live here
-assets/js/main.js     ALL logic, one jQuery ready() closure (~805 lines)
-assets/css/main.css   dark theme, mobile-first (max-width 450px)
-cards/en.json         live card + help + phase text, EN     <- edit these
-cards/uk.json         live card + help + phase text, UK     <- edit these
-images/               scanned physical cards (see section 3)
-assets/ref_docs/*.pdf the four official rulebooks (see 2b)
+index.html             bootstrap; version string + feature flags live here
+assets/js/main.js      ALL logic, one jQuery ready() closure (~805 lines)
+assets/css/main.css    dark theme, mobile-first (max-width 450px)
+assets/cards/en.json   live card + help + phase text, EN    <- edit these
+assets/cards/uk.json   live card + help + phase text, UK    <- edit these
+assets/ref_docs/*.pdf  the four official rulebooks (see 2b)
+assets/images/         scanned physical cards (see section 3)
 ```
 
-Everything comes from `cards/<locale>.json`. The legacy per-card files and the dead
+Everything comes from `assets/cards/<locale>.json`. The legacy per-card files and the dead
 `fetch` that read them are gone (C3/C4); recover them from history if ever needed.
 
 ---
 
 ## 2. Source of truth — in this order
 
-1. **`images/` scans of the physical cards.** Highest authority for *card* text.
+1. **`assets/images/` scans of the physical cards.** Highest authority for *card* text.
    They are photographs of the real cards and they are fully legible (see 3).
 2. **Official rulebooks** (see 2b) for *procedure* the cards don't state.
-3. `cards/*.json` — the app's transcription. **Has known errors.** Never treat it as
+3. `assets/cards/*.json` — the app's transcription. **Has known errors.** Never treat it as
    the reference; it is the thing being corrected.
 
 Short keys used in citations below, all resolving into `assets/ref_docs/` (section 2b):
@@ -82,7 +82,7 @@ break** in the txtwrite output. Verify against the scan or a rendered page.
 Scans are ~630x1010 px. Upscale before reading or the text is marginal:
 
 ```bash
-convert images/smuggler/1.png -resize 250% -unsharp 0x1+1+0 /tmp/out.png
+convert assets/images/smuggler/1.png -resize 250% -unsharp 0x1+1+0 /tmp/out.png
 ```
 At 250% every card is comfortably readable, icons included. Verified on
 `smuggler/1`, `smuggler/10`, `smuggler/han`, `bounty/1`, `player/base a`.
@@ -93,16 +93,16 @@ At 250% every card is comfortably readable, icons included. Verified on
 
 | path | printing | language |
 |---|---|---|
-| `images/smuggler/1..10.png` | base game | **Ukrainian** |
-| `images/bounty/1..5.png` | expansion | **English** |
-| `images/{smuggler,bounty}/<char>.png` | expansion | **English** |
-| `images/player/base|expansion {a,b}.png` | base | **Ukrainian** |
-| `images/characters/<char>[_].png` | character cards; `_` = flipped (personal goal done) |
-| `images/assets/*.png` | icons, keyed by the 2nd CSS class of `span.icon` |
+| `assets/images/smuggler/1..10.png` | base game | **Ukrainian** |
+| `assets/images/bounty/1..5.png` | expansion | **English** |
+| `assets/images/{smuggler,bounty}/<char>.png` | expansion | **English** |
+| `assets/images/player/base|expansion {a,b}.png` | base | **Ukrainian** |
+| `assets/images/characters/<char>[_].png` | character cards; `_` = flipped (personal goal done) |
+| `assets/images/assets/*.png` | icons, keyed by the 2nd CSS class of `span.icon` |
 
 ### Image -> data key mapping
 
-`images/<type>/<key>.png` <-> `cards/<locale>.json -> <type> -> <key>`
+`assets/images/<type>/<key>.png` <-> `assets/cards/<locale>.json -> <type> -> <key>`
 where `<type>` is `smuggler|bounty` and `<key>` is `1..10` / `1..5` / a character id.
 Character ids come from the `characters[]` table at `main.js:6`.
 
@@ -127,11 +127,11 @@ order forever. The app instead removes each drawn card and reshuffles a fresh ra
 order when the deck empties (`main.js:726`, `main.js:791`).
 
 The one exception, **read off the physical cards**:
-- `images/smuggler/han.png` (EN): "Then, **shuffle this AI card back into the AI deck**."
-- `images/smuggler/10.png` (UK): "Потім **затасуй цю карту** в колоду ШтІнту."
+- `assets/images/smuggler/han.png` (EN): "Then, **shuffle this AI card back into the AI deck**."
+- `assets/images/smuggler/10.png` (UK): "Потім **затасуй цю карту** в колоду ШтІнту."
 
 So the special card is shuffled **back into the deck**, at a random position — the rest of
-the deck order is untouched. `cards/*.json` mistranscribes this as "Then shuffle this AI
+the deck order is untouched. `assets/cards/*.json` mistranscribes this as "Then shuffle this AI
 deck" / "перетасуйте цю колоду ШІ" on all 17 cards that carry the line, and
 Verified verbatim from a rendered page, not the reflowed text. Two consequences:
 
@@ -173,14 +173,29 @@ Physical cards, both languages:
 > resolved (for example, the AI player has no damage to recover), the AI resolves the
 > next bullet instead. If the AI cannot resolve any of the bullets, they do nothing.
 
-`describeCard` reused the human `cardsData.phases` hints for AI cards, and
-`attachPhaseElementListeners` gave AI bullets the same click-one-and-cross-out-the-rest
-interaction. Both invited free choice where the rules demand a strict priority walk.
-**Implemented (R2):** `phases` is AI-only (the human card carries its own hints inline),
-so it was simply retranscribed, and AI sections are always `multiplePhaseElements`.
-IG-88 needed no third hint variant after all — "do the FIRST 2 that apply" is a
-*conditional inside its own planning step* ("If IG-88 has at least 1 droid crew, do the
-first 2 that apply instead"), already stored as its `!.` bullet.
+Note what that quote actually means: **exactly one bullet is resolved** in a "first that
+applies" step. So crossing the others out once one is picked is correct — an earlier pass
+in this session made those steps non-exclusive, which was an over-correction, now undone.
+
+**Implemented (R2).** `phases` is AI-only (the human card carries its own hints inline),
+so it was retranscribed from the scans. Selection is driven by `data-pick` on the
+`.phaseItem`, set by `picksFor()`:
+
+| step | `data-pick` | behaviour |
+|---|---|---|
+| planning, encounter | `1` | pick one, the rest cross out |
+| action, special | `all` | independent toggles, nothing crosses out |
+| **IG-88** planning | `2` | pick up to two, rest cross out at two |
+
+IG-88 is the **only** exception, and this was checked card by card against the scans
+rather than against the transcription: all 31 AI card images (16 character + 10 smuggler
++ 5 bounty) were cropped at their step headers and read. Every other one says plainly
+"Do the first that applies:" / "зроби першу можливу дію:" in both the planning and the
+encounter step. So `picksFor()` is deliberately a lookup, not a parse of the card text.
+
+A card line beginning `!.` is a *condition*, not an action (only IG-88's "If IG-88 has at
+least 1 droid crew, do the first 2 that apply instead"). It renders as `.phaseNote` —
+visible, italic, not clickable — so it can't be selected or counted against the limit.
 
 ### Other verified points
 - AI players **cannot complete personal goals or ship goals** (RR p. 22) — the
@@ -207,7 +222,7 @@ first 2 that apply instead"), already stored as its `!.` bullet.
 
 ## 5. Official Ukrainian terminology
 
-`cards/uk.json` does not use it. Official column is from **UK-RB** and the UK
+`assets/cards/uk.json` does not use it. Official column is from **UK-RB** and the UK
 reference/AI cards; counts are occurrences in that rulebook.
 
 | concept | official UK | app currently uses |
@@ -223,10 +238,10 @@ reference/AI cards; counts are occurrences in that rulebook.
 | buy / place / pay / gain | **купи / поклади / заплати / здобудь** (ти-form) | mixed ти- and ви-forms |
 | phase names | **ФАЗА ПЛАНУВАННЯ / ФАЗА ДІЙ / ФАЗА ЗУСТРІЧЕЙ** | 3 inconsistent variants |
 
-`cards/uk.json` contradicts itself on phase names: `phases` says "Фаза Планування / Фаза
+`assets/cards/uk.json` contradicts itself on phase names: `phases` says "Фаза Планування / Фаза
 Дії / Фаза Зустрічі", the player cards say "Фаза планування / Фаза дії / Фаза зустрічей".
 
-`cards/en.json` `help[5]` and `help[6]` are **still in Ukrainian** — the EN locale shows
+`assets/cards/en.json` `help[5]` and `help[6]` are **still in Ukrainian** — the EN locale shows
 Ukrainian text for skill tests and fame sources.
 
 ---
@@ -238,36 +253,63 @@ Status: `open` / `done` / `wontfix`. Keep newest decisions at the bottom of a ro
 | # | finding | where | status |
 |---|---|---|---|
 | R1 | AI deck cycling | `main.js` draw block + all 17 "shuffle" card texts | **done, as a house rule.** Research stands (LTP p. 14 says bottom-of-deck; the special shuffles only itself) but the owner chose the **full reshuffle on special-or-empty** behaviour instead — see the ⚠ box in section 4. The 17 card *texts* were still corrected to the printed wording in both locales, and the baseless `lastCard === "special"` guard is gone. Do not revert the behaviour to the printed rule without asking. |
-| R2 | AI phase hints say "choose one"; must be "do the first that applies" / "do all that apply"; AI bullets must not be click-exclusive | `main.js` `describeCard`, `phases` in both JSONs | **done** — `phases` (AI-only; the human card carries its own hints) retranscribed from the scans; AI sections now always `multiplePhaseElements`. IG-88's "first 2" needed no hint variant: it is a conditional inside its own planning text and was already stored as the `!.` bullet. |
+| R2 | AI phase hints say "choose one"; must be "do the first that applies" / "do all that apply" | `main.js` `describeCard` + `attachPhaseElementListeners`, `phases` in both JSONs | **done** — `phases` retranscribed from the scans. Selection now runs off `data-pick` via `picksFor()`: `1` for planning/encounter, `all` for action/special, `2` for IG-88's planning only. "Do the first that applies" resolves exactly one bullet, so those steps are click-exclusive again. All 31 AI card scans were read to confirm IG-88 is the sole exception. `!.` lines render as non-selectable `.phaseNote`. |
 | R3 | Personal-goal toggle shown on AI turns | `main.js` AI branch | **done** — toggle + "Personal Goal Achieved" line removed from AI turns; character card renders unflipped. Human branch untouched. |
 | R4 | Favors help entry tagged any-mode; expansion-only + banned in solo; Shortcut text has copy-paste tail | `help[7]` both JSONs | open |
 | R5 | Human card: defeat cost attached to Recover; missing "mandatory if defeated" | `player.*.planning` both JSONs | open |
 | R6 | Movement text missing hyperdrive distance, 1-fewer-space tiebreak, equidistant-path preferences | `help[11]` | open |
 | R7 | Player bounty reward missing "must choose a faction the AI does not have positive rep with, if possible" | `help[4]` | open |
 | R8 | Unopposed bounty damage: character vs ship distinction lost | `help[1]` | open |
-| R9 | UK terminology pass (section 5) | `cards/uk.json` | open |
-| R10 | EN locale has Ukrainian help[5], help[6] | `cards/en.json` | open |
+| R9 | UK terminology pass (section 5) | `assets/cards/uk.json` | open |
+| R10 | EN locale has Ukrainian help[5], help[6] | `assets/cards/en.json` | open |
 | C1 | `initCards()` is `async` but never awaits `$.getJSON`; `restoreGame`/`startGame` call `showTurn()` immediately -> `cardsData` can be null | `main.js` | **done** — `initCards()` returns the jqXHR and both callers `await` it. It also ignores a response whose locale is no longer selected: the startup warm-up load races the one `startGame()` issues after the locale is picked, and could clobber the right data with `uk`. |
-| C2 | `cards/uk.json` working-tree diff is pure CRLF noise (851 lines, byte-identical after `\r` strip); add `.gitattributes` `*.json text eol=lf` | — | **done** — HEAD was already LF and the worktree had drifted to CRLF, so stripping `\r` made the diff vanish. `.gitattributes` now pins `* text=auto eol=lf`. |
-| C3 | `cards/cards.json` + 31 `cards/{bounty,smuggler}/*.json` are dead duplicates of en.json | — | **done** — deleted (recoverable from history). Verified unreferenced by any source file, and every one of the 31 differed from `en.json` only by this session's own fixes, so they were stale copies with strictly worse text. `cards/` is now just `en.json` + `uk.json`. |
+| C2 | `assets/cards/uk.json` working-tree diff is pure CRLF noise (851 lines, byte-identical after `\r` strip); add `.gitattributes` `*.json text eol=lf` | — | **done** — HEAD was already LF and the worktree had drifted to CRLF, so stripping `\r` made the diff vanish. `.gitattributes` now pins `* text=auto eol=lf`. |
+| C3 | `cards/cards.json` + 31 `cards/{bounty,smuggler}/*.json` are dead duplicates of en.json *(paths as they were before the move to `assets/cards/`)* | — | **done** — deleted (recoverable from history). Verified unreferenced by any source file, and every one of the 31 differed from `en.json` only by this session's own fixes, so they were stale copies with strictly worse text. `assets/cards/` is now just `en.json` + `uk.json`. |
 | C4 | ~250 lines dead code: `main.js:373-571` (old help), `846-896` (old human card) | — | **done** — both commented-out blocks removed (exactly 250 lines), plus the dead `fetch` remnant in `describeCard`. `main.js` 1059 -> 805 lines, 49 KB -> 33 KB. |
 | C5 | `justShuffled` is an array property -> dropped by JSON.stringify; ↻ marker never survives reload | `main.js` | **done** — fell out of R1. There is no mid-game reshuffle left to flag, so ↻ now means "this card shuffles back into the deck" and is derived from the card id via `shufflesBackIn()` — no stored state, so it survives reload by construction. |
 | C6 | `aiDecks`/`aiHistory` keyed by nickname; duplicate nicknames share a deck | `main.js` | **done** — both are keyed by `character.id`, which `usedCharacters` already keeps unique within a game. `migrateAiKeys()` remaps nickname-keyed saves on restore, so existing games survive. |
-| D1 | Two orphan `</strong>` tags in EN `bounty/ig88` (planning[3], action[1]) injected raw into the DOM | `cards/en.json` | **done** — removed; a tag-balance sweep over all 31 cards x 2 locales now reports zero unbalanced `strong`/`em`/`div`/`span`, and every `span.icon` name resolves to a file in `images/assets/`. |
+| D1 | Two orphan `</strong>` tags in EN `bounty/ig88` (planning[3], action[1]) injected raw into the DOM | `assets/cards/en.json` | **done** — removed; a tag-balance sweep over all 31 cards x 2 locales now reports zero unbalanced `strong`/`em`/`div`/`span`, and every `span.icon` name resolves to a file in `assets/images/assets/`. |
+| D2 | Human card: `action` step was missing one `</div>`, so the **encounter** step's `phaseItem` nested *inside* the action step — steps 2 and 3 rendered as one block, the step counter skipped a number, and clicking an encounter action crossed out the action step's bullets (`closest('.phaseItem')` walked up to the wrong step). Present in all 4 variants (both locales x both modes). | `player.*.action` both JSONs | **done** — closed the tag; also swapped the dead `multiplePhaseElements` class for `data-pick="all"`, which R2's handler actually reads, restoring "perform any or all" on the human action step. The earlier D1 tag sweep only covered `smuggler`/`bounty` — **always include `player` when checking markup.** |
 | C7 | `replaceIconsWithImages` re-matches its own `img.icon` output and wipes `alt` | `main.js` | **done** — selector narrowed to `span.icon`. It runs twice per render, and an `<img>` has no `textContent`, so the second pass was rewriting every `alt` to `""`. |
 | C8 | Solo cap is 2 AI of different types; app allows 3, any mix | `main.js` `addPlayerFromForm` / `populateCharacterDropdown` | **done** — enforced per **UB p. 11**. The character dropdown drops the type already taken (before either optgroup is built), and `addPlayerFromForm` rejects a 3rd AI or a same-type 2nd. Note base mode therefore allows exactly one AI, which is right: the bounty AI deck is expansion-only. Starting credits 6,000/8,000 and random AI turn order are still unmodelled. |
 | — | base-bounty deck branch in `shuffleAiDeck` is unreachable dead code (rules-correct) | `main.js` | **done** — deleted as part of R1. |
 
 ---
 
-## 7. Code gotchas
+## 7. Working agreements
+
+- **Never `git commit` (or push) without asking first.** Make the changes, show what
+  changed, and wait for an explicit go-ahead. This holds even for changes the owner
+  clearly asked for — the commit itself is a separate decision.
+- **Commit messages: 12 words maximum**, whenever the change can be described that
+  briefly. One line, no body, imperative mood. Detail belongs in this file, not in the
+  log — the worklog in section 6 is where the reasoning and the sources go.
+- **Never add a `Co-Authored-By` trailer**, or any other attribution/generated-by line.
+- **Bump `version` in `index.html` on every change**, following semver:
+  - **PATCH** (`1.36.0` -> `1.36.1`) — bug fix, card-text correction, dead-code removal,
+    anything that doesn't change how the app behaves for a correct user.
+  - **MINOR** (`1.36.0` -> `1.37.0`) — new or changed behaviour that existing saves
+    survive: new validation, a changed AI rule, new help content.
+  - **MAJOR** (`1.36.0` -> `2.0.0`) — a change existing saves *don't* survive, i.e. any
+    change to the `gameSave` shape without a migration.
+
+  This string is also the cache-buster appended to `main.js`, `main.css` and
+  `assets/cards/*.json`, so it must change whenever any of those change or clients keep the
+  stale file. Versions before `1.36.0` were bumped as plain `1.NN` and are not semver.
+- The owner may override a rules finding with a house rule. When that happens, record it
+  in section 4 with a ⚠ box and say so in the worklog row, so a later pass doesn't
+  "correct" it back. See R1.
+
+---
+
+## 8. Code gotchas
 
 - **Cache busting is manual.** Bump `version` in `index.html` after changing
-  `main.js` / `main.css` / `cards/*.json`, or clients keep the old files.
+  `main.js` / `main.css` / `assets/cards/*.json`, or clients keep the old files.
 - `debug`/`debugSpecial` in `index.html` change deck behaviour: `shuffleArray` returns the
   array **unshuffled** when `debug` is true, and `['special']` when `debugSpecial` is true.
 - Card text is raw HTML injected via `innerHTML` / `insertAdjacentHTML`. Icons are
-  `<span class="icon NAME">label</span>` and get swapped for `images/assets/NAME.png`.
+  `<span class="icon NAME">label</span>` and get swapped for `assets/images/assets/NAME.png`.
   The icon name must be the **second** class.
 - Saved games live in `localStorage['gameSave']`; schema is whatever `saveGameState()`
   writes. Changing player/deck shape breaks restores — bump/guard if you do.

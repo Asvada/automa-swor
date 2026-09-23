@@ -201,6 +201,24 @@ img {
     text-indent: -20px;
 }
 
+/* Condition line (a card's "!." clause), e.g. IG-88's "do the first 2 instead".
+   Shown with the step but not selectable, so it never counts as a chosen action. */
+.phaseNote {
+    padding-left: 20px;
+    text-indent: -20px;
+    font-style: italic;
+    opacity: 0.85;
+    cursor: default;
+}
+
+.phaseNote:before {
+    content: "!";
+    font-weight: bold;
+    font-style: normal;
+    margin-right: 8px;
+    margin-left: -5px;
+}
+
 .phaseSubElement {
     padding-left: 20px;
     text-indent: -20px;
