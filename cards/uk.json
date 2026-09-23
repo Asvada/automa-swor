@@ -29,8 +29,7 @@
         "c. Витратьте <span class=\"icon credits\">кредитів 8&nbsp;000</span>, щоб отримати 1 славу.",
         "d. Отримай 1 репутацію з фракцією цієї планети (якщо є)."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "2": {
       "planning": [
@@ -65,8 +64,7 @@
         "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Зіткніться з ціллю розшуку в цьому просторі (персонаж, член екіпажу, відкритий контакт)."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "4": {
       "planning": [
@@ -83,8 +81,7 @@
         "c. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу.",
         "d. Отримай 1 репутацію з фракцією цієї планети (якщо є)."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "5": {
       "planning": [
@@ -101,8 +98,7 @@
         "c. Зіткніться з ціллю розшуку в цьому просторі (персонаж, член екіпажу, відкритий контакт).",
         "d. Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000. Потім Втрать 1 репутацію з фракцією цієї планети (якщо є)."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "bane": {
       "planning": [
@@ -120,7 +116,7 @@
         "c. Витратьте <span class=\"icon credits\">кредитів </span> 15&nbsp;000, щоб отримати 2 слави."
       ],
       "special": [
-        "Скиньте верхні карти з колод ринку <span class=\"icon job\">завдань</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім перетасуйте цю колоду ШІ."
+        "Скиньте верхні карти з колод ринку <span class=\"icon job\">завдань</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
       ]
     },
     "boba": {
@@ -139,7 +135,7 @@
         "c. Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000."
       ],
       "special": [
-        "Скиньте верхні карти з колод ринку <span class=\"icon job\">завдань</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім перетасуйте цю колоду ШІ."
+        "Скиньте верхні карти з колод ринку <span class=\"icon job\">завдань</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
       ]
     },
     "bossk": {
@@ -158,7 +154,7 @@
         "c. Зіткніться з ціллю розшуку в цьому просторі (персонаж, член екіпажу, відкритий контакт)."
       ],
       "special": [
-        "Скиньте верхні карти з колод ринку <span class=\"icon job\">завдань</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім перетасуйте цю колоду ШІ."
+        "Скиньте верхні карти з колод ринку <span class=\"icon job\">завдань</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
       ]
     },
     "dengar": {
@@ -176,7 +172,7 @@
         "c. Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000."
       ],
       "special": [
-        "Скиньте верхні карти з колод ринку <span class=\"icon job\">завдань</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім перетасуйте цю колоду ШІ."
+        "Скиньте верхні карти з колод ринку <span class=\"icon job\">завдань</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
       ]
     },
     "ig88": {
@@ -195,7 +191,7 @@
         "b. Зіткніться з ціллю розшуку в цьому просторі (персонаж, член екіпажу, відкритий контакт)."
       ],
       "special": [
-        "Скиньте верхні карти з колод ринку <span class=\"icon job\">завдань</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім перетасуйте цю колоду ШІ."
+        "Скиньте верхні карти з колод ринку <span class=\"icon job\">завдань</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
       ]
     },
     "ketsu": {
@@ -213,7 +209,7 @@
         "c. Зіткніться з ціллю розшуку у межах <strong>3 просторів</strong> (персонаж, член екіпажу, відкритий контакт)."
       ],
       "special": [
-        "Скиньте верхні карти з колод ринку <span class=\"icon job\">завдань</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім перетасуйте цю колоду ШІ."
+        "Скиньте верхні карти з колод ринку <span class=\"icon job\">завдань</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
       ]
     },
     "krrsantan": {
@@ -232,7 +228,7 @@
         "c. Киньте стільки кубиків, скільки дорівнює <span class=\"icon land_attack\">наземна атака</span> Кррсантана. За кожне викинуте <span class=\"icon hit\">влучання</span> Кррсантан отримує <span class=\"icon credits\">кредитів </span> 2&nbsp;000 та отримує 1 <span class=\"icon damage\">пошкодження</span>."
       ],
       "special": [
-        "Скиньте верхні карти з колод ринку <span class=\"icon job\">завдань</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім перетасуйте цю колоду ШІ."
+        "Скиньте верхні карти з колод ринку <span class=\"icon job\">завдань</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
       ]
     }
   },
@@ -253,8 +249,7 @@
         "c. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу.",
         "d. Якщо планета, на якій ви перебуваєте, має фракцію, Отримай 1 репутацію з цією фракцією."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "2": {
       "planning": [
@@ -271,8 +266,7 @@
         "b. Якщо в пункті призначення завдання, Виконай його.",
         "c. Відкрий <strong>найнижчий за рангом</strong> <strong>закритий</strong> жетон контакту на вашій планеті та Отримай цей контакт як члена екіпажу безкоштовно."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "3": {
       "planning": [
@@ -289,8 +283,7 @@
         "b. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу.",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000. Потім Втрать 1 репутацію з фракцією найближчого патруля."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "4": {
       "planning": [
@@ -308,8 +301,7 @@
         "c. Відкрий <strong>найнижчий за рангом</strong> жетон контакту на вашій планеті, який є <strong>закритим</strong>, та Отримай цей контакт як члена екіпажу безкоштовно.",
         "d. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "5": {
       "planning": [
@@ -326,8 +318,7 @@
         "b. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу.",
         "c. Відкрий <strong>найнижчий за рангом</strong> жетон контакту на вашій планеті, який є <strong>закритим</strong>, та Отримай цей контакт як члена екіпажу безкоштовно."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "6": {
       "planning": [
@@ -344,8 +335,7 @@
         "b. Якщо в пункті призначення завдання, Виконай його.",
         "c. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "7": {
       "planning": [
@@ -362,8 +352,7 @@
         "b. Якщо в пункті призначення завдання, Виконай його.",
         "c. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "8": {
       "planning": [
@@ -382,8 +371,7 @@
         "c. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу.",
         "d. Отримай 1 репутацію з фракцією найближчого патруля."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "9": {
       "planning": [
@@ -400,8 +388,7 @@
         "b. Якщо в пункті призначення завдання, Виконай його.",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000. Втрать 1 репутацію з фракцією планети, на якій ви перебуваєте."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "10": {
       "planning": [
@@ -419,7 +406,7 @@
         "c. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу."
       ],
       "special": [
-        "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім перетасуйте цю колоду ШІ."
+        "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
       ]
     },
     "afra": {
@@ -437,7 +424,7 @@
         "b. Отримай <span class=\"icon credits\">кредитів </span> 1&nbsp;000 за кожну відмінну навичку, яку мають Афра та її екіпаж."
       ],
       "special": [
-        "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім перетасуйте цю колоду ШІ."
+        "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
       ]
     },
     "chewbacca": {
@@ -455,7 +442,7 @@
         "c. Відкрий <strong>найвищий за рангом</strong> жетон контакту на вашій планеті, який є <strong>закритим</strong>, та Отримай цей контакт як члена екіпажу безкоштовно."
       ],
       "special": [
-        "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім перетасуйте цю колоду ШІ."
+        "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
       ]
     },
     "enfys": {
@@ -473,7 +460,7 @@
         "c. Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000 та додатково <span class=\"icon credits\">кредитів </span> 1&nbsp;000 за кожного члена екіпажу Енфіс. Потім Втрать 1 репутацію з фракцією цієї планети (якщо є)."
       ],
       "special": [
-        "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім перетасуйте цю колоду ШІ."
+        "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
       ]
     },
     "erso": {
@@ -492,7 +479,7 @@
         "c. Якщо в пункті призначення завдання, Виконай його."
       ],
       "special": [
-        "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім перетасуйте цю колоду ШІ."
+        "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
       ]
     },
     "han": {
@@ -511,7 +498,7 @@
         "c. Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000. Потім Втрать 1 репутацію з фракцією цієї планети (якщо є)."
       ],
       "special": [
-        "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім перетасуйте цю колоду ШІ."
+        "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
       ]
     },
     "hera": {
@@ -531,7 +518,7 @@
         "c. Зніми усі <span class=\"icon damage\">пошкодження</span>."
       ],
       "special": [
-        "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім перетасуйте цю колоду ШІ."
+        "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
       ]
     },
     "hondo": {
@@ -550,7 +537,7 @@
         "b. Якщо в пункті призначення завдання, Виконай його."
       ],
       "special": [
-        "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім перетасуйте цю колоду ШІ."
+        "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
       ]
     },
     "lando": {
@@ -569,7 +556,7 @@
         "c. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу."
       ],
       "special": [
-        "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім перетасуйте цю колоду ШІ."
+        "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
       ]
     },
     "maz": {
@@ -588,7 +575,7 @@
         "c. Відкрий  <strong>закритий</strong> жетон контакту найнижчого класу на цій планеті та Отримай члена екіпажу на його карті безкоштовно."
       ],
       "special": [
-        "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім перетасуйте цю колоду ШІ."
+        "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
       ]
     }
   },
@@ -641,32 +628,28 @@
       "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Розшуку за Гравця</div><div class=\"phaseElement\">Замість того, щоб отримувати вирозшук з карти розшуку, що відповідає персонажу гравця, зробіть наступне: <div class=\"phaseSubElement\">Отримай <span class=\"icon credits\">кредитів</span> 5&nbsp;000 і 1 славу.</div><div class=\"phaseSubElement\"><strong>Отримай</strong> 1 репутацію з 1 фракцією на твій вибір, з якою цей гравець має <span class=\"icon negative\">негативну</span> репутацію.</div><div class=\"phaseSubElement\"><strong>Втрать</strong> 1 репутацію з 1 фракцією на твій вибір, з якою цей гравець має <span class=\"icon positive\">позитивну</span> репутацію.</div></div></div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "human"
       ],
       "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Перевірка майстерності</div><div class=\"phaseElement\">Порахуй кількість згадок навички, яку перевіряєш (у персонажа та у всіх членів екіпажу).<br> Кинь <strong>2 кубики</strong>. <br>Для успіху потрібно, щоб випав <strong>хоча б 1</strong> відповідний результат.<div class=\"phaseSubElement\"><strong>0 навичок</strong>: <span class=\"icon crit\">crit</span> (Падаван).</div><div class=\"phaseSubElement\"><strong>1 навичка</strong>: <span class=\"icon crit\">crit</span> або <span class=\"icon hit\">hit</span> (Джедай).</div><div class=\"phaseSubElement\"><strong>2+ навичок</strong>: <span class=\"icon crit\">crit</span>, <span class=\"icon hit\">hit</span> або <span class=\"icon focus\">focus</span> (Магістр).</div></div></div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "human"
       ],
       "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Де Здобути славу</div><div class=\"phaseElement\">Персональна мета.</div><div class=\"phaseElement\">Мета корабля.</div><div class=\"phaseElement\">Розшуки.</div><div class=\"phaseElement\">Халтурки.</div><div class=\"phaseElement\">Доставка <strong>протизаконних</strong> вантажів.</div><div class=\"phaseElement\">Перемога над патрулями 2 і 3 рівнів.</div><div class=\"phaseElement\">Карти з <span class=\"icon luxury\">luxury</span> колоди ринку.</div></div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "human"
       ],
       "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Послуги<div class=\"phaseHint\"> <br>Гравець може попросити наступні послуги в іншого гравця (у будь-якому просторі):</div></div><div class=\"phaseElement\">Порада: Отримай 1 <strong>навичку цього гравця</strong> для 1 перевірки майстерності.</div><div class=\"phaseElement\">Бойова стратегія: Киньте <strong>1 додатковий кубик</strong> під час бою.</div><div class=\"phaseElement\">Підтримка: Отримай 1 з <span class=\"icon positive\">позитивних</span> <strong>репутацій</strong> цього гравця до кінця ходу.</div><div class=\"phaseElement\">Ярлик: Отримай <strong>+1 <span class=\"icon speed\">швидкості</span></strong> до кінця ходу.</div></div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "bounty",
         "smuggler"
@@ -683,8 +666,7 @@
       "content": "<div class=\"phaseElement\">Якщо ШІ-контрабандист доставляє вантаж, який обертається, оберніть цю карту та розмістіть жетон цілі на новому пункті призначення.</div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "bounty",
         "smuggler"
@@ -692,8 +674,7 @@
       "content": "</div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "bounty",
         "smuggler"
@@ -711,8 +692,7 @@
       "content": "<div class=\"phaseElement\">Не можна проходити через Центральні Світи.</div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "bounty",
         "smuggler"
@@ -720,8 +700,7 @@
       "content": "</div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "smuggler",
         "bounty"
@@ -739,8 +718,7 @@
       "content": "<strong>до 2 разів</strong>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "smuggler",
         "bounty"
@@ -767,8 +745,7 @@
       "content": "<div class=\"phaseSubElement\">Завдання \"Розшукується\", \"Інформаційний брокер\" або карта \"Особливе замовлення\"</div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "smuggler",
         "bounty"
@@ -805,8 +782,7 @@
       "content": "найнижчого класу.</div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "smuggler",
         "bounty"
@@ -823,8 +799,7 @@
       "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Стартовий корабель</div><div class=\"phaseElement\">G-1A Зоряний винищувач.</div></div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "smuggler"
       ],
@@ -833,19 +808,19 @@
   ],
   "phases": {
     "planning": {
-      "title": "Фаза Планування",
-      "hint": " - Вибери  <strong>одне</strong>"
+      "title": "Фаза планування",
+      "hint": " - зроби <strong>першу можливу</strong> дію"
     },
     "action": {
-      "title": "Фаза Дії",
-      "hint": " - Вибери будь-що або <strong>все</strong>"
+      "title": "Фаза дій",
+      "hint": " - зроби <strong>все</strong>"
     },
     "encounter": {
-      "title": "Фаза Зустрічі",
-      "hint": " - Вибери  <strong>одне</strong>"
+      "title": "Фаза зустрічей",
+      "hint": " - зроби <strong>першу можливу</strong> дію"
     },
     "special": {
-      "title": "Спеціальна Фаза",
+      "title": "Спеціальна дія",
       "hint": ""
     }
   }

@@ -114,7 +114,7 @@ $('document').ready(function () {
     }
 
 
-    function restoreGame(saved) {
+    async function restoreGame(saved) {
         players = saved.players || [];
         usedCharacters = saved.usedCharacters || [];
         currentPlayerIndex = saved.currentPlayerIndex || 0;
@@ -123,7 +123,8 @@ $('document').ready(function () {
         locale = saved.locale || 'uk';
         aiDecks = saved.aiDecks || {};
         aiHistory = saved.aiHistory || {};
-        initCards();
+        migrateAiKeys();
+        await initCards();
 
         document.getElementById('step1').classList.add("hidden");
         document.getElementById('step2').classList.add("hidden");
@@ -132,12 +133,36 @@ $('document').ready(function () {
         showTurn();
     }
 
-    async function initCards(){
-        $.getJSON('./cards/'+locale+'.json?'+version, function(response) {
-            cardsData = response; // assign to global variable
-        }).fail(function() {
-            console.error('Failed to load JSON file.');
+    // Saves written before AI state was keyed by character id are keyed by nickname.
+    // Character ids are unique within a game, so the remap is unambiguous.
+    function migrateAiKeys() {
+        players.filter(p => p.type === "ai").forEach(p => {
+            const id = p.character.id;
+            if (aiDecks[id] === undefined && aiDecks[p.nickname] !== undefined) {
+                aiDecks[id] = aiDecks[p.nickname];
+                delete aiDecks[p.nickname];
+            }
+            if (aiHistory[id] === undefined && aiHistory[p.nickname] !== undefined) {
+                aiHistory[id] = aiHistory[p.nickname];
+                delete aiHistory[p.nickname];
+            }
         });
+    }
+
+    // Returns the request so callers can await it: showTurn() reads cardsData, and
+    // firing this without waiting left cardsData null on a fast restore. The guard
+    // drops a response whose locale is no longer the selected one - the warm-up load
+    // at startup races the one startGame() issues after the locale is picked.
+    function initCards(){
+        const requested = locale;
+        return $.getJSON('./cards/'+requested+'.json?'+version)
+            .done(function (response) {
+                if (requested !== locale) return;
+                cardsData = response;
+            })
+            .fail(function () {
+                console.error('Failed to load card data for locale: ' + requested);
+            });
     }
 
     function startNewGame() {
@@ -184,6 +209,17 @@ $('document').ready(function () {
         const smugglers = allowed.filter(c => c.type === "smuggler").sort((a, b) => a.name.localeCompare(b.name));
         const bounty = allowed.filter(c => c.type === "bounty").sort((a, b) => a.name.localeCompare(b.name));
 
+        // A second AI must be the other type (UB p. 11), so drop the type already taken.
+        // Both lists are narrowed here, before either optgroup is built.
+        if (type === "ai") {
+            if (gameMode === "base") bounty.length = 0;
+            const ais = players.filter(p => p.type === "ai");
+            if (ais.length === 1) {
+                if (ais[0].character.type === "smuggler") smugglers.length = 0;
+                else bounty.length = 0;
+            }
+        }
+
         if (smugglers.length > 0) {
             const group = document.createElement("optgroup");
             group.label = "Smugglers";
@@ -195,7 +231,6 @@ $('document').ready(function () {
             });
             select.appendChild(group);
         }
-        if (type === "ai" && gameMode === "base") bounty.length = 0;
         if (bounty.length > 0) {
             const group = document.createElement("optgroup");
             group.label = "Bounty Hunters";
@@ -297,12 +332,27 @@ $('document').ready(function () {
         }
 
         const charObj = characters.find(c => c.name === charName);
+
+        // "Using Multiple AI Opponents" (UB p. 11) sets up one bounty hunter and one
+        // non-bounty-hunter character, so two AI at most and never two of a kind.
+        if (type === "ai") {
+            const ais = players.filter(p => p.type === "ai");
+            if (ais.length >= 2) {
+                showError("At most 2 AI opponents are allowed.");
+                return false;
+            }
+            if (ais.length === 1 && ais[0].character.type === charObj.type) {
+                showError("The 2 AI opponents must be of different types - one smuggler and one bounty hunter.");
+                return false;
+            }
+        }
+
         usedCharacters.push(charObj.name);
         players.push({type, nickname, character: charObj, color, personalGoalAchieved: false, currentCardIndex: 0});
 
         if (type === "ai") {
             let deck = shuffleAiDeck(charObj.type);
-            aiDecks[nickname] = deck;
+            aiDecks[charObj.id] = deck;
             console.log(`AI ${nickname} initial deck:`, deck);
         }
 
@@ -370,205 +420,6 @@ $('document').ready(function () {
             promptDiv.style.margin = '0px 0px 30px 0px';
             // promptDiv.style.zIndex = 1000;
             // promptDiv.style.textAlign = 'center';
-/*
-            if (gameMode == 'expansion') {
-                content +=
-                    '<div class="phaseItem">' +
-                        '<div class="phaseName">Player token as encounter</div>' +
-                        '<div class="phaseElement">When player token is revealed as an encounter, that token is removed from the game and another contact token is revealed.</div>' +
-                    '</div>';
-            }
-
-            if (gameMode == 'expansion' && (player.type === "human" || player.character.type === "bounty")) {
-                content +=
-                    '<div class="phaseItem">' +
-                        '<div class="phaseName">AI vs <strong>unopposed bounty</strong> <em style="text-transform: none">(not protected)</em></div>' +
-                        '<div class="phaseElement">If bounty contact token is:' +
-                            '<div class="phaseSubElement">on a planet.</div>' +
-                            '<div class="phaseSubElement">is a Crew of another AI.</div>' +
-                            '<div class="phaseSubElement">is a Crew of Player who does not want to protect it.</div>' +
-                        '</div>' +
-                        '<div class="phaseElement">Bounty becomes eliminated. Do all below:' +
-                            '<div class="phaseSubElement"> a. Remove contact from the game.</div>' +
-                            '<div class="phaseSubElement"> b. Gain reward on bounty card.</div>' +
-                            '<div class="phaseSubElement"> c. Suffer <span class="icon damage">damage</span> according to bounty card <span class="icon land_attack">land attack</span> or <span class="icon ship_attack">ship attack</span>.</div>' +
-                        '</div>' +
-                    '</div>';
-            content +=
-                '<div class="phaseItem">' +
-                    '<div class="phaseName">AI vs Player\'s Crew member <strong>opposed bounty</strong> <em style="text-transform: none">(protected by Player)</em></div>' +
-                    '<div class="phaseElement">Fight against protector Player as normal.</div>'+
-                    '<div class="phaseElement">If the AI bounty hunter <strong>wins</strong> in a bounty fight:' +
-                        '<div class="phaseSubElement">Crew card and token are <strong>removed</strong> from the game.</div>' +
-                        '<div class="phaseSubElement">AI player resolves "After you gain a reward" from the bounty card.</div>' +
-                    '</div>'+
-                    '<div class="phaseElement">If the AI bounty hunter <strong>loses</strong> in a bounty fight.' +
-                        '<div class="phaseSubElement">The bounty job is <strong>discarded</strong>.</div>' +
-                    '</div>'+
-                '</div>';
-                content +=
-                    '<div class="phaseItem">' +
-                        '<div class="phaseName">AI vs Player/AI</div>' +
-                        '<div class="phaseElement">Fight is resolved normally.</div>'+
-                        '<div class="phaseElement">If bounty hunter <strong>wins</strong>:' +
-                            '<div class="phaseSubElement">Bounty job card is <strong>removed</strong> from the game.</div>' +
-                            '<div class="phaseSubElement">"Player bounty reward" is gained <em>(see below)</em>.</div>' +
-                        '</div>'+
-                        '<div class="phaseElement">If bounty hunter <strong>loses</strong>:' +
-                            '<div class="phaseSubElement">Bounty job card is <strong>discarded</strong>.</div>' +
-                        '</div>'+
-                    '</div>';
-                content +=
-                    '<div class="phaseItem">' +
-                        '<div class="phaseName">Player Bounty Rewards</div>' +
-                        '<div class="phaseElement">Instead of gaining rewards from a bounty card  matching a player\'s character, do the following: ' +
-                            '<div class="phaseSubElement">Gain <span class=\"icon credits\">credits</span>5&nbsp;000 and 1 fame.</div>' +
-                            '<div class="phaseSubElement"><strong>Gain</strong> 1 reputation with 1  faction of your choice with which that player has <span class=\"icon negative\">negative</span> reputation.</div>' +
-                            '<div class="phaseSubElement"><strong>Lose</strong> 1 reputation with 1 faction of your choice with which that player has <span class=\"icon positive\">positive</span> repoutation.</div>' +
-                        '</div>' +
-                    '</div>';
-            }
-
-            if (player.type === "human"){
-                content +=
-                    '<div class="phaseItem">' +
-                        '<div class="phaseName">Перевірка майстерності</div>' +
-                        '<div class="phaseElement">Порахуй кількість згадок навички, яку перевіряєш (у персонажа та у всіх членів екіпажу).<br> Кинь <strong>2 кубики</strong>. <br>' +
-                        'Дпя успіху потрібно, щоб випав <strong>хоча б 1</strong> відповідний результат.' +
-                            '<div class="phaseSubElement"><strong>0 навичок</strong>: <span class=\"icon crit\">crit</span> (Падаван).</div>' +
-                            '<div class="phaseSubElement"><strong>1 навичка</strong>: <span class=\"icon crit\">crit</span> або <span class=\"icon hit\">hit</span> (Джедай).</div>' +
-                            '<div class="phaseSubElement"><strong>2+ навичок</strong>: <span class=\"icon crit\">crit</span>, <span class=\"icon hit\">hit</span> або <span class=\"icon focus\">focus</span> (Магістр).</div>' +
-                        '</div>' +
-                    '</div>';
-                content +=
-                    '<div class="phaseItem">' +
-                        '<div class="phaseName">Де Здобути славу</div>' +
-                        '<div class="phaseElement">Персональна мета.</div>' +
-                        '<div class="phaseElement">Мета корабля.</div>' +
-                        '<div class="phaseElement">Розшуки.</div>' +
-                        '<div class="phaseElement">Халтурки.</div>' +
-                        '<div class="phaseElement">Доставка <strong>протизаконних</strong> вантажів.</div>' +
-                        '<div class="phaseElement">Перемога над патрулями 2 і 3 рівнів.</div>' +
-                        '<div class="phaseElement">Карти з <span class=\"icon luxury\">luxury</span> колоди ринку.</div>' +
-                    '</div>';
-                content +=
-                    '<div class="phaseItem">' +
-                        '<div class="phaseName">Favors' +
-                            '<div class="phaseHint"> <br>Player can request the following favors from another player (in any space):</div>' +
-                        '</div>' +
-                        '<div class="phaseElement">Advice: Gain 1 of that <strong>player\'s skills</strong> for 1 skill test.</div>' +
-                        '<div class="phaseElement">Combat Strategy: Roll <strong>1 additional die</strong> during a combat.</div>' +
-                        '<div class="phaseElement">Endorsement: Gain 1 of that player\'s <span class=\"icon positive\">positive</span> <strong>reputations</strong> until end of turn.</div>' +
-                        '<div class="phaseElement">Shortcut: Gain <strong>+1 <span class=\"icon speed\">speed</span></strong> until end of turn reputations until end of turn.</div>' +
-                    '</div>';
-
-
-            } else {
-                //non-human
-                content +=
-                    '<div class="phaseItem">' +
-                        '<div class="phaseName">Cards</div>' +
-                        '<div class="phaseElement">Do not resolve any encounter cards.</div>' +
-                        '<div class="phaseElement">Do not use abilities on cards, except for abilities that increase the values on their ship or character (ground/space combat, HP/hull)</div>' +
-                    '';
-
-                if (gameMode == 'expansion' && player.character.type === "smuggler") {
-                    content +=
-                        '<div class="phaseElement">If the smuggler AI player delivers a cargo that rotates, rotate that card and place a goal token on the new destination.</div>';
-                }
-
-                // phaseItem end
-                content +=
-                    '</div>';
-
-                content +=
-                    '<div class="phaseItem">' +
-                        '<div class="phaseName">Movement</div>' +
-                        '<div class="phaseElement">Choose the shortest path to the goal, event if encounter partols.</div>' +
-                        '<div class="phaseElement">Do not fight partols, just stop on those having <span class="icon neutral">neutral</span> or <span class="icon negative">negative</span> reputation.</div>' +
-                        '<div class="phaseElement">Do not stop on Maelstrom.</div>' +
-                        '<div class="phaseElement">If AI would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div>' +
-                    '';
-                if (gameMode == 'expansion')
-                {
-                    content +=
-                        '<div class="phaseElement">Cannot go through the Core Worlds.</div>';
-                }
-
-                // phaseItem end
-                content +=
-                    '</div>';
-
-
-                content +=
-                    '<div class="phaseItem">' +
-                        '<div class="phaseName">Buying</div>' +
-                        '<div class="phaseElement">Buy makert cards as normal (if enough credits and have a free card slot).</div>' +
-                        '<div class="phaseElement">Barter ship cards (pay the difference between current and new ships).</div>' +
-                        '<div class="phaseElement"><strong>Discard</strong> market card ';
-                    if (gameMode == 'expansion' ) {
-                        content +=
-                            '<strong>up to 2 times</strong>';
-                    }
-
-
-                content +=
-                            ' if:' +
-                            '<div class="phaseSubElement">Cannot be bought on AI\'s planet.</div>' +
-                            '<div class="phaseSubElement">Not enough credits.</div>' +
-                            '<div class="phaseSubElement">No free slots.</div>' +
-                            '<div class="phaseSubElement">Ship costs <strong>same or less</strong> than that the AI has.</div>';
-
-                    if (gameMode == 'expansion' && player.character.type === "smuggler") {
-                        content +=
-                            '<div class="phaseSubElement">Cargo destination is a patrol.</div>';
-                    }
-                    if (gameMode == 'expansion') {
-                        content +=
-                            '<div class="phaseSubElement">"Wanted" job, "Information Broker" or the "Special Order" card</div>';
-                    }
-
-                content +=
-                            '<div class="phaseSubElement">Card has restrictions (e.g. "Limit 1 Armor per character").</div>' +
-                        // phaseElement end
-                        '</div>' +
-                        '<div class="phaseElement">After buying a card, resolve partol movement by shortest way possible towards AI space.</div>';
-                if (gameMode == 'expansion') {
-                    content +=
-                        '<div class="phaseElement">After buying a card, resolve contact token '
-                    if (player.character.type === "bounty") {
-                        content +=
-                            "that matches AI's <strong>lowest class</strong> bounty or thecontact token";
-                    }
-
-                    content +=' of the lowest class.</div>'
-                }
-
-                // phaseItem end
-                content +=
-                    '</div>';
-
-
-                if (gameMode == 'expansion' && player.character.type === "bounty")
-                {
-                    content +=
-                        '<div class="phaseItem">' +
-                            '<div class="phaseName">Starting ship</div>' +
-                            '<div class="phaseElement">G-1A Starfighter.</div>' +
-                        '</div>';
-                } else {
-                    content +=
-                        '<div class="phaseItem">' +
-                            '<div class="phaseName">Starting ship</div>' +
-                            '<div class="phaseElement">G9 Rigger.</div>' +
-                        '</div>';
-                }
-
-            }
-
-
-            promptDiv.innerHTML = content;
-*/
             content = '';
 
             let playerType = player.type === "human" ?"human": player.character.type;
@@ -604,8 +455,8 @@ $('document').ready(function () {
         $('#helpButton').hide();
     }
 
-    function startGame() {
-        initCards();
+    async function startGame() {
+        await initCards();
         document.getElementById("step1").classList.add("hidden");
         document.getElementById("step2").classList.add("hidden");
         mainTitle.classList.add("hidden");
@@ -613,7 +464,7 @@ $('document').ready(function () {
         currentPlayerIndex = 0;
         document.getElementById("gameStep").classList.remove("hidden");
         players.forEach(p => {
-            if (p.type === "ai") aiHistory[p.nickname] = [];
+            if (p.type === "ai") aiHistory[p.character.id] = [];
         });
         showTurn();
     }
@@ -698,37 +549,35 @@ $('document').ready(function () {
 
         } else {
             cardType = player.character.type === "smuggler" ? "smuggler" : "bounty";
-            let deck = aiDecks[player.nickname];
+            // The AI deck is a fixed rotating queue: shuffled once at setup, then each
+            // resolved card goes facedown to the bottom (Rules Reference p. 22). It is
+            // never reshuffled mid-game.
+            // Keyed by character id, not nickname: two players may share a nickname,
+            // and sharing an AI deck between them corrupts both.
+            const aiKey = player.character.id;
+            let deck = aiDecks[aiKey];
             if (!deck || deck.length === 0) {
-                aiDecks[player.nickname] = deck = shuffleAiDeck(player.character.type);
+                aiDecks[aiKey] = deck = shuffleAiDeck(player.character.type);
             }
-            if (!aiHistory[player.nickname]) aiHistory[player.nickname] = [];
-
-            aiDecks[player.nickname] = deck;
+            if (!aiHistory[aiKey]) aiHistory[aiKey] = [];
 
             let card;
-            if (player.currentCardIndex < aiHistory[player.nickname].length) {
+            if (player.currentCardIndex < aiHistory[aiKey].length) {
                 console.log('using card from history');
-                card = aiHistory[player.nickname][player.currentCardIndex];
+                card = aiHistory[aiKey][player.currentCardIndex];
             } else {
                 console.log('drawing new card from deck');
 
-                let availableDeck = deck.slice();
+                // HOUSE RULE (see AGENTS.md R1): the drawn card leaves the deck, and
+                // the deck is reshuffled whole once it runs out or once the special
+                // card comes up. The printed rule is bottom-of-deck rotation with the
+                // special reshuffling only itself; this is a deliberate divergence.
+                card = deck.shift();
+                aiHistory[aiKey].push(card);
 
-                const lastCard = aiHistory[player.nickname].length ? aiHistory[player.nickname][aiHistory[player.nickname].length - 1] : null;
-                if (lastCard === "special") {
-                    availableDeck = availableDeck.filter(c => c !== "special");
-                    if (!availableDeck.length) availableDeck = deck.slice();
-                }
-
-                card = availableDeck.shift();
-                const idx = deck.indexOf(card);
-                if (idx > -1) deck.splice(idx, 1);
-
-                aiHistory[player.nickname].push(card);
-
-                if (card === "special" || card == 10) {
-                    aiDecks[player.nickname] = [];
+                if (triggersReshuffle(card) || deck.length === 0) {
+                    aiDecks[aiKey] = deck = shuffleAiDeck(player.character.type);
+                    console.log(`AI ${player.nickname} reshuffled deck:`, deck);
                 }
             }
 
@@ -738,11 +587,12 @@ $('document').ready(function () {
             cardName = card;
 
             let headerMarker = "";
-            if (player.currentCardIndex === aiHistory[player.nickname].length - 1 && aiDecks[player.nickname].justShuffled) {
-                headerMarker = ' <span class="turnHeaderHint" title="Deck shuffled">↻</span>';
-                aiDecks[player.nickname].justShuffled = false;
-            } else if (player.currentCardIndex < aiHistory[player.nickname].length - 1) {
-                const depth = aiHistory[player.nickname].length - player.currentCardIndex - 1;
+            const deckSize = shuffleAiDeck(player.character.type).length;
+            if (reshuffleMarks(aiHistory[aiKey], deckSize)[player.currentCardIndex]) {
+                headerMarker = ' <span class="turnHeaderHint" title="Deck reshuffled after this card">↻</span>';
+            }
+            if (player.currentCardIndex < aiHistory[aiKey].length - 1) {
+                const depth = aiHistory[aiKey].length - player.currentCardIndex - 1;
                 headerMarker = ` <span class="turnHeaderHint" title="History depth">-${depth}</span>`;
             }
 
@@ -788,10 +638,6 @@ $('document').ready(function () {
                 const player = players[currentPlayerIndex];
                 if (player.type === "ai") {
                     player.currentCardIndex++;
-                    if (aiDecks[player.nickname].length === 0) {
-                        aiDecks[player.nickname] = shuffleAiDeck(player.character.type);
-                        console.log(`AI ${player.nickname} reshuffled deck:`, aiDecks[player.nickname]);
-                    }
                 }
                 currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
                 showTurn();
@@ -799,22 +645,13 @@ $('document').ready(function () {
             row2.appendChild(nextBtn);
             cardDisplay.appendChild(row2);
 
-            const row3 = document.createElement("div");
-            row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
-            row3.className = "personalGoalText";
-            row3.style.color = player.personalGoalAchieved ? '#4CFF4C' : 'white';
-            cardDisplay.appendChild(row3);
-
+            // AI players can never complete personal goals or ship goals
+            // (Rules Reference p. 22), so the character card is shown unflipped and
+            // there is no goal toggle here.
             const row4 = document.createElement("div");
             const charImg2 = document.createElement("img");
             const [name, ext] = player.character.image.split(".");
-            charImg2.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}?${version}`;
-            charImg2.addEventListener("click", () => {
-                player.personalGoalAchieved = !player.personalGoalAchieved;
-                charImg2.src = `./images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}?${version}`;
-                row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
-                row3.style.color = player.personalGoalAchieved ? '#4CFF4C' : 'white';
-            });
+            charImg2.src = `./images/characters/${name}.${ext}?${version}`;
             row4.appendChild(charImg2);
             cardDisplay.appendChild(row4);
 
@@ -825,12 +662,34 @@ $('document').ready(function () {
         saveGameState();
     }
 
+    // Cards carrying "Then, shuffle this AI card back into the AI deck": every character
+    // ("special") card, plus base smuggler card 10. Verified on the scans. Under the
+    // house rule these reshuffle the whole deck rather than just themselves.
+    function triggersReshuffle(card) {
+        return card === "special" || card === 10;
+    }
+
+    // Which draws were followed by a reshuffle, replayed from history so the marker
+    // needs no stored state and survives a reload (C5). A reshuffle happens when the
+    // card triggers one, or when that draw emptied the deck.
+    function reshuffleMarks(history, deckSize) {
+        const marks = [];
+        let drawn = 0;
+        history.forEach(card => {
+            drawn++;
+            const did = triggersReshuffle(card) || drawn === deckSize;
+            marks.push(did);
+            if (did) drawn = 0;
+        });
+        return marks;
+    }
+
+    // Shuffled once, at setup. The bounty hunter AI deck exists only in the expansion
+    // (Rules Reference p. 22), so there is no base-mode bounty branch.
     function shuffleAiDeck(characterType) {
-        let deck = characterType === "smuggler"
+        return characterType === "smuggler"
             ? (gameMode === "base" ? shuffleArray([...Array(10).keys()].map(n => n + 1)) : shuffleArray([1, 2, 6, 7, 9, "special"]))
-            : (gameMode === "base" ? shuffleArray([1, 2, 3, 4, 5]) : shuffleArray([1, 2, 3, 4, 5, "special"]));
-        deck.justShuffled = true;
-        return deck;
+            : shuffleArray([1, 2, 3, 4, 5, "special"]);
     }
 
     async function describeCard(cardName, type) {
@@ -843,72 +702,22 @@ $('document').ready(function () {
         if (type === "human") {
             // Preserve canonical human card content exactly
             cardContent = cardsData['player'][gameMode];
-/*
-            cardContent.planning =
-                '<div class="phaseItem">' +
-                '<div class="phaseName">Planning step' +
-                '<div class="phaseHint"> - Choose <strong>only 1</strong></div>' +
-                '</div>' +
-                '<div class="phase1Element phaseElement">Move up to your ship\'s <span class="icon speed">speed.</span></div>' +
-                '<div class="phase1Element phaseElement">Gain <span class="icon credits">credits </span>2&nbsp;000.</div>' +
-                '<div class="phase1Element phaseElement">' +
-                'Recover all <span class="icon damage">damage</span> from character and ship.' +
-                '<div class="phaseSubElement">' +
-                'Pay <span class="icon credits">credits </span>3 000 <em>(if defeated).</em>' +
-                '</div>' +
-                '<div class="phaseSubElement">' +
-                'Lose all secret cards <em>(if defeated).</em>' +
-                '</div>' +
-                '</div>' +
-                '<div class="phase1Element phaseElement">Play any "<strong>Planning</strong>" on Player, Ship, Crew, Secret or any other card.</div>' +
-                '</div>';
-
-            cardContent.action =
-                '<div class="phaseItem multiplePhaseElements">' +
-                '<div class="phaseName">Action step' +
-                '<div class="phaseHint"> - Perform  <strong>any or all</strong></div>' +
-                '</div>' +
-                '<div class="phase2Element phaseElement">Deliver <span class="icon cargo">cargo</span> <strong>and</strong> <span class="icon bounty">bounties</span>.</div>' +
-                '<div class="phase2Element phaseElement">Market action (<strong>if on a planet</strong>).' +
-                '<div class="phaseSubElement">' +
-                '  May discard ' + (gameMode === "base" ? 'a card' : 'up to 2 cards') + ' from top of a ' + (gameMode === "base" ? '' : '<strong>single</strong>') + ' market deck.' +
-                '</div>' +
-                '<div class="phaseSubElement">' +
-                '  May buy top card of a market deck. Then, resolve patrol movement' + (gameMode === "base" ? '' : ' and reveal contact icons') + ' on next card, if any.' +
-                '</div>' +
-                '</div>' +
-                '<div class="phase2Element phaseElement">Trade cards with a player in your space.</div>' +
-                '<div class="phase2Element phaseElement">Play any "<strong>Action</strong>" on Player, Ship, Crew, Cargo, Gear, Mod, Secret, Ambition or any other card.</div>' +
-                '</div>';
-
-            cardContent.encounter =
-                '<div class="phaseItem">' +
-                '<div class="phaseName">Encounter step' +
-                '<div class="phaseHint"> - Choose <strong>only 1</strong></div>' +
-                '</div>' +
-                '<div class="phase3Element phaseElement">Fight a patrol (required if you have <span class="icon negative">negative</span> reputation with a patrol in your space).</div>' +
-                '<div class="phase3Element phaseElement">Resolve a space encounter card (Planet, Maelstrom, Navpoint' + (gameMode === "base" ? '' : ', Core Worlds') + ').</div>' +
-                '<div class="phase3Element phaseElement">Encounter facedown contact (<strong>resolve</strong> a databank card) or fight bounty.</div>' +
-                '<div class="phase3Element phaseElement">Play any "<strong>Encounter</strong>" on Player, Ship, Crew, Secret, Ambition or any other card.</div>' +
-                '</div>';
-
-            cardContent.special = '';
-            */
         } else {
-            // AI cards: fetch JSON dynamically
+            // AI cards come from cards/<locale>.json; a character card is stored under
+            // the character's id rather than a number.
             try {
                 const typeDir = type === 'smuggler' ? 'smuggler' : 'bounty';
                 const cardFileName = cardName == 'special' ? player.character.id : cardName;
-                // const url = `./cards/${typeDir}/${cardFileName}.json?${version}`;
-                // const response = await fetch(url);
-                // if (!response.ok) throw new Error('Card JSON not found');
-                // const data = await response.json();
                 const data = cardsData[typeDir][cardFileName];
 
                 // Convert arrays to HTML for phaseElement divs
                 ['planning', 'action', 'encounter', 'special'].forEach(section => {
                     if (data[section] && data[section].length) {
-                        const multiple = (section === 'action' || section === 'special') ? ' multiplePhaseElements' : '';
+                        // AI steps are never a free choice: planning/encounter are a
+                        // priority walk ("do the first that applies"), action is "do all
+                        // that apply". Either way, picking one bullet must not cross out
+                        // the others, so AI cards are always non-exclusive.
+                        const multiple = ' multiplePhaseElements';
                         let sectionTitle = cardsData.phases[section].title;
                         let sectionDescription = cardsData.phases[section].hint;
                         cardContent[section] = `<div class="phaseItem${multiple}">
@@ -991,7 +800,10 @@ $('document').ready(function () {
     }
 
     function replaceIconsWithImages() {
-        document.querySelectorAll('.icon').forEach(span => {
+        // span.icon only: this runs twice per render, and a bare '.icon' also matches
+        // the <img class="icon ..."> produced by the first pass. An <img> has no
+        // textContent, so the second pass would rewrite alt to "".
+        document.querySelectorAll('span.icon').forEach(span => {
             const iconType = span.classList[1]; // e.g. "damage"
             if (!iconType) return; // skip if no second class
 

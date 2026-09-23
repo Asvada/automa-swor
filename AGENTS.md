@@ -1,0 +1,274 @@
+# AGENTS.md — working memory for AI agents on this project
+
+Read this first. It records what has been **verified against official sources** so
+future sessions don't re-derive it. Update the worklog when you change something.
+
+---
+
+## 1. What this is
+
+Static, build-free web app: an **Automa / AI-opponent manager for _Star Wars: Outer Rim_**
+(base game + _Unfinished Business_ expansion). It replaces the physical AI card decks and
+the player reference card. Served by nginx from the repo root (`docker-compose.yml`).
+
+```
+index.html            bootstrap; version string + feature flags live here
+assets/js/main.js     ALL logic, one jQuery ready() closure (~805 lines)
+assets/css/main.css   dark theme, mobile-first (max-width 450px)
+cards/en.json         live card + help + phase text, EN     <- edit these
+cards/uk.json         live card + help + phase text, UK     <- edit these
+images/               scanned physical cards (see section 3)
+assets/ref_docs/*.pdf the four official rulebooks (see 2b)
+```
+
+Everything comes from `cards/<locale>.json`. The legacy per-card files and the dead
+`fetch` that read them are gone (C3/C4); recover them from history if ever needed.
+
+---
+
+## 2. Source of truth — in this order
+
+1. **`images/` scans of the physical cards.** Highest authority for *card* text.
+   They are photographs of the real cards and they are fully legible (see 3).
+2. **Official rulebooks** (see 2b) for *procedure* the cards don't state.
+3. `cards/*.json` — the app's transcription. **Has known errors.** Never treat it as
+   the reference; it is the thing being corrected.
+
+Short keys used in citations below, all resolving into `assets/ref_docs/` (section 2b):
+**LTP** = `swor-base.pdf` · **UB** = `swor-outerrim.pdf` ·
+**RR** = `swor_living_rules_reference.pdf` · **UK-RB** = `swor-base-ukr.pdf`.
+
+### 2b. Rulebooks — in the repo under `assets/ref_docs/`
+
+All four are present locally. Identity and page counts verified by extraction, so cite
+these paths rather than re-downloading.
+
+| file | pp. | what it really is | key pages |
+|---|---|---|---|
+| `assets/ref_docs/swor-base.pdf` | 16 | Base **Learn to Play**, EN (`sw06_learn_to_play_v2`) | Single-Player Game pp. 14–15; Player Turn card p. 3 |
+| `assets/ref_docs/swor-outerrim.pdf` | 12 | **Unfinished Business** expansion rulebook (`sw07_outerrim_rulebook_v2`) | Single-Player Rules pp. 8–11; **Using Multiple AI Opponents p. 11** |
+| `assets/ref_docs/swor_living_rules_reference.pdf` | 28 | **Living Rules Reference v1.1 (06/10/2022) — authoritative** | **Appendix 3 Single-Player pp. 22–25**; Appendix 4 expansion clarifications p. 25 |
+| `assets/ref_docs/swor-base-ukr.pdf` | 16 | Official **Ukrainian** base rulebook (desktopgames.com.ua) | terminology; "Хід ШтІнту" AI card p. 3 |
+
+Every page citation above was checked by extracting that page. Original download URLs,
+should a file ever need replacing:
+
+```
+https://images-cdn.fantasyflightgames.com/filer_public/fc/8a/fc8a7a1b-ee5d-4df9-8735-92a8c8f5f0f6/sw06_learn_to_play_v2-compressed.pdf
+https://images-cdn.fantasyflightgames.com/filer_public/b8/a9/b8a953a5-26da-4f15-88a8-5eecc3eaa4df/sw07_outerrim_rulebook_v2-compressed.pdf
+https://images-cdn.fantasyflightgames.com/filer_public/1f/7f/1f7f3850-9a91-4461-b43e-1b5352d67846/swor_living_rules_reference_1.pdf
+https://desktopgames.com.ua/games/5275/pravila_nastlno_gri_star_wars.-zovnshne-klce-star-wars-outer-rim-ukranskou-movou-66179964.pdf
+```
+
+They are image-heavy; `pdftotext`/`pypdf` are NOT installed. Use ghostscript:
+
+```bash
+# page count
+gs -q -dNODISPLAY -dNOSAFER -c "(assets/ref_docs/FILE.pdf) (r) file runpdfbegin pdfpagecount = quit"
+
+# text of one page (do this per page - it keeps citations honest)
+gs -q -dNOPAUSE -dBATCH -sDEVICE=txtwrite -dFirstPage=N -dLastPage=N -o out.txt in.pdf
+
+# render a page
+gs -q -dNOPAUSE -dBATCH -sDEVICE=png16m -r150 -dFirstPage=N -dLastPage=N -o page.png in.pdf
+```
+Two-column reflow interleaves the columns — **do not trust a sentence that spans a line
+break** in the txtwrite output. Verify against the scan or a rendered page.
+
+---
+
+## 3. Reading the card scans
+
+Scans are ~630x1010 px. Upscale before reading or the text is marginal:
+
+```bash
+convert images/smuggler/1.png -resize 250% -unsharp 0x1+1+0 /tmp/out.png
+```
+At 250% every card is comfortably readable, icons included. Verified on
+`smuggler/1`, `smuggler/10`, `smuggler/han`, `bounty/1`, `player/base a`.
+
+**There are no `.docx` OCR files** anywhere on disk or in git history. Don't look for them.
+
+### Language of each scan set (they are mixed!)
+
+| path | printing | language |
+|---|---|---|
+| `images/smuggler/1..10.png` | base game | **Ukrainian** |
+| `images/bounty/1..5.png` | expansion | **English** |
+| `images/{smuggler,bounty}/<char>.png` | expansion | **English** |
+| `images/player/base|expansion {a,b}.png` | base | **Ukrainian** |
+| `images/characters/<char>[_].png` | character cards; `_` = flipped (personal goal done) |
+| `images/assets/*.png` | icons, keyed by the 2nd CSS class of `span.icon` |
+
+### Image -> data key mapping
+
+`images/<type>/<key>.png` <-> `cards/<locale>.json -> <type> -> <key>`
+where `<type>` is `smuggler|bounty` and `<key>` is `1..10` / `1..5` / a character id.
+Character ids come from the `characters[]` table at `main.js:6`.
+
+---
+
+## 4. Verified rules facts
+
+### Deck composition — app is CORRECT, don't "fix" it
+- base smuggler = `1..10` (base box has exactly "10 AI Cards" / "10 Карт ШтІнту")
+- expansion smuggler = `1, 2, 6, 7, 9` + that character's card (RR p. 22, verbatim)
+- expansion bounty = `1..5` + that character's card
+- **base bounty does not exist** — the bounty hunter AI deck ships only in the expansion.
+  So `main.js:198` (hiding bounty hunters for base-mode AI) is right, and the
+  `[1,2,3,4,5]` base-bounty branch in `shuffleAiDeck` (`main.js:828`) is dead code.
+
+### Deck cycling — app is WRONG
+RR p. 22 / LTP p. 14:
+> After resolving the card, discard it **facedown to the bottom of the AI deck**.
+
+The deck is a **fixed rotating queue**. It is shuffled once at setup and then keeps that
+order forever. The app instead removes each drawn card and reshuffles a fresh random
+order when the deck empties (`main.js:726`, `main.js:791`).
+
+The one exception, **read off the physical cards**:
+- `images/smuggler/han.png` (EN): "Then, **shuffle this AI card back into the AI deck**."
+- `images/smuggler/10.png` (UK): "Потім **затасуй цю карту** в колоду ШтІнту."
+
+So the special card is shuffled **back into the deck**, at a random position — the rest of
+the deck order is untouched. `cards/*.json` mistranscribes this as "Then shuffle this AI
+deck" / "перетасуйте цю колоду ШІ" on all 17 cards that carry the line, and
+Verified verbatim from a rendered page, not the reflowed text. Two consequences:
+
+- **The deck can never be exhausted**, since every resolved card returns to the bottom.
+  There is therefore no "reshuffle when the deck runs out" rule anywhere. Grepping all
+  four PDFs for `reshuffl|exhaust|runs out|no cards left` near "AI"/"deck" finds nothing:
+  the only AI-deck shuffle instructions in any rulebook are at **setup**.
+- **The special card shuffles only itself.** The printed text is singular in both
+  languages — `bounty/boba.png` "shuffle **this AI card** back into the AI deck",
+  `smuggler/10.png` "затасуй **цю карту**".
+
+### ⚠ The app deliberately diverges here — HOUSE RULE, do not "fix"
+
+The owner's decision (2026-09-23), after being shown the above: the app reshuffles the
+**whole deck** when the deck runs out or when the special card is drawn. The drawn card
+leaves the deck rather than going to the bottom.
+
+So `triggersReshuffle()` + the reshuffle in the draw block are **intentional**. Leave the
+*card text* alone though — it is a faithful transcription of the printed card, and it is
+the app's behaviour, not the transcription, that diverges.
+
+`reshuffleMarks()` replays the history to decide which turns get the ↻ marker, so the
+marker still needs no stored state (C5).
+
+### Phase semantics — app is WRONG for AI cards
+Physical cards, both languages:
+
+| step | human card | **AI card** |
+|---|---|---|
+| Planning | Choose one / Вибери одне | **Do the first that applies** / зроби першу можливу дію |
+| Action | Perform any or all / Виконай будь-що або все | **Do all that apply** / зроби все |
+| Encounter | Choose one / Вибери одне | **Do the first that applies** / зроби першу можливу дію |
+| Special | — | `SPECIAL` / `СПЕЦІАЛЬНА ДІЯ` |
+
+**RR p. 22** defines the priority walk authoritatively:
+
+> Some sections of AI cards read, "Do the first that applies." This means that the AI
+> resolves the top bullet if possible. If that bullet would have no effect or cannot be
+> resolved (for example, the AI player has no damage to recover), the AI resolves the
+> next bullet instead. If the AI cannot resolve any of the bullets, they do nothing.
+
+`describeCard` reused the human `cardsData.phases` hints for AI cards, and
+`attachPhaseElementListeners` gave AI bullets the same click-one-and-cross-out-the-rest
+interaction. Both invited free choice where the rules demand a strict priority walk.
+**Implemented (R2):** `phases` is AI-only (the human card carries its own hints inline),
+so it was simply retranscribed, and AI sections are always `multiplePhaseElements`.
+IG-88 needed no third hint variant after all — "do the FIRST 2 that apply" is a
+*conditional inside its own planning step* ("If IG-88 has at least 1 droid crew, do the
+first 2 that apply instead"), already stored as its `!.` bullet.
+
+### Other verified points
+- AI players **cannot complete personal goals or ship goals** (RR p. 22) — the
+  personal-goal toggle rendered for AI turns at `main.js:813` shouldn't exist.
+- Starting ships: smuggler AI = G9 Rigger, bounty AI = G-1A Starfighter. ✓ app correct.
+- Favors are **expansion-only AND forbidden in single-player** ("The favors optional rule
+  cannot be used"). Help entry 7 is tagged `gameMode: []` (any) — wrong.
+- Defeat penalty (lose 3,000, discard all secrets) happens **when you become defeated**,
+  not when you recover. Recovery is **mandatory** on the next planning step and blocks
+  move / gain credits / Planning ability. The human card states this wrong.
+- Solo is capped at **two** AI opponents, and they must be of **different types**.
+  App allows three, any mix (`index.html:16`). **UB p. 11 "Using Multiple AI Opponents"**,
+  verbatim: setup is performed "for both a bounty hunter character (starts with databank
+  card #90) and a non-bounty hunter character (starts with databank card #91 or #92)".
+  Also from that page, none of which the app models yet:
+  - AI turn order is **randomly determined**; the human is always the first player.
+  - The first AI in turn order starts with **6,000**, the second with **8,000**.
+  - After each human turn, resolve **one card from each** AI deck, in turn order.
+- Smuggler card 1 "If there are no free **cargo** slots, buy a job card" is **correct** —
+  confirmed on the scan ("Якщо немає вільних слотів для вантажу"). An earlier reading of
+  the reflowed PDF suggested "job slots"; that was a column-interleaving artifact.
+
+---
+
+## 5. Official Ukrainian terminology
+
+`cards/uk.json` does not use it. Official column is from **UK-RB** and the UK
+reference/AI cards; counts are occurrences in that rulebook.
+
+| concept | official UK | app currently uses |
+|---|---|---|
+| space (map location) | **терен** (38) | простір (official: 0) |
+| AI player | **ШтІнт** (51) | ШІ |
+| defeated | **(тебе) спіткала невдача** (16) | переможений (official: 0) |
+| goal token | **жетон мети** (5) | жетон цілі (official: 0) |
+| job | **халтурка** (35) | завдання in cards, халтурка in help |
+| trade | **уклади угоду** | обміняйся картами |
+| discard top market card | **прокрути колоду** | скинь карту |
+| illegal | **протизаконний** | незаконний |
+| buy / place / pay / gain | **купи / поклади / заплати / здобудь** (ти-form) | mixed ти- and ви-forms |
+| phase names | **ФАЗА ПЛАНУВАННЯ / ФАЗА ДІЙ / ФАЗА ЗУСТРІЧЕЙ** | 3 inconsistent variants |
+
+`cards/uk.json` contradicts itself on phase names: `phases` says "Фаза Планування / Фаза
+Дії / Фаза Зустрічі", the player cards say "Фаза планування / Фаза дії / Фаза зустрічей".
+
+`cards/en.json` `help[5]` and `help[6]` are **still in Ukrainian** — the EN locale shows
+Ukrainian text for skill tests and fame sources.
+
+---
+
+## 6. Worklog
+
+Status: `open` / `done` / `wontfix`. Keep newest decisions at the bottom of a row's notes.
+
+| # | finding | where | status |
+|---|---|---|---|
+| R1 | AI deck cycling | `main.js` draw block + all 17 "shuffle" card texts | **done, as a house rule.** Research stands (LTP p. 14 says bottom-of-deck; the special shuffles only itself) but the owner chose the **full reshuffle on special-or-empty** behaviour instead — see the ⚠ box in section 4. The 17 card *texts* were still corrected to the printed wording in both locales, and the baseless `lastCard === "special"` guard is gone. Do not revert the behaviour to the printed rule without asking. |
+| R2 | AI phase hints say "choose one"; must be "do the first that applies" / "do all that apply"; AI bullets must not be click-exclusive | `main.js` `describeCard`, `phases` in both JSONs | **done** — `phases` (AI-only; the human card carries its own hints) retranscribed from the scans; AI sections now always `multiplePhaseElements`. IG-88's "first 2" needed no hint variant: it is a conditional inside its own planning text and was already stored as the `!.` bullet. |
+| R3 | Personal-goal toggle shown on AI turns | `main.js` AI branch | **done** — toggle + "Personal Goal Achieved" line removed from AI turns; character card renders unflipped. Human branch untouched. |
+| R4 | Favors help entry tagged any-mode; expansion-only + banned in solo; Shortcut text has copy-paste tail | `help[7]` both JSONs | open |
+| R5 | Human card: defeat cost attached to Recover; missing "mandatory if defeated" | `player.*.planning` both JSONs | open |
+| R6 | Movement text missing hyperdrive distance, 1-fewer-space tiebreak, equidistant-path preferences | `help[11]` | open |
+| R7 | Player bounty reward missing "must choose a faction the AI does not have positive rep with, if possible" | `help[4]` | open |
+| R8 | Unopposed bounty damage: character vs ship distinction lost | `help[1]` | open |
+| R9 | UK terminology pass (section 5) | `cards/uk.json` | open |
+| R10 | EN locale has Ukrainian help[5], help[6] | `cards/en.json` | open |
+| C1 | `initCards()` is `async` but never awaits `$.getJSON`; `restoreGame`/`startGame` call `showTurn()` immediately -> `cardsData` can be null | `main.js` | **done** — `initCards()` returns the jqXHR and both callers `await` it. It also ignores a response whose locale is no longer selected: the startup warm-up load races the one `startGame()` issues after the locale is picked, and could clobber the right data with `uk`. |
+| C2 | `cards/uk.json` working-tree diff is pure CRLF noise (851 lines, byte-identical after `\r` strip); add `.gitattributes` `*.json text eol=lf` | — | **done** — HEAD was already LF and the worktree had drifted to CRLF, so stripping `\r` made the diff vanish. `.gitattributes` now pins `* text=auto eol=lf`. |
+| C3 | `cards/cards.json` + 31 `cards/{bounty,smuggler}/*.json` are dead duplicates of en.json | — | **done** — deleted (recoverable from history). Verified unreferenced by any source file, and every one of the 31 differed from `en.json` only by this session's own fixes, so they were stale copies with strictly worse text. `cards/` is now just `en.json` + `uk.json`. |
+| C4 | ~250 lines dead code: `main.js:373-571` (old help), `846-896` (old human card) | — | **done** — both commented-out blocks removed (exactly 250 lines), plus the dead `fetch` remnant in `describeCard`. `main.js` 1059 -> 805 lines, 49 KB -> 33 KB. |
+| C5 | `justShuffled` is an array property -> dropped by JSON.stringify; ↻ marker never survives reload | `main.js` | **done** — fell out of R1. There is no mid-game reshuffle left to flag, so ↻ now means "this card shuffles back into the deck" and is derived from the card id via `shufflesBackIn()` — no stored state, so it survives reload by construction. |
+| C6 | `aiDecks`/`aiHistory` keyed by nickname; duplicate nicknames share a deck | `main.js` | **done** — both are keyed by `character.id`, which `usedCharacters` already keeps unique within a game. `migrateAiKeys()` remaps nickname-keyed saves on restore, so existing games survive. |
+| D1 | Two orphan `</strong>` tags in EN `bounty/ig88` (planning[3], action[1]) injected raw into the DOM | `cards/en.json` | **done** — removed; a tag-balance sweep over all 31 cards x 2 locales now reports zero unbalanced `strong`/`em`/`div`/`span`, and every `span.icon` name resolves to a file in `images/assets/`. |
+| C7 | `replaceIconsWithImages` re-matches its own `img.icon` output and wipes `alt` | `main.js` | **done** — selector narrowed to `span.icon`. It runs twice per render, and an `<img>` has no `textContent`, so the second pass was rewriting every `alt` to `""`. |
+| C8 | Solo cap is 2 AI of different types; app allows 3, any mix | `main.js` `addPlayerFromForm` / `populateCharacterDropdown` | **done** — enforced per **UB p. 11**. The character dropdown drops the type already taken (before either optgroup is built), and `addPlayerFromForm` rejects a 3rd AI or a same-type 2nd. Note base mode therefore allows exactly one AI, which is right: the bounty AI deck is expansion-only. Starting credits 6,000/8,000 and random AI turn order are still unmodelled. |
+| — | base-bounty deck branch in `shuffleAiDeck` is unreachable dead code (rules-correct) | `main.js` | **done** — deleted as part of R1. |
+
+---
+
+## 7. Code gotchas
+
+- **Cache busting is manual.** Bump `version` in `index.html` after changing
+  `main.js` / `main.css` / `cards/*.json`, or clients keep the old files.
+- `debug`/`debugSpecial` in `index.html` change deck behaviour: `shuffleArray` returns the
+  array **unshuffled** when `debug` is true, and `['special']` when `debugSpecial` is true.
+- Card text is raw HTML injected via `innerHTML` / `insertAdjacentHTML`. Icons are
+  `<span class="icon NAME">label</span>` and get swapped for `images/assets/NAME.png`.
+  The icon name must be the **second** class.
+- Saved games live in `localStorage['gameSave']`; schema is whatever `saveGameState()`
+  writes. Changing player/deck shape breaks restores — bump/guard if you do.
+- There are no tests and no build step. Verify by loading `index.html` (or `./start.sh`).

@@ -29,8 +29,7 @@
         "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame.",
         "d. Gain 1 reputation with this planet's faction (if any)."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "2": {
       "planning": [
@@ -65,8 +64,7 @@
         "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
         "b. Encounter a bounty target in this space (character, crew, face-up contact)."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "4": {
       "planning": [
@@ -83,8 +81,7 @@
         "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame.",
         "d. Gain 1 reputation with this planet's faction (if any)."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "5": {
       "planning": [
@@ -101,8 +98,7 @@
         "c. Encounter a bounty target in this space (character, crew, face-up contact).",
         "d. Gain <span class=\"icon credits\">credits </span>4&nbsp;000. Then, lose 1 reputation with this planet's faction (if any)."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "bane": {
       "planning": [
@@ -120,7 +116,7 @@
         "c. Spend <span class=\"icon credits\">credits </span>15&nbsp;000 to gain 2 fame."
       ],
       "special": [
-        "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+        "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
       ]
     },
     "boba": {
@@ -139,7 +135,7 @@
         "c. Gain <span class=\"icon credits\">credits </span>4&nbsp;000."
       ],
       "special": [
-        "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+        "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
       ]
     },
     "bossk": {
@@ -158,7 +154,7 @@
         "c. Encounter a bounty target in this space (character, crew, face-up contact)."
       ],
       "special": [
-        "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+        "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
       ]
     },
     "dengar": {
@@ -176,7 +172,7 @@
         "c. Gain <span class=\"icon credits\">credits </span>4&nbsp;000."
       ],
       "special": [
-        "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+        "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
       ]
     },
     "ig88": {
@@ -184,18 +180,18 @@
         "!. <strong>If IG-88 has at least 1 <span class=\"icon droid\">droid</span></strong> crew, do the FIRST 2 that apply.",
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
         "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
-        "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000 for each of IG-88's <span class=\"icon droid\">droid</span></strong> crew."
+        "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000 for each of IG-88's <span class=\"icon droid\">droid</span> crew."
       ],
       "action": [
         "Buy a <span class=\"icon ship\">ship card</span>. If unable - buy a <span class=\"icon gear\">ship gear</span>.",
-        "Gain the crew matching the nearest  <strong>face-up</strong> <span class=\"icon droid\">droid</span></strong> contact for free."
+        "Gain the crew matching the nearest  <strong>face-up</strong> <span class=\"icon droid\">droid</span> contact for free."
       ],
       "encounter": [
         "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
         "b. Encounter a bounty target in this space (character, crew, face-up contact)."
       ],
       "special": [
-        "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+        "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
       ]
     },
     "ketsu": {
@@ -213,7 +209,7 @@
         "c. Encounter a bounty target within <strong>3 spaces</strong> (character, crew, face-up contact)."
       ],
       "special": [
-        "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+        "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
       ]
     },
     "krrsantan": {
@@ -232,7 +228,7 @@
         "c. Roll dice equal to Krrsantan's <span class=\"icon land_attack\">land attack</span>. For each <span class=\"icon hit\">hit</span> rolled, Krrsantan gains <span class=\"icon credits\">credits </span>2&nbsp;000 and suffers 1 <span class=\"icon damage\">damage</span>."
       ],
       "special": [
-        "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+        "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
       ]
     }
   },
@@ -253,8 +249,7 @@
         "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame.",
         "d. If the planet you are on has faction, gain 1 reputation with that faction."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "2": {
       "planning": [
@@ -271,8 +266,7 @@
         "b. If at job destination, complete it.",
         "c. Reveal the <strong>lowest-rank</strong> <strong>face-down</strong> contact token on your planet, and gain this contact as a crew member for free."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "3": {
       "planning": [
@@ -289,8 +283,7 @@
         "b. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame.",
         "c. Gain <span class=\"icon credits\">credits </span>4&nbsp;000. Then lose 1 reputation with the faction of the nearest patrol."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "4": {
       "planning": [
@@ -308,8 +301,7 @@
         "c. Reveal the <strong>lowest-rank</strong> contact token on your planet that is  <strong>face-down</strong>, and gain this contact as a crew member for free.",
         "d. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "5": {
       "planning": [
@@ -326,8 +318,7 @@
         "b. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame.",
         "c. Reveal the <strong>lowest-rank</strong> contact token on your planet that is  <strong>face-down</strong>, and gain this contact as a crew member for free."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "6": {
       "planning": [
@@ -344,8 +335,7 @@
         "b. If at job destination, complete it.",
         "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "7": {
       "planning": [
@@ -362,8 +352,7 @@
         "b. If at job destination, complete it.",
         "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "8": {
       "planning": [
@@ -382,8 +371,7 @@
         "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame.",
         "d. Gain 1 reputation with the faction of the nearest patrol."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "9": {
       "planning": [
@@ -400,8 +388,7 @@
         "b. If at job destination, complete it.",
         "c. Gain <span class=\"icon credits\">credits </span>4&nbsp;000. Lose 1 reputation with tha faction of planet, you are on."
       ],
-      "special": [
-      ]
+      "special": []
     },
     "10": {
       "planning": [
@@ -419,7 +406,7 @@
         "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame."
       ],
       "special": [
-        "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+        "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
       ]
     },
     "afra": {
@@ -437,7 +424,7 @@
         "b. Gain <span class=\"icon credits\">credits </span>1&nbsp;000 for each different skill Aphra and her crew have."
       ],
       "special": [
-        "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+        "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
       ]
     },
     "chewbacca": {
@@ -455,7 +442,7 @@
         "c. Reveal the <strong>highest-rank</strong> contact token on your planet that is  <strong>face-down</strong>, and gain this contact as a crew member for free."
       ],
       "special": [
-        "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+        "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
       ]
     },
     "enfys": {
@@ -473,7 +460,7 @@
         "c. Gain <span class=\"icon credits\">credits </span>4&nbsp;000 and additional <span class=\"icon credits\">credits </span>1&nbsp;000 for each Enfys' crew. Then, lose 1 reputation with this planet's faction (if any)."
       ],
       "special": [
-        "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+        "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
       ]
     },
     "erso": {
@@ -492,7 +479,7 @@
         "c. If at job destination, complete it."
       ],
       "special": [
-        "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+        "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
       ]
     },
     "han": {
@@ -511,7 +498,7 @@
         "c.  Gain <span class=\"icon credits\">credits </span>4&nbsp;000. Then, lose 1 reputation with this planet's faction (if any)."
       ],
       "special": [
-        "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+        "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
       ]
     },
     "hera": {
@@ -531,7 +518,7 @@
         "c.  Recover all <span class=\"icon damage\">damage</span>."
       ],
       "special": [
-        "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+        "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
       ]
     },
     "hondo": {
@@ -550,7 +537,7 @@
         "b. If at job destination, complete it."
       ],
       "special": [
-        "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+        "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
       ]
     },
     "lando": {
@@ -569,7 +556,7 @@
         "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame."
       ],
       "special": [
-        "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+        "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
       ]
     },
     "maz": {
@@ -588,7 +575,7 @@
         "c. Reveal the  <strong>face-down</strong> contact token of the lowest class on this planet and gain the crew on its card for free."
       ],
       "special": [
-        "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then shuffle this AI deck."
+        "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
       ]
     }
   },
@@ -641,32 +628,28 @@
       "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Player Bounty Rewards</div><div class=\"phaseElement\">Instead of gaining rewards from a bounty card  matching a player's character, do the following: <div class=\"phaseSubElement\">Gain <span class=\"icon credits\">credits</span>5&nbsp;000 and 1 fame.</div><div class=\"phaseSubElement\"><strong>Gain</strong> 1 reputation with 1  faction of your choice with which that player has <span class=\"icon negative\">negative</span> reputation.</div><div class=\"phaseSubElement\"><strong>Lose</strong> 1 reputation with 1 faction of your choice with which that player has <span class=\"icon positive\">positive</span> repoutation.</div></div></div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "human"
       ],
       "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Перевірка майстерності</div><div class=\"phaseElement\">Порахуй кількість згадок навички, яку перевіряєш (у персонажа та у всіх членів екіпажу).<br> Кинь <strong>2 кубики</strong>. <br>Дпя успіху потрібно, щоб випав <strong>хоча б 1</strong> відповідний результат.<div class=\"phaseSubElement\"><strong>0 навичок</strong>: <span class=\"icon crit\">crit</span> (Падаван).</div><div class=\"phaseSubElement\"><strong>1 навичка</strong>: <span class=\"icon crit\">crit</span> або <span class=\"icon hit\">hit</span> (Джедай).</div><div class=\"phaseSubElement\"><strong>2+ навичок</strong>: <span class=\"icon crit\">crit</span>, <span class=\"icon hit\">hit</span> або <span class=\"icon focus\">focus</span> (Магістр).</div></div></div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "human"
       ],
       "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Де Здобути славу</div><div class=\"phaseElement\">Персональна мета.</div><div class=\"phaseElement\">Мета корабля.</div><div class=\"phaseElement\">Розшуки.</div><div class=\"phaseElement\">Халтурки.</div><div class=\"phaseElement\">Доставка <strong>протизаконних</strong> вантажів.</div><div class=\"phaseElement\">Перемога над патрулями 2 і 3 рівнів.</div><div class=\"phaseElement\">Карти з <span class=\"icon luxury\">luxury</span> колоди ринку.</div></div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "human"
       ],
       "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Favors<div class=\"phaseHint\"> <br>Player can request the following favors from another player (in any space):</div></div><div class=\"phaseElement\">Advice: Gain 1 of that <strong>player's skills</strong> for 1 skill test.</div><div class=\"phaseElement\">Combat Strategy: Roll <strong>1 additional die</strong> during a combat.</div><div class=\"phaseElement\">Endorsement: Gain 1 of that player's <span class=\"icon positive\">positive</span> <strong>reputations</strong> until end of turn.</div><div class=\"phaseElement\">Shortcut: Gain <strong>+1 <span class=\"icon speed\">speed</span></strong> until end of turn reputations until end of turn.</div></div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "bounty",
         "smuggler"
@@ -683,8 +666,7 @@
       "content": "<div class=\"phaseElement\">If the smuggler AI player delivers a cargo that rotates, rotate that card and place a goal token on the new destination.</div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "bounty",
         "smuggler"
@@ -692,8 +674,7 @@
       "content": "</div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "bounty",
         "smuggler"
@@ -711,8 +692,7 @@
       "content": "<div class=\"phaseElement\">Cannot go through the Core Worlds.</div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "bounty",
         "smuggler"
@@ -720,8 +700,7 @@
       "content": "</div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "smuggler",
         "bounty"
@@ -739,8 +718,7 @@
       "content": "<strong>up to 2 times</strong>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "smuggler",
         "bounty"
@@ -767,8 +745,7 @@
       "content": "<div class=\"phaseSubElement\">\"Wanted\" job, \"Information Broker\" or the \"Special Order\" card</div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "smuggler",
         "bounty"
@@ -805,8 +782,7 @@
       "content": " of the lowest class.</div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "smuggler",
         "bounty"
@@ -823,8 +799,7 @@
       "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Starting ship</div><div class=\"phaseElement\">G-1A Starfighter.</div></div>"
     },
     {
-      "gameMode": [
-      ],
+      "gameMode": [],
       "characterType": [
         "smuggler"
       ],
@@ -833,16 +808,16 @@
   ],
   "phases": {
     "planning": {
-      "title": "Planning",
-      "hint": " - Choose <strong>one</strong>"
+      "title": "Planning step",
+      "hint": " - Do the <strong>first</strong> that applies"
     },
     "action": {
-      "title": "Action",
-      "hint": " - Perform any or <strong>all</strong>"
+      "title": "Action step",
+      "hint": " - Do <strong>all</strong> that apply"
     },
     "encounter": {
-      "title": "Encounter",
-      "hint": " - Choose <strong>one</strong>"
+      "title": "Encounter step",
+      "hint": " - Do the <strong>first</strong> that applies"
     },
     "special": {
       "title": "Special",
