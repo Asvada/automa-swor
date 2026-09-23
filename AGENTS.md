@@ -91,6 +91,21 @@ At 250% every card is comfortably readable, icons included. Verified on
 
 **There are no `.docx` OCR files** anywhere on disk or in git history. Don't look for them.
 
+### Re-cropping the character cards
+
+If the character art ever needs re-cropping, restore the originals from git first
+(`git show <rev>:assets/images/characters/<file>`) — the working copies are already
+cropped. The cut is found programmatically, because the scans are not perfectly aligned:
+
+1. Trim near-white rows off the top/bottom of each scan (manual-scan artifacts).
+2. On the **silver** side, find the row with the highest fraction of orange pixels in the
+   38–62% band — that is the card's orange rule. Detection is strong there (~0.85).
+3. Apply that row **as a ratio of the trimmed height** to the gold side too. Do *not*
+   detect on gold directly: its border is already orange, so the signal collapses (~0.08)
+   and lands 4–9% off. Both sides are the same physical card, so the ratio transfers.
+4. Trim any residual white left at the new edges, then eyeball all 32 — step 1 caught
+   only `krrsantan_` (9 rows), but `hondo_` still needed the post-trim.
+
 ### Language of each scan set (they are mixed!)
 
 | path | printing | language |
@@ -100,7 +115,7 @@ At 250% every card is comfortably readable, icons included. Verified on
 | `assets/images/{smuggler,bounty}/<char>.png` | expansion | **English** |
 | `assets/images/player/base {a,b}.png` | base | **Ukrainian** ("Хід гравця") |
 | `assets/images/player/expansion {a,b}.png` | expansion | **English** ("Player Turn") — *corrected; this table previously called all four Ukrainian* |
-| `assets/images/characters/<char>[_].png` | character cards; `_` = flipped (personal goal done) |
+| `assets/images/characters/<char>[_].png` | character cards, **cropped to art + name** — everything below the card's orange rule (setup, ability, personal goal, skills) is gone. `<char>.png` = **silver**, personal goal *not* achieved; `<char>_.png` = **gold**, achieved. The full-card originals were removed (owner has backups; also recoverable from git history before `1.43.0`). |
 | `assets/images/assets/*.png` | icons, keyed by the 2nd CSS class of `span.icon` |
 
 ### Image -> data key mapping

@@ -529,8 +529,10 @@ $('document').ready(function () {
             row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
             row3.className = "personalGoalText";
             row3.style.color = player.personalGoalAchieved ? '#4CFF4C' : 'white';
-            cardDisplay.appendChild(row3);
 
+            // Character cards are cropped to the art + name (everything below the card's
+            // orange rule is gone). Silver = goal not achieved, gold = achieved; clicking
+            // the card toggles it. The label sits under the image.
             const row4 = document.createElement("div");
             const charImg = document.createElement("img");
             const [name, ext] = player.character.image.split(".");
@@ -543,6 +545,7 @@ $('document').ready(function () {
             });
             row4.appendChild(charImg);
             cardDisplay.appendChild(row4);
+            cardDisplay.appendChild(row3);
 
             header.innerHTML = `<span class="turnHeaderHint">${player.nickname}</span>&nbsp;${player.character.name}`;
             header.style.color = player.color;
