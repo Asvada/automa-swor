@@ -1,15 +1,15 @@
 {
   "player": {
     "base": {
-      "planning": "<div class=\"phaseItem\"><div class=\"phaseName\">Planning step<div class=\"phaseHint\"> - Choose <strong>only 1</strong></div></div><div class=\"phase1Element phaseElement\">Move up to your ships <span class=\"icon speed\">speed.</span></div><div class=\"phase1Element phaseElement\">Gain <span class=\"icon credits\">credits </span>2&nbsp;000.</div><div class=\"phase1Element phaseElement\">Recover all <span class=\"icon damage\">damage</span> from character and ship.<div class=\"phaseSubElement\">Pay <span class=\"icon credits\">credits </span>3 000 <em>(if defeated).</em></div><div class=\"phaseSubElement\">Lose all secret cards <em>(if defeated).</em></div></div><div class=\"phase1Element phaseElement\">Play any \"<strong>Planning</strong>\" on Player, Ship, Crew, Secret or any other card.</div></div>",
-      "action": "<div class=\"phaseItem\" data-pick=\"all\"><div class=\"phaseName\">Action step<div class=\"phaseHint\"> - Perform  <strong>any or all</strong></div></div><div class=\"phase2Element phaseElement\">Deliver <span class=\"icon cargo\">cargo</span> <strong>and</strong> <span class=\"icon bounty\">bounties</span>.</div><div class=\"phase2Element phaseElement\">Market action (<strong>if on a planet</strong>).<div class=\"phaseSubElement\">  May discard a card from top of a  market deck.</div><div class=\"phaseSubElement\">  May buy top card of a market deck. Then, resolve patrol movement on next card, if any.</div></div><div class=\"phase2Element phaseElement\">Trade cards with a player in your space.</div><div class=\"phase2Element phaseElement\">Play any \"<strong>Action</strong>\" on Player, Ship, Crew, Cargo, Gear, Mod, Secret, Ambition or any other card.</div></div>",
-      "encounter": "<div class=\"phaseItem\"><div class=\"phaseName\">Encounter step<div class=\"phaseHint\"> - Choose <strong>only 1</strong></div></div><div class=\"phase3Element phaseElement\">Fight a patrol (required if you have <span class=\"icon negative\">negative</span> reputation with a patrol in your space).</div><div class=\"phase3Element phaseElement\">Resolve a space encounter card (Planet, Maelstrom, Navpoint.</div><div class=\"phase3Element phaseElement\">Encounter facedown contact (<strong>resolve</strong> a databank card) or fight bounty.</div><div class=\"phase3Element phaseElement\">Play any \"<strong>Encounter</strong>\" on Player, Ship, Crew, Secret, Ambition or any other card.</div></div>",
+      "planning": "<div class=\"phaseItem\"><div class=\"phaseName\">Planning step<div class=\"phaseHint\"> - Choose <strong>only 1</strong></div></div><div class=\"phase1Element phaseElement\">Move up to your ship’s <span class=\"icon hyperdrive\">hyperdrive</span>.</div><div class=\"phase1Element phaseElement\">Gain <span class=\"icon credits\">credits </span>2&nbsp;000.</div><div class=\"phase1Element phaseElement\">Recover all <span class=\"icon damage\">damage</span> from character and ship <em>(required if you are defeated)</em>.</div><div class=\"phase1Element phaseElement appNote\">Play any \"<strong>Planning</strong>\" on Player, Ship, Crew, Secret or any other card.</div></div>",
+      "action": "<div class=\"phaseItem\" data-pick=\"all\"><div class=\"phaseName\">Action step<div class=\"phaseHint\"> - Perform  <strong>any or all</strong></div></div><div class=\"phase2Element phaseElement\">Deliver <span class=\"icon cargo\">cargo</span> <strong>and</strong> <span class=\"icon bounty\">bounties</span>.</div><div class=\"phase2Element phaseElement\">Market action (<strong>if on a planet</strong>).<div class=\"phaseSubElement\">  May discard a card from top of a  market deck.</div><div class=\"phaseSubElement\">  May buy top card of a market deck. Then, resolve patrol movement on next card, if any.</div></div><div class=\"phase2Element phaseElement\">Trade cards with a player in your space.</div><div class=\"phase2Element phaseElement appNote\">Play any \"<strong>Action</strong>\" on Player, Ship, Crew, Cargo, Gear, Mod, Secret, Ambition or any other card.</div></div>",
+      "encounter": "<div class=\"phaseItem\"><div class=\"phaseName\">Encounter step<div class=\"phaseHint\"> - Choose <strong>only 1</strong></div></div><div class=\"phase3Element phaseElement\">Fight a patrol (required if you have <span class=\"icon negative\">negative</span> <strong>reputation</strong> with a patrol in your space).</div><div class=\"phase3Element phaseElement\">Resolve a space encounter card (Planet, Maelstrom, Navpoint.</div><div class=\"phase3Element phaseElement\">Resolve a contact token.<div class=\"phaseSubElement appNote\">Resolve a databank card, or fight a bounty.</div></div><div class=\"phase3Element phaseElement appNote\">Play any \"<strong>Encounter</strong>\" on Player, Ship, Crew, Secret, Ambition or any other card.</div></div>",
       "special": ""
     },
     "expansion": {
-      "planning": "<div class=\"phaseItem\"><div class=\"phaseName\">Planning step<div class=\"phaseHint\"> - Choose <strong>only 1</strong></div></div><div class=\"phase1Element phaseElement\">Move up to your ships <span class=\"icon speed\">speed.</span></div><div class=\"phase1Element phaseElement\">Gain <span class=\"icon credits\">credits </span>2&nbsp;000.</div><div class=\"phase1Element phaseElement\">Recover all <span class=\"icon damage\">damage</span> from character and ship.<div class=\"phaseSubElement\">Pay <span class=\"icon credits\">credits </span>3 000 <em>(if defeated).</em></div><div class=\"phaseSubElement\">Lose all secret cards <em>(if defeated).</em></div></div><div class=\"phase1Element phaseElement\">Play any \"<strong>Planning</strong>\" on Player, Ship, Crew, Secret or any other card.</div></div>",
-      "action": "<div class=\"phaseItem\" data-pick=\"all\"><div class=\"phaseName\">Action step<div class=\"phaseHint\"> - Perform  <strong>any or all</strong></div></div><div class=\"phase2Element phaseElement\">Deliver <span class=\"icon cargo\">cargo</span> <strong>and</strong> <span class=\"icon bounty\">bounties</span>.</div><div class=\"phase2Element phaseElement\">Market action (<strong>if on a planet</strong>).<div class=\"phaseSubElement\">  May discard up to 2 cards from top of a <strong>single</strong> market deck.</div><div class=\"phaseSubElement\">  May buy top card of a market deck. Then, resolve patrol movement and reveal contact icons on next card, if any.</div></div><div class=\"phase2Element phaseElement\">Trade cards with a player in your space.</div><div class=\"phase2Element phaseElement\">Play any \"<strong>Action</strong>\" on Player, Ship, Crew, Cargo, Gear, Mod, Secret, Ambition or any other card.</div></div>",
-      "encounter": "<div class=\"phaseItem\"><div class=\"phaseName\">Encounter step<div class=\"phaseHint\"> - Choose <strong>only 1</strong></div></div><div class=\"phase3Element phaseElement\">Fight a patrol (required if you have <span class=\"icon negative\">negative</span> reputation with a patrol in your space).</div><div class=\"phase3Element phaseElement\">Resolve a space encounter card (Planet, Maelstrom, Navpoint, Core Worlds).</div><div class=\"phase3Element phaseElement\">Encounter facedown contact (<strong>resolve</strong> a databank card) or fight bounty.</div><div class=\"phase3Element phaseElement\">Play any \"<strong>Encounter</strong>\" on Player, Ship, Crew, Secret, Ambition or any other card.</div></div>",
+      "planning": "<div class=\"phaseItem\"><div class=\"phaseName\">Planning step<div class=\"phaseHint\"> - Choose <strong>only 1</strong></div></div><div class=\"phase1Element phaseElement\">Move up to your ship’s <span class=\"icon hyperdrive\">hyperdrive</span>.</div><div class=\"phase1Element phaseElement\">Gain <span class=\"icon credits\">credits </span>2&nbsp;000.</div><div class=\"phase1Element phaseElement\">Recover all <span class=\"icon damage\">damage</span> from character and ship <em>(required if you are defeated)</em>.</div><div class=\"phase1Element phaseElement appNote\">Play any \"<strong>Planning</strong>\" on Player, Ship, Crew, Secret or any other card.</div></div>",
+      "action": "<div class=\"phaseItem\" data-pick=\"all\"><div class=\"phaseName\">Action step<div class=\"phaseHint\"> - Perform  <strong>any or all</strong></div></div><div class=\"phase2Element phaseElement\">Deliver <span class=\"icon cargo\">cargo</span> <strong>and</strong> <span class=\"icon bounty\">bounties</span>.</div><div class=\"phase2Element phaseElement\">Market action (<strong>if on a planet</strong>).<div class=\"phaseSubElement\">  May discard up to 2 cards from top of a <strong>single</strong> market deck.</div><div class=\"phaseSubElement\">  May buy top card of a market deck. Then, resolve patrol movement and reveal contact icons on next card, if any.</div></div><div class=\"phase2Element phaseElement\">Trade cards with a player in your space.</div><div class=\"phase2Element phaseElement appNote\">Play any \"<strong>Action</strong>\" on Player, Ship, Crew, Cargo, Gear, Mod, Secret, Ambition or any other card.</div></div>",
+      "encounter": "<div class=\"phaseItem\"><div class=\"phaseName\">Encounter step<div class=\"phaseHint\"> - Choose <strong>only 1</strong></div></div><div class=\"phase3Element phaseElement\">Fight a patrol (required if you have <span class=\"icon negative\">negative</span> <strong>reputation</strong> with a patrol in your space).</div><div class=\"phase3Element phaseElement\">Resolve an encounter card.<div class=\"phaseSubElement appNote\">Planet, Maelstrom, Navpoint, Core Worlds.</div></div><div class=\"phase3Element phaseElement\">Resolve a contact token.<div class=\"phaseSubElement appNote\">Resolve a databank card, or fight a bounty.</div></div><div class=\"phase3Element phaseElement appNote\">Play any \"<strong>Encounter</strong>\" on Player, Ship, Crew, Secret, Ambition or any other card.</div></div>",
       "special": ""
     }
   },
@@ -17,34 +17,34 @@
     "1": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits</span>2&nbsp;000."
       ],
       "action": [
-        "Buy a <span class=\"icon bounty\">bounty card</span>, even if in navpoint. If unable <strong>and</strong> on a planet, discard the top card of the <span class=\"icon cargo\">cargo</span> market deck and gain <span class=\"icon credits\">credits </span>4&nbsp;000."
+        "Buy a <span class=\"icon bounty\">bounty card</span>, even if at a navpoint. If unable <strong>and</strong> on a planet, discard the top card of the <span class=\"icon cargo\">cargo</span> market deck and gain <span class=\"icon credits\">credits </span>4&nbsp;000."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. Encounter a bounty target in this space (character, crew, face-up contact).",
-        "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame.",
-        "d. Gain 1 reputation with this planet's faction (if any)."
+        "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain <strong>1 fame</strong>.",
+        "d. Gain <strong>1 reputation</strong> with this planet's faction (if any)."
       ],
       "special": []
     },
     "2": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
         "If <span class=\"icon bounty\">bounty</span> slots are full, buy a <span class=\"icon gear\">gear card</span>. Otherwise, buy a <span class=\"icon bounty\">bounty card</span>, even if at a navpoint."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. Encounter a bounty target in this space (character, crew, face-up contact).",
         "c. Reveal the  <strong>face-down</strong> contact of the lowest class on this planet.",
-        "d. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame."
+        "d. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain <strong>1 fame</strong>."
       ],
       "special": [
         "If not all crew slots are full, gain the crew that matches a  <strong>face-up</strong> contact of the lowest class on this planet for free."
@@ -53,15 +53,15 @@
     "3": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
-        "If <span class=\"icon bounty\">bounty</span> slots are full, discard this player's highest-class bounty that <strong>does not match</strong> a character, crew or face-up contact anywhere in the world.",
+        "If <span class=\"icon bounty\">bounty</span> slots are full, discard this player's highest-class bounty that <strong>does not match</strong> a character, crew or face-up contact.",
         "If not all <span class=\"icon bounty\">bounty</span> slots are full, reveal cards from a <span class=\"icon bounty\">bounty</span> market deck <strong>until</strong> a bounty that matches character, crew or face-up contact is revealed. Gain that bounty. Then shuffle the <span class=\"icon bounty\">bounty</span> market deck."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. Encounter a bounty target in this space (character, crew, face-up contact)."
       ],
       "special": []
@@ -69,51 +69,52 @@
     "4": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
         "Buy a <span class=\"icon gear\">gear card</span>. If unable <strong>and</strong> on a planet, discard the top card of the <span class=\"icon cargo\">cargo</span> market deck and gain <span class=\"icon credits\">credits </span>4&nbsp;000."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. Encounter a patrol in this space that has <span class=\"icon ship_attack\">ship attack</span> less or equal to this player's <span class=\"icon ship_attack\">ship attack</span>.",
-        "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame.",
-        "d. Gain 1 reputation with this planet's faction (if any)."
+        "c. Encounter a bounty target (character, crew, or contact) in this space.",
+        "d. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain <strong>1 fame</strong>.",
+        "e. Gain <strong>1 reputation</strong> with this planet's faction (if any)."
       ],
       "special": []
     },
     "5": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
         "Buy a <span class=\"icon ship\">ship card</span>. If unable <strong>and</strong> on a planet, discard the top card of the <span class=\"icon cargo\">cargo</span> market deck and gain <span class=\"icon credits\">credits </span>4&nbsp;000."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. Encounter a patrol in this space that has <span class=\"icon ship_attack\">ship attack</span> less or equal to this player's <span class=\"icon ship_attack\">ship attack</span>.",
         "c. Encounter a bounty target in this space (character, crew, face-up contact).",
-        "d. Gain <span class=\"icon credits\">credits </span>4&nbsp;000. Then, lose 1 reputation with this planet's faction (if any)."
+        "d. Gain <span class=\"icon credits\">credits </span>4&nbsp;000. Then, lose <strong>1 reputation</strong> with this planet's faction (if any)."
       ],
       "special": []
     },
     "bane": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
-        "If Bane has at least 1 fame and less than <span class=\"icon credits\">credits </span>20&nbsp;000 , he loses 1 fame and gains <span class=\"icon credits\">credits </span>10&nbsp;000.",
+        "If Bane has at least <strong>1 fame</strong> and less than <span class=\"icon credits\">credits </span>20&nbsp;000 , he loses <strong>1 fame</strong> and gains <span class=\"icon credits\">credits </span>10&nbsp;000.",
         "Buy a <span class=\"icon ship\">ship card</span>. If unable, buy a <span class=\"icon gear\">ship gear</span>."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. Encounter a bounty target in this space (character, crew, face-up contact).",
-        "c. Spend <span class=\"icon credits\">credits </span>15&nbsp;000 to gain 2 fame."
+        "c. Spend <span class=\"icon credits\">credits </span>15&nbsp;000 to gain <strong>2 fame</strong>."
       ],
       "special": [
         "Discard top cards from <span class=\"icon job\">job</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
@@ -122,7 +123,7 @@
     "boba": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
@@ -130,7 +131,7 @@
         "Reveal a  <strong>face-down</strong> contact on this planet that matches one of Boba's bounties."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. Encounter a bounty target in this space (character, crew, face-up contact).",
         "c. Gain <span class=\"icon credits\">credits </span>4&nbsp;000."
       ],
@@ -141,16 +142,16 @@
     "bossk": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward nearest <strong>undefeated</strong> character, if Bossk can reach their space. Do not stop on Maelstrom.",
-        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward nearest other <strong>undefeated</strong> player, if Bossk can reach their space.",
+        "c. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "d. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
         "Recover all <span class=\"icon damage\">damage</span>."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
-        "b. Fight a combat against another player in this space. If Bossk wins, gain 1 fame.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
+        "b. Fight a combat against another player in this space. If Bossk wins, gain <strong>1 fame</strong>.",
         "c. Encounter a bounty target in this space (character, crew, face-up contact)."
       ],
       "special": [
@@ -160,15 +161,15 @@
     "dengar": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move directly to the space of the other player with the most <span class=\"icon negative\">negative</span> reputations (minimum of 1) - if reachable by Dengar's ship <span class=\"icon speed\">speed</span>. <div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
-        "c. Each other player (<strong>across all of the world</strong>) loses 1 reputation of their choice."
+        "b. Move directly to the space of the other player with the most <span class=\"icon negative\">negative</span> <strong>reputations</strong> (minimum of 1). <div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
+        "c. Each other player loses <strong>1 reputation</strong> of their choice."
       ],
       "action": [
-        "Each other player in this space suffers 2 <span class=\"icon damage\">damage</span> on their <strong>character</strong> for each of their <span class=\"icon negative\">negative</span> reputations. If a character is defeated this way, Dengar gains 1 fame."
+        "Each other player in this space suffers 2 <span class=\"icon damage\">damage</span> on their <strong>character</strong> for each of their <span class=\"icon negative\">negative</span> <strong>reputations</strong>. If a character is defeated this way, Dengar gains <strong>1 fame</strong>."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
-        "b. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
+        "b. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain <strong>1 fame</strong>.",
         "c. Gain <span class=\"icon credits\">credits </span>4&nbsp;000."
       ],
       "special": [
@@ -179,7 +180,7 @@
       "planning": [
         "!. <strong>If IG-88 has at least 1 <span class=\"icon droid\">droid</span></strong> crew, do the FIRST 2 that apply.",
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000 for each of IG-88's <span class=\"icon droid\">droid</span> crew."
       ],
       "action": [
@@ -187,7 +188,7 @@
         "Gain the crew matching the nearest  <strong>face-up</strong> <span class=\"icon droid\">droid</span> contact for free."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. Encounter a bounty target in this space (character, crew, face-up contact)."
       ],
       "special": [
@@ -197,14 +198,14 @@
     "ketsu": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
         "Buy a <span class=\"icon ship\">ship card</span>. If unable buy a <span class=\"icon bounty\">bounty card</span>, even if at a navpoint."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. Encounter a patrol within <strong>3 spaces</strong> that has <span class=\"icon ship_attack\">ship attack</span> less or equal to this player's <span class=\"icon ship_attack\">ship attack</span>.",
         "c. Encounter a bounty target within <strong>3 spaces</strong> (character, crew, face-up contact)."
       ],
@@ -215,15 +216,15 @@
     "krrsantan": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward a bounty target (character, crew, face-up/face-down contact).<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
-        "Recover 2 <span class=\"icon damage\">damage</span>.",
+        "Recover 2 <span class=\"icon damage\">damage</span> from Black Krrsantan.",
         "Buy a <span class=\"icon gear\">gear card</span>. If unable buy a <span class=\"icon bounty\">bounty card</span>, even if at a navpoint."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. Encounter a bounty target in this space (character, crew, face-up contact).",
         "c. Roll dice equal to Krrsantan's <span class=\"icon land_attack\">land attack</span>. For each <span class=\"icon hit\">hit</span> rolled, Krrsantan gains <span class=\"icon credits\">credits </span>2&nbsp;000 and suffers 1 <span class=\"icon damage\">damage</span>."
       ],
@@ -236,7 +237,7 @@
     "1": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward closest goal.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
@@ -244,17 +245,17 @@
         "If no free cargo slots, buy a <span class=\"icon job\">job card</span>. Otherwise, buy a <span class=\"icon cargo\">cargo card</span> and place a goal token on card's destination."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. If at job destination, complete it.",
-        "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame.",
-        "d. If the planet you are on has faction, gain 1 reputation with that faction."
+        "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain <strong>1 fame</strong>.",
+        "d. If the planet you are on has faction, gain <strong>1 reputation</strong> with that faction."
       ],
       "special": []
     },
     "2": {
       "planning": [
         "a. Recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward closest goal.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
@@ -262,7 +263,7 @@
         "If no free job slots, buy a <span class=\"icon cargo\">cargo card</span>. Otherwise, buy a <span class=\"icon job\">job card</span> and place a goal token on card's destination."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. If at job destination, complete it.",
         "c. Reveal the <strong>lowest-rank</strong> <strong>face-down</strong> contact token on your planet, and gain this contact as a crew member for free."
       ],
@@ -271,7 +272,7 @@
     "3": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward closest goal.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
@@ -279,34 +280,34 @@
         "Buy a <span class=\"icon job\">job card</span> and place a goal token on card's destination."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
-        "b. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame.",
-        "c. Gain <span class=\"icon credits\">credits </span>4&nbsp;000. Then lose 1 reputation with the faction of the nearest patrol."
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
+        "b. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain <strong>1 fame</strong>.",
+        "c. Gain <span class=\"icon credits\">credits </span>4&nbsp;000. Then lose <strong>1 reputation</strong> with the faction of the nearest patrol."
       ],
       "special": []
     },
     "4": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward closest goal.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
-        "If at cargo destination, deliver it. If cargo is <strong>illegal</strong> <em>character</em> suffers 2 <span class=\"icon damage\">damage</span>.",
+        "If at cargo destination, deliver it.",
         "Buy a <span class=\"icon cargo\">cargo card</span> and place a goal token on card's destination."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. If at job destination, complete it.",
         "c. Reveal the <strong>lowest-rank</strong> contact token on your planet that is  <strong>face-down</strong>, and gain this contact as a crew member for free.",
-        "d. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame."
+        "d. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain <strong>1 fame</strong>."
       ],
       "special": []
     },
     "5": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward closest goal.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
@@ -314,8 +315,8 @@
         "Buy a <span class=\"icon job\">job card</span> and place a goal token on card's destination."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
-        "b. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
+        "b. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain <strong>1 fame</strong>.",
         "c. Reveal the <strong>lowest-rank</strong> contact token on your planet that is  <strong>face-down</strong>, and gain this contact as a crew member for free."
       ],
       "special": []
@@ -323,7 +324,7 @@
     "6": {
       "planning": [
         "a. Recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward closest goal.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
@@ -331,33 +332,33 @@
         "Buy a <span class=\"icon job\">job card</span> and place a goal token on card's destination."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. If at job destination, complete it.",
-        "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame."
+        "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain <strong>1 fame</strong>."
       ],
       "special": []
     },
     "7": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward closest goal.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
-        "If at cargo destination, deliver it. If cargo is <strong>illegal</strong>, lose reputation with the faction of current planet.",
+        "If at cargo destination, deliver it. If cargo is <strong>illegal</strong>, lose <strong>reputation</strong> with the faction of current planet.",
         "If no free cargo slots, buy a <span class=\"icon gear\">gear card</span>. Otherwise, buy a <span class=\"icon cargo\">cargo card</span> and place a goal token on card's destination."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. If at job destination, complete it.",
-        "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame."
+        "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain <strong>1 fame</strong>."
       ],
       "special": []
     },
     "8": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward closest goal.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
@@ -366,17 +367,17 @@
         "Reveal the <strong>lowest-rank</strong> contact token on your planet that is  <strong>face-down</strong>."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. If at job destination, complete it.",
-        "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame.",
-        "d. Gain 1 reputation with the faction of the nearest patrol."
+        "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain <strong>1 fame</strong>.",
+        "d. Gain <strong>1 reputation</strong> with the faction of the nearest patrol."
       ],
       "special": []
     },
     "9": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward closest goal.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
@@ -384,16 +385,16 @@
         "Buy a <span class=\"icon ship\">ship card</span>."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. If at job destination, complete it.",
-        "c. Gain <span class=\"icon credits\">credits </span>4&nbsp;000. Lose 1 reputation with tha faction of planet, you are on."
+        "c. Gain <span class=\"icon credits\">credits </span>4&nbsp;000. Lose <strong>1 reputation</strong> with tha faction of planet, you are on."
       ],
       "special": []
     },
     "10": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward closest goal.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
@@ -401,9 +402,9 @@
         "Buy a <span class=\"icon cargo\">cargo card</span> and place a goal token on card's destination."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. If at job destination, complete it.",
-        "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame."
+        "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain <strong>1 fame</strong>."
       ],
       "special": [
         "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
@@ -412,15 +413,15 @@
     "afra": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward closest goal.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Buy a <span class=\"icon ship\">ship card</span>. If unable, buy a <span class=\"icon gear\">gear card</span>."
       ],
       "action": [
         "If at cargo destination, deliver it.",
-        "If all job slots full, buy <span class=\"icon cargo\">cargo card</span>. Otherwise,buy a <span class=\"icon job\">job card</span>. Then, place a goal token on card's destination."
+        "If all job slots full, buy <span class=\"icon cargo\">cargo card</span>. Otherwise, buy a <span class=\"icon job\">job card</span>. Then, place a goal token on card's destination."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. Gain <span class=\"icon credits\">credits </span>1&nbsp;000 for each different skill Aphra and her crew have."
       ],
       "special": [
@@ -430,16 +431,16 @@
     "chewbacca": {
       "planning": [
         "a. Recover all <span class=\"icon damage\">damage</span>. Gain <span class=\"icon credits\">credits </span>1&nbsp;000 for each damage recovered this way.",
-        "b. Move toward closest goal.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>"
+        "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>"
       ],
       "action": [
         "If at cargo destination, deliver it. If cargo is <strong>illegal</strong> <em>ship</em> suffers 2 <span class=\"icon damage\">damage</span>.",
         "Buy a <span class=\"icon ship\">ship card</span>. If unable, buy a <span class=\"icon cargo\">cargo card</span> and place a goal token on card's destination."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. If at job destination, complete it.",
-        "c. Reveal the <strong>highest-rank</strong> contact token on your planet that is  <strong>face-down</strong>, and gain this contact as a crew member for free."
+        "c. Reveal the <strong>facedown</strong> contact token of the <strong>highest</strong> class on this planet and gain the crew on its card for free."
       ],
       "special": [
         "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
@@ -448,16 +449,16 @@
     "enfys": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward closest goal.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
         "Buy a <span class=\"icon ship\">ship card</span>. If unable, buy a <span class=\"icon gear\">gear card</span>."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. If Enfys has an empty crew slot, reveal the  <strong>face-down</strong> contact token of the lowest class on this planet and gain the crew on its card for free.",
-        "c. Gain <span class=\"icon credits\">credits </span>4&nbsp;000 and additional <span class=\"icon credits\">credits </span>1&nbsp;000 for each Enfys' crew. Then, lose 1 reputation with this planet's faction (if any)."
+        "c. Gain <span class=\"icon credits\">credits </span>4&nbsp;000 and additional <span class=\"icon credits\">credits </span>1&nbsp;000 for each Enfys' crew. Then, lose <strong>1 reputation</strong> with this planet's faction (if any)."
       ],
       "special": [
         "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
@@ -466,7 +467,7 @@
     "erso": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward closest goal or <strong>Imperial planet</strong>.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward closest goal or <strong>Imperial planet</strong>.<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
@@ -474,8 +475,8 @@
         "Buy a <span class=\"icon job\">job card</span> and place a goal token on card's destination. <div class=\"phaseSubElement\">If patrol would move toward Jyn, move it toward the nearest opponent instead.</div>"
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
-        "b. If on <span class=\"icon empire\">imperial</span> planet, roll a die. On a <span class=\"icon hit\">hit</span>, gain 1 fame.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
+        "b. If on <span class=\"icon empire\">imperial</span> planet, roll a die. On a <span class=\"icon hit\">hit</span>, gain <strong>1 fame</strong>.",
         "c. If at job destination, complete it."
       ],
       "special": [
@@ -485,17 +486,17 @@
     "han": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward closest goal. If Han has a ship with cost of <span class=\"icon credits\">credits </span>15&nbsp;000 or more, ignore patrols during movement.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward closest goal. If Han has a ship with cost of <span class=\"icon credits\">credits </span>15&nbsp;000 or more, ignore patrols during movement.<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
         "If at cargo destination, deliver it.",
-        "Buy a <span class=\"icon ship\">ship card</span> . If unable, buy a <span class=\"icon cargo\">cargo card</span> and place a goal token on card's destination."
+        "Buy a <span class=\"icon ship\">ship card</span>. If unable, buy a <span class=\"icon cargo\">cargo card</span> and place a goal token on card's destination."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. If at job destination, complete it.",
-        "c.  Gain <span class=\"icon credits\">credits </span>4&nbsp;000. Then, lose 1 reputation with this planet's faction (if any)."
+        "c.  Gain <span class=\"icon credits\">credits </span>4&nbsp;000. Then, lose <strong>1 reputation</strong> with this planet's faction (if any)."
       ],
       "special": [
         "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
@@ -504,7 +505,7 @@
     "hera": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward closest goal.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
@@ -513,7 +514,7 @@
         "Buy a <span class=\"icon cargo\">cargo card</span> and place a goal token on card's destination."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. If at job destination, complete it.",
         "c.  Recover all <span class=\"icon damage\">damage</span>."
       ],
@@ -524,8 +525,8 @@
     "hondo": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward closes Player, if Hondo can reach their space goal.<div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
-        "c. Move toward closest goal. <br>  ·  If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.<br>  ·  Do not stop on Maelstrom."
+        "b. Move toward nearest other player, if Hondo Ohnaka can reach their space.<div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
+        "c. Move toward closest goal. <div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>"
       ],
       "action": [
         "If at cargo destination, deliver it.",
@@ -533,7 +534,7 @@
         "Buy a <span class=\"icon job\">job card</span> and place a goal token on card's destination."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. If at job destination, complete it."
       ],
       "special": [
@@ -543,17 +544,17 @@
     "lando": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward closest goal.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
         "If at cargo destination, deliver it.",
-        "Roll a die. If result is a: <div class=\"phaseSubElement\"><span class=\"icon crit\">crit</span> - gain 1 fame</div><div class=\"phaseSubElement\"><span class=\"icon hit\">hit</span> - gain <span class=\"icon credits\">credits </span>3&nbsp;000</div><div class=\"phaseSubElement\"><span class=\"icon focus\">focus</span> - gain 1 reputation with this planet's faction (if any)</div>"
+        "Roll a die. If result is a: <div class=\"phaseSubElement\"><span class=\"icon crit\">crit</span> - gain <strong>1 fame</strong></div><div class=\"phaseSubElement\"><span class=\"icon hit\">hit</span> - gain <span class=\"icon credits\">credits </span>3&nbsp;000</div><div class=\"phaseSubElement\"><span class=\"icon focus\">focus</span> - gain <strong>1 reputation</strong> with this planet's faction (if any)</div>"
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. If at job destination, complete it.",
-        "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain 1 fame."
+        "c. Spend <span class=\"icon credits\">credits </span>8&nbsp;000 to gain <strong>1 fame</strong>."
       ],
       "special": [
         "Discard top cards from <span class=\"icon bounty\">bounty</span> and <span class=\"icon luxury\">luxury</span> market decks. Then, shuffle this AI card back into the AI deck."
@@ -562,15 +563,15 @@
     "maz": {
       "planning": [
         "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
-        "b. Move toward closest goal.<div class=\"phaseSubElement\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement\">Do not stop on Maelstrom.</div>",
+        "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span>2&nbsp;000."
       ],
       "action": [
         "If at cargo destination, deliver it.",
-        "If Maz can buy a <span class=\"icon luxury\">luxury card</span> - she additionally gains 1 fame. Otherwise, she gains <span class=\"icon credits\">credits </span>2&nbsp;000 for each of her crew."
+        "Buy a <span class=\"icon luxury\">luxury card</span>. If Maz Kanata buys a card, she gains <strong>1 fame</strong>. Otherwise, she gains <span class=\"icon credits\">credits </span>2&nbsp;000 for each of her crew."
       ],
       "encounter": [
-        "a. If <span class=\"icon negative\">negative</span> reputation matching a patrol in this space, encounter that patrol.",
+        "a. If <span class=\"icon negative\">negative</span> <strong>reputation</strong> matching a patrol in this space, encounter that patrol.",
         "b. If at job destination, complete it.",
         "c. Reveal the  <strong>face-down</strong> contact token of the lowest class on this planet and gain the crew on its card for free."
       ],
@@ -625,7 +626,7 @@
         "human",
         "bounty"
       ],
-      "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Player Bounty Rewards</div><div class=\"phaseElement\">Instead of gaining rewards from a bounty card  matching a player's character, do the following: <div class=\"phaseSubElement\">Gain <span class=\"icon credits\">credits</span>5&nbsp;000 and 1 fame.</div><div class=\"phaseSubElement\"><strong>Gain</strong> 1 reputation with 1  faction of your choice with which that player has <span class=\"icon negative\">negative</span> reputation.</div><div class=\"phaseSubElement\"><strong>Lose</strong> 1 reputation with 1 faction of your choice with which that player has <span class=\"icon positive\">positive</span> repoutation.</div></div></div>"
+      "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Player Bounty Rewards</div><div class=\"phaseElement\">Instead of gaining rewards from a bounty card  matching a player's character, do the following: <div class=\"phaseSubElement\">Gain <span class=\"icon credits\">credits</span>5&nbsp;000 and <strong>1 fame</strong>.</div><div class=\"phaseSubElement\"><strong>Gain</strong> <strong>1 reputation</strong> with 1  faction of your choice with which that player has <span class=\"icon negative\">negative</span> <strong>reputation</strong>.</div><div class=\"phaseSubElement\"><strong>Lose</strong> <strong>1 reputation</strong> with 1 faction of your choice with which that player has <span class=\"icon positive\">positive</span> <strong>reputation</strong>.</div></div></div>"
     },
     {
       "gameMode": [],
@@ -642,11 +643,13 @@
       "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Де Здобути славу</div><div class=\"phaseElement\">Персональна мета.</div><div class=\"phaseElement\">Мета корабля.</div><div class=\"phaseElement\">Розшуки.</div><div class=\"phaseElement\">Халтурки.</div><div class=\"phaseElement\">Доставка <strong>протизаконних</strong> вантажів.</div><div class=\"phaseElement\">Перемога над патрулями 2 і 3 рівнів.</div><div class=\"phaseElement\">Карти з <span class=\"icon luxury\">luxury</span> колоди ринку.</div></div>"
     },
     {
-      "gameMode": [],
+      "gameMode": [
+        "expansion"
+      ],
       "characterType": [
         "human"
       ],
-      "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Favors<div class=\"phaseHint\"> <br>Player can request the following favors from another player (in any space):</div></div><div class=\"phaseElement\">Advice: Gain 1 of that <strong>player's skills</strong> for 1 skill test.</div><div class=\"phaseElement\">Combat Strategy: Roll <strong>1 additional die</strong> during a combat.</div><div class=\"phaseElement\">Endorsement: Gain 1 of that player's <span class=\"icon positive\">positive</span> <strong>reputations</strong> until end of turn.</div><div class=\"phaseElement\">Shortcut: Gain <strong>+1 <span class=\"icon speed\">speed</span></strong> until end of turn reputations until end of turn.</div></div>"
+      "content": "<div class=\"phaseItem\" data-pick=\"all\"><div class=\"phaseName\">Favors<div class=\"phaseHint\"> <br>Player can request the following favors from another player (in any space):</div></div><div class=\"phaseElement\">Advice: Gain 1 of that <strong>player’s skills</strong> for 1 skill test.</div><div class=\"phaseElement\">Combat Strategy: Roll <strong>1 additional die</strong> during a combat.</div><div class=\"phaseElement\">Endorsement: Gain 1 of that player’s <span class=\"icon positive\">positive</span> <strong>reputations</strong> until end of turn.</div><div class=\"phaseElement\">Shortcut: Gain <strong>+1 <span class=\"icon hyperdrive\">hyperdrive</span></strong> until end of turn.</div><div class=\"phaseNote\">Rulebook: optional <strong>expansion</strong> rule, and it <strong>cannot be used in a single-player game</strong>.</div></div>"
     },
     {
       "gameMode": [],
@@ -654,7 +657,7 @@
         "bounty",
         "smuggler"
       ],
-      "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Cards</div><div class=\"phaseElement\">Do not resolve any encounter cards.</div><div class=\"phaseElement\">Do not use abilities on cards, except for abilities that increase the values on their ship or character (ground/space combat, HP/hull)</div>"
+      "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Cards</div><div class=\"phaseElement\">Do not resolve any encounter cards.</div><div class=\"phaseElement\">Do not use abilities on cards, except for abilities that increase the values on their ship or character (ground/space combat, <span class=\"icon hp\">HP</span>, <span class=\"icon hull\">hull</span>, <span class=\"icon hyperdrive\">hyperdrive</span>).</div>"
     },
     {
       "gameMode": [
@@ -679,7 +682,7 @@
         "bounty",
         "smuggler"
       ],
-      "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Movement</div><div class=\"phaseElement\">Choose the shortest path to the goal, event if encounter partols.</div><div class=\"phaseElement\">Do not fight partols, just stop on those having <span class=\"icon neutral\">neutral</span> or <span class=\"icon negative\">negative</span> reputation.</div><div class=\"phaseElement\">Do not stop on Maelstrom.</div><div class=\"phaseElement\">If AI would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div>"
+      "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Movement</div><div class=\"phaseElement\">Choose the shortest path to the goal, event if encounter partols.</div><div class=\"phaseElement\">Do not fight partols, just stop on those having <span class=\"icon neutral\">neutral</span> or <span class=\"icon negative\">negative</span> <strong>reputation</strong>.</div><div class=\"phaseElement\">Do not stop on Maelstrom.</div><div class=\"phaseElement\">If AI would stop at a navpoint and passed through a planet no more than 2 spaces away, return to that planet.</div>"
     },
     {
       "gameMode": [

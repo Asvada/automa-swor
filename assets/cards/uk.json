@@ -1,15 +1,15 @@
 {
   "player": {
     "base": {
-      "planning": "<div class=\"phaseItem\"><div class=\"phaseName\">Фаза планування<div class=\"phaseHint\"> - Обери <strong>лише 1</strong></div></div><div class=\"phase1Element phaseElement\">Рухайся в межах <span class=\"icon speed\">швидкості</span> твого корабля.</div><div class=\"phase1Element phaseElement\">Отримай <span class=\"icon credits\">кредитів </span>2&nbsp;000.</div><div class=\"phase1Element phaseElement\">Зніми усі <span class=\"icon damage\">пошкодження</span> персонажа та корабля.<div class=\"phaseSubElement\">Сплати <span class=\"icon credits\">кредитів </span>3 000 <em>(якщо переможений).</em></div><div class=\"phaseSubElement\">Втрать всі секретні карти <em>(якщо переможений).</em></div></div><div class=\"phase1Element phaseElement\">Розіграй фазу \"<strong>Планування</strong>\" на карті Персонажа, Корабля, Екіпажу, Секретній чи іншій карті.</div></div>",
-      "action": "<div class=\"phaseItem\" data-pick=\"all\"><div class=\"phaseName\">Фаза дії<div class=\"phaseHint\"> - Виконай <strong>будь-яку або всі</strong></div></div><div class=\"phase2Element phaseElement\">Достав <span class=\"icon cargo\">вантаж</span> <strong>та</strong> <span class=\"icon bounty\">розшуку</span>.</div><div class=\"phase2Element phaseElement\">Дія ринку (<strong>якщо на планеті</strong>).<div class=\"phaseSubElement\"> Можеш скинути карту з верху колоди ринку.</div><div class=\"phaseSubElement\">  Можеш купити верхню карту колоди ринку. Потім, розіграй рух патруля на наступній карті, якщо є.</div></div><div class=\"phase2Element phaseElement\">Обміняйся картами з гравцем у твоєму просторі.</div><div class=\"phase2Element phaseElement\">Розіграй фазу \"<strong>Дія</strong>\" на карті Персонажа, Корабля, Екіпажу, Вантажу, Спорядження, Модифікації, Секретній, Амбіції чи іншій карті.</div></div>",
-      "encounter": "<div class=\"phaseItem\"><div class=\"phaseName\">Фаза зустрічей<div class=\"phaseHint\"> - Обери <strong>лише 1</strong></div></div><div class=\"phase3Element phaseElement\">Бій з патрулем (обов'язково, якщо ти маєш <span class=\"icon negative\">негативну</span> репутацію з патрулем у твоєму просторі).</div><div class=\"phase3Element phaseElement\">Відкрий карту \"<strong>Зустріч</strong>\" (Планета, Вирвище, Навігаційна точка).</div><div class=\"phase3Element phaseElement\">Відкрий закритий контакт (<strong>розіграй</strong> карту банку даних) або бій з розшуком.</div><div class=\"phase3Element phaseElement\">Розіграй фазу \"<strong>Зустріч</strong>\" на карті Персонажа, Корабля, Екіпажу, Секретній, Амбіції чи  іншій карті.</div></div>",
+      "planning": "<div class=\"phaseItem\"><div class=\"phaseName\">Фаза планування<div class=\"phaseHint\"> - Обери <strong>лише 1</strong></div></div><div class=\"phase1Element phaseElement\">Рухайся в межах <span class=\"icon hyperdrive\">гіперприводу</span> твого корабля.</div><div class=\"phase1Element phaseElement\">Отримай <span class=\"icon credits\">кредитів </span>2&nbsp;000.</div><div class=\"phase1Element phaseElement\">Зніми усі <span class=\"icon damage\">пошкодження</span> <em>(обов’язково, якщо тебе спіткала невдача)</em>.</div><div class=\"phase1Element phaseElement appNote\">Розіграй фазу \"<strong>Планування</strong>\" на карті Персонажа, Корабля, Екіпажу, Секретній чи іншій карті.</div></div>",
+      "action": "<div class=\"phaseItem\" data-pick=\"all\"><div class=\"phaseName\">Фаза дії<div class=\"phaseHint\"> - Виконай <strong>будь-яку або всі</strong></div></div><div class=\"phase2Element phaseElement\">Достав <span class=\"icon cargo\">вантаж</span> <strong>та</strong> <span class=\"icon bounty\">розшуку</span>.</div><div class=\"phase2Element phaseElement\">Дія ринку (<strong>якщо на планеті</strong>).<div class=\"phaseSubElement\"> Можеш скинути карту з верху колоди ринку.</div><div class=\"phaseSubElement\">  Можеш купити верхню карту колоди ринку. Потім, розіграй рух патруля на наступній карті, якщо є.</div></div><div class=\"phase2Element phaseElement\">Обміняйся картами з гравцем у твоєму просторі.</div><div class=\"phase2Element phaseElement appNote\">Розіграй фазу \"<strong>Дія</strong>\" на карті Персонажа, Корабля, Екіпажу, Вантажу, Спорядження, Модифікації, Секретній, Амбіції чи іншій карті.</div></div>",
+      "encounter": "<div class=\"phaseItem\"><div class=\"phaseName\">Фаза зустрічей<div class=\"phaseHint\"> - Обери <strong>лише 1</strong></div></div><div class=\"phase3Element phaseElement\">Бій з патрулем (обов'язково, якщо ти маєш <span class=\"icon negative\">негативну</span> <strong>репутацію</strong> з патрулем у твоєму просторі).</div><div class=\"phase3Element phaseElement\">Відкрий карту зустрічей.<div class=\"phaseSubElement appNote\">Планета, Вирвище, Навігаційна точка.</div></div><div class=\"phase3Element phaseElement\">Відкрий контакт.<div class=\"phaseSubElement appNote\">Розіграй карту банку даних або вступи в бій з розшуком.</div></div><div class=\"phase3Element phaseElement appNote\">Розіграй фазу \"<strong>Зустріч</strong>\" на карті Персонажа, Корабля, Екіпажу, Секретній, Амбіції чи  іншій карті.</div></div>",
       "special": ""
     },
     "expansion": {
-      "planning": "<div class=\"phaseItem\"><div class=\"phaseName\">Фаза планування<div class=\"phaseHint\"> - Обери <strong>лише 1</strong></div></div><div class=\"phase1Element phaseElement\">Рухайся в межах <span class=\"icon speed\">швидкості</span> твого корабля.</div><div class=\"phase1Element phaseElement\">Отримай <span class=\"icon credits\">кредитів </span>2&nbsp;000.</div><div class=\"phase1Element phaseElement\">Зніми усі <span class=\"icon damage\">пошкодження</span> персонажа та корабля.<div class=\"phaseSubElement\">Сплати <span class=\"icon credits\">кредитів </span>3 000 <em>(якщо переможений).</em></div><div class=\"phaseSubElement\">Втрать всі секретні карти <em>(якщо переможений).</em></div></div><div class=\"phase1Element phaseElement\">Розіграй фазу \"<strong>Планування</strong>\" на карті Персонажа, Корабля, Екіпажу, Секретній чи  іншій карті.</div></div>",
-      "action": "<div class=\"phaseItem\" data-pick=\"all\"><div class=\"phaseName\">Фаза дії<div class=\"phaseHint\"> - Виконай <strong>будь-яку або всі</strong></div></div><div class=\"phase2Element phaseElement\">Достав <span class=\"icon cargo\">вантаж</span> <strong>та</strong> <span class=\"icon bounty\">розшуку</span>.</div><div class=\"phase2Element phaseElement\">Дія на ринку (<strong>якщо на планеті</strong>).<div class=\"phaseSubElement\">  Можеш скинути до 2 карт з верху <strong>однієї</strong> колоди ринку.</div><div class=\"phaseSubElement\">  Можеш купити верхню карту колоди ринку. Потім, розіграй рух патруля та відкрий жетони контакту на наступній карті, якщо така є.</div></div><div class=\"phase2Element phaseElement\">Обміняйся картами з гравцем у твоєму просторі.</div><div class=\"phase2Element phaseElement\">Розіграй фазу \"<strong>Дія</strong>\" на карті Персонажа, Корабля, Екіпажу, Вантажу, Спорядження, Модифікації, Секретній, Амбіції чи  іншій карті.</div></div>",
-      "encounter": "<div class=\"phaseItem\"><div class=\"phaseName\">Фаза зустрічей<div class=\"phaseHint\"> - Обери <strong>лише 1</strong></div></div><div class=\"phase3Element phaseElement\">Бій з патрулем (обов'язково, якщо ти маєш <span class=\"icon negative\">негативну</span> репутацію з патрулем у твоєму просторі).</div><div class=\"phase3Element phaseElement\">Відкрий карту \"<strong>Зустріч</strong>\" (Планета, Вирвище, Навігаційна точка, Центральні Світи).</div><div class=\"phase3Element phaseElement\">Відкрий закритий контакт (<strong>Розіграй</strong> карту банку даних) або бій з розшуком.</div><div class=\"phase3Element phaseElement\">Розіграй фазу \"<strong>Зустріч</strong>\" на карті Персонажа, Корабля, Екіпажу, Секретній, Амбіції чи  іншій карті.</div></div>",
+      "planning": "<div class=\"phaseItem\"><div class=\"phaseName\">Фаза планування<div class=\"phaseHint\"> - Обери <strong>лише 1</strong></div></div><div class=\"phase1Element phaseElement\">Рухайся в межах <span class=\"icon hyperdrive\">гіперприводу</span> твого корабля.</div><div class=\"phase1Element phaseElement\">Отримай <span class=\"icon credits\">кредитів </span>2&nbsp;000.</div><div class=\"phase1Element phaseElement\">Зніми усі <span class=\"icon damage\">пошкодження</span> <em>(обов’язково, якщо тебе спіткала невдача)</em>.</div><div class=\"phase1Element phaseElement appNote\">Розіграй фазу \"<strong>Планування</strong>\" на карті Персонажа, Корабля, Екіпажу, Секретній чи  іншій карті.</div></div>",
+      "action": "<div class=\"phaseItem\" data-pick=\"all\"><div class=\"phaseName\">Фаза дії<div class=\"phaseHint\"> - Виконай <strong>будь-яку або всі</strong></div></div><div class=\"phase2Element phaseElement\">Достав <span class=\"icon cargo\">вантаж</span> <strong>та</strong> <span class=\"icon bounty\">розшуку</span>.</div><div class=\"phase2Element phaseElement\">Дія на ринку (<strong>якщо на планеті</strong>).<div class=\"phaseSubElement\">  Можеш скинути до 2 карт з верху <strong>однієї</strong> колоди ринку.</div><div class=\"phaseSubElement\">  Можеш купити верхню карту колоди ринку. Потім, розіграй рух патруля та відкрий жетони контакту на наступній карті, якщо така є.</div></div><div class=\"phase2Element phaseElement\">Обміняйся картами з гравцем у твоєму просторі.</div><div class=\"phase2Element phaseElement appNote\">Розіграй фазу \"<strong>Дія</strong>\" на карті Персонажа, Корабля, Екіпажу, Вантажу, Спорядження, Модифікації, Секретній, Амбіції чи  іншій карті.</div></div>",
+      "encounter": "<div class=\"phaseItem\"><div class=\"phaseName\">Фаза зустрічей<div class=\"phaseHint\"> - Обери <strong>лише 1</strong></div></div><div class=\"phase3Element phaseElement\">Бій з патрулем (обов'язково, якщо ти маєш <span class=\"icon negative\">негативну</span> <strong>репутацію</strong> з патрулем у твоєму просторі).</div><div class=\"phase3Element phaseElement\">Відкрий карту зустрічей.<div class=\"phaseSubElement appNote\">Планета, Вирвище, Навігаційна точка, Центральні Світи.</div></div><div class=\"phase3Element phaseElement\">Відкрий контакт.<div class=\"phaseSubElement appNote\">Розіграй карту банку даних або вступи в бій з розшуком.</div></div><div class=\"phase3Element phaseElement appNote\">Розіграй фазу \"<strong>Зустріч</strong>\" на карті Персонажа, Корабля, Екіпажу, Секретній, Амбіції чи  іншій карті.</div></div>",
       "special": ""
     }
   },
@@ -17,34 +17,34 @@
     "1": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів</span> 2&nbsp;000."
       ],
       "action": [
-        "Купіть <span class=\"icon bounty\">карту розшуку</span>, навіть якщо перебуваєте на навігаційній точці. Якщо неможливо <strong>і</strong> ви на планеті, скиньте верхню карту колоди ринку <span class=\"icon cargo\">вантажу</span> та Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000."
+        "Купіть <span class=\"icon bounty\">карту розшуку</span>, навіть якщо ти на навігаційній точці. Якщо неможливо <strong>і</strong> ви на планеті, скиньте верхню карту колоди ринку <span class=\"icon cargo\">вантажу</span> та Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Зіткніться з ціллю розшуку в цьому просторі (персонаж, член екіпажу, відкритий контакт).",
-        "c. Витратьте <span class=\"icon credits\">кредитів 8&nbsp;000</span>, щоб отримати 1 славу.",
-        "d. Отримай 1 репутацію з фракцією цієї планети (якщо є)."
+        "c. Витратьте <span class=\"icon credits\">кредитів </span>8&nbsp;000, щоб отримати <strong>1 славу</strong>.",
+        "d. Отримай <strong>1 репутацію</strong> з фракцією цієї планети (якщо є)."
       ],
       "special": []
     },
     "2": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
         "Якщо комірки <span class=\"icon bounty\">розшуку</span> заповнені, купіть <span class=\"icon gear\">карту спорядження</span>. В іншому випадку, купіть <span class=\"icon bounty\">карту розшуку</span>, навіть якщо перебуваєте на навігаційній точці."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Зіткніться з ціллю розшуку в цьому просторі (персонаж, член екіпажу, відкритий контакт).",
         "c. Відкрий  <strong>закритий</strong> контакт найнижчого класу на цій планеті.",
-        "d. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу."
+        "d. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати <strong>1 славу</strong>."
       ],
       "special": [
         "Якщо не всі комірки екіпажу заповнені, Отримай безкоштовно члена екіпажу, який відповідає  <strong>відкритому</strong> контакту найнижчого класу на цій планеті."
@@ -53,15 +53,15 @@
     "3": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
-        "Якщо комірки <span class=\"icon bounty\">розшуку</span> заповнені, скиньте розшук цього гравця найвищого класу, яка <strong>не збігається</strong> з персонажем, членом екіпажу або відкритим контактом ніде у світі.",
+        "Якщо комірки <span class=\"icon bounty\">розшуку</span> заповнені, скиньте розшук цього гравця найвищого класу, яка <strong>не збігається</strong> з персонажем, членом екіпажу або відкритим контактом.",
         "Якщо не всі комірки <span class=\"icon bounty\">розшуку</span> заповнені, відкривайте карти з колоди ринку <span class=\"icon bounty\">розшуку</span> <strong>доти</strong>, поки не буде відкрито розшук, що збігається з персонажем, членом екіпажу або відкритим контактом. Отримай цю розшук. Потім перетасуйте колоду ринку <span class=\"icon bounty\">розшуку</span>."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Зіткніться з ціллю розшуку в цьому просторі (персонаж, член екіпажу, відкритий контакт)."
       ],
       "special": []
@@ -69,51 +69,52 @@
     "4": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
         "Купіть <span class=\"icon gear\">карту спорядження</span>. Якщо неможливо <strong>і</strong> ви на планеті, скиньте верхню карту колоди ринку <span class=\"icon cargo\">вантажу</span> та Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Зіткніться з патрулем у цьому просторі, який має <span class=\"icon ship_attack\">атаку корабля</span>, меншу або рівну <span class=\"icon ship_attack\">атаці корабля</span> цього гравця.",
-        "c. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу.",
-        "d. Отримай 1 репутацію з фракцією цієї планети (якщо є)."
+        "c. Зіткніться з ціллю розшуку (персонаж, член екіпажу, контакт) у цьому просторі.",
+        "d. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати <strong>1 славу</strong>.",
+        "e. Отримай <strong>1 репутацію</strong> з фракцією цієї планети (якщо є)."
       ],
       "special": []
     },
     "5": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
         "Купіть <span class=\"icon ship\">карту корабля</span>. Якщо неможливо <strong>і</strong> ви на планеті, скиньте верхню карту колоди ринку <span class=\"icon cargo\">вантажу</span> та Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Зіткніться з патрулем у цьому просторі, який має <span class=\"icon ship_attack\">атаку корабля</span>, меншу або рівну <span class=\"icon ship_attack\">атаці корабля</span> цього гравця.",
         "c. Зіткніться з ціллю розшуку в цьому просторі (персонаж, член екіпажу, відкритий контакт).",
-        "d. Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000. Потім Втрать 1 репутацію з фракцією цієї планети (якщо є)."
+        "d. Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000. Потім Втрать <strong>1 репутацію</strong> з фракцією цієї планети (якщо є)."
       ],
       "special": []
     },
     "bane": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
-        "Якщо Бейн має принаймні 1 славу і менше ніж <span class=\"icon credits\">кредитів </span> 20&nbsp;000 , він втрачає 1 славу та отримує <span class=\"icon credits\">кредитів </span> 10&nbsp;000.",
+        "Якщо Бейн має принаймні <strong>1 славу</strong> і менше ніж <span class=\"icon credits\">кредитів </span> 20&nbsp;000 , він втрачає <strong>1 славу</strong> та отримує <span class=\"icon credits\">кредитів </span> 10&nbsp;000.",
         "Купіть <span class=\"icon ship\">карту корабля</span>. Якщо неможливо, купіть <span class=\"icon gear\">спорядження для корабля</span>."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Зіткніться з ціллю розшуку в цьому просторі (персонаж, член екіпажу, відкритий контакт).",
-        "c. Витратьте <span class=\"icon credits\">кредитів </span> 15&nbsp;000, щоб отримати 2 слави."
+        "c. Витратьте <span class=\"icon credits\">кредитів </span> 15&nbsp;000, щоб отримати <strong>2 слави</strong>."
       ],
       "special": [
         "Скиньте верхні карти з колод ринку <span class=\"icon job\">завдань</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
@@ -122,7 +123,7 @@
     "boba": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
@@ -130,7 +131,7 @@
         "Відкрий  <strong>закритий</strong> контакт на цій планеті, який відповідає одній із розшуку Боби."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Зіткніться з ціллю розшуку в цьому просторі (персонаж, член екіпажу, відкритий контакт).",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000."
       ],
@@ -141,16 +142,16 @@
     "bossk": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до найближчого <strong>непереможеного</strong> персонажа, якщо Босск може дістатися до його простору. Не зупиняйтеся на Вирвищі.",
-        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до найближчого іншого <strong>непереможеного</strong> гравця, якщо Босск може дістатися до його простору.",
+        "c. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "d. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
         "Зніми усі <span class=\"icon damage\">пошкодження</span>."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
-        "b. Вступіть у бій з іншим гравцем у цьому просторі. Якщо Босск перемагає, Отримай 1 славу.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "b. Вступіть у бій з іншим гравцем у цьому просторі. Якщо Босск перемагає, Отримай <strong>1 славу</strong>.",
         "c. Зіткніться з ціллю розшуку в цьому просторі (персонаж, член екіпажу, відкритий контакт)."
       ],
       "special": [
@@ -160,15 +161,15 @@
     "dengar": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся безпосередньо до простору іншого гравця з найбільшою кількістю <span class=\"icon negative\">негативної</span> репутації (мінімум 1) - якщо це досяжно для <span class=\"icon speed\">швидкості</span> корабля Денгара. <div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
-        "c. Кожен інший гравець (<strong>в усьому світі</strong>) втрачає 1 репутацію на свій вибір."
+        "b. Рухайся безпосередньо до простору іншого гравця з найбільшою кількістю <span class=\"icon negative\">негативної</span> <strong>репутації</strong> (мінімум 1). <div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
+        "c. Кожен інший гравець втрачає <strong>1 репутацію</strong> на свій вибір."
       ],
       "action": [
-        "Кожен інший гравець у цьому просторі отримує 2 <span class=\"icon damage\">пошкодження</span> на свого <strong>персонажа</strong> за кожну його <span class=\"icon negative\">негативну</span> репутацію. Якщо персонаж переможений таким чином, Денгар отримує 1 славу."
+        "Кожен інший гравець у цьому просторі отримує 2 <span class=\"icon damage\">пошкодження</span> на свого <strong>персонажа</strong> за кожну його <span class=\"icon negative\">негативну</span> <strong>репутацію</strong>. Якщо персонаж переможений таким чином, Денгар отримує <strong>1 славу</strong>."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
-        "b. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "b. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати <strong>1 славу</strong>.",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000."
       ],
       "special": [
@@ -179,7 +180,7 @@
       "planning": [
         "!. <strong>Якщо IG-88 має принаймні 1 члена екіпажу <span class=\"icon droid\">дроїда</span></strong>, Виконай ПЕРШІ 2, які застосовуються.",
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000 за кожного члена екіпажу <span class=\"icon droid\">дроїда</span> IG-88."
       ],
       "action": [
@@ -187,7 +188,7 @@
         "Отримай члена екіпажу, який відповідає найближчому  <strong>відкритому</strong> контакту <span class=\"icon droid\">дроїда</span>, безкоштовно."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Зіткніться з ціллю розшуку в цьому просторі (персонаж, член екіпажу, відкритий контакт)."
       ],
       "special": [
@@ -197,14 +198,14 @@
     "ketsu": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
         "Купіть <span class=\"icon ship\">карту корабля</span>. Якщо неможливо, купіть <span class=\"icon bounty\">карту розшуку</span>, навіть якщо перебуваєте на навігаційній точці."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Зіткніться з патрулем у межах <strong>3 просторів</strong>, який має <span class=\"icon ship_attack\">атаку корабля</span>, меншу або рівну <span class=\"icon ship_attack\">атаці корабля</span> цього гравця.",
         "c. Зіткніться з ціллю розшуку у межах <strong>3 просторів</strong> (персонаж, член екіпажу, відкритий контакт)."
       ],
@@ -215,15 +216,15 @@
     "krrsantan": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до цілі розшуку (персонаж, член екіпажу, відкритий/закритий контакт).<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
-        "Зніми 2 <span class=\"icon damage\">пошкодження</span>.",
+        "Зніми 2 <span class=\"icon damage\">пошкодження</span> Чорного Крусантана.",
         "Купіть <span class=\"icon gear\">карту спорядження</span>. Якщо неможливо, купіть <span class=\"icon bounty\">карту розшуку</span>, навіть якщо перебуваєте на навігаційній точці."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Зіткніться з ціллю розшуку в цьому просторі (персонаж, член екіпажу, відкритий контакт).",
         "c. Киньте стільки кубиків, скільки дорівнює <span class=\"icon land_attack\">наземна атака</span> Кррсантана. За кожне викинуте <span class=\"icon hit\">влучання</span> Кррсантан отримує <span class=\"icon credits\">кредитів </span> 2&nbsp;000 та отримує 1 <span class=\"icon damage\">пошкодження</span>."
       ],
@@ -236,7 +237,7 @@
     "1": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
@@ -244,17 +245,17 @@
         "Якщо немає вільних комірок вантажу, купіть <span class=\"icon job\">карту завдання</span>. В іншому випадку, купіть <span class=\"icon cargo\">карту вантажу</span> і помістіть жетон цілі на пункт призначення карти."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Якщо в пункті призначення завдання, Виконай його.",
-        "c. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу.",
-        "d. Якщо планета, на якій ви перебуваєте, має фракцію, Отримай 1 репутацію з цією фракцією."
+        "c. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати <strong>1 славу</strong>.",
+        "d. Якщо планета, на якій ви перебуваєте, має фракцію, Отримай <strong>1 репутацію</strong> з цією фракцією."
       ],
       "special": []
     },
     "2": {
       "planning": [
         "a. Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
@@ -262,7 +263,7 @@
         "Якщо немає вільних комірок завдання, купіть <span class=\"icon cargo\">карту вантажу</span>. В іншому випадку, купіть <span class=\"icon job\">карту завдання</span> і помістіть жетон цілі на пункт призначення карти."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Якщо в пункті призначення завдання, Виконай його.",
         "c. Відкрий <strong>найнижчий за рангом</strong> <strong>закритий</strong> жетон контакту на вашій планеті та Отримай цей контакт як члена екіпажу безкоштовно."
       ],
@@ -271,7 +272,7 @@
     "3": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
@@ -279,34 +280,34 @@
         "Купіть <span class=\"icon job\">карту завдання</span> і помістіть жетон цілі на пункт призначення карти."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
-        "b. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу.",
-        "c. Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000. Потім Втрать 1 репутацію з фракцією найближчого патруля."
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "b. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати <strong>1 славу</strong>.",
+        "c. Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000. Потім Втрать <strong>1 репутацію</strong> з фракцією найближчого патруля."
       ],
       "special": []
     },
     "4": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
-        "Якщо в пункті призначення вантажу, Достав його. Якщо вантаж <strong>незаконний</strong>, <em>персонаж</em> отримує 2 <span class=\"icon damage\">пошкодження</span>.",
+        "Якщо в пункті призначення вантажу, Достав його.",
         "Купіть <span class=\"icon cargo\">карту вантажу</span> і помістіть жетон цілі на пункт призначення карти."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Якщо в пункті призначення завдання, Виконай його.",
         "c. Відкрий <strong>найнижчий за рангом</strong> жетон контакту на вашій планеті, який є <strong>закритим</strong>, та Отримай цей контакт як члена екіпажу безкоштовно.",
-        "d. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу."
+        "d. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати <strong>1 славу</strong>."
       ],
       "special": []
     },
     "5": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
@@ -314,8 +315,8 @@
         "Купіть <span class=\"icon job\">карту завдання</span> і помістіть жетон цілі на пункт призначення карти."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
-        "b. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "b. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати <strong>1 славу</strong>.",
         "c. Відкрий <strong>найнижчий за рангом</strong> жетон контакту на вашій планеті, який є <strong>закритим</strong>, та Отримай цей контакт як члена екіпажу безкоштовно."
       ],
       "special": []
@@ -323,7 +324,7 @@
     "6": {
       "planning": [
         "a. Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
@@ -331,33 +332,33 @@
         "Купіть <span class=\"icon job\">карту завдання</span> і помістіть жетон цілі на пункт призначення карти."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Якщо в пункті призначення завдання, Виконай його.",
-        "c. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу."
+        "c. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати <strong>1 славу</strong>."
       ],
       "special": []
     },
     "7": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
-        "Якщо в пункті призначення вантажу, Достав його. Якщо вантаж <strong>незаконний</strong>, Втрать репутацію з фракцією поточної планети.",
+        "Якщо в пункті призначення вантажу, Достав його. Якщо вантаж <strong>незаконний</strong>, Втрать <strong>репутацію</strong> з фракцією поточної планети.",
         "Якщо немає вільних комірок вантажу, купіть <span class=\"icon gear\">карту спорядження</span>. В іншому випадку, купіть <span class=\"icon cargo\">карту вантажу</span> і помістіть жетон цілі на пункт призначення карти."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Якщо в пункті призначення завдання, Виконай його.",
-        "c. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу."
+        "c. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати <strong>1 славу</strong>."
       ],
       "special": []
     },
     "8": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
@@ -366,17 +367,17 @@
         "Відкрий <strong>найнижчий за рангом</strong> жетон контакту на вашій планеті, який є <strong>закритим</strong>."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Якщо в пункті призначення завдання, Виконай його.",
-        "c. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу.",
-        "d. Отримай 1 репутацію з фракцією найближчого патруля."
+        "c. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати <strong>1 славу</strong>.",
+        "d. Отримай <strong>1 репутацію</strong> з фракцією найближчого патруля."
       ],
       "special": []
     },
     "9": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
@@ -384,16 +385,16 @@
         "Купіть <span class=\"icon ship\">карту корабля</span>."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Якщо в пункті призначення завдання, Виконай його.",
-        "c. Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000. Втрать 1 репутацію з фракцією планети, на якій ви перебуваєте."
+        "c. Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000. Втрать <strong>1 репутацію</strong> з фракцією планети, на якій ви перебуваєте."
       ],
       "special": []
     },
     "10": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
@@ -401,9 +402,9 @@
         "Купіть <span class=\"icon cargo\">карту вантажу</span> і помістіть жетон цілі на пункт призначення карти."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Якщо в пункті призначення завдання, Виконай його.",
-        "c. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу."
+        "c. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати <strong>1 славу</strong>."
       ],
       "special": [
         "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
@@ -412,7 +413,7 @@
     "afra": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Купіть <span class=\"icon ship\">карту корабля</span>. Якщо неможливо, купіть <span class=\"icon gear\">карту спорядження</span>."
       ],
       "action": [
@@ -420,7 +421,7 @@
         "Якщо всі комірки завдання заповнені, купіть <span class=\"icon cargo\">карту вантажу</span>. В іншому випадку, купіть <span class=\"icon job\">карту завдання</span>. Потім помістіть жетон цілі на пункт призначення карти."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Отримай <span class=\"icon credits\">кредитів </span> 1&nbsp;000 за кожну відмінну навичку, яку мають Афра та її екіпаж."
       ],
       "special": [
@@ -430,16 +431,16 @@
     "chewbacca": {
       "planning": [
         "a. Зніми усі <span class=\"icon damage\">пошкодження</span>. Отримай <span class=\"icon credits\">кредитів </span> 1&nbsp;000 за кожне відновлене таким чином пошкодження.",
-        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>"
+        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>"
       ],
       "action": [
         "Якщо в пункті призначення вантажу, Достав його. Якщо вантаж <strong>незаконний</strong>, <em>корабель</em> отримує 2 <span class=\"icon damage\">пошкодження</span>.",
         "Купіть <span class=\"icon ship\">карту корабля</span>. Якщо неможливо, купіть <span class=\"icon cargo\">карту вантажу</span> і помістіть жетон цілі на пункт призначення карти."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Якщо в пункті призначення завдання, Виконай його.",
-        "c. Відкрий <strong>найвищий за рангом</strong> жетон контакту на вашій планеті, який є <strong>закритим</strong>, та Отримай цей контакт як члена екіпажу безкоштовно."
+        "c. Відкрий <strong>закритий</strong> жетон контакту <strong>найвищого</strong> ґатунку на цій планеті та отримай екіпаж з його карти безкоштовно."
       ],
       "special": [
         "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
@@ -448,16 +449,16 @@
     "enfys": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
         "Купіть <span class=\"icon ship\">карту корабля</span>. Якщо неможливо, купіть <span class=\"icon gear\">карту спорядження</span>."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Якщо Енфіс має вільну комірку екіпажу, відкрий  <strong>закритий</strong> жетон контакту найнижчого класу на цій планеті та Отримай члена екіпажу на його карті безкоштовно.",
-        "c. Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000 та додатково <span class=\"icon credits\">кредитів </span> 1&nbsp;000 за кожного члена екіпажу Енфіс. Потім Втрать 1 репутацію з фракцією цієї планети (якщо є)."
+        "c. Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000 та додатково <span class=\"icon credits\">кредитів </span> 1&nbsp;000 за кожного члена екіпажу Енфіс. Потім Втрать <strong>1 репутацію</strong> з фракцією цієї планети (якщо є)."
       ],
       "special": [
         "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
@@ -466,7 +467,7 @@
     "erso": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до найближчої цілі або <strong>Імперської планети</strong>.<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до найближчої цілі або <strong>Імперської планети</strong>.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
@@ -474,8 +475,8 @@
         "Купіть <span class=\"icon job\">карту завдання</span> і помістіть жетон цілі на пункт призначення карти. <div class=\"phaseSubElement\">Якщо патруль мав би рухатися до Джин, натомість перемістіть його до найближчого опонента.</div>"
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
-        "b. Якщо на <span class=\"icon empire\">імперській</span> планеті, киньте кубик. На <span class=\"icon hit\">влучання</span>, Отримай 1 славу.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "b. Якщо на <span class=\"icon empire\">імперській</span> планеті, киньте кубик. На <span class=\"icon hit\">влучання</span>, Отримай <strong>1 славу</strong>.",
         "c. Якщо в пункті призначення завдання, Виконай його."
       ],
       "special": [
@@ -485,7 +486,7 @@
     "han": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до найближчої цілі. Якщо Хан має корабель вартістю <span class=\"icon credits\">кредитів </span> 15&nbsp;000 або більше, ігноруйте патрулі під час руху.<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до найближчої цілі. Якщо Хан має корабель вартістю <span class=\"icon credits\">кредитів </span> 15&nbsp;000 або більше, ігноруйте патрулі під час руху.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
@@ -493,9 +494,9 @@
         "Купіть <span class=\"icon ship\">карту корабля</span> . Якщо неможливо, купіть <span class=\"icon cargo\">карту вантажу</span> і помістіть жетон цілі на пункт призначення карти."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Якщо в пункті призначення завдання, Виконай його.",
-        "c. Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000. Потім Втрать 1 репутацію з фракцією цієї планети (якщо є)."
+        "c. Отримай <span class=\"icon credits\">кредитів </span> 4&nbsp;000. Потім Втрать <strong>1 репутацію</strong> з фракцією цієї планети (якщо є)."
       ],
       "special": [
         "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
@@ -504,7 +505,7 @@
     "hera": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
@@ -513,7 +514,7 @@
         "Купіть <span class=\"icon cargo\">карту вантажу</span> і помістіть жетон цілі на пункт призначення карти."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Якщо в пункті призначення завдання, Виконай його.",
         "c. Зніми усі <span class=\"icon damage\">пошкодження</span>."
       ],
@@ -524,8 +525,8 @@
     "hondo": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до найближчого Гравця, якщо Гондо може дістатися до його простору.<div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
-        "c. Рухайся до найближчої цілі. <br>  ·  Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.<br>  ·  Не зупиняйтеся на Вирвищі."
+        "b. Рухайся до найближчого іншого гравця, якщо Гондо Онака може дістатися до його простору.<div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
+        "c. Рухайся до найближчої цілі. <div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>"
       ],
       "action": [
         "Якщо в пункті призначення вантажу, Достав його.",
@@ -533,7 +534,7 @@
         "Купіть <span class=\"icon job\">карту завдання</span> і помістіть жетон цілі на пункт призначення карти."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Якщо в пункті призначення завдання, Виконай його."
       ],
       "special": [
@@ -543,17 +544,17 @@
     "lando": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
         "Якщо в пункті призначення вантажу, Достав його.",
-        "Киньте кубик. Якщо результат: <div class=\"phaseSubElement\"><span class=\"icon crit\">крит</span> - Отримай 1 славу</div><div class=\"phaseSubElement\"><span class=\"icon hit\">влучання</span> - Отримай <span class=\"icon credits\">кредитів </span> 3&nbsp;000</div><div class=\"phaseSubElement\"><span class=\"icon focus\">фокус</span> - Отримай 1 репутацію з фракцією цієї планети (якщо є)</div>"
+        "Киньте кубик. Якщо результат: <div class=\"phaseSubElement\"><span class=\"icon crit\">крит</span> - Отримай <strong>1 славу</strong></div><div class=\"phaseSubElement\"><span class=\"icon hit\">влучання</span> - Отримай <span class=\"icon credits\">кредитів </span> 3&nbsp;000</div><div class=\"phaseSubElement\"><span class=\"icon focus\">фокус</span> - Отримай <strong>1 репутацію</strong> з фракцією цієї планети (якщо є)</div>"
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Якщо в пункті призначення завдання, Виконай його.",
-        "c. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати 1 славу."
+        "c. Витратьте <span class=\"icon credits\">кредитів </span> 8&nbsp;000, щоб отримати <strong>1 славу</strong>."
       ],
       "special": [
         "Скиньте верхні карти з колод ринку <span class=\"icon bounty\">розшуку</span> та <span class=\"icon luxury\">предметів розкоші</span>. Потім затасуй цю карту в колоду ШтІнту."
@@ -562,15 +563,15 @@
     "maz": {
       "planning": [
         "a. <strong>Якщо переможений</strong>, Зніми усі <span class=\"icon damage\">пошкодження</span>.",
-        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement\">Не зупиняйтеся на Вирвищі.</div>",
+        "b. Рухайся до найближчої цілі.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на навігаційній точці та пройшли повз планету не більше ніж за 2 простори, поверніться на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйтеся на Вирвищі.</div>",
         "c. Отримай <span class=\"icon credits\">кредитів </span> 2&nbsp;000."
       ],
       "action": [
         "Якщо в пункті призначення вантажу, Достав його.",
-        "Якщо Маз може купити <span class=\"icon luxury\">карту предмету розкоші</span> - вона додатково отримує 1 славу. В іншому випадку, вона отримує <span class=\"icon credits\">кредитів </span> 2&nbsp;000 за кожного члена свого екіпажу."
+        "Купи <span class=\"icon luxury\">карту предмету розкоші</span>. Якщо Маз Каната купує карту, вона отримує <strong>1 славу</strong>. В іншому випадку, вона отримує <span class=\"icon credits\">кредитів </span> 2&nbsp;000 за кожного члена свого екіпажу."
       ],
       "encounter": [
-        "a. Якщо <span class=\"icon negative\">негативна</span> репутація збігається з патрулем у цьому просторі, вступи в бій з ним.",
+        "a. Якщо <span class=\"icon negative\">негативна</span> <strong>репутація</strong> збігається з патрулем у цьому просторі, вступи в бій з ним.",
         "b. Якщо в пункті призначення завдання, Виконай його.",
         "c. Відкрий  <strong>закритий</strong> жетон контакту найнижчого класу на цій планеті та Отримай члена екіпажу на його карті безкоштовно."
       ],
@@ -625,7 +626,7 @@
         "human",
         "bounty"
       ],
-      "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Розшуку за Гравця</div><div class=\"phaseElement\">Замість того, щоб отримувати вирозшук з карти розшуку, що відповідає персонажу гравця, зробіть наступне: <div class=\"phaseSubElement\">Отримай <span class=\"icon credits\">кредитів</span> 5&nbsp;000 і 1 славу.</div><div class=\"phaseSubElement\"><strong>Отримай</strong> 1 репутацію з 1 фракцією на твій вибір, з якою цей гравець має <span class=\"icon negative\">негативну</span> репутацію.</div><div class=\"phaseSubElement\"><strong>Втрать</strong> 1 репутацію з 1 фракцією на твій вибір, з якою цей гравець має <span class=\"icon positive\">позитивну</span> репутацію.</div></div></div>"
+      "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Розшуку за Гравця</div><div class=\"phaseElement\">Замість того, щоб отримувати вирозшук з карти розшуку, що відповідає персонажу гравця, зробіть наступне: <div class=\"phaseSubElement\">Отримай <span class=\"icon credits\">кредитів</span> 5&nbsp;000 і <strong>1 славу</strong>.</div><div class=\"phaseSubElement\"><strong>Отримай</strong> <strong>1 репутацію</strong> з 1 фракцією на твій вибір, з якою цей гравець має <span class=\"icon negative\">негативну</span> <strong>репутацію</strong>.</div><div class=\"phaseSubElement\"><strong>Втрать</strong> <strong>1 репутацію</strong> з 1 фракцією на твій вибір, з якою цей гравець має <span class=\"icon positive\">позитивну</span> <strong>репутацію</strong>.</div></div></div>"
     },
     {
       "gameMode": [],
@@ -642,11 +643,13 @@
       "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Де Здобути славу</div><div class=\"phaseElement\">Персональна мета.</div><div class=\"phaseElement\">Мета корабля.</div><div class=\"phaseElement\">Розшуки.</div><div class=\"phaseElement\">Халтурки.</div><div class=\"phaseElement\">Доставка <strong>протизаконних</strong> вантажів.</div><div class=\"phaseElement\">Перемога над патрулями 2 і 3 рівнів.</div><div class=\"phaseElement\">Карти з <span class=\"icon luxury\">luxury</span> колоди ринку.</div></div>"
     },
     {
-      "gameMode": [],
+      "gameMode": [
+        "expansion"
+      ],
       "characterType": [
         "human"
       ],
-      "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Послуги<div class=\"phaseHint\"> <br>Гравець може попросити наступні послуги в іншого гравця (у будь-якому просторі):</div></div><div class=\"phaseElement\">Порада: Отримай 1 <strong>навичку цього гравця</strong> для 1 перевірки майстерності.</div><div class=\"phaseElement\">Бойова стратегія: Киньте <strong>1 додатковий кубик</strong> під час бою.</div><div class=\"phaseElement\">Підтримка: Отримай 1 з <span class=\"icon positive\">позитивних</span> <strong>репутацій</strong> цього гравця до кінця ходу.</div><div class=\"phaseElement\">Ярлик: Отримай <strong>+1 <span class=\"icon speed\">швидкості</span></strong> до кінця ходу.</div></div>"
+      "content": "<div class=\"phaseItem\" data-pick=\"all\"><div class=\"phaseName\">Послуги<div class=\"phaseHint\"> <br>Гравець може попросити наступні послуги в іншого гравця (у будь-якому терені):</div></div><div class=\"phaseElement\">Порада: Здобудь 1 <strong>навичку цього гравця</strong> для 1 перевірки майстерності.</div><div class=\"phaseElement\">Бойова стратегія: Кинь <strong>1 додатковий кубик</strong> під час бою.</div><div class=\"phaseElement\">Підтримка: Здобудь 1 з <span class=\"icon positive\">позитивних</span> <strong>репутацій</strong> цього гравця до кінця ходу.</div><div class=\"phaseElement\">Ярлик: Здобудь <strong>+1 <span class=\"icon hyperdrive\">гіперприводу</span></strong> до кінця ходу.</div><div class=\"phaseNote\">Правила: необов’язкове правило <strong>доповнення</strong>, і його <strong>не можна використовувати в одиночній грі</strong>.</div></div>"
     },
     {
       "gameMode": [],
@@ -654,7 +657,7 @@
         "bounty",
         "smuggler"
       ],
-      "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Карти</div><div class=\"phaseElement\">Не розігруйте карти зіткнень.</div><div class=\"phaseElement\">Не використовуйте здібності на картах, окрім здібностей, що збільшують значення на їхньому кораблі чи персонажі (наземний/космічний бій, ОЖ/корпус)</div></div>"
+      "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Карти</div><div class=\"phaseElement\">Не розігруй карти зустрічей.</div><div class=\"phaseElement\">Не використовуй здібності на картах, окрім здібностей, що збільшують значення на кораблі чи персонажі (наземний/космічний бій, <span class=\"icon hp\">ОЖ</span>, <span class=\"icon hull\">корпус</span>, <span class=\"icon hyperdrive\">гіперпривід</span>).</div>"
     },
     {
       "gameMode": [
@@ -679,7 +682,7 @@
         "bounty",
         "smuggler"
       ],
-      "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Рух</div><div class=\"phaseElement\">Обери найкоротший шлях до цілі, навіть якщо зустрічаєте патрулі.</div><div class=\"phaseElement\">Не бийся з патрулями, лише зупиняйтеся на тих, що мають <span class=\"icon neutral\">нейтральну</span> або <span class=\"icon negative\">негативну</span> репутацію.</div><div class=\"phaseElement\">Не зупиняйтеся на Вирвищі.</div><div class=\"phaseElement\">Якщо ШІ повинен зупинитися на навігаційній точці та пройшов повз планету не більше ніж за 2 простори, поверніться на ту планету.</div>"
+      "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Рух</div><div class=\"phaseElement\">Обери найкоротший шлях до цілі, навіть якщо зустрічаєте патрулі.</div><div class=\"phaseElement\">Не бийся з патрулями, лише зупиняйтеся на тих, що мають <span class=\"icon neutral\">нейтральну</span> або <span class=\"icon negative\">негативну</span> <strong>репутацію</strong>.</div><div class=\"phaseElement\">Не зупиняйтеся на Вирвищі.</div><div class=\"phaseElement\">Якщо ШІ повинен зупинитися на навігаційній точці та пройшов повз планету не більше ніж за 2 простори, поверніться на ту планету.</div>"
     },
     {
       "gameMode": [

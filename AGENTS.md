@@ -34,6 +34,8 @@ Everything comes from `assets/cards/<locale>.json`. The legacy per-card files an
 3. `assets/cards/*.json` — the app's transcription. **Has known errors.** Never treat it as
    the reference; it is the thing being corrected.
 
+The scan-vs-JSON audit lives in [CARD_AUDIT.md](CARD_AUDIT.md).
+
 Short keys used in citations below, all resolving into `assets/ref_docs/` (section 2b):
 **LTP** = `swor-base.pdf` · **UB** = `swor-outerrim.pdf` ·
 **RR** = `swor_living_rules_reference.pdf` · **UK-RB** = `swor-base-ukr.pdf`.
@@ -96,7 +98,8 @@ At 250% every card is comfortably readable, icons included. Verified on
 | `assets/images/smuggler/1..10.png` | base game | **Ukrainian** |
 | `assets/images/bounty/1..5.png` | expansion | **English** |
 | `assets/images/{smuggler,bounty}/<char>.png` | expansion | **English** |
-| `assets/images/player/base|expansion {a,b}.png` | base | **Ukrainian** |
+| `assets/images/player/base {a,b}.png` | base | **Ukrainian** ("Хід гравця") |
+| `assets/images/player/expansion {a,b}.png` | expansion | **English** ("Player Turn") — *corrected; this table previously called all four Ukrainian* |
 | `assets/images/characters/<char>[_].png` | character cards; `_` = flipped (personal goal done) |
 | `assets/images/assets/*.png` | icons, keyed by the 2nd CSS class of `span.icon` |
 
@@ -255,13 +258,16 @@ Status: `open` / `done` / `wontfix`. Keep newest decisions at the bottom of a ro
 | R1 | AI deck cycling | `main.js` draw block + all 17 "shuffle" card texts | **done, as a house rule.** Research stands (LTP p. 14 says bottom-of-deck; the special shuffles only itself) but the owner chose the **full reshuffle on special-or-empty** behaviour instead — see the ⚠ box in section 4. The 17 card *texts* were still corrected to the printed wording in both locales, and the baseless `lastCard === "special"` guard is gone. Do not revert the behaviour to the printed rule without asking. |
 | R2 | AI phase hints say "choose one"; must be "do the first that applies" / "do all that apply" | `main.js` `describeCard` + `attachPhaseElementListeners`, `phases` in both JSONs | **done** — `phases` retranscribed from the scans. Selection now runs off `data-pick` via `picksFor()`: `1` for planning/encounter, `all` for action/special, `2` for IG-88's planning only. "Do the first that applies" resolves exactly one bullet, so those steps are click-exclusive again. All 31 AI card scans were read to confirm IG-88 is the sole exception. `!.` lines render as non-selectable `.phaseNote`. |
 | R3 | Personal-goal toggle shown on AI turns | `main.js` AI branch | **done** — toggle + "Personal Goal Achieved" line removed from AI turns; character card renders unflipped. Human branch untouched. |
-| R4 | Favors help entry tagged any-mode; expansion-only + banned in solo; Shortcut text has copy-paste tail | `help[7]` both JSONs | open |
-| R5 | Human card: defeat cost attached to Recover; missing "mandatory if defeated" | `player.*.planning` both JSONs | open |
+| R4 | Favors help entry tagged any-mode; expansion-only + banned in solo; Shortcut text has copy-paste tail | `help[7]` both JSONs | **done** — retagged `gameMode: ["expansion"]` and the entry now says plainly it cannot be used solo (**RR**: "The optional favor rules cannot be used for a single-player game"; **UB p. 8**: "Favors: The favors optional rule cannot be used"). All four favors retranscribed from RR/UB. Beyond the known copy-paste tail, Shortcut had a second error: it granted **+1 speed** where both rulebooks say **+1 hyperdrive** — see D3. Added the limits RR states (any number requested, only 1 received, never from yourself, not after dice are rolled). |
+| R5 | Human card: defeat cost attached to Recover; missing "mandatory if defeated" | `player.*.planning` both JSONs | **done** — confirmed from both player scans, which print one line: "Recover all damage from character and ship **(required if you are defeated)**" / "Зніми усі пошкодження **(обов'язково, якщо тебе спіткала невдача)**". The Pay 3,000 / Lose-secrets sub-bullets were on neither card and are gone. |
 | R6 | Movement text missing hyperdrive distance, 1-fewer-space tiebreak, equidistant-path preferences | `help[11]` | open |
 | R7 | Player bounty reward missing "must choose a faction the AI does not have positive rep with, if possible" | `help[4]` | open |
 | R8 | Unopposed bounty damage: character vs ship distinction lost | `help[1]` | open |
+| R11 | 31 AI cards + 4 player cards audited against the scans — see [CARD_AUDIT.md](CARD_AUDIT.md). Card-specific transcription errors fixed (group b); the app's own rules reminders kept but marked `appNote`/`.phaseNote` (group a). | both JSONs, `main.css` | **done** |
 | R9 | UK terminology pass (section 5) | `assets/cards/uk.json` | open |
 | R10 | EN locale has Ukrainian help[5], help[6] | `assets/cards/en.json` | open |
+| D3 | The app called the ship movement stat **speed**; the rulebooks call it **hyperdrive** throughout (base LTP 7x, RR 9x, UB 1x — "speed" appears once in the base book, in a Han Solo flavour quote). Official UK is **гіперпривід** (8x in UK-RB); `uk.json` said `швидкість`, which UK-RB never uses. | `assets/images/assets/speed.png`, 4 `span.icon speed` per locale | **done** — icon renamed to `hyperdrive.png` and every reference and label updated in both locales (player planning step, `bounty/dengar` planning, favors Shortcut, help[8]). |
+| D4 | UK `help[8]` had one extra `</div>`, closing its `phaseItem` early so `help[10]`'s closer over-closed. Broke the help panel for **AI** player types in both game modes; EN was correct. | `help[8]` `uk.json` | **done** — removed. The `help` array is *fragments* that concatenate under `gameMode`/`characterType` filtering, so per-entry balance means nothing: **check the 12 (locale x mode x playerType) combinations instead.** All 12 now balance. Also widened help[8]'s ability list to the rulebook's own ("combat values, health, hull, or hyperdrive"). |
 | C1 | `initCards()` is `async` but never awaits `$.getJSON`; `restoreGame`/`startGame` call `showTurn()` immediately -> `cardsData` can be null | `main.js` | **done** — `initCards()` returns the jqXHR and both callers `await` it. It also ignores a response whose locale is no longer selected: the startup warm-up load races the one `startGame()` issues after the locale is picked, and could clobber the right data with `uk`. |
 | C2 | `assets/cards/uk.json` working-tree diff is pure CRLF noise (851 lines, byte-identical after `\r` strip); add `.gitattributes` `*.json text eol=lf` | — | **done** — HEAD was already LF and the worktree had drifted to CRLF, so stripping `\r` made the diff vanish. `.gitattributes` now pins `* text=auto eol=lf`. |
 | C3 | `cards/cards.json` + 31 `cards/{bounty,smuggler}/*.json` are dead duplicates of en.json *(paths as they were before the move to `assets/cards/`)* | — | **done** — deleted (recoverable from history). Verified unreferenced by any source file, and every one of the 31 differed from `en.json` only by this session's own fixes, so they were stale copies with strictly worse text. `assets/cards/` is now just `en.json` + `uk.json`. |
