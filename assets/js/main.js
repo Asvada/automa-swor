@@ -44,7 +44,13 @@ $('document').ready(function () {
 
     const saved = loadGameState();
 
-    if (saved) {
+    if (debugWholeDeck) {
+        // A card review, not a game: no setup screens and no saved-game prompt.
+        document.getElementById('mainTitle').classList.add('hidden');
+        openWholeDeckSheet();
+    } else if (autoSetupFromQuery()) {
+        // The URL described the table; it has already been seated and started.
+    } else if (saved) {
         const date = new Date(saved.savedAt).toLocaleString();
 
         const $promptDiv = $('<div>', {
@@ -172,6 +178,7 @@ $('document').ready(function () {
             .done(function (response) {
                 if (requested !== locale) return;
                 cardsData = response;
+                if (debug) validateCardData(response, requested);
             })
             .fail(function () {
                 console.error('Failed to load card data for locale: ' + requested);
@@ -234,6 +241,13 @@ $('document').ready(function () {
         emptyOption.selected = true;
         select.appendChild(emptyOption);
 
+        // "Name [base] (sm)" - which box the character ships in, then which AI deck
+        // they run. Brackets vs parens keep the two markers apart at a glance. The deck
+        // marker repeats its optgroup heading on purpose: the heading scrolls out of
+        // view in a long list, and the closed selector shows only the chosen option.
+        const label = c => `${c.name} [${c.origin === "expansion" ? "exp" : "base"}] `
+            + `(${c.type === "smuggler" ? "sm" : "bh"})`;
+
         const type = document.getElementById("playerType").value;
         // Every unused character is offered. The game-version and AI-count/type rules
         // are confirmations in addPlayerFromForm now, not filters - a character can only
@@ -249,7 +263,7 @@ $('document').ready(function () {
             smugglers.forEach(c => {
                 const opt = document.createElement("option");
                 opt.value = c.name;
-                opt.textContent = `${c.name} (${c.origin[0]}) (sm)`;
+                opt.textContent = label(c);
                 group.appendChild(opt);
             });
             select.appendChild(group);
@@ -260,39 +274,44 @@ $('document').ready(function () {
             bounty.forEach(c => {
                 const opt = document.createElement("option");
                 opt.value = c.name;
-                opt.textContent = `${c.name} (${c.origin[0]}) (bh)`;
+                opt.textContent = label(c);
                 group.appendChild(opt);
             });
             select.appendChild(group);
         }
+
+        // Debug mode seats the whole roster, so the "-- Select Character --" step is
+        // pure friction: preselect the topmost remaining character instead. The list is
+        // rebuilt after every add (taken characters drop out), so repeatedly pressing
+        // Add Another walks straight down it without touching the selector.
+        if (debug) {
+            const first = select.querySelector("option:not(:disabled)");
+            if (first) select.value = first.value;
+        }
+    }
+
+    const NAMED_COLORS = [
+        {value: "#FF4C4C", name: "Red"},
+        {value: "#4C9EFF", name: "Blue"},
+        {value: "#4CFF4C", name: "Green"},
+        {value: "#FFD74C", name: "Yellow"}
+    ];
+
+    // Colour for seat i. The four named ones first, then a deterministic hue walk -
+    // deterministic so a debug deep link seats the same colours on every load.
+    function seatColor(i) {
+        return i < NAMED_COLORS.length
+            ? NAMED_COLORS[i].value
+            : `hsl(${(i * 47) % 360}, 70%, 62%)`;
     }
 
     function populateColorDropdown() {
         const colorSelect = document.getElementById("playerColor");
         colorSelect.innerHTML = "";
-        const availableColors = [
-            {value: "#FF4C4C", name: "Red"},
-            {value: "#4C9EFF", name: "Blue"},
-            {value: "#4CFF4C", name: "Green"},
-            {value: "#FFD74C", name: "Yellow"}
-        ];
+        const availableColors = NAMED_COLORS.slice();
 
-        if (maxPlayers > availableColors.length) {
-            const needed = maxPlayers - availableColors.length;
-
-            for (let i = 0; i < needed; i++) {
-                // generate a random hex color
-                const randomColor = '#' + Math.floor(Math.random() * 0xFFFFFF)
-                    .toString(16)
-                    .padStart(6, '0')
-                    .toUpperCase();
-
-                // give it a simple name (e.g., "Color 5")
-                availableColors.push({
-                    value: randomColor,
-                    name: `Color ${availableColors.length + 1}`
-                });
-            }
+        for (let i = availableColors.length; i < maxPlayers; i++) {
+            availableColors.push({value: seatColor(i), name: `Color ${i + 1}`});
         }
 
         availableColors
@@ -364,6 +383,9 @@ $('document').ready(function () {
         // The rules below are advisory: each is confirmed rather than refused, so any
         // combination can be set up deliberately. The only hard cap is maxPlayers.
         const warnings = [];
+        // ...with one exception, flagged here: a base game has no bounty hunter AI deck
+        // to deal at all, so that one is confirmed even in debug mode.
+        let noDeckExists = false;
         if (gameMode === "base" && charObj.origin === "expansion") {
             warnings.push(`${charObj.name} is an Unfinished Business character, but this is a base game.`);
         }
@@ -371,6 +393,7 @@ $('document').ready(function () {
             const ais = players.filter(p => p.type === "ai");
             if (gameMode === "base" && charObj.type === "bounty") {
                 warnings.push("The bounty hunter AI deck ships only in the expansion - a base game has no cards for this AI.");
+                noDeckExists = true;
             }
             if (ais.length >= 2) {
                 warnings.push("The rules set up at most 2 AI opponents (expansion rulebook p. 11).");
@@ -379,7 +402,10 @@ $('document').ready(function () {
                 warnings.push("The rules pair one bounty hunter with one non-bounty-hunter AI; this repeats a type.");
             }
         }
-        if (warnings.length && !confirm(warnings.join("\n\n") + "\n\nAdd them anyway?")) {
+        // Debug mode seats whatever it is told to - every character at once, no human
+        // among them - so the advisory rules get out of the way. `noDeckExists` is not
+        // advisory, so it is still confirmed.
+        if ((!debug || noDeckExists) && warnings.length && !confirm(warnings.join("\n\n") + "\n\nAdd them anyway?")) {
             return false;
         }
 
@@ -387,7 +413,7 @@ $('document').ready(function () {
         players.push({type, nickname, character: charObj, color, personalGoalAchieved: false, currentCardIndex: 0});
 
         if (type === "ai") {
-            let deck = shuffleAiDeck(charObj.type);
+            let deck = shuffleAiDeck(charObj.type, charObj);
             aiDecks[charObj.id] = deck;
             console.log(`AI ${nickname} initial deck:`, deck);
         }
@@ -808,12 +834,23 @@ $('document').ready(function () {
             const aiKey = player.character.id;
             let deck = aiDecks[aiKey];
             if (!deck || deck.length === 0) {
-                aiDecks[aiKey] = deck = shuffleAiDeck(player.character.type);
+                aiDecks[aiKey] = deck = shuffleAiDeck(player.character.type, player.character);
             }
             if (!aiHistory[aiKey]) aiHistory[aiKey] = [];
 
             let card;
-            if (player.currentCardIndex < aiHistory[aiKey].length) {
+            if (debug) {
+                // Debug is a card viewer, so the card is a pure function of the turn
+                // index rather than of any stored state: the same sequence on every
+                // reload, and identical whether you got here by playing forward, by
+                // Back/Forward, or by continuing a save whose deck and history were
+                // dealt by an earlier, randomized game.
+                const seq = shuffleAiDeck(player.character.type, player.character);
+                card = seq[player.currentCardIndex % seq.length];
+                aiHistory[aiKey][player.currentCardIndex] = card;
+                aiDecks[aiKey] = seq.slice((player.currentCardIndex % seq.length) + 1);
+                console.log(`AI ${player.nickname} debug sequence:`, seq);
+            } else if (player.currentCardIndex < aiHistory[aiKey].length) {
                 console.log('using card from history');
                 card = aiHistory[aiKey][player.currentCardIndex];
             } else {
@@ -827,7 +864,7 @@ $('document').ready(function () {
                 aiHistory[aiKey].push(card);
 
                 if (triggersReshuffle(card) || deck.length === 0) {
-                    aiDecks[aiKey] = deck = shuffleAiDeck(player.character.type);
+                    aiDecks[aiKey] = deck = shuffleAiDeck(player.character.type, player.character);
                     console.log(`AI ${player.nickname} reshuffled deck:`, deck);
                 }
             }
@@ -838,7 +875,7 @@ $('document').ready(function () {
             cardName = card;
 
             let headerMarker = "";
-            const deckSize = shuffleAiDeck(player.character.type).length;
+            const deckSize = shuffleAiDeck(player.character.type, player.character).length;
             if (reshuffleMarks(aiHistory[aiKey], deckSize)[player.currentCardIndex]) {
                 headerMarker = ' <span class="turnHeaderHint" title="Deck reshuffled after this card">↻</span>';
             }
@@ -858,6 +895,7 @@ $('document').ready(function () {
 
             if (useAiCharacterImages) {
                 const row0 = document.createElement("div");
+                row0.className = "phaseImage";
                 cardImg.style.maxHeight = "75vh";
                 row0.appendChild(cardImg);
                 cardDisplay.appendChild(row0);
@@ -904,6 +942,9 @@ $('document').ready(function () {
     // ("special") card, plus base smuggler card 10. Verified on the scans. Under the
     // house rule these reshuffle the whole deck rather than just themselves.
     function triggersReshuffle(card) {
+        // A debug deck is meant to be read end to end, so nothing shortens it; it
+        // simply restarts (in the same order) once the last card has been drawn.
+        if (debug) return false;
         return card === "special" || card === 10;
     }
 
@@ -922,12 +963,74 @@ $('document').ready(function () {
         return marks;
     }
 
-    // Shuffled once, at setup. The bounty hunter AI deck exists only in the expansion
-    // (Rules Reference p. 22), so there is no base-mode bounty branch.
-    function shuffleAiDeck(characterType) {
+    // The deck this type plays in this game mode. Base smuggler is the full 1..10
+    // (the base box has exactly 10 AI cards and no character card); the expansion
+    // decks are a subset plus that character's own card. The bounty hunter AI deck
+    // exists only in the expansion (Rules Reference p. 22), so there is no base-mode
+    // bounty branch.
+    function deckComposition(characterType, mode = gameMode) {
         return characterType === "smuggler"
-            ? (gameMode === "base" ? shuffleArray([...Array(10).keys()].map(n => n + 1)) : shuffleArray([1, 2, 6, 7, 9, "special"]))
-            : shuffleArray([1, 2, 3, 4, 5, "special"]);
+            ? (mode === "base" ? [...Array(10).keys()].map(n => n + 1) : [1, 2, 6, 7, 9, "special"])
+            : [1, 2, 3, 4, 5, "special"];
+    }
+
+    // Whether `mode` actually deals this card. Not the same question as "is it in
+    // deckComposition": the base box contains no bounty hunter AI deck at all
+    // (UB p. 8 / RR p. 22), so nothing of that type is dealt in a base game.
+    function dealtIn(characterType, key, mode) {
+        if (characterType === "bounty" && mode === "base") return false;
+        const deck = deckComposition(characterType, mode);
+        return key === "special" ? deck.indexOf("special") > -1 : deck.indexOf(Number(key)) > -1;
+    }
+
+    // Shuffled once, at setup.
+    //
+    // Debug mode instead deals that same deck unshuffled, so every card can be read in
+    // order. The *first* AI of each type runs the whole deck; every later AI of that
+    // type gets only its own character card, since the numbered cards would just repeat
+    // what the first AI already showed. Nothing is ever added to the deck: a base game
+    // has no character cards, so a base AI simply runs 1..10 and the first/later split
+    // does not apply there.
+    // `character` is optional - the deckSize probe in showTurn() passes it too, so the
+    // ↻ marker measures the same deck the player is actually holding.
+    function shuffleAiDeck(characterType, character) {
+        const deck = deckComposition(characterType);
+        if (debug) {
+            if (character && deck.includes("special") && !isFirstAiOfType(character)) {
+                return ["special"];
+            }
+            return deck;
+        }
+        return shuffleArray(deck);
+    }
+
+    // First AI of this character's type in seating order. Used only by debug mode.
+    function isFirstAiOfType(character) {
+        const first = players.find(p => p.type === "ai" && p.character.type === character.type);
+        return !first || first.character.id === character.id;
+    }
+
+    // One AI card's four steps as HTML. Shared by the live turn and the proof sheet so
+    // the two cannot render the same card differently.
+    function cardSectionsHtml(data, cardFileName, phases) {
+        return ['planning', 'action', 'encounter', 'special'].map(section => {
+            if (!data[section] || !data[section].length) return '';
+            const pick = picksFor(section, cardFileName);
+            const sectionTitle = phases[section].title;
+            const sectionDescription = phases[section].hint;
+            // A leading "!." marks a condition line rather than an action (IG-88's
+            // "first 2" clause). It is shown but not selectable, so it cannot be
+            // clicked or counted against the pick limit.
+            const body = data[section].map(item => {
+                const note = item.trim().startsWith('!.');
+                if (note) return `<div class="phaseNote">${item.trim().slice(2).trim()}</div>`;
+                return `<div class="phaseElement">${item}</div>`;
+            }).join('');
+            return `<div class="phaseItem" data-pick="${pick}">
+                        <div class="phaseName">${sectionTitle} <div class="phaseHint">${sectionDescription}</div>` +
+                `</div> ${body}
+                    </div>`;
+        }).join('');
     }
 
     async function describeCard(cardName, type) {
@@ -935,49 +1038,26 @@ $('document').ready(function () {
         const player = players[currentPlayerIndex];
         /** type: "human" | "bounty" | "smuggler" */
         const cardDisplay = document.querySelector('#cardDisplay');
-        let cardContent = {planning: '', action: '', encounter: '', special: ''};
+        let html;
 
         if (type === "human") {
             // Preserve canonical human card content exactly
-            cardContent = cardsData['player'][gameMode];
+            html = Object.values(cardsData['player'][gameMode]).filter(v => v).join('');
         } else {
             // AI cards come from assets/cards/<locale>.json; a character card is stored under
             // the character's id rather than a number.
             try {
                 const typeDir = type === 'smuggler' ? 'smuggler' : 'bounty';
                 const cardFileName = cardName == 'special' ? player.character.id : cardName;
-                const data = cardsData[typeDir][cardFileName];
-
-                // Convert arrays to HTML for phaseElement divs
-                ['planning', 'action', 'encounter', 'special'].forEach(section => {
-                    if (data[section] && data[section].length) {
-                        const pick = picksFor(section, cardFileName);
-                        let sectionTitle = cardsData.phases[section].title;
-                        let sectionDescription = cardsData.phases[section].hint;
-                        // A leading "!." marks a condition line rather than an action
-                        // (IG-88's "first 2" clause). It is shown but not selectable, so
-                        // it cannot be clicked or counted against the pick limit.
-                        const body = data[section].map(item => {
-                            const note = item.trim().startsWith('!.');
-                            if (note) return `<div class="phaseNote">${item.trim().slice(2).trim()}</div>`;
-                            return `<div class="phaseElement">${item}</div>`;
-                        }).join('');
-                        cardContent[section] = `<div class="phaseItem" data-pick="${pick}">
-                        <div class="phaseName">${sectionTitle} <div class="phaseHint">${sectionDescription}</div>` +
-                        `</div> ${body}
-                    </div>`;
-                    }
-                });
+                html = cardSectionsHtml(cardsData[typeDir][cardFileName], cardFileName, cardsData.phases);
             } catch (err) {
                 console.warn('Failed to load card JSON:', cardName, err);
-                ['planning', 'action', 'encounter', 'special'].forEach(section => {
-                    cardContent[section] = `<div class="phaseItem"><div class="phaseName">${section}</div><div class="phaseElement">[No data]</div></div>`;
-                });
+                html = ['planning', 'action', 'encounter', 'special'].map(section =>
+                    `<div class="phaseItem"><div class="phaseName">${section}</div><div class="phaseElement">[No data]</div></div>`
+                ).join('');
             }
         }
 
-        // Insert HTML into cardDisplay
-        const html = Object.values(cardContent).filter(v => v).join('');
         cardDisplay.insertAdjacentHTML('afterbegin', `<div id="phaseContainer" class="phaseContainer phaseContainer-${type}">${html}</div>`);
         attachPhaseElementListeners();
         if (player) {
@@ -992,12 +1072,6 @@ $('document').ready(function () {
 
 
     function shuffleArray(arr) {
-        if (debug) {
-            if (debugSpecial)
-                return ['special'];
-            return arr;
-        }
-
         for (let i = arr.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -1045,6 +1119,364 @@ $('document').ready(function () {
                 });
             });
         });
+    }
+
+    // =====================================================================
+    // Debug tooling (?debug). None of this runs in a normal game.
+    // =====================================================================
+
+    // Tags that never carry a closer, so they must not count towards balance.
+    const VOID_TAGS = ["br", "img", "hr", "input", "meta", "link"];
+
+    // Net open-minus-close count per tag, returning only the tags that do not
+    // balance: positive = unclosed, negative = stray closer.
+    function tagBalance(html) {
+        const counts = {};
+        const re = /<(\/?)([a-zA-Z][a-zA-Z0-9]*)\b[^>]*?(\/?)>/g;
+        let m;
+        while ((m = re.exec(html))) {
+            const tag = m[2].toLowerCase();
+            if (VOID_TAGS.indexOf(tag) > -1 || m[3] === "/") continue;
+            counts[tag] = (counts[tag] || 0) + (m[1] ? -1 : 1);
+        }
+        return Object.keys(counts).filter(t => counts[t] !== 0).map(t => [t, counts[t]]);
+    }
+
+    function balanceProblems(html) {
+        return tagBalance(html).map(([tag, n]) =>
+            n > 0 ? `${n} unclosed <${tag}>` : `${-n} stray </${tag}>`);
+    }
+
+    // Icon names used in a fragment. The name is the SECOND class of a span.icon and
+    // must resolve to assets/images/assets/<name>.png (see AGENTS.md section 8).
+    function iconNamesIn(html) {
+        const names = [];
+        const re = /<span[^>]*\bclass="icon\s+([^"\s]+)/gi;
+        let m;
+        while ((m = re.exec(html))) names.push(m[1]);
+        return names;
+    }
+
+    // [path, html] for every authored string in a locale file.
+    function cardStrings(data) {
+        const out = [];
+        ["smuggler", "bounty"].forEach(type => {
+            Object.keys(data[type] || {}).forEach(key => {
+                ["planning", "action", "encounter", "special"].forEach(section => {
+                    (data[type][key][section] || []).forEach((line, i) =>
+                        out.push([`${type}/${key} ${section}[${i}]`, line]));
+                });
+            });
+        });
+        Object.keys(data.player || {}).forEach(mode => {
+            Object.keys(data.player[mode]).forEach(section =>
+                out.push([`player/${mode} ${section}`, data.player[mode][section]]));
+        });
+        (data.help || []).forEach((entry, i) => out.push([`help[${i}]`, entry.content]));
+        return out;
+    }
+
+    // The concatenation the help panel actually renders for one combination. `help` is
+    // a list of fragments filtered by gameMode/characterType, so per-entry balance
+    // means nothing - only these combinations do (AGENTS.md D4).
+    function helpFor(data, mode, playerType) {
+        return (data.help || []).filter(v =>
+            (!v.characterType.length || v.characterType.indexOf(playerType) > -1) &&
+            (!v.gameMode.length || v.gameMode.indexOf(mode) > -1)
+        ).map(v => v.content).join("");
+    }
+
+    // Sweeps a loaded locale for the class of bug that keeps shipping: an unbalanced
+    // tag swallowing the rest of a panel (D1, D2, D4), an icon name with no file (C7),
+    // or a card the app can deal but the JSON has no entry for. Returns the problems
+    // and logs them; icon checks resolve asynchronously and log on their own.
+    // Icon files can only be tested by loading them, so these problems arrive after
+    // validateCardData has already returned. `onLate` receives each one; the default
+    // logs, and the whole-deck sheet appends them to its own report.
+    function checkIcons(data, loc, onLate) {
+        const icons = {};
+        cardStrings(data).forEach(([, html]) => iconNamesIn(html).forEach(n => { icons[n] = true; }));
+        Object.keys(icons).forEach(name => {
+            const probe = new Image();
+            probe.onerror = () => onLate(
+                `${loc} · icon "${name}": no file at assets/images/assets/${name}.png`);
+            probe.src = `./assets/images/assets/${name}.png?${version}`;
+        });
+        return Object.keys(icons).length;
+    }
+
+    function validateCardData(data, loc, onLate) {
+        const problems = [];
+        const say = (where, msg) => problems.push(`${loc} · ${where}: ${msg}`);
+
+        cardStrings(data).forEach(([where, html]) => {
+            if (where.indexOf("help[") === 0) return;   // fragments; checked below
+            balanceProblems(html).forEach(msg => say(where, msg));
+        });
+
+        ["base", "expansion"].forEach(mode => {
+            ["human", "smuggler", "bounty"].forEach(pt => {
+                balanceProblems(helpFor(data, mode, pt))
+                    .forEach(msg => say(`help (${mode}/${pt})`, msg));
+            });
+        });
+
+        ["base", "expansion"].forEach(mode => {
+            ["smuggler", "bounty"].forEach(type => {
+                deckComposition(type, mode).forEach(card => {
+                    if (card === "special") return;
+                    if (!dealtIn(type, card, mode)) return;
+                    if (!data[type] || !data[type][card]) {
+                        say(`${type} deck (${mode})`, `card ${card} has no entry`);
+                    }
+                });
+            });
+        });
+        characters.forEach(c => {
+            if (!data[c.type] || !data[c.type][c.id]) {
+                say(`${c.type}/${c.id}`, `${c.name}'s character card has no entry`);
+            }
+        });
+        if (!data.phases) say("phases", "missing");
+        else ["planning", "action", "encounter", "special"].forEach(s => {
+            if (!data.phases[s]) say(`phases.${s}`, "missing");
+        });
+
+        const iconCount = checkIcons(data, loc, onLate || (msg => console.warn(
+            `%c[card-data]%c ${msg}`, "color:#ff5555;font-weight:bold", "")));
+
+        if (problems.length) {
+            console.group(`%c[card-data ${loc}] ${problems.length} problem(s)`, "color:#ff5555;font-weight:bold");
+            problems.forEach(p => console.warn(p));
+            console.groupEnd();
+        } else {
+            console.log(`%c[card-data ${loc}] clean - ${iconCount} icons, markup balanced`,
+                "color:#4CFF4C");
+        }
+        return problems;
+    }
+
+    // ?debug=whole-deck - every card in the data on one scrollable page, both locales
+    // beside the scan. The scans are the source of truth and the JSON is the thing
+    // being corrected (AGENTS.md section 2), so this is the shape that audit wants.
+    function openWholeDeckSheet() {
+        if (document.getElementById("proofSheet")) return;
+        const sheet = document.createElement("div");
+        sheet.id = "proofSheet";
+        sheet.innerHTML = '<div class="proofBar"><strong>Whole deck</strong> loading…</div>';
+        document.body.appendChild(sheet);
+
+        $.when($.getJSON(`./assets/cards/en.json?${version}`),
+               $.getJSON(`./assets/cards/uk.json?${version}`))
+            .done((en, uk) => renderWholeDeckSheet(sheet, {en: en[0], uk: uk[0]}))
+            .fail(() => {
+                sheet.innerHTML = '<div class="proofBar">Failed to load card data.</div>';
+            });
+    }
+
+    function renderWholeDeckSheet(sheet, data) {
+        let mode = gameMode;
+        // Late (asynchronous) icon problems land in their own block, so the report can
+        // never claim "clean" while an icon is in fact missing its file.
+        const late = [];
+        const noteLate = msg => {
+            late.push(msg);
+            const box = document.getElementById("proofLate");
+            if (box) {
+                box.className = "proofProblems";
+                box.innerHTML = `<strong>${late.length} missing icon file(s)</strong>`
+                    + late.map(m => `<div>${m}</div>`).join("");
+            }
+        };
+        const problems = validateCardData(data.en, "en", noteLate)
+            .concat(validateCardData(data.uk, "uk", noteLate));
+
+        function cardBlock(type, key, title) {
+            const dealt = dealtIn(type, /^\d+$/.test(String(key)) ? key : "special", mode);
+            const col = loc => {
+                const card = (data[loc][type] || {})[key];
+                const body = card
+                    ? cardSectionsHtml(card, key, data[loc].phases)
+                    : "<em class='proofMissing'>no entry</em>";
+                return `<div class="proofCol"><div class="proofLoc">${loc.toUpperCase()}</div>${body}</div>`;
+            };
+            return `<div class="proofCard${dealt ? "" : " proofOut"}">
+                <h3>${type}/${key}<span class="proofTag">${title}</span>
+                    <span class="proofBadge">${dealt ? "in deck" : "not dealt in " + mode}</span></h3>
+                <div class="proofCols">
+                    <div class="proofCol proofScan">
+                        <img src="./assets/images/${type}/${key}.png?${version}" alt="${type} ${key}">
+                    </div>${col("en")}${col("uk")}
+                </div></div>`;
+        }
+
+        function draw() {
+            const parts = [];
+            let count = 0;
+            ["smuggler", "bounty"].forEach(type => {
+                const label = type === "smuggler" ? "Smuggler" : "Bounty hunter";
+                const numbered = Object.keys(data.en[type] || {})
+                    .filter(k => /^\d+$/.test(k))
+                    .sort((a, b) => Number(a) - Number(b));
+                const chars = characters.filter(c => c.type === type)
+                    .sort((a, b) => a.name.localeCompare(b.name));
+                parts.push(`<h2 class="proofType">${label} AI cards</h2>`);
+                numbered.forEach(k => { parts.push(cardBlock(type, k, `#${k}`)); count++; });
+                parts.push(`<h2 class="proofType">${label} character cards</h2>`);
+                chars.forEach(c => { parts.push(cardBlock(type, c.id, c.name)); count++; });
+            });
+
+            const report = problems.length
+                ? `<details class="proofProblems open" open><summary>${problems.length} card-data problem(s)</summary>`
+                  + problems.map(p => `<div>${p}</div>`).join("") + `</details>`
+                : `<div class="proofProblems clean">Card data clean — markup balanced, every card present.</div>`;
+            // Re-rendered on a mode flip, so replay whatever has already arrived.
+            const lateBox = late.length
+                ? `<div id="proofLate" class="proofProblems"><strong>${late.length} missing icon file(s)</strong>`
+                  + late.map(m => `<div>${m}</div>`).join("") + `</div>`
+                : `<div id="proofLate" class="proofHidden"></div>`;
+
+            sheet.innerHTML = `<div class="proofBar">
+                    <strong>Whole deck</strong>
+                    <button id="proofToggleMode" title="Toggle mode">Mode: ${mode === "base" ? "Base game" : "Expansion"}</button>
+                    <span class="proofCount">${count} cards · EN + UK</span>
+                    <button id="proofClose">Close</button>
+                </div>${report}${lateBox}${parts.join("")}`;
+
+            document.getElementById("proofToggleMode").addEventListener("click", () => {
+                mode = mode === "base" ? "expansion" : "base";
+                draw();
+                sheet.scrollTop = 0;
+            });
+            document.getElementById("proofClose").addEventListener("click", () => sheet.remove());
+            replaceIconsWithImages();
+        }
+
+        draw();
+    }
+
+    // ?debug&human=erso&ai=han,boba[&mode=base][&locale=en] - seat an exact table and
+    // go straight into it, skipping both setup screens and the saved-game prompt, so a
+    // finding is reproducible from a URL.
+    function autoSetupFromQuery() {
+        if (!debug) return false;
+        const q = new URLSearchParams(location.search);
+        if (!q.has("ai") && !q.has("human")) return false;
+
+        gameMode = q.get("mode") === "base" ? "base" : "expansion";
+        locale = q.get("locale") === "en" ? "en" : "uk";
+        document.getElementById("gameMode").value = gameMode;
+        document.getElementById("locale").value = locale;
+
+        players = [];
+        usedCharacters = [];
+        aiDecks = {};
+        aiHistory = {};
+        turnSel = {};
+
+        const seat = (list, type) => (list || "").split(",").map(x => x.trim()).filter(Boolean)
+            .forEach(id => {
+                const c = characters.find(ch => ch.id === id);
+                if (!c) return console.warn(`[debug] ?${type}: no character with id "${id}"`);
+                if (usedCharacters.indexOf(c.name) > -1) {
+                    return console.warn(`[debug] ?${type}: "${id}" is already seated`);
+                }
+                usedCharacters.push(c.name);
+                players.push({
+                    type,
+                    nickname: (type === "ai" ? "AI " : "P") + (players.length + 1),
+                    character: c,
+                    color: seatColor(players.length),
+                    personalGoalAchieved: false,
+                    currentCardIndex: 0
+                });
+                // After the push: shuffleAiDeck asks isFirstAiOfType, which reads players.
+                if (type === "ai") aiDecks[c.id] = shuffleAiDeck(c.type, c);
+            });
+
+        seat(q.get("human"), "human");
+        seat(q.get("ai"), "ai");
+
+        if (!players.length) {
+            console.warn("[debug] deep link named no usable characters; falling back to setup");
+            return false;
+        }
+        playerCounter = players.length + 1;
+        console.log("[debug] seated from query:",
+            players.map(p => `${p.type}:${p.character.id}`).join(", "),
+            `(${gameMode}, ${locale})`);
+        startGame();
+        return true;
+    }
+
+    // =====================================================================
+    // Keep the screen awake (Screen Wake Lock API).
+    //
+    // A board-game companion sits untouched for minutes at a time, so the phone
+    // dims mid-turn. The lock is opt-in, remembered across sessions, and lives in
+    // #helpControls - that bar overlays the turn title while help is open, so it
+    // costs no vertical space, which section 7 of AGENTS.md rules out spending.
+    //
+    // REQUIRES A SECURE CONTEXT. Over plain http (what docker-compose serves today)
+    // `navigator.wakeLock` is simply absent and the button hides itself, so the
+    // control never pretends to work.
+    // =====================================================================
+
+    let wakeLock = null;
+    let keepAwake = localStorage.getItem('keepAwake') === '1';
+
+    function wakeLockSupported() {
+        return typeof navigator !== 'undefined' && 'wakeLock' in navigator;
+    }
+
+    async function acquireWakeLock() {
+        if (!keepAwake || !wakeLockSupported() || wakeLock) return;
+        try {
+            wakeLock = await navigator.wakeLock.request('screen');
+            // The OS can drop it on its own (low battery, and always on tab hide).
+            wakeLock.addEventListener('release', function () {
+                wakeLock = null;
+                syncKeepAwakeButton();
+            });
+        } catch (err) {
+            // NotAllowedError covers an insecure context and an OS refusal alike.
+            console.warn('Wake lock refused:', err.name, err.message);
+            wakeLock = null;
+        }
+        syncKeepAwakeButton();
+    }
+
+    async function releaseWakeLock() {
+        if (!wakeLock) return;
+        try { await wakeLock.release(); } catch (err) { /* already gone */ }
+        wakeLock = null;
+        syncKeepAwakeButton();
+    }
+
+    function syncKeepAwakeButton() {
+        $('#keepAwakeToggle')
+            .toggleClass('on', !!wakeLock)
+            .attr('title', keepAwake
+                ? (wakeLock ? 'Screen kept awake - tap to allow sleep' : 'Keep screen awake (re-acquiring)')
+                : 'Keep screen awake');
+    }
+
+    if (wakeLockSupported()) {
+        $('#keepAwakeToggle').on('click', function () {
+            keepAwake = !keepAwake;
+            localStorage.setItem('keepAwake', keepAwake ? '1' : '0');
+            if (keepAwake) acquireWakeLock(); else releaseWakeLock();
+        });
+        // A wake lock is always released when the page is hidden, so it has to be
+        // taken again every time the tab comes back.
+        document.addEventListener('visibilitychange', function () {
+            if (document.visibilityState === 'visible') acquireWakeLock();
+        });
+        acquireWakeLock();
+        syncKeepAwakeButton();
+    } else {
+        $('#keepAwakeToggle').hide();
+        console.info('Screen Wake Lock unavailable: needs a secure context (https or localhost).');
     }
 
     function showError(message) {

@@ -420,3 +420,125 @@ img.icon {
     border: 0;
 }
 
+
+/* ---------------------------------------------------------------------------
+   ?debug=whole-deck - every card on one scrollable page, both locales beside the
+   scan. A desktop audit view, so it deliberately ignores the 450px phone frame the
+   rest of the app is built to; it still collapses to one column when narrow.
+   --------------------------------------------------------------------------- */
+#proofSheet {
+    position: fixed;
+    inset: 0;
+    overflow-y: auto;
+    background: #111;
+    z-index: 2000;
+    text-align: left;
+    padding: 0 12px 40px;
+}
+
+.proofBar {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    background: #222;
+    border-bottom: 2px solid #666;
+    margin: 0 -12px 12px;
+    padding: 8px 12px;
+}
+
+.proofBar strong { color: #FFD700; }
+.proofCount { color: #999; font-size: 0.85em; margin-left: auto; }
+
+.proofProblems {
+    border: 1px solid #ff5555;
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-bottom: 14px;
+    font-size: 0.85em;
+    color: #ff9999;
+}
+
+.proofProblems summary { color: #ff5555; cursor: pointer; font-weight: bold; }
+.proofProblems.clean { border-color: #4CFF4C; color: #4CFF4C; }
+
+.proofType {
+    color: #FFD700;
+    border-bottom: 1px solid #444;
+    margin: 26px 0 6px;
+    font-size: 1.1em;
+}
+
+.proofCard { border-top: 1px solid #333; padding: 10px 0; }
+
+.proofCard h3 {
+    margin: 0 0 8px;
+    font-size: 0.95em;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.proofTag { color: #eee; }
+
+.proofBadge {
+    margin-left: auto;
+    font-size: 0.8em;
+    font-weight: normal;
+    color: #4CFF4C;
+    border: 1px solid #4CFF4C;
+    border-radius: 10px;
+    padding: 1px 8px;
+}
+
+/* Cards the current mode does not deal stay listed - the sheet is an inventory of
+   what exists, not of what is in play - but are dimmed and badged. */
+.proofOut { opacity: 0.55; }
+.proofOut .proofBadge { color: #888; border-color: #555; }
+
+.proofCols { display: flex; gap: 14px; align-items: flex-start; }
+.proofCol { flex: 1 1 0; min-width: 0; }
+.proofLoc { color: #666; font-size: 0.75em; letter-spacing: 1px; margin-bottom: 4px; }
+.proofMissing { color: #ff5555; }
+.proofScan { flex: 0 0 240px; }
+.proofScan img { width: 100%; height: auto; border-radius: 6px; }
+
+@media (max-width: 800px) {
+    .proofCols { flex-wrap: wrap; }
+    .proofScan { flex: 0 0 100%; max-width: 320px; }
+    .proofCol { flex: 1 1 260px; }
+}
+
+.proofHidden { display: none; }
+
+/* Card scans rendered beside the transcription under ?debug (useAi/HumanCharacterImages).
+   The scans are ~630px wide and the container is 450px, so they must be reined in. */
+.phaseImage {
+    display: flex;
+    justify-content: center;
+    margin: 6px 0;
+}
+
+.phaseImage img {
+    max-width: 100%;
+    max-height: 75vh;
+    height: auto;
+    border-radius: 6px;
+}
+
+/* Keep-screen-awake toggle. Lit while a wake lock is actually held, not merely while
+   the preference is on - the OS can drop the lock and the button must not lie. */
+#keepAwakeToggle {
+    opacity: 0.45;
+    transition: opacity 0.2s, color 0.2s;
+}
+
+#keepAwakeToggle.on {
+    opacity: 1;
+    color: #FFD74C;
+}

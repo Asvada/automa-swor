@@ -215,6 +215,47 @@ A card line beginning `!.` is a *condition*, not an action (only IG-88's "If IG-
 least 1 droid crew, do the first 2 that apply instead"). It renders as `.phaseNote` —
 visible, italic, not clickable — so it can't be selected or counted against the limit.
 
+### Debug mode decks (`?debug`)
+
+Not a rules matter — a review aid. `shuffleAiDeck(type, character)` branches on `debug`
+and deals a fixed, unshuffled deck so every card can be read in order. `deckComposition()`
+holds the real composition and is shared by both paths, so the game mode is still
+respected; debug only changes the order and which slice a given AI gets.
+
+| game mode | AI | debug deck, in order |
+|---|---|---|
+| base | any smuggler | `1 2 3 4 5 6 7 8 9 10` |
+| base | any bounty hunter | **no deck exists** — confirmed even in debug |
+| expansion | 1st smuggler | `1 2 6 7 9 special` |
+| expansion | 1st bounty hunter | `1 2 3 4 5 special` |
+| expansion | 2nd+ AI of that same type | `special` only |
+
+Debug **never adds a card the game mode does not have** — it only fixes the order and
+which slice a given AI gets. In particular the base deck is `1..10` and stops there: the
+base box has no character cards (section 4, deck composition), so the first/later split
+does not apply in base mode and every base smuggler AI runs the whole deck. An earlier
+pass appended `special` to it; that was wrong and is gone.
+
+"first" is seating order (`isFirstAiOfType`). The later AI of a type exist to page through
+the remaining **character** cards; their numbered cards would only repeat what the first
+AI already showed.
+
+Base + bounty hunter is the one setup warning `addPlayerFromForm` still confirms under
+`debug` (`noDeckExists`): the others are preferences, but this one has no cards at all. If
+it is confirmed anyway it falls back to the expansion bounty deck — the pre-existing C8
+behaviour for a deliberately impossible seat, not something debug introduced.
+
+`triggersReshuffle()` returns `false` under `debug`, or card 10 would cut the base deck
+short. A debug deck simply restarts, in the same order, once its last card is drawn.
+
+**The debug draw ignores `aiDecks` and `aiHistory` entirely.** Both are restored from
+`localStorage`, so continuing a save made by an ordinary (randomized) game would otherwise
+keep replaying that game's history and shifting its shuffled deck — `?debug` looked like it
+was still randomizing. Under `debug` the card is instead `seq[currentCardIndex % seq.length]`,
+a pure function of the turn index: the same sequence on every reload, under Back/Forward,
+and across a restored save. Both stores are still written so the ↻ marker and the save
+stay coherent.
+
 ### Other verified points
 - AI players **cannot complete personal goals or ship goals** (RR p. 22) — the
   personal-goal toggle rendered for AI turns at `main.js:813` shouldn't exist.
@@ -294,6 +335,9 @@ Status: `open` / `done` / `wontfix`. Keep newest decisions at the bottom of a ro
 | C7 | `replaceIconsWithImages` re-matches its own `img.icon` output and wipes `alt` | `main.js` | **done** — selector narrowed to `span.icon`. It runs twice per render, and an `<img>` has no `textContent`, so the second pass was rewriting every `alt` to `""`. |
 | C8 | Solo cap is 2 AI of different types; app allows 3, any mix | `main.js` `addPlayerFromForm` / `populateCharacterDropdown` | **superseded by owner decision (v1.50).** These were hard limits; they are now **confirmations**. The dropdown offers every unused character, and `addPlayerFromForm` warns (then proceeds on OK) for: an expansion character in a base game, a base-mode bounty AI, a 3rd+ AI, and two AI of the same type. The only hard cap left is `maxPlayers` (4). Character uniqueness stays hard - `character.id` keys the decks, histories and selections. |
 | — | base-bounty deck branch in `shuffleAiDeck` is unreachable dead code (rules-correct) | `main.js` | **done** — deleted as part of R1. |
+| D5 | No way to review every card without playing dozens of games; the `(sm)`/`(bh)` suffix in the character dropdown duplicated its own optgroup heading | `index.html`, `main.js` | **done** — `debug` now comes from `?debug` on the query string instead of a source edit. It lifts the cap to 16 (the whole roster), drops the advisory confirmations in `addPlayerFromForm` so an all-AI table can be seated without nagging, and deals deterministic decks (section 4) — strictly the mode's own composition, never a card the mode does not have. Deck composition was split out into `deckComposition()` so the debug and live paths cannot drift on what a mode's deck contains, and the debug draw bypasses the restored `aiDecks`/`aiHistory` so a save from a randomized game cannot leak old cards into it. `debugSpecial` and the `debug` branch in `shuffleArray` are gone. The character dropdown labels are `Name [base|exp] (sm|bh)`, built by one `label()` helper — the deck marker repeats its optgroup heading deliberately, since the heading scrolls away in a long list and a closed selector shows only the chosen option. Under `debug` the character selector also preselects the topmost remaining option rather than the disabled `-- Select Character --` placeholder, so Add Another can be pressed straight down the roster. |
+| D6 | No way to proofread 31 cards x 2 locales against the scans without playing; the unbalanced-tag bug class (D1/D2/D4) was only ever caught by hand | `index.html`, `main.js`, `main.css` | **done** — four debug features, all listed in section 8: (a) `use{Human,Ai}CharacterImages` now follow `debug`, so the photographed card renders beside the transcription — the code already built the `<img>` and threw it away; (b) `validateCardData()` sweeps markup balance, missing entries and icon files on every locale load; (c) `?debug=whole-deck` proof sheet, scan + EN + UK per card; (d) `?debug&ai=…&human=…&mode=…&locale=…` deep links straight into a seated table. Two extractions keep the new paths honest: `cardSectionsHtml()` (shared by the live turn and the sheet) and `deckComposition(type, mode)` + `dealtIn(type, key, mode)`, the latter encoding the verified rule that a base game deals no bounty hunter deck and no character cards. `NAMED_COLORS`/`seatColor()` replaced the random-colour generation so deep links are reproducible. |
+| D7 | Phone dims mid-game; a companion app sits untouched for minutes per turn | `index.html`, `main.js`, `main.css` | **done** — opt-in Screen Wake Lock toggle in `#helpControls`, remembered in `localStorage`. Re-acquired on `visibilitychange` (the lock is always dropped when the page hides) and lit from the live lock rather than the preference. Hides itself outside a secure context — **over the current plain-http compose setup it will not appear at all**; needs https to be usable on a phone. |
 
 ---
 
@@ -360,8 +404,88 @@ both fit the footer row.
 
 - **Cache busting is manual.** Bump `version` in `index.html` after changing
   `main.js` / `main.css` / `assets/cards/*.json`, or clients keep the old files.
-- `debug`/`debugSpecial` in `index.html` change deck behaviour: `shuffleArray` returns the
-  array **unshuffled** when `debug` is true, and `['special']` when `debugSpecial` is true.
+- **Debug mode is `?debug` on the URL** (`index.html?debug`), not a source edit. The old
+  `debugSpecial` flag is gone; "character card every turn" is now what a second AI of a
+  type does on its own. What `?debug` changes, all of it:
+
+  | what | where |
+  |---|---|
+  | `maxPlayers` 4 → 16 (the whole roster) | `index.html` |
+  | character selector preselects the topmost free option | `populateCharacterDropdown` |
+  | setup confirmations skipped — except base+bounty (`noDeckExists`) | `addPlayerFromForm` |
+  | red `DEBUG` badge by the version (setup screens only — `#mainTitle` hides in play) | end of `main.js` |
+  | AI decks unshuffled and mode-exact | `shuffleAiDeck` (section 4) |
+  | drawn card = pure function of the turn index, ignoring `aiDecks`/`aiHistory` | `showTurn` AI branch |
+  | `triggersReshuffle()` disabled | `triggersReshuffle` |
+  | card scan rendered beside the transcription | `use{Human,Ai}CharacterImages = debug` |
+  | card data validated on every locale load | `validateCardData` |
+  | cache-buster `&_=<random>` on js/css/json **and every image** | `index.html` |
+
+  Two URL forms do more than toggle flags:
+  - **`?debug=whole-deck`** — the proof sheet (below). Opens instead of a game: no setup
+    screens, no saved-game prompt.
+  - **`?debug&ai=han,boba&human=erso&mode=base&locale=en`** — `autoSetupFromQuery()` seats
+    that exact table and starts it, skipping both setup screens and the saved-game prompt,
+    so a finding is reproducible from a URL. `ai`/`human` take comma-separated
+    **character ids** (the `characters[]` table at the top of `main.js`); unknown or
+    already-seated ids are warned about and skipped, and if nothing usable is left it
+    falls through to the normal setup screen. Colours come from `seatColor(i)`, which is
+    deterministic so the same link always looks the same.
+
+### Keeping the screen awake
+
+`#keepAwakeToggle` in `#helpControls` takes a **Screen Wake Lock**, remembered in
+`localStorage['keepAwake']`. It lives in that bar because the bar overlays the turn title
+while help is open and so costs no vertical space (section 7).
+
+Two things the code has to respect, both already handled:
+
+- **It needs a secure context.** Over plain http — which `docker-compose.yml` serves
+  (`VIRTUAL_PROTO: http`) — `navigator.wakeLock` is simply absent, so the button hides
+  itself and logs why rather than presenting a dead control. **On the phone this feature
+  only works if the vhost proxy is reached over https.**
+- **The lock is always released when the page is hidden.** So it is re-acquired on every
+  `visibilitychange` back to visible. The button is lit from `wakeLock`, not from the
+  preference, so it never claims a lock the OS has dropped.
+
+### `validateCardData()` — the D1/D2/D4 tripwire
+
+Runs on every locale load under `?debug`, and again (for both locales) when the proof
+sheet opens. It exists because three separate worklog rows were the same bug — an
+unbalanced tag swallowing the rest of a panel — each found by hand after shipping. It
+reports:
+
+- **tag balance per authored string** for every card section and the human Player Turn
+  card. `help` is *excluded* here, because its entries are fragments that only balance
+  once concatenated…
+- **…so `help` is checked per `(gameMode × characterType)` combination instead** — the six
+  concatenations the panel actually renders. This is exactly the D4 shape: every
+  individual entry looked fine and four combinations were broken.
+- **missing entries** — every card `deckComposition()` can deal in either mode, plus every
+  character card, plus the four `phases` keys.
+- **icon files** — each distinct `span.icon` name is probed with an `Image()`. Loading the
+  file is the only existence test available to the page, so these arrive *after* the
+  synchronous report; `checkIcons(data, loc, onLate)` takes the handler. The proof sheet
+  passes one that appends to its own `#proofLate` block, so the report can never say
+  "clean" while an icon is missing.
+
+Fault-injected against all five historical shapes (D1's orphan `</strong>`, D2's dropped
+`</div>`, D4's extra `</div>`, a deleted card, a bogus icon name) — all caught, and both
+shipped locales report clean with no false positives.
+
+### `?debug=whole-deck` — the proof sheet
+
+Every card in the data on one scrollable page: **scan, EN and UK side by side**, which is
+the section-2 audit (scans are the source of truth, the JSON is the thing being corrected)
+in the shape that audit actually wants. It is an *inventory*, not a deck — all 10 smuggler
+numbers, all 5 bounty numbers and all 16 character cards are always listed, each badged
+`in deck` / `not dealt in <mode>` via `dealtIn()`, with a button to flip the mode. Cards
+the mode does not deal are dimmed rather than hidden, so nothing can be silently missing.
+
+`cardSectionsHtml(data, cardFileName, phases)` was extracted out of `describeCard` for
+this: the live turn and the sheet render a card through the same function, so they cannot
+drift. It is a desktop view and deliberately steps outside the 450px phone frame (it still
+collapses to one column under 800px).
 - Card text is raw HTML injected via `innerHTML` / `insertAdjacentHTML`. Icons are
   `<span class="icon NAME">label</span>` and get swapped for `assets/images/assets/NAME.png`.
   The icon name must be the **second** class.

@@ -7,12 +7,20 @@
 <!--    <link rel="stylesheet" href="./assets/css/main.css">-->
     <script src="./assets/js/jquery-3.7.1.min.js"></script>
     <script>
-        const debug = false;
-        const debugSpecial = false;
-        const version = '1.51.3'
+        // Debug mode is opt-in per load: ?debug (or ?debug=1) on the query string.
+        // It lifts the player cap, drops the setup confirmations, validates the card
+        // data on load, and makes the AI decks deterministic - see main.js.
+        //   ?debug=whole-deck          every card on one page, both locales + scans
+        //   ?debug&ai=han,boba&mode=base&locale=en&human=erso   seat a table and start
+        const debug = new URLSearchParams(location.search).has('debug');
+        const debugWholeDeck = new URLSearchParams(location.search).get('debug') === 'whole-deck';
+        const version = '1.54.1'
             +(debug?'&_='+Math.random():'');
-        const useHumanCharacterImages = false;
-        const useAiCharacterImages = false;
+        // Under debug the photographed card is rendered beside the transcription, which
+        // is the audit the project actually runs on (AGENTS.md section 2).
+        const useHumanCharacterImages = debug;
+        const useAiCharacterImages = debug;
+        // 16 = every character in the roster, so debug can seat them all at once.
         let maxPlayers = debug ? 16: 4;
 
         var s = document.createElement('script');
@@ -65,6 +73,7 @@
             <button id="helpButton" title="Help">?</button>
             <h2 id="turnHeader"></h2>
             <div id="helpControls" class="hidden">
+                <button id="keepAwakeToggle" title="Keep screen awake">☀</button>
                 <button id="localeToggle" title="Switch language">UK</button>
                 <select id="refDocs" title="Open a rulebook in a new tab">
                     <option value="">Rulebook…</option>
