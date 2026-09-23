@@ -64,14 +64,7 @@ $('document').ready(function () {
 
         $('body').append($promptDiv);
 
-        $('#fullscreen').on('click', function() {
-            const elem = document.documentElement;
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.webkitRequestFullscreen) { // Safari/Chrome on iOS
-                elem.webkitRequestFullscreen();
-            }
-        });
+        $('#fullscreen').on('click', enterFullscreen);
 
         $('#continueGame').on('click', function() {
             $promptDiv.remove();
@@ -380,6 +373,7 @@ $('document').ready(function () {
     function showHelp() {
         const helpButton = $("#helpButton");
         helpButton.show();
+        $('#fullscreenButton').show();
 
 
         helpButton.off('click').on("click", handleHelpClick);
@@ -451,8 +445,41 @@ $('document').ready(function () {
 
     }
 
+    function fullscreenElement() {
+        return document.fullscreenElement || document.webkitFullscreenElement || null;
+    }
+
+    function enterFullscreen() {
+        const elem = document.documentElement;
+        if (elem.requestFullscreen) elem.requestFullscreen();
+        else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen(); // Safari/iOS
+    }
+
+    function toggleFullscreen() {
+        if (fullscreenElement()) {
+            if (document.exitFullscreen) document.exitFullscreen();
+            else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        } else {
+            enterFullscreen();
+        }
+    }
+
+    // \u26f6 enter / \u2715 exit. Kept in sync with the actual state, since fullscreen can
+    // also be left with Esc or a system gesture without the button being touched.
+    function syncFullscreenButton() {
+        const on = !!fullscreenElement();
+        $('#fullscreenButton')
+            .html(on ? '\u2715' : '\u26f6')
+            .attr('title', on ? 'Exit fullscreen' : 'Toggle fullscreen');
+    }
+
+    $(document).on('fullscreenchange webkitfullscreenchange', syncFullscreenButton);
+    $('#fullscreenButton').off('click').on('click', toggleFullscreen);
+    syncFullscreenButton();
+
     function hideHelpButton() {
         $('#helpButton').hide();
+        $('#fullscreenButton').hide();
     }
 
     async function startGame() {

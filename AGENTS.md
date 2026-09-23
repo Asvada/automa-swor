@@ -299,6 +299,21 @@ Status: `open` / `done` / `wontfix`. Keep newest decisions at the bottom of a ro
 
 ## 7. Working agreements
 
+- **This is a phone app first** (tablet second). Fitting a whole turn on **one screen
+  without scrolling** is a top-priority design goal. Judge every layout change at phone
+  width, not in a desktop window.
+  - Reference device: `assets/ref_docs/swor_automa_phone_screen_reference.jpg`
+    (810x1800 device px, ~338x638 CSS with browser chrome, ~338x750 in fullscreen).
+  - **It fits in fullscreen, not in a browser tab** — that is what the header's
+    fullscreen button is for. The densest view is the *human* Player Turn card
+    (~700px); AI turns are shorter.
+  - Space was reclaimed in v1.44-1.46 by: deleting `#cardDisplay { min-height: 80vh }`
+    (it could only ever force scrolling), trimming `.cardFooter` to `5px 0 0` and its
+    reserve to 45px, tightening `.phaseItem` padding and the bullet indents, shrinking
+    `img.icon` to 1.2em, and demoting long qualifiers to `appNote` sub-lines.
+  - **Tried and rejected:** collapsing the `appNote` sub-lines behind a tap. It fits in
+    one screen (404px) but the owner preferred the detail always visible. Shrinking the
+    type (16->14px) was considered and proved unnecessary once fullscreen was used.
 - **Never `git commit` (or push) without asking first.** Make the changes, show what
   changed, and wait for an explicit go-ahead. This holds even for changes the owner
   clearly asked for — the commit itself is a separate decision.

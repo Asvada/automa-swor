@@ -9,7 +9,7 @@
     <script>
         const debug = false;
         const debugSpecial = false;
-        const version = '1.43.1'
+        const version = '1.46.1'
             +(debug?'&_='+Math.random():'');
         const useHumanCharacterImages = false;
         const useAiCharacterImages = false;
@@ -62,8 +62,9 @@
 
     <div id="gameStep" class="hidden">
         <div class="header-row">
-            <button id="helpButton">?</button>
+            <button id="helpButton" title="Help">?</button>
             <h2 id="turnHeader"></h2>
+            <button id="fullscreenButton" title="Toggle fullscreen">⛶</button>
         </div>
         <div id="cardDisplay"></div>
     </div>

@@ -39,6 +39,15 @@ select, input[type="text"], button {
     margin: -2px 5px 2px 4px;
 }
 
+/* Same treatment as #helpButton, mirrored to the right of the turn title so the
+   title stays centred between the two. */
+#fullscreenButton{
+    margin: -2px 4px 2px 5px;
+    margin-right: 0;
+    font-size: 1.1em;
+    line-height: 1;
+}
+
 button {
     cursor: pointer;
     background: #444;
@@ -58,11 +67,10 @@ button {
 /* Make cardDisplay fill available height and be scrollable if needed */
 #cardDisplay {
     display: block;
-    min-height: 80vh; /* or 100vh */
     box-sizing: border-box;
     position: relative;
     overflow: auto; /* allow scrolling */
-    padding-bottom: 80px; /* give space so sticky footer won't overlap content */
+    padding-bottom: 45px; /* clears the fixed .cardFooter (~39px) and no more */
 }
 
 /* Make the actual footer sticky to bottom of the scroll container */
@@ -72,7 +80,7 @@ button {
     left: 0;
     width: 100%;
     background: rgba(34, 34, 34, 0.9);
-    padding: 10px 0px;
+    padding: 5px 0 0;
     display: flex;
     justify-content: center;
     z-index: 10;
@@ -162,7 +170,7 @@ img {
 
 .phaseItem {
     position: relative; /* needed for absolute positioning of number */
-    padding: 5px 5px 5px 30px; /* extra left padding for the number */
+    padding: 2px 4px 2px 24px; /* left gutter holds the step number */
     border-top: 1px solid #000;
     border-bottom: 1px solid #000;
 }
@@ -171,14 +179,14 @@ img {
     counter-increment: phaseItemCounter; /* increment counter */
     content: counter(phaseItemCounter); /* display number */
     position: absolute;
-    left: 5px; /* distance from left edge of phaseItem */
-    top: 20px;
-    font-size: 1.5em;
+    left: 2px; /* distance from left edge of phaseItem */
+    top: 15px;
+    font-size: 1.3em;
     /*top: 50%;    !* vertical center *!*/
     transform: translateY(-50%); /* center vertically */
-    width: 20px; /* optional, gives space for number */
-    height: 30px;
-    line-height: 30px; /* center number vertically inside box */
+    width: 18px; /* optional, gives space for number */
+    height: 24px;
+    line-height: 24px; /* center number vertically inside box */
     text-align: center; /* center horizontally */
     font-weight: bold;
 }
@@ -186,7 +194,6 @@ img {
 .phaseName {
     text-transform: uppercase;
     font-weight: bold;
-    padding-left: 15px;
 }
 
 .phaseHint {
@@ -195,10 +202,10 @@ img {
 }
 
 .phaseElement {
-    padding-left: 20px;
+    padding-left: 14px;
     cursor: pointer;
     transition: all 0.2s;
-    text-indent: -20px;
+    text-indent: -14px;
 }
 
 /* Condition line (a card's "!." clause), e.g. IG-88's "do the first 2 instead".
@@ -220,9 +227,8 @@ img {
 }
 
 .phaseSubElement {
-    padding-left: 20px;
-    text-indent: -20px;
-
+    padding-left: 14px;
+    text-indent: -14px;
 }
 /* Rules reminders the app adds that are NOT printed on the card (movement notes,
    "play any X" reminders, encounter-type lists). Marked so card text stays honest.
@@ -284,7 +290,7 @@ img {
 img.icon {
     display: inline-block;
     vertical-align: middle;
-    height: 1.5em;
+    height: 1.2em;
     width: auto;
     margin: 0 2px;
     border: 0;
