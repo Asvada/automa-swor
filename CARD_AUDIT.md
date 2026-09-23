@@ -81,7 +81,8 @@ the official column is what `swor-base-ukr.pdf` and the UK card scans actually u
 | trade | **уклади угоду** (7) | обміняйся картами | 2 |
 | hyperdrive | **гіперпривід** (8) | швидкість | *fixed, D3* |
 
-**189 term uses to change.** Two more style issues:
+**Applied — all of it (worklog R9).** ~740 replacements; a residual sweep for every
+non-official form now returns **0**. Two more style issues, also fixed:
 
 - **111 bullets use ви-form** (`купіть`, `витратьте`, `помістіть`, `зіткніться`…). Every
   UK card scan uses **ти-form**: `купи`, `заплати`, `поклади`, `здобудь`, `зніми`.
@@ -211,5 +212,6 @@ defeat cost in §2.4. These contradict the card and should simply be fixed.
 Counts: 64 movement reminders and 12 "play any X" bullets tagged across both locales,
 plus 7 encounter-type lists moved out of the bullet text and into notes.
 
-Not yet done: **§3, the Ukrainian terminology pass** (189 term uses, 111 ви-form bullets,
-Latin vs Cyrillic lettering) — worklog R9.
+**§3, the Ukrainian terminology pass, is also done** (R9). Beyond the term swaps, the
+repeated bullets were aligned verbatim to the UK scans, so e.g. every one of
+`smuggler/1`'s nine bullets now matches the printed card word for word.
