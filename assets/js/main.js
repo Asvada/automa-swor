@@ -29,6 +29,16 @@ $('document').ready(function () {
     let locale = 'uk';
     let aiDecks = {};
     let aiHistory = {};
+    // Which phase bullets were ticked, per player, per turn they have taken.
+    // turnSel[characterId][turnIndex] = ["<phaseItemIdx>:<bulletIdx>", ...]
+    // Its length is that player's turn count, for humans as well as AI - which is what
+    // gives human players a history to rewind through.
+    let turnSel = {};
+    // Global turn cursor. Turns always cycle through players in order, so one number
+    // fixes both whose turn it is and which of their turns - and lets Fast-Forward jump
+    // straight to the frontier instead of stepping.
+    let turnNo = 0;
+    let turnNoMax = 0;
 
     initCards();
 
@@ -91,6 +101,9 @@ $('document').ready(function () {
             gameMode,
             aiDecks,
             aiHistory,
+            turnSel,
+            turnNo,
+            turnNoMax,
             savedAt: new Date().toISOString(),
             locale
         };
@@ -116,6 +129,13 @@ $('document').ready(function () {
         locale = saved.locale || 'uk';
         aiDecks = saved.aiDecks || {};
         aiHistory = saved.aiHistory || {};
+        turnSel = saved.turnSel || {};   // absent in saves made before selections existed
+        // Saves from before the cursor existed: treat where they left off as the frontier.
+        const n0 = (saved.players || []).length || 1;
+        turnNo = (saved.turnNo !== undefined) ? saved.turnNo
+            : Math.max(0, ...(saved.players || []).map(p => p.currentCardIndex || 0)) * n0
+              + (saved.currentPlayerIndex || 0);
+        turnNoMax = (saved.turnNoMax !== undefined) ? saved.turnNoMax : turnNo;
         migrateAiKeys();
         await initCards();
 
@@ -183,9 +203,26 @@ $('document').ready(function () {
         $('#randomCharacter').off('click').on('click', function (e){
             e.preventDefault();
             const $select = $('#playerCharacter');
-            const options = $select.find('option:not(:disabled)');
-            const randomIndex = Math.floor(Math.random() * options.length);
-            $select.val(options.eq(randomIndex).val()).change();
+            let options = $select.find('option:not(:disabled)').toArray();
+
+            // A second AI should be the other type (UB p. 11). Since the dropdown now
+            // offers everything, steer the random pick rather than let it land on a
+            // combination that would immediately ask for confirmation. It is only a
+            // preference: if no character of the wanted type is free, fall back to all.
+            if (document.getElementById("playerType").value === "ai") {
+                const ais = players.filter(p => p.type === "ai");
+                if (ais.length) {
+                    const taken = new Set(ais.map(a => a.character.type));
+                    const preferred = options.filter(o => {
+                        const c = characters.find(ch => ch.name === o.value);
+                        return c && !taken.has(c.type);
+                    });
+                    if (preferred.length) options = preferred;
+                }
+            }
+
+            const pick = options[Math.floor(Math.random() * options.length)];
+            if (pick) $select.val(pick.value).change();
         });
 
         const select = document.getElementById("playerCharacter");
@@ -198,20 +235,13 @@ $('document').ready(function () {
         select.appendChild(emptyOption);
 
         const type = document.getElementById("playerType").value;
-        const allowed = characters.filter(c => !usedCharacters.includes(c.name) && (gameMode === "expansion" || c.origin === "base"));
+        // Every unused character is offered. The game-version and AI-count/type rules
+        // are confirmations in addPlayerFromForm now, not filters - a character can only
+        // be excluded here for being already taken, which is structural (ids key the
+        // decks, histories and selections).
+        const allowed = characters.filter(c => !usedCharacters.includes(c.name));
         const smugglers = allowed.filter(c => c.type === "smuggler").sort((a, b) => a.name.localeCompare(b.name));
         const bounty = allowed.filter(c => c.type === "bounty").sort((a, b) => a.name.localeCompare(b.name));
-
-        // A second AI must be the other type (UB p. 11), so drop the type already taken.
-        // Both lists are narrowed here, before either optgroup is built.
-        if (type === "ai") {
-            if (gameMode === "base") bounty.length = 0;
-            const ais = players.filter(p => p.type === "ai");
-            if (ais.length === 1) {
-                if (ais[0].character.type === "smuggler") smugglers.length = 0;
-                else bounty.length = 0;
-            }
-        }
 
         if (smugglers.length > 0) {
             const group = document.createElement("optgroup");
@@ -312,7 +342,12 @@ $('document').ready(function () {
     function addPlayerFromForm() {
         clearError();
         const type = document.getElementById("playerType").value;
-        const nickname = document.getElementById("playerNickname").value.trim() || document.getElementById("playerNickname").placeholder;
+        // Caps the nickname at a sane length. It can still be wider than the turn header
+        // has room for next to a long character name - .turnHeaderHint ellipsises in that
+        // case. maxlength on the input is the first guard; this catches paste/autofill.
+        const NICKNAME_MAX = 16;
+        const nicknameEl = document.getElementById("playerNickname");
+        const nickname = (nicknameEl.value.trim() || nicknameEl.placeholder).slice(0, NICKNAME_MAX);
         const charName = document.getElementById("playerCharacter").value;
         const color = document.getElementById("playerColor").value;
         if (!charName) {
@@ -326,18 +361,26 @@ $('document').ready(function () {
 
         const charObj = characters.find(c => c.name === charName);
 
-        // "Using Multiple AI Opponents" (UB p. 11) sets up one bounty hunter and one
-        // non-bounty-hunter character, so two AI at most and never two of a kind.
+        // The rules below are advisory: each is confirmed rather than refused, so any
+        // combination can be set up deliberately. The only hard cap is maxPlayers.
+        const warnings = [];
+        if (gameMode === "base" && charObj.origin === "expansion") {
+            warnings.push(`${charObj.name} is an Unfinished Business character, but this is a base game.`);
+        }
         if (type === "ai") {
             const ais = players.filter(p => p.type === "ai");
+            if (gameMode === "base" && charObj.type === "bounty") {
+                warnings.push("The bounty hunter AI deck ships only in the expansion - a base game has no cards for this AI.");
+            }
             if (ais.length >= 2) {
-                showError("At most 2 AI opponents are allowed.");
-                return false;
+                warnings.push("The rules set up at most 2 AI opponents (expansion rulebook p. 11).");
             }
-            if (ais.length === 1 && ais[0].character.type === charObj.type) {
-                showError("The 2 AI opponents must be of different types - one smuggler and one bounty hunter.");
-                return false;
+            if (ais.some(a => a.character.type === charObj.type)) {
+                warnings.push("The rules pair one bounty hunter with one non-bounty-hunter AI; this repeats a type.");
             }
+        }
+        if (warnings.length && !confirm(warnings.join("\n\n") + "\n\nAdd them anyway?")) {
+            return false;
         }
 
         usedCharacters.push(charObj.name);
@@ -387,6 +430,7 @@ $('document').ready(function () {
 
             if ($(prevScreen).is(':visible')) {
                 $(prevScreen).remove();
+                hideHelpControls();
                 if (hidePhaseContainer)
                 {
                     $(phaseContainer).show();
@@ -431,6 +475,7 @@ $('document').ready(function () {
 
             $(promptDiv).on("click", () => {
                 $(promptDiv).remove();
+                hideHelpControls();
                 if (hidePhaseContainer)
                 {
                     $(phaseContainer).show();
@@ -438,6 +483,7 @@ $('document').ready(function () {
             });
 
             cardDisplay.prepend(promptDiv);
+            showHelpControls();
             replaceIconsWithImages();
 
 
@@ -477,9 +523,198 @@ $('document').ready(function () {
     $('#fullscreenButton').off('click').on('click', toggleFullscreen);
     syncFullscreenButton();
 
+    // The help controls overlay the turn title while help is open, so they cost no
+    // extra vertical space - the app has to fit a phone screen.
+    function showHelpControls() {
+        $('#localeToggle').text(locale.toUpperCase());
+        $('#refDocs').val('');
+        $('#helpControls').removeClass('hidden');
+    }
+
+    function hideHelpControls() {
+        $('#helpControls').addClass('hidden');
+    }
+
+    $('#localeToggle').on('click', async function () {
+        locale = (locale === 'uk') ? 'en' : 'uk';
+        $('#locale').val(locale);          // keep the setup screen in sync
+        await initCards();                 // must finish before anything re-renders
+        showTurn();                        // rebuilds the turn in the new language
+        $('#helpButton').trigger('click'); // and reopens help, now translated
+    });
+
+    $('#refDocs').on('change', function () {
+        const url = this.value;
+        this.value = '';
+        if (url) window.open(url + '?' + version, '_blank', 'noopener');
+    });
+
+    // Back only means something once the game has moved on. Test the AI's *pointer*
+    // into its history, not the history length: Back rewinds currentCardIndex but never
+    // truncates aiHistory, so length stays >0 forever once a card has been drawn and
+    // would keep the button visible after rewinding all the way to turn 1.
+    // Both values are already saved, so a restored mid-game save gets this right.
+    function canGoBack() {
+        return turnNo > 0;
+    }
+
+    // Recorded turns still lie ahead of where we are looking.
+    // How many turns back from the frontier we are looking, e.g. "-1" one Back from the
+    // live turn. Driven by the global cursor, so it means the same on a human turn as on
+    // an AI one.
+    // The footer is three fixed slots: [back] [forward] [advance/return]. A slot with no
+    // action becomes an invisible placeholder of the same size, so buttons never move
+    // under your thumb - repeatedly tapping one spot always does the same thing, or
+    // nothing at all. visibility:hidden keeps the metrics but takes the click target away.
+    function navPlaceholder(cls) {
+        const b = document.createElement("button");
+        b.className = cls + " navPlaceholder";
+        b.tabIndex = -1;
+        b.setAttribute("aria-hidden", "true");
+        return b;
+    }
+
+    function buildFooter(row) {
+        const depth = turnNoMax - turnNo;      // 0 = the live turn
+        const fwdDepth = depth - 1;
+
+        // slot 1 - step back
+        if (canGoBack()) {
+            const back = document.createElement("button");
+            back.className = "backCard";
+            back.innerHTML = "\u2039" + depthLabel(depth + 1);
+            back.title = "Previous turn";
+            back.onclick = () => { seekTurn(turnNo - 1); showTurn(); };
+            row.appendChild(back);
+        } else {
+            row.appendChild(navPlaceholder("backCard"));
+        }
+
+        // slot 2 - step forward, but only while that lands somewhere still in history
+        if (fwdDepth > 0) {
+            const fwd = document.createElement("button");
+            fwd.className = "nextCard withFF";
+            fwd.innerHTML = depthLabel(fwdDepth, true) + "\u203a";
+            fwd.title = "Next turn in history";
+            fwd.onclick = () => { seekTurn(turnNo + 1); showTurn(); };
+            row.appendChild(fwd);
+        } else {
+            row.appendChild(navPlaceholder("nextCard withFF"));
+        }
+
+        // slot 3 - advance the game, or leave history
+        const main = document.createElement("button");
+        main.className = "ffCard";
+        if (depth > 0) {
+            main.textContent = "Back to game";
+            main.title = "Leave history and return to the current turn";
+            main.onclick = () => { seekTurn(turnNoMax); showTurn(); };
+        } else {
+            main.className = "ffCard mainAction";   // the primary action during play
+            main.textContent = "Next turn";
+            main.title = "Next turn";
+            main.onclick = () => { seekTurn(turnNo + 1); showTurn(); };
+        }
+        row.appendChild(main);
+    }
+
+    // Small grey "-N" on a nav button: the history depth that button would land on.
+    // Omitted when the target is the live turn (depth 0).
+    function depthLabel(depth, before) {
+        if (depth <= 0) return '';
+        const span = `<span class="btnDepth${before ? ' before' : ''}">-${depth}</span>`;
+        return before ? span + ' ' : ' ' + span;
+    }
+
+    function historyDepthMarker() {
+        const depth = turnNoMax - turnNo;
+        return depth > 0
+            ? ` <span class="turnHeaderHint" title="History depth">-${depth}</span>`
+            : '';
+    }
+
+    // How many turns this player has already taken. Both humans and AI now keep a
+    // record per turn, so both can be rewound.
+    // Point the whole game at global turn T. Player j takes turns at T = j, j+n, j+2n...
+    // so the player on screen is showing turn floor(T/n), and everyone else's pointer is
+    // however many of their turns have already started.
+    function seekTurn(T) {
+        const n = players.length;
+        turnNo = Math.max(0, T);
+        if (turnNo > turnNoMax) turnNoMax = turnNo;
+        currentPlayerIndex = turnNo % n;
+        players.forEach((p, j) => {
+            p.currentCardIndex = (j === currentPlayerIndex)
+                ? Math.floor(turnNo / n)
+                : (turnNo >= j ? Math.floor((turnNo - j) / n) + 1 : 0);
+        });
+    }
+
+    function turnsTaken(player) {
+        const t = turnSel[player.character.id];
+        return t ? t.length : 0;
+    }
+
+    // This turn has been played before, so its ticked bullets are replayed (in blue).
+    function hasRecord(player) {
+        return player.currentCardIndex < turnsTaken(player);
+    }
+
+    function turnRecordFor(player) {
+        const id = player.character.id;
+        if (!turnSel[id]) turnSel[id] = [];
+        const i = player.currentCardIndex;
+        if (!turnSel[id][i]) turnSel[id][i] = [];
+        return turnSel[id][i];
+    }
+
+    // Re-apply the cross-out rule for one step after its active set changed.
+    function refreshCrossed(item) {
+        const pick = item.dataset.pick || '1';
+        const all = [...item.querySelectorAll('.phaseElement')];
+        if (pick === 'all') {
+            all.forEach(e => e.classList.remove('crossed'));
+            return;
+        }
+        const max = parseInt(pick, 10) || 1;
+        const active = all.filter(e => e.classList.contains('active'));
+        all.forEach(e => e.classList.toggle('crossed',
+            active.length === max && !e.classList.contains('active')));
+    }
+
+    // Persist the ticked bullets of the turn on screen.
+    function recordSelections() {
+        const player = players[currentPlayerIndex];
+        if (!player) return;
+        const keys = [];
+        document.querySelectorAll('#phaseContainer .phaseItem').forEach((item, i) => {
+            item.querySelectorAll('.phaseElement').forEach((el, j) => {
+                if (el.classList.contains('active')) keys.push(i + ':' + j);
+            });
+        });
+        turnSel[player.character.id][player.currentCardIndex] = keys;
+        saveGameState();
+    }
+
+    // Paint a replayed turn's bullets. `replay` colours them blue so it is obvious you
+    // are looking at what was done earlier rather than making a fresh choice.
+    function applySelections(player, replay) {
+        const keys = (turnSel[player.character.id] || [])[player.currentCardIndex] || [];
+        const items = [...document.querySelectorAll('#phaseContainer .phaseItem')];
+        keys.forEach(k => {
+            const [i, j] = k.split(':').map(Number);
+            const el = items[i] && items[i].querySelectorAll('.phaseElement')[j];
+            if (!el) return;
+            el.classList.add('active');
+            if (replay) el.classList.add('replay');
+        });
+        items.forEach(refreshCrossed);
+    }
+
     function hideHelpButton() {
         $('#helpButton').hide();
         $('#fullscreenButton').hide();
+        hideHelpControls();
     }
 
     async function startGame() {
@@ -489,8 +724,12 @@ $('document').ready(function () {
         mainTitle.classList.add("hidden");
         container.style.padding = "5px";
         currentPlayerIndex = 0;
+        turnNo = 0;
+        turnNoMax = 0;
+        turnSel = {};
         document.getElementById("gameStep").classList.remove("hidden");
         players.forEach(p => {
+            p.currentCardIndex = 0;
             if (p.type === "ai") aiHistory[p.character.id] = [];
         });
         showTurn();
@@ -530,26 +769,7 @@ $('document').ready(function () {
             const row2 = document.createElement("div");
             row2.className = 'cardFooter';
 
-            const backBtn = document.createElement("button");
-            backBtn.textContent = "Back";
-            backBtn.className = "backCard";
-            backBtn.onclick = () => {
-                currentPlayerIndex = (currentPlayerIndex - 1 + players.length) % players.length;
-                const player = players[currentPlayerIndex];
-                if (player.type === "ai") {
-                    player.currentCardIndex = Math.max(0, player.currentCardIndex - 1);
-                }
-                showTurn();
-            }
-            row2.appendChild(backBtn);
-            const nextBtn = document.createElement("button");
-            nextBtn.textContent = "Next Card";
-            nextBtn.className = "nextCard";
-            nextBtn.onclick = () => {
-                currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
-                showTurn();
-            };
-            row2.appendChild(nextBtn);
+            buildFooter(row2);
             cardDisplay.appendChild(row2);
 
             const row3 = document.createElement("div");
@@ -574,7 +794,8 @@ $('document').ready(function () {
             cardDisplay.appendChild(row4);
             cardDisplay.appendChild(row3);
 
-            header.innerHTML = `<span class="turnHeaderHint">${player.nickname}</span>&nbsp;${player.character.name}`;
+            header.innerHTML = `<span class="turnHeaderHint">${player.nickname}</span>`
+                + `<span class="turnHeaderName">${player.character.name}${historyDepthMarker()}</span>`;
             header.style.color = player.color;
 
         } else {
@@ -621,19 +842,18 @@ $('document').ready(function () {
             if (reshuffleMarks(aiHistory[aiKey], deckSize)[player.currentCardIndex]) {
                 headerMarker = ' <span class="turnHeaderHint" title="Deck reshuffled after this card">↻</span>';
             }
-            if (player.currentCardIndex < aiHistory[aiKey].length - 1) {
-                const depth = aiHistory[aiKey].length - player.currentCardIndex - 1;
-                headerMarker = ` <span class="turnHeaderHint" title="History depth">-${depth}</span>`;
-            }
+            headerMarker += historyDepthMarker();
 
             if (card === "special") {
                 const dir = player.character.type === "smuggler" ? "smuggler" : "bounty";
                 cardImg.src = `./assets/images/${dir}/${player.character.image}?${version}`;
-                header.innerHTML = `<span class="turnHeaderHint">AI</span>&nbsp;${player.character.name} #special${headerMarker}`;
+                header.innerHTML = `<span class="turnHeaderHint">AI</span>`
+                    + `<span class="turnHeaderName">${player.character.name} #special${headerMarker}</span>`;
             } else {
                 const dir = player.character.type === "smuggler" ? "smuggler" : "bounty";
                 cardImg.src = `./assets/images/${dir}/${card}.png?${version}`;
-                header.innerHTML = `<span class="turnHeaderHint">AI</span>&nbsp;${player.character.name} #${card}${headerMarker}`;
+                header.innerHTML = `<span class="turnHeaderHint">AI</span>`
+                    + `<span class="turnHeaderName">${player.character.name} #${card}${headerMarker}</span>`;
             }
 
             if (useAiCharacterImages) {
@@ -646,33 +866,7 @@ $('document').ready(function () {
             const row2 = document.createElement("div");
             row2.className = 'cardFooter';
 
-            const backBtn = document.createElement("button");
-            backBtn.textContent = "Back";
-            backBtn.className = "backCard";
-            backBtn.onclick = () => {
-                currentPlayerIndex = (currentPlayerIndex - 1 + players.length) % players.length;
-                const player = players[currentPlayerIndex];
-                if (player.type === "ai") {
-                    player.currentCardIndex = Math.max(0, player.currentCardIndex - 1);
-                }
-                showTurn();
-            }
-
-            row2.appendChild(backBtn);
-
-
-            const nextBtn = document.createElement("button");
-            nextBtn.textContent = "Next Card";
-            nextBtn.className = "nextCard";
-            nextBtn.onclick = () => {
-                const player = players[currentPlayerIndex];
-                if (player.type === "ai") {
-                    player.currentCardIndex++;
-                }
-                currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
-                showTurn();
-            };
-            row2.appendChild(nextBtn);
+            buildFooter(row2);
             cardDisplay.appendChild(row2);
 
             // AI players can never complete personal goals or ship goals
@@ -786,6 +980,11 @@ $('document').ready(function () {
         const html = Object.values(cardContent).filter(v => v).join('');
         cardDisplay.insertAdjacentHTML('afterbegin', `<div id="phaseContainer" class="phaseContainer phaseContainer-${type}">${html}</div>`);
         attachPhaseElementListeners();
+        if (player) {
+            const replay = hasRecord(player);
+            turnRecordFor(player);          // make sure this turn has a slot
+            applySelections(player, replay);
+        }
         showHelp();
         replaceIconsWithImages();
 
@@ -819,6 +1018,8 @@ $('document').ready(function () {
                 // "Do all that apply" - independent toggles, nothing is ruled out.
                 if (pick === 'all') {
                     newEl.classList.toggle('active');
+                    newEl.classList.remove('replay');   // it is a live choice now
+                    recordSelections();
                     return;
                 }
 
@@ -834,7 +1035,9 @@ $('document').ready(function () {
                 } else {
                     return; // already at the limit; deselect one first
                 }
+                newEl.classList.remove('replay');       // it is a live choice now
 
+                recordSelections();
                 const active = allElements.filter(e => e.classList.contains('active'));
                 allElements.forEach(e => {
                     const rule = active.length === max && !e.classList.contains('active');

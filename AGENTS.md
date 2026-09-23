@@ -13,7 +13,7 @@ the player reference card. Served by nginx from the repo root (`docker-compose.y
 
 ```
 index.html             bootstrap; version string + feature flags live here
-assets/js/main.js      ALL logic, one jQuery ready() closure (~805 lines)
+assets/js/main.js      ALL logic, one jQuery ready() closure (~1080 lines)
 assets/css/main.css    dark theme, mobile-first (max-width 450px)
 assets/cards/en.json   live card + help + phase text, EN    <- edit these
 assets/cards/uk.json   live card + help + phase text, UK    <- edit these
@@ -292,8 +292,26 @@ Status: `open` / `done` / `wontfix`. Keep newest decisions at the bottom of a ro
 | D1 | Two orphan `</strong>` tags in EN `bounty/ig88` (planning[3], action[1]) injected raw into the DOM | `assets/cards/en.json` | **done** — removed; a tag-balance sweep over all 31 cards x 2 locales now reports zero unbalanced `strong`/`em`/`div`/`span`, and every `span.icon` name resolves to a file in `assets/images/assets/`. |
 | D2 | Human card: `action` step was missing one `</div>`, so the **encounter** step's `phaseItem` nested *inside* the action step — steps 2 and 3 rendered as one block, the step counter skipped a number, and clicking an encounter action crossed out the action step's bullets (`closest('.phaseItem')` walked up to the wrong step). Present in all 4 variants (both locales x both modes). | `player.*.action` both JSONs | **done** — closed the tag; also swapped the dead `multiplePhaseElements` class for `data-pick="all"`, which R2's handler actually reads, restoring "perform any or all" on the human action step. The earlier D1 tag sweep only covered `smuggler`/`bounty` — **always include `player` when checking markup.** |
 | C7 | `replaceIconsWithImages` re-matches its own `img.icon` output and wipes `alt` | `main.js` | **done** — selector narrowed to `span.icon`. It runs twice per render, and an `<img>` has no `textContent`, so the second pass was rewriting every `alt` to `""`. |
-| C8 | Solo cap is 2 AI of different types; app allows 3, any mix | `main.js` `addPlayerFromForm` / `populateCharacterDropdown` | **done** — enforced per **UB p. 11**. The character dropdown drops the type already taken (before either optgroup is built), and `addPlayerFromForm` rejects a 3rd AI or a same-type 2nd. Note base mode therefore allows exactly one AI, which is right: the bounty AI deck is expansion-only. Starting credits 6,000/8,000 and random AI turn order are still unmodelled. |
+| C8 | Solo cap is 2 AI of different types; app allows 3, any mix | `main.js` `addPlayerFromForm` / `populateCharacterDropdown` | **superseded by owner decision (v1.50).** These were hard limits; they are now **confirmations**. The dropdown offers every unused character, and `addPlayerFromForm` warns (then proceeds on OK) for: an expansion character in a base game, a base-mode bounty AI, a 3rd+ AI, and two AI of the same type. The only hard cap left is `maxPlayers` (4). Character uniqueness stays hard - `character.id` keys the decks, histories and selections. |
 | — | base-bounty deck branch in `shuffleAiDeck` is unreachable dead code (rules-correct) | `main.js` | **done** — deleted as part of R1. |
+
+---
+
+### Turn history (v1.49+)
+
+`turnNo` / `turnNoMax` are a **global turn cursor**: turns always cycle through players in
+order, so one number fixes both whose turn it is and which of their turns. `seekTurn(T)`
+derives `currentPlayerIndex` and every player's `currentCardIndex` from it - player `j`
+takes turns at `T = j, j+n, j+2n...`. Back/Forward/Fast-Forward all go through it, so the
+two representations cannot drift.
+
+`turnSel[characterId][turnIndex]` records which bullets were ticked, as `"item:bullet"`
+keys. **Humans have this too** - it is what gives them a history to rewind through, since
+their Player Turn card is otherwise identical every turn. A turn that already has a record
+is repainted with `.replay` (blue) rather than the live green; clicking a bullet drops
+`.replay` and re-records. Fast-Forward (`»`) appears whenever `turnNo < turnNoMax` and
+jumps straight to `turnNoMax`; while it is visible Forward takes `.withFF` and narrows so
+both fit the footer row.
 
 ---
 

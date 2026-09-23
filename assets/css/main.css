@@ -55,13 +55,72 @@ button {
 }
 
 .backCard {
-    width: 100px;
+    width: 70px;        /* a chevron needs far less room than the old "Back" label */
     margin-right: 10px;
+    font-size: 1.5em;
+    line-height: 1.1;
 }
 
 .nextCard {
 
     max-width: 270px;
+}
+
+/* With Fast-Forward alongside, all three footer buttons are the same 100px as Back,
+   so they sit as an even row. Forward is a chevron in that state; without FF the button
+   still reads "Next turn", so the larger glyph size only applies here. */
+.nextCard.withFF {
+    width: 70px;
+    max-width: 70px;
+    font-size: 1.5em;
+    line-height: 1.1;
+}
+
+/* The wordy one, so it takes the room the two chevrons gave up.
+   70 + 10 + 70 + 10 + 150 = 310px, inside a ~338px phone viewport. */
+/* "Next turn" is the one button you press every turn, so it carries more weight than
+   the history controls beside it. Kept within the 150px slot so the row is unchanged. */
+.ffCard.mainAction {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* An empty footer slot. Keeps the exact metrics of the button it stands in for, so the
+   remaining buttons never shift position; visibility:hidden also removes it as a click
+   target, so tapping a dead slot does nothing rather than doing the wrong thing. */
+.navPlaceholder {
+    visibility: hidden;
+}
+
+/* The "-N" a nav button would take you to: small and grey so the chevron stays the
+   thing you read. The buttons are 1.5em, so 0.5em of that lands around 12px. */
+.btnDepth {
+    font-size: 0.5em;
+    opacity: 0.55;
+    vertical-align: middle;
+    margin-left: 3px;
+    font-weight: normal;
+}
+
+/* On the forward button the number sits before the chevron ("-3 >"), mirroring the
+   back button ("< -5"), so the two read symmetrically either side of the footer. */
+.btnDepth.before {
+    margin-left: 0;
+    margin-right: 3px;
+}
+
+.ffCard {
+    width: 150px;
+    max-width: 150px;
+    margin-left: 10px;
+}
+
+/* A bullet ticked on a turn that is being replayed: blue, not the live green, so it is
+   obvious you are looking at what was done earlier rather than choosing now. */
+.phaseElement.active.replay,
+.phaseElement.active.replay * {
+    background-color: #cfe2f3;
+    color: #0b3a6b;
 }
 
 /* Make cardDisplay fill available height and be scrollable if needed */
@@ -112,17 +171,82 @@ img {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    position: relative; /* anchor for #helpControls */
+}
+
+/* Shown only while the help screen is open. Sits over the turn title, between the
+   help and fullscreen buttons, so it costs no extra vertical space on a phone. */
+#helpControls {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 42px;
+    right: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: #222;
+    z-index: 5;
+}
+
+#helpControls.hidden {
+    display: none;
+}
+
+#helpControls button,
+#helpControls select {
+    margin: 0;
+    width: auto;
+    padding: 2px 8px;
+    font-size: 14px;
+    background: #444;
+    color: #fff;
+    border-radius: 4px;
+}
+
+#helpControls select {
+    max-width: 62%;
 }
 
 .header-row button {
     width: auto;
     margin-right: 10px;
+    flex: 0 0 auto; /* buttons keep their size; only the title gives way */
 }
 
+/* The title must never wrap the header onto a second row: worst case is a long
+   nickname plus "Lando Calrissian" plus a #special/-N marker (~37 chars), which does
+   not fit a phone at any sane size. min-width:0 lets a flex item shrink below its
+   content, so the ellipsis can actually engage. */
 .header-row h2 {
     margin: 0;
-    flex-grow: 1;
-    text-align: center;
+    flex: 1 1 auto;
+    min-width: 0;          /* lets the flex item shrink below its content */
+    font-size: 17px;
+    line-height: 1.2;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* The nickname is the expendable part: it truncates so the character name and the
+   #card / -N / reshuffle markers stay readable. Worst case is a long nickname plus
+   "Lando Calrissian" plus a marker, which cannot fit a phone at any sane size. */
+.header-row h2 > .turnHeaderHint {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.header-row h2 > .turnHeaderName {
+    flex: 0 0 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 

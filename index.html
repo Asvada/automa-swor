@@ -9,7 +9,7 @@
     <script>
         const debug = false;
         const debugSpecial = false;
-        const version = '1.46.1'
+        const version = '1.51.3'
             +(debug?'&_='+Math.random():'');
         const useHumanCharacterImages = false;
         const useAiCharacterImages = false;
@@ -51,7 +51,7 @@
 
         <select id="playerCharacter"></select>
         <button id="randomCharacter">Random character</button>
-        <input type="text" id="playerNickname" placeholder="Player 1">
+        <input type="text" id="playerNickname" placeholder="Player 1" maxlength="16">
         <select id="playerColor"></select>
         <div id="playerFormError" style="color: #ff5555; margin: 5px 0; display: none;"></div>
 
@@ -64,6 +64,16 @@
         <div class="header-row">
             <button id="helpButton" title="Help">?</button>
             <h2 id="turnHeader"></h2>
+            <div id="helpControls" class="hidden">
+                <button id="localeToggle" title="Switch language">UK</button>
+                <select id="refDocs" title="Open a rulebook in a new tab">
+                    <option value="">Rulebook…</option>
+                    <option value="assets/ref_docs/swor-base.pdf">Learn to Play (EN)</option>
+                    <option value="assets/ref_docs/swor-outerrim.pdf">Unfinished Business (EN)</option>
+                    <option value="assets/ref_docs/swor_living_rules_reference.pdf">Rules Reference (EN)</option>
+                    <option value="assets/ref_docs/swor-base-ukr.pdf">Правила (UK)</option>
+                </select>
+            </div>
             <button id="fullscreenButton" title="Toggle fullscreen">⛶</button>
         </div>
         <div id="cardDisplay"></div>
