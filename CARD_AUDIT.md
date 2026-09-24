@@ -54,14 +54,35 @@ Every step of the player card has an extra final bullet, on none of the scans:
 | "Resolve an encounter card." | "Resolve a space encounter card (Planet, Maelstrom, Navpoint, Core Worlds)." |
 | "Resolve a contact token." | "Encounter facedown contact (resolve a databank card) or fight bounty." |
 
-### 2.4 Defeat cost is invented (this is worklog R5 — now confirmed from the scan)
+### 2.4 Defeat cost is misplaced, not invented (worklog R5 — corrected 2026-09-24)
 Both player scans print the recovery bullet as a single line with a **required** clause:
 
 - EN: "Recover all damage from character and ship **(required if you are defeated)**."
 - UK: "Зніми усі пошкодження **(обов'язково, якщо тебе спіткала невдача)**."
 
-The JSON drops "required" and instead attaches two sub-bullets that appear on **neither**
+The JSON dropped "required" and instead attached two sub-bullets that appear on **neither**
 card: "Pay 3,000 (if defeated)" and "Lose all secret cards (if defeated)".
+
+⚠ **The cost itself is a real rule** — this section previously called it "invented", which
+was wrong. Two sources state it:
+
+> **RR p. 9, "Defeated":** "When a player becomes defeated: · The player loses 3,000 credits
+> (or all of their credits if they have fewer than 3,000). · The player discards all of
+> their secrets."
+
+> **LTP p. 12, "Defeated":** "Tip your character standee over in your current space. Then
+> lose 3,000 credits and discard all of your secrets (place the encounter cards on the
+> bottom of their respective decks)."
+
+What was wrong is the **timing and the placement**: the cost is paid **at the moment of
+defeat**, as part of becoming defeated — not during the planning step, and not as a price
+for recovering. Hanging it off the recovery bullet said the opposite. Recovery itself is
+the only thing the planning step owns, and it is **mandatory** (RR p. 9, LTP p. 12).
+
+So the sub-bullets were right to leave the recovery bullet, but the rule they carried is
+group **(a)**, not group **(b)**: a correct rule in the wrong place. It is currently
+**absent from the app entirely** — no card bullet and no `help` entry mentions the 3,000
+or the secrets. See worklog R12.
 
 ---
 
@@ -161,11 +182,38 @@ read off the scan, not inferred:
 | `chewbacca` | *"highest-**rank** contact token … gain this contact as a crew member"* — card: *"highest **class** … gain **the crew on its card**"* | cosmetic |
 
 **A further systematic embellishment on every bounty-hunter card:** the cards all say
-plainly **"(character, crew, or contact)"**; the JSON expands this to
-*"(character, crew, face-up/face-down contact)"* in planning and narrows it to
-*"face-up contact"* in encounter. The RR priority list (p. 23) does distinguish faceup
-from facedown, so the intent is a clarification — but it is not the card's wording, and
-in the encounter step it changes the meaning.
+plainly **"(character, crew, or contact)"**; the JSON expanded this inline to
+*"(character, crew, face-up/face-down contact)"* in planning and narrowed it to
+*"face-up contact"* in encounter.
+
+⚠ **The encounter step used to narrow it further, to "face-up contact". That was wrong**
+and is fixed (worklog R12, 2026-09-24). Three passages settle it:
+
+- **RR p. 22, "Bounty Targets":** "A bounty target is a character, crew, or contact that
+  matches one of the AI player's bounties. If the AI player has a bounty that does not
+  match any character, crew, or faceup contact token on the map, the nearest facedown
+  contact token that matches that bounty's class … is considered to match that bounty."
+  One definition, serving both the move-toward and the encounter bullet.
+- **RR p. 23, target priority:** 1. Character 2. Crew 3. Faceup contact of the lowest class
+  4. **Facedown contact of the lowest class.**
+- **RR p. 24, "Bounty Encounters" → Contact Tokens:** "The AI player **can encounter
+  facedown and faceup** contact tokens. When encountering a facedown contact token, they
+  flip that token faceup. If the contact matches one of their bounties, they resolve an
+  unopposed bounty. Otherwise, the encounter ends."
+
+The last one is decisive and is specifically about the encounter step: a facedown token is
+encountered, flipped, and the encounter fizzles on a non-match.
+
+**How it reads now (owner's call, 2026-09-24):** the parenthetical is gone from the bullet
+in *both* steps. The bullet carries the p. 23 class qualifier — "Move toward **the lowest-class**
+bounty target." / "Encounter **the lowest-class** bounty target in this space." (UK:
+"…цілі розшуку **найнижчого ґатунку**") — and the target list lives entirely in one
+`appNote` below it, as the ranking rather than a flat list:
+
+> ℹ character → crew → face-up → face-down contact
+
+Note the p. 22 condition still applies to both steps: a facedown token counts as a bounty
+target only when nothing else on the map matches that bounty.
 
 **Cards that match their scan** (systematic issues aside): `smuggler/3,5,6,7,8,9`,
 `bounty/2,5`, `boba`, `ig88`, `bane`, `ketsu`, `enfys`, `erso`, `han`, `hera`, `lando`,
@@ -190,12 +238,13 @@ Planet/Maelstrom/Navpoint/Core-Worlds list on the human encounter bullet. These 
 cards longer than the physical ones — but removing them is a **product decision**, not a
 correction.
 
-**(b) Straight transcription errors.** Everything in the §4.3 table, plus the invented
-defeat cost in §2.4. These contradict the card and should simply be fixed.
+**(b) Straight transcription errors.** Everything in the §4.3 table. These contradict the
+card and should simply be fixed. §2.4's defeat cost was originally filed here; it belongs in
+(a) — the rule is real (RR p. 9, LTP p. 12), only its placement was wrong.
 
 **Both were applied** (owner's call, 2026-09-23):
 
-- **(b) fixed outright.** Every row of the §4.3 table plus §2.4's invented defeat cost.
+- **(b) fixed outright.** Every row of the §4.3 table plus §2.4's misplaced defeat cost.
   `bounty/4` regained its missing encounter bullet and was re-lettered a–e; `bossk`'s
   duplicate `b.` became `c.`; `maz` regained the "Buy ⟨luxury⟩" instruction.
 - **(a) kept, but marked.** The reminders stay for convenience and are tagged `appNote`
