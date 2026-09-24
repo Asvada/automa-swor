@@ -80,9 +80,21 @@ for recovering. Hanging it off the recovery bullet said the opposite. Recovery i
 the only thing the planning step owns, and it is **mandatory** (RR p. 9, LTP p. 12).
 
 So the sub-bullets were right to leave the recovery bullet, but the rule they carried is
-group **(a)**, not group **(b)**: a correct rule in the wrong place. It is currently
-**absent from the app entirely** — no card bullet and no `help` entry mentions the 3,000
-or the secrets. See worklog R12.
+group **(a)**, not group **(b)**: a correct rule in the wrong place.
+
+**Reinstated 2026-09-24 (worklog R12).** The recovery bullet is now card-verbatim without
+the parenthetical, and both facts hang off it as marked `appNote` blocks — the mandatory
+clause first, then the cost, stated with the timing the rulebooks give:
+
+> Recover all damage from character and ship.
+> ℹ required **if defeated**
+> ℹ spend 3 000 **if defeated**
+
+⚠ Owner's wording, deliberately terse. Two things it does not say, both known and accepted:
+the **secrets** half of the cost (RR p. 9: "discards all of their secrets") is not shown,
+and the note sits under the recovery bullet, so it still reads as if the 3,000 were paid
+during the planning step rather than at the moment of defeat. The timing is recorded here
+and in section 4 of AGENTS.md instead.
 
 ---
 

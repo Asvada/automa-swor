@@ -420,6 +420,48 @@ img.icon {
     border: 0;
 }
 
+/* Header naming the ruleset the help panel is currently showing (player, smuggler
+   AI, bounty hunter AI). The fragments below it are filtered by that same type, so
+   without this the three panels look interchangeable. */
+#helpScreen .helpTitle {
+    background-color: #8f8c55;
+    color: #17150f;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 5px 8px;
+    margin-bottom: 4px;
+}
+
+/* focus.png is by far the widest glyph in the set (118x73, a 1.6:1 eye against
+   ~1:1 for crit/hit/hp), so sizing it by height like the rest makes it render
+   nearly twice as wide and read as a much bigger icon. Size this one by width
+   instead, so its footprint matches its neighbours. */
+img.icon.focus {
+    height: auto;
+    width: 1.35em;
+}
+
+/* A count that belongs to the icon next to it ("2 damage", "credits 4 000").
+   The data puts them adjacent with no whitespace between, so the only gap left
+   is the icon's own 2px margin - pulled back to 0 on the side facing the number
+   so the pair reads as one token. */
+.iconNum {
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+img.icon + .iconNum {
+    margin-left: -2px;
+}
+
+.iconNum + img.icon {
+    margin-left: -2px;
+}
+
 
 /* ---------------------------------------------------------------------------
    ?debug=whole-deck - every card on one scrollable page, both locales beside the

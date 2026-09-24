@@ -14,7 +14,7 @@
         //   ?debug&ai=han,boba&mode=base&locale=en&human=erso   seat a table and start
         const debug = new URLSearchParams(location.search).has('debug');
         const debugWholeDeck = new URLSearchParams(location.search).get('debug') === 'whole-deck';
-        const version = '1.54.2'
+        const version = '1.56.0'
             +(debug?'&_='+Math.random():'');
         // Under debug the photographed card is rendered beside the transcription, which
         // is the audit the project actually runs on (AGENTS.md section 2).

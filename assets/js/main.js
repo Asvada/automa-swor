@@ -487,6 +487,12 @@ $('document').ready(function () {
             content = '';
 
             let playerType = player.type === "human" ?"human": player.character.type;
+
+            // Which ruleset the panel is showing. The help fragments are filtered by
+            // playerType below, so without this the three sets are indistinguishable.
+            const helpTitle = (cardsData.helpTitle || {})[playerType];
+            if (helpTitle) content += `<div class="helpTitle">${helpTitle}</div>`;
+
             $.each(cardsData.help, function(k,v){
                 if (
                     ($.inArray(playerType, v.characterType)>-1 || v.characterType.length == 0)
@@ -1237,6 +1243,11 @@ $('document').ready(function () {
                 say(`${c.type}/${c.id}`, `${c.name}'s character card has no entry`);
             }
         });
+        if (!data.helpTitle) say("helpTitle", "missing");
+        else ["human", "smuggler", "bounty"].forEach(pt => {
+            if (!data.helpTitle[pt]) say(`helpTitle.${pt}`, "missing");
+        });
+
         if (!data.phases) say("phases", "missing");
         else ["planning", "action", "encounter", "special"].forEach(s => {
             if (!data.phases[s]) say(`phases.${s}`, "missing");
