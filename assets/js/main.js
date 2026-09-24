@@ -1243,6 +1243,25 @@ $('document').ready(function () {
                 say(`${c.type}/${c.id}`, `${c.name}'s character card has no entry`);
             }
         });
+        // A bulk text pass over the locale file must never touch these: they are
+        // filter keys, not prose. When one did (a keyword-bolding sweep wrapped the
+        // value "bounty" in <strong>), every bounty-hunter help fragment silently
+        // stopped matching and vanished from the panel - with the markup still
+        // balanced, so no other check noticed.
+        (data.help || []).forEach((entry, i) => {
+            ["gameMode", "characterType"].forEach(key => {
+                (entry[key] || []).forEach(val => {
+                    if (/[<>]/.test(val)) say(`help[${i}].${key}`, `markup in filter value "${val}"`);
+                });
+            });
+            (entry.gameMode || []).forEach(v => {
+                if (["base", "expansion"].indexOf(v) < 0) say(`help[${i}].gameMode`, `unknown value "${v}"`);
+            });
+            (entry.characterType || []).forEach(v => {
+                if (["human", "smuggler", "bounty"].indexOf(v) < 0) say(`help[${i}].characterType`, `unknown value "${v}"`);
+            });
+        });
+
         if (!data.helpTitle) say("helpTitle", "missing");
         else ["human", "smuggler", "bounty"].forEach(pt => {
             if (!data.helpTitle[pt]) say(`helpTitle.${pt}`, "missing");

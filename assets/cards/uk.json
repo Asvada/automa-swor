@@ -3,20 +3,20 @@
     "base": {
       "planning": "<div class=\"phaseItem\"><div class=\"phaseName\">Фаза планування<div class=\"phaseHint\"> - Обери <strong>лише 1</strong></div></div><div class=\"phase1Element phaseElement\">Рухайся в межах <span class=\"icon hyperdrive\">гіперприводу</span> твого корабля.</div><div class=\"phase1Element phaseElement\">Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>.</div><div class=\"phase1Element phaseElement\">Зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">обов'язково <strong>якщо спіткала невдача</strong></div><div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div></div><div class=\"phase1Element phaseElement appNote\">Розіграй фазу \"<strong>Планування</strong>\".<div class=\"phaseSubElement appNote\">На карті Персонажа, Корабля, Екіпажу, Секретній чи іншій карті.</div></div></div>",
       "action": "<div class=\"phaseItem\" data-pick=\"all\"><div class=\"phaseName\">Фаза дії<div class=\"phaseHint\"> - Виконай <strong>будь-яку або всі</strong></div></div><div class=\"phase2Element phaseElement\">Достав <span class=\"icon cargo\">вантаж</span> <strong>та</strong> <span class=\"icon bounty\">розшуку</span>.</div><div class=\"phase2Element phaseElement\">Дія ринку (<strong>якщо на планеті</strong>).<div class=\"phaseSubElement\"> Можеш прокрутити колоду ринку.</div><div class=\"phaseSubElement\">  Можеш купити верхню карту колоди ринку. Потім, розіграй рух <strong>патруля</strong> на наступній карті, якщо є.</div></div><div class=\"phase2Element phaseElement\">Уклади угоду з гравцем у твоєму терені.</div><div class=\"phase2Element phaseElement appNote\">Розіграй фазу \"<strong>Дія</strong>\".<div class=\"phaseSubElement appNote\">На карті Персонажа, Корабля, Екіпажу, Вантажу, Спорядження, Модифікації, Секретній, Амбіції чи іншій карті.</div></div></div>",
-      "encounter": "<div class=\"phaseItem\"><div class=\"phaseName\">Фаза зустрічей<div class=\"phaseHint\"> - Обери <strong>лише 1</strong></div></div><div class=\"phase3Element phaseElement\">Бій з <strong>патрулем</strong>.<div class=\"phaseSubElement appNote\">Обов'язково, якщо маєш <span class=\"icon negative\">негативну</span> <strong>репутацію</strong> у фракції <strong>патруля</strong> в твоєму терені.</div></div><div class=\"phase3Element phaseElement\">Відкрий карту <strong>зустрічей</strong>.<div class=\"phaseSubElement appNote\">Планета, Вирвище, <strong>Навігаційна точка</strong>.</div></div><div class=\"phase3Element phaseElement\">Відкрий <strong>контакт</strong>.<div class=\"phaseSubElement appNote\">Розіграй карту <strong>банку даних</strong> або вступи в бій з <strong>розшуком</strong>.</div></div><div class=\"phase3Element phaseElement appNote\">Розіграй фазу \"<strong>Зустріч</strong>\".<div class=\"phaseSubElement appNote\">На карті Персонажа, Корабля, Екіпажу, Секретній, Амбіції чи іншій карті.</div></div></div>",
+      "encounter": "<div class=\"phaseItem\"><div class=\"phaseName\">Фаза зустрічей<div class=\"phaseHint\"> - Обери <strong>лише 1</strong></div></div><div class=\"phase3Element phaseElement\">Бій з <strong>патрулем</strong>.<div class=\"phaseSubElement appNote\">Обов'язково, якщо маєш <span class=\"icon negative\">негативну</span> <strong>репутацію</strong> у фракції <strong>патруля</strong> в твоєму терені.</div></div><div class=\"phase3Element phaseElement\">Відкрий карту <strong>зустрічей</strong>.<div class=\"phaseSubElement appNote\">Планета, Вирвище, Навігаційна точка.</div></div><div class=\"phase3Element phaseElement\">Відкрий <strong>контакт</strong>.<div class=\"phaseSubElement appNote\">Розіграй карту <strong>банку даних</strong> або вступи в бій з <strong>розшуком</strong>.</div></div><div class=\"phase3Element phaseElement appNote\">Розіграй фазу \"<strong>Зустріч</strong>\".<div class=\"phaseSubElement appNote\">На карті Персонажа, Корабля, Екіпажу, Секретній, Амбіції чи іншій карті.</div></div></div>",
       "special": ""
     },
     "expansion": {
       "planning": "<div class=\"phaseItem\"><div class=\"phaseName\">Фаза планування<div class=\"phaseHint\"> - Обери <strong>лише 1</strong></div></div><div class=\"phase1Element phaseElement\">Рухайся в межах <span class=\"icon hyperdrive\">гіперприводу</span> твого корабля.</div><div class=\"phase1Element phaseElement\">Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>.</div><div class=\"phase1Element phaseElement\">Зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">обов'язково <strong>якщо спіткала невдача</strong></div><div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div></div><div class=\"phase1Element phaseElement appNote\">Розіграй фазу \"<strong>Планування</strong>\".<div class=\"phaseSubElement appNote\">На карті Персонажа, Корабля, Екіпажу, Секретній чи іншій карті.</div></div></div>",
       "action": "<div class=\"phaseItem\" data-pick=\"all\"><div class=\"phaseName\">Фаза дії<div class=\"phaseHint\"> - Виконай <strong>будь-яку або всі</strong></div></div><div class=\"phase2Element phaseElement\">Достав <span class=\"icon cargo\">вантаж</span> <strong>та</strong> <span class=\"icon bounty\">розшуку</span>.</div><div class=\"phase2Element phaseElement\">Дія на ринку (<strong>якщо на планеті</strong>).<div class=\"phaseSubElement\">  Можеш скинути до <strong>2</strong> карт з верху <strong>однієї</strong> колоди ринку.</div><div class=\"phaseSubElement\">  Можеш купити верхню карту колоди ринку. Потім розіграй рух <strong>патруля</strong> та відкрий <strong>контакти</strong> на наступній карті.</div></div><div class=\"phase2Element phaseElement\">Уклади угоду з гравцем у твоєму терені.</div><div class=\"phase2Element phaseElement appNote\">Розіграй фазу \"<strong>Дія</strong>\".<div class=\"phaseSubElement appNote\">На карті Персонажа, Корабля, Екіпажу, Вантажу, Спорядження, Модифікації, Секретній, Амбіції чи іншій карті.</div></div></div>",
-      "encounter": "<div class=\"phaseItem\"><div class=\"phaseName\">Фаза зустрічей<div class=\"phaseHint\"> - Обери <strong>лише 1</strong></div></div><div class=\"phase3Element phaseElement\">Бій з <strong>патрулем</strong>.<div class=\"phaseSubElement appNote\">Обов'язково, якщо маєш <span class=\"icon negative\">негативну</span> <strong>репутацію</strong> у фракції <strong>патруля</strong> в твоєму терені.</div></div><div class=\"phase3Element phaseElement\">Відкрий карту <strong>зустрічей</strong>.<div class=\"phaseSubElement appNote\">Планета, Вирвище, <strong>Навігаційна точка</strong>, Центральні Світи.</div></div><div class=\"phase3Element phaseElement\">Відкрий <strong>контакт</strong>.<div class=\"phaseSubElement appNote\">Розіграй карту <strong>банку даних</strong> або вступи в бій з <strong>розшуком</strong>.</div></div><div class=\"phase3Element phaseElement appNote\">Розіграй фазу \"<strong>Зустріч</strong>\".<div class=\"phaseSubElement appNote\">На карті Персонажа, Корабля, Екіпажу, Секретній, Амбіції чи іншій карті.</div></div></div>",
+      "encounter": "<div class=\"phaseItem\"><div class=\"phaseName\">Фаза зустрічей<div class=\"phaseHint\"> - Обери <strong>лише 1</strong></div></div><div class=\"phase3Element phaseElement\">Бій з <strong>патрулем</strong>.<div class=\"phaseSubElement appNote\">Обов'язково, якщо маєш <span class=\"icon negative\">негативну</span> <strong>репутацію</strong> у фракції <strong>патруля</strong> в твоєму терені.</div></div><div class=\"phase3Element phaseElement\">Відкрий карту <strong>зустрічей</strong>.<div class=\"phaseSubElement appNote\">Планета, Вирвище, Навігаційна точка, Центральні Світи.</div></div><div class=\"phase3Element phaseElement\">Відкрий <strong>контакт</strong>.<div class=\"phaseSubElement appNote\">Розіграй карту <strong>банку даних</strong> або вступи в бій з <strong>розшуком</strong>.</div></div><div class=\"phase3Element phaseElement appNote\">Розіграй фазу \"<strong>Зустріч</strong>\".<div class=\"phaseSubElement appNote\">На карті Персонажа, Корабля, Екіпажу, Секретній, Амбіції чи іншій карті.</div></div></div>",
       "special": ""
     }
   },
   "bounty": {
     "1": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до цілі <strong>розшуку</strong> найнижчого ґатунку.<div class=\"phaseSubElement appNote\">персонаж &rarr; член <strong>екіпажу</strong> &rarr; відкритий &rarr; закритий <strong>контакт</strong></div><div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів</span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -33,7 +33,7 @@
     },
     "2": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до цілі <strong>розшуку</strong> найнижчого ґатунку.<div class=\"phaseSubElement appNote\">персонаж &rarr; член <strong>екіпажу</strong> &rarr; відкритий &rarr; закритий <strong>контакт</strong></div><div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -52,7 +52,7 @@
     },
     "3": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до цілі <strong>розшуку</strong> найнижчого ґатунку.<div class=\"phaseSubElement appNote\">персонаж &rarr; член <strong>екіпажу</strong> &rarr; відкритий &rarr; закритий <strong>контакт</strong></div><div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -68,7 +68,7 @@
     },
     "4": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до цілі <strong>розшуку</strong> найнижчого ґатунку.<div class=\"phaseSubElement appNote\">персонаж &rarr; член <strong>екіпажу</strong> &rarr; відкритий &rarr; закритий <strong>контакт</strong></div><div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -86,7 +86,7 @@
     },
     "5": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до цілі <strong>розшуку</strong> найнижчого ґатунку.<div class=\"phaseSubElement appNote\">персонаж &rarr; член <strong>екіпажу</strong> &rarr; відкритий &rarr; закритий <strong>контакт</strong></div><div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -103,7 +103,7 @@
     },
     "bane": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до цілі <strong>розшуку</strong> найнижчого ґатунку.<div class=\"phaseSubElement appNote\">персонаж &rarr; член <strong>екіпажу</strong> &rarr; відкритий &rarr; закритий <strong>контакт</strong></div><div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -122,7 +122,7 @@
     },
     "boba": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до цілі <strong>розшуку</strong> найнижчого ґатунку.<div class=\"phaseSubElement appNote\">персонаж &rarr; член <strong>екіпажу</strong> &rarr; відкритий &rarr; закритий <strong>контакт</strong></div><div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -141,7 +141,7 @@
     },
     "bossk": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до найближчого іншого <strong>гравця, якого не спіткала невдача</strong>, якщо Босск може дістатися до його терену.",
         "в. Рухайся до цілі <strong>розшуку</strong> найнижчого ґатунку.<div class=\"phaseSubElement appNote\">персонаж &rarr; член <strong>екіпажу</strong> &rarr; відкритий &rarr; закритий <strong>контакт</strong></div><div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "г. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
@@ -160,7 +160,7 @@
     },
     "dengar": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся безпосередньо до терену іншого гравця з найбільшою кількістю <span class=\"icon negative\">негативної</span> <strong>репутації</strong> (мінімум 1). <div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Кожен інший гравець втрачає <strong>1 репутацію</strong> на свій вибір."
       ],
@@ -179,7 +179,7 @@
     "ig88": {
       "planning": [
         "!. <strong>Якщо IG-88 має принаймні 1 члена екіпажу <span class=\"icon droid\">дроїда</span></strong>, виконай ПЕРШІ 2, які застосовуються.",
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до цілі <strong>розшуку</strong> найнижчого ґатунку.<div class=\"phaseSubElement appNote\">персонаж &rarr; член <strong>екіпажу</strong> &rarr; відкритий &rarr; закритий <strong>контакт</strong></div><div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong> за кожного члена <strong>екіпажу</strong> <span class=\"icon droid\">дроїда</span> IG-88."
       ],
@@ -197,7 +197,7 @@
     },
     "ketsu": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до цілі <strong>розшуку</strong> найнижчого ґатунку.<div class=\"phaseSubElement appNote\">персонаж &rarr; член <strong>екіпажу</strong> &rarr; відкритий &rarr; закритий <strong>контакт</strong></div><div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -215,7 +215,7 @@
     },
     "krrsantan": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до цілі <strong>розшуку</strong> найнижчого ґатунку.<div class=\"phaseSubElement appNote\">персонаж &rarr; член <strong>екіпажу</strong> &rarr; відкритий &rarr; закритий <strong>контакт</strong></div><div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -236,7 +236,7 @@
   "smuggler": {
     "1": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до найближчого жетона мети.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -271,7 +271,7 @@
     },
     "3": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до найближчого жетона мети.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -288,7 +288,7 @@
     },
     "4": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до найближчого жетона мети.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -306,7 +306,7 @@
     },
     "5": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до найближчого жетона мети.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -340,7 +340,7 @@
     },
     "7": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до найближчого жетона мети.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -357,7 +357,7 @@
     },
     "8": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до найближчого жетона мети.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -376,7 +376,7 @@
     },
     "9": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до найближчого жетона мети.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -393,7 +393,7 @@
     },
     "10": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до найближчого жетона мети.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -412,7 +412,7 @@
     },
     "afra": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до найближчого жетона мети.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Купи <span class=\"icon ship\">карту корабля</span>. Якщо неможливо, купи <span class=\"icon gear\">карту спорядження</span>."
       ],
@@ -448,7 +448,7 @@
     },
     "enfys": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до найближчого жетона мети.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -466,7 +466,7 @@
     },
     "erso": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до найближчої цілі або <strong>Імперської планети</strong>.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -485,7 +485,7 @@
     },
     "han": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до найближчого жетона мети. Якщо Хан має корабель вартістю <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">15&nbsp;000</strong> або більше, ігноруй <strong>патрулі</strong> під час руху.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -504,7 +504,7 @@
     },
     "hera": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до найближчого жетона мети.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -524,7 +524,7 @@
     },
     "hondo": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до найближчого іншого гравця, якщо Гондо Онака може дістатися до його терену.<div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Рухайся до найближчого жетона мети. <div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>"
       ],
@@ -543,7 +543,7 @@
     },
     "lando": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до найближчого жетона мети.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -562,7 +562,7 @@
     },
     "maz": {
       "planning": [
-        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.",
+        "а. <strong>Якщо спіткала невдача</strong>, зніми усі <span class=\"icon damage\">пошкодження</span>.<div class=\"phaseSubElement appNote\">витрати <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>якщо спіткала невдача</strong></div>",
         "б. Рухайся до найближчого жетона мети.<div class=\"phaseSubElement appNote\">Якщо ти маєш зупинитися на <strong>навігаційній точці</strong>, а дорогою минув планету не далі ніж за 2 терени, повернися на ту планету.</div><div class=\"phaseSubElement appNote\">Не зупиняйся на Вирвищі.</div>",
         "в. Отримай <span class=\"icon credits\">кредитів </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -640,7 +640,7 @@
       "characterType": [
         "human"
       ],
-      "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Де здобути <strong>славу</strong></div><div class=\"phaseElement\">Персональна мета.</div><div class=\"phaseElement\">Мета корабля.</div><div class=\"phaseElement\"><strong>Розшуки</strong>.</div><div class=\"phaseElement\"><strong>Халтурки</strong>.</div><div class=\"phaseElement\">Доставка <strong>протизаконних</strong> <strong>вантажів</strong>.</div><div class=\"phaseElement\">Перемога над <strong>патрулями</strong> 2 і 3 рівнів.</div><div class=\"phaseElement\">Карти з <span class=\"icon luxury\">предметів розкоші</span> колоди ринку.</div></div>"
+      "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Де здобути <strong>славу</strong></div><div class=\"phaseElement\">Персональна мета.</div><div class=\"phaseElement\">Мета корабля.</div><div class=\"phaseElement\">Розшуки.</div><div class=\"phaseElement\">Халтурки.</div><div class=\"phaseElement\">Доставка протизаконних вантажів.</div><div class=\"phaseElement\">Перемога над патрулями 2 і 3 рівнів.</div><div class=\"phaseElement\">Карти з <span class=\"icon luxury\">предметів розкоші</span> колоди ринку.</div></div>"
     },
     {
       "gameMode": [
@@ -745,7 +745,7 @@
         "smuggler",
         "bounty"
       ],
-      "content": "<div class=\"phaseSubElement\"><strong>Халтурка</strong> \"Розшукується\", \"Інформаційний брокер\" або карта \"Особливе замовлення\"</div>"
+      "content": "<div class=\"phaseSubElement\">Халтурка \"Розшукується\", \"Інформаційний брокер\" або карта \"Особливе замовлення\"</div>"
     },
     {
       "gameMode": [],

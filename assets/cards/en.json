@@ -3,20 +3,20 @@
     "base": {
       "planning": "<div class=\"phaseItem\"><div class=\"phaseName\">Planning step<div class=\"phaseHint\"> - Choose <strong>only 1</strong></div></div><div class=\"phase1Element phaseElement\">Move up to your ship’s <span class=\"icon hyperdrive\">hyperdrive</span>.</div><div class=\"phase1Element phaseElement\">Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>.</div><div class=\"phase1Element phaseElement\">Recover all <span class=\"icon damage\">damage</span> from character and ship.<div class=\"phaseSubElement appNote\">required <strong>if defeated</strong></div><div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div></div><div class=\"phase1Element phaseElement appNote\">Play any \"<strong>Planning</strong>\".<div class=\"phaseSubElement appNote\">On Player, Ship, Crew, Secret or any other card.</div></div></div>",
       "action": "<div class=\"phaseItem\" data-pick=\"all\"><div class=\"phaseName\">Action step<div class=\"phaseHint\"> - Perform  <strong>any or all</strong></div></div><div class=\"phase2Element phaseElement\">Deliver <span class=\"icon cargo\">cargo</span> <strong>and</strong> <span class=\"icon bounty\">bounties</span>.</div><div class=\"phase2Element phaseElement\">Market action (<strong>if on a planet</strong>).<div class=\"phaseSubElement\">  May discard a card from top of a  market deck.</div><div class=\"phaseSubElement\">  May buy top card of a market deck. Then, resolve <strong>patrol</strong> movement on next card, if any.</div></div><div class=\"phase2Element phaseElement\">Trade cards with a player in your space.</div><div class=\"phase2Element phaseElement appNote\">Play any \"<strong>Action</strong>\".<div class=\"phaseSubElement appNote\">On Player, Ship, Crew, Cargo, Gear, Mod, Secret, Ambition or any other card.</div></div></div>",
-      "encounter": "<div class=\"phaseItem\"><div class=\"phaseName\">Encounter step<div class=\"phaseHint\"> - Choose <strong>only 1</strong></div></div><div class=\"phase3Element phaseElement\">Fight a <strong>patrol</strong>.<div class=\"phaseSubElement appNote\">Required if you have <span class=\"icon negative\">negative</span> <strong>reputation</strong> with a <strong>patrol</strong> in your space.</div></div><div class=\"phase3Element phaseElement\">Resolve an <strong>encounter</strong> card.<div class=\"phaseSubElement appNote\">Planet, Maelstrom, <strong>Navpoint</strong>.</div></div><div class=\"phase3Element phaseElement\">Resolve a <strong>contact</strong> token.<div class=\"phaseSubElement appNote\">Resolve a <strong>databank</strong> card, or fight a <strong>bounty</strong>.</div></div><div class=\"phase3Element phaseElement appNote\">Play any \"<strong>Encounter</strong>\".<div class=\"phaseSubElement appNote\">On Player, Ship, Crew, Secret, Ambition or any other card.</div></div></div>",
+      "encounter": "<div class=\"phaseItem\"><div class=\"phaseName\">Encounter step<div class=\"phaseHint\"> - Choose <strong>only 1</strong></div></div><div class=\"phase3Element phaseElement\">Fight a <strong>patrol</strong>.<div class=\"phaseSubElement appNote\">Required if you have <span class=\"icon negative\">negative</span> <strong>reputation</strong> with a <strong>patrol</strong> in your space.</div></div><div class=\"phase3Element phaseElement\">Resolve an <strong>encounter</strong> card.<div class=\"phaseSubElement appNote\">Planet, Maelstrom, Navpoint.</div></div><div class=\"phase3Element phaseElement\">Resolve a <strong>contact</strong> token.<div class=\"phaseSubElement appNote\">Resolve a <strong>databank</strong> card, or fight a <strong>bounty</strong>.</div></div><div class=\"phase3Element phaseElement appNote\">Play any \"<strong>Encounter</strong>\".<div class=\"phaseSubElement appNote\">On Player, Ship, Crew, Secret, Ambition or any other card.</div></div></div>",
       "special": ""
     },
     "expansion": {
       "planning": "<div class=\"phaseItem\"><div class=\"phaseName\">Planning step<div class=\"phaseHint\"> - Choose <strong>only 1</strong></div></div><div class=\"phase1Element phaseElement\">Move up to your ship’s <span class=\"icon hyperdrive\">hyperdrive</span>.</div><div class=\"phase1Element phaseElement\">Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>.</div><div class=\"phase1Element phaseElement\">Recover all <span class=\"icon damage\">damage</span> from character and ship.<div class=\"phaseSubElement appNote\">required <strong>if defeated</strong></div><div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div></div><div class=\"phase1Element phaseElement appNote\">Play any \"<strong>Planning</strong>\".<div class=\"phaseSubElement appNote\">On Player, Ship, Crew, Secret or any other card.</div></div></div>",
       "action": "<div class=\"phaseItem\" data-pick=\"all\"><div class=\"phaseName\">Action step<div class=\"phaseHint\"> - Perform  <strong>any or all</strong></div></div><div class=\"phase2Element phaseElement\">Deliver <span class=\"icon cargo\">cargo</span> <strong>and</strong> <span class=\"icon bounty\">bounties</span>.</div><div class=\"phase2Element phaseElement\">Market action (<strong>if on a planet</strong>).<div class=\"phaseSubElement\">  May discard up to <strong>2</strong> cards from top of a <strong>single</strong> market deck.</div><div class=\"phaseSubElement\">  May buy top card of a market deck. Then resolve <strong>patrol</strong> movement and reveal <strong>contacts</strong> on the next card.</div></div><div class=\"phase2Element phaseElement\">Trade cards with a player in your space.</div><div class=\"phase2Element phaseElement appNote\">Play any \"<strong>Action</strong>\".<div class=\"phaseSubElement appNote\">On Player, Ship, Crew, Cargo, Gear, Mod, Secret, Ambition or any other card.</div></div></div>",
-      "encounter": "<div class=\"phaseItem\"><div class=\"phaseName\">Encounter step<div class=\"phaseHint\"> - Choose <strong>only 1</strong></div></div><div class=\"phase3Element phaseElement\">Fight a <strong>patrol</strong>.<div class=\"phaseSubElement appNote\">Required if you have <span class=\"icon negative\">negative</span> <strong>reputation</strong> with a <strong>patrol</strong> in your space.</div></div><div class=\"phase3Element phaseElement\">Resolve an <strong>encounter</strong> card.<div class=\"phaseSubElement appNote\">Planet, Maelstrom, <strong>Navpoint</strong>, Core Worlds.</div></div><div class=\"phase3Element phaseElement\">Resolve a <strong>contact</strong> token.<div class=\"phaseSubElement appNote\">Resolve a <strong>databank</strong> card, or fight a <strong>bounty</strong>.</div></div><div class=\"phase3Element phaseElement appNote\">Play any \"<strong>Encounter</strong>\".<div class=\"phaseSubElement appNote\">On Player, Ship, Crew, Secret, Ambition or any other card.</div></div></div>",
+      "encounter": "<div class=\"phaseItem\"><div class=\"phaseName\">Encounter step<div class=\"phaseHint\"> - Choose <strong>only 1</strong></div></div><div class=\"phase3Element phaseElement\">Fight a <strong>patrol</strong>.<div class=\"phaseSubElement appNote\">Required if you have <span class=\"icon negative\">negative</span> <strong>reputation</strong> with a <strong>patrol</strong> in your space.</div></div><div class=\"phase3Element phaseElement\">Resolve an <strong>encounter</strong> card.<div class=\"phaseSubElement appNote\">Planet, Maelstrom, Navpoint, Core Worlds.</div></div><div class=\"phase3Element phaseElement\">Resolve a <strong>contact</strong> token.<div class=\"phaseSubElement appNote\">Resolve a <strong>databank</strong> card, or fight a <strong>bounty</strong>.</div></div><div class=\"phase3Element phaseElement appNote\">Play any \"<strong>Encounter</strong>\".<div class=\"phaseSubElement appNote\">On Player, Ship, Crew, Secret, Ambition or any other card.</div></div></div>",
       "special": ""
     }
   },
   "bounty": {
     "1": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward the lowest-class <strong>bounty</strong> target.<div class=\"phaseSubElement appNote\">character &rarr; <strong>crew</strong> &rarr; face-up &rarr; face-down <strong>contact</strong></div><div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits</span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -33,7 +33,7 @@
     },
     "2": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward the lowest-class <strong>bounty</strong> target.<div class=\"phaseSubElement appNote\">character &rarr; <strong>crew</strong> &rarr; face-up &rarr; face-down <strong>contact</strong></div><div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -52,7 +52,7 @@
     },
     "3": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward the lowest-class <strong>bounty</strong> target.<div class=\"phaseSubElement appNote\">character &rarr; <strong>crew</strong> &rarr; face-up &rarr; face-down <strong>contact</strong></div><div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -68,7 +68,7 @@
     },
     "4": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward the lowest-class <strong>bounty</strong> target.<div class=\"phaseSubElement appNote\">character &rarr; <strong>crew</strong> &rarr; face-up &rarr; face-down <strong>contact</strong></div><div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -86,7 +86,7 @@
     },
     "5": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward the lowest-class <strong>bounty</strong> target.<div class=\"phaseSubElement appNote\">character &rarr; <strong>crew</strong> &rarr; face-up &rarr; face-down <strong>contact</strong></div><div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -103,7 +103,7 @@
     },
     "bane": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward the lowest-class <strong>bounty</strong> target.<div class=\"phaseSubElement appNote\">character &rarr; <strong>crew</strong> &rarr; face-up &rarr; face-down <strong>contact</strong></div><div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -122,7 +122,7 @@
     },
     "boba": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward the lowest-class <strong>bounty</strong> target.<div class=\"phaseSubElement appNote\">character &rarr; <strong>crew</strong> &rarr; face-up &rarr; face-down <strong>contact</strong></div><div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -141,7 +141,7 @@
     },
     "bossk": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward nearest other <strong>undefeated</strong> player, if Bossk can reach their space.",
         "c. Move toward the lowest-class <strong>bounty</strong> target.<div class=\"phaseSubElement appNote\">character &rarr; <strong>crew</strong> &rarr; face-up &rarr; face-down <strong>contact</strong></div><div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "d. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
@@ -160,7 +160,7 @@
     },
     "dengar": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move directly to the space of the other player with the most <span class=\"icon negative\">negative</span> <strong>reputations</strong> (minimum of 1). <div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Each other player loses <strong>1 reputation</strong> of their choice."
       ],
@@ -179,7 +179,7 @@
     "ig88": {
       "planning": [
         "!. <strong>If IG-88 has at least 1 <span class=\"icon droid\">droid</span></strong> <strong>crew</strong>, do the FIRST 2 that apply.",
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward the lowest-class <strong>bounty</strong> target.<div class=\"phaseSubElement appNote\">character &rarr; <strong>crew</strong> &rarr; face-up &rarr; face-down <strong>contact</strong></div><div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong> for each of IG-88's <span class=\"icon droid\">droid</span> <strong>crew</strong>."
       ],
@@ -197,7 +197,7 @@
     },
     "ketsu": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward the lowest-class <strong>bounty</strong> target.<div class=\"phaseSubElement appNote\">character &rarr; <strong>crew</strong> &rarr; face-up &rarr; face-down <strong>contact</strong></div><div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -215,7 +215,7 @@
     },
     "krrsantan": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward the lowest-class <strong>bounty</strong> target.<div class=\"phaseSubElement appNote\">character &rarr; <strong>crew</strong> &rarr; face-up &rarr; face-down <strong>contact</strong></div><div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -236,7 +236,7 @@
   "smuggler": {
     "1": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -271,7 +271,7 @@
     },
     "3": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -288,7 +288,7 @@
     },
     "4": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -306,7 +306,7 @@
     },
     "5": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -340,7 +340,7 @@
     },
     "7": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -357,7 +357,7 @@
     },
     "8": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -376,7 +376,7 @@
     },
     "9": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -393,7 +393,7 @@
     },
     "10": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -412,7 +412,7 @@
     },
     "afra": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Buy a <span class=\"icon ship\">ship card</span>. If unable, buy a <span class=\"icon gear\">gear card</span>."
       ],
@@ -448,7 +448,7 @@
     },
     "enfys": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -466,7 +466,7 @@
     },
     "erso": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward closest goal or <strong>Imperial planet</strong>.<div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -485,7 +485,7 @@
     },
     "han": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward closest goal. If Han has a ship with cost of <span class=\"icon credits\">credits </span><strong class=\"iconNum\">15&nbsp;000</strong> or more, ignore <strong>patrols</strong> during movement.<div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -504,7 +504,7 @@
     },
     "hera": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -524,7 +524,7 @@
     },
     "hondo": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward nearest other player, if Hondo Ohnaka can reach their space.<div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Move toward closest goal. <div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>"
       ],
@@ -543,7 +543,7 @@
     },
     "lando": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -562,7 +562,7 @@
     },
     "maz": {
       "planning": [
-        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.",
+        "a. <strong>If defeated</strong>, recover all <span class=\"icon damage\">damage</span>.<div class=\"phaseSubElement appNote\">spend <span class=\"icon credits\">credits </span><strong class=\"iconNum\">3&nbsp;000</strong> <strong>if defeated</strong></div>",
         "b. Move toward closest goal.<div class=\"phaseSubElement appNote\">If you would stop at a <strong>navpoint</strong> and passed through a planet no more than 2 spaces away, return to that planet.</div><div class=\"phaseSubElement appNote\">Do not stop on Maelstrom.</div>",
         "c. Gain <span class=\"icon credits\">credits </span><strong class=\"iconNum\">2&nbsp;000</strong>."
       ],
@@ -594,7 +594,7 @@
       ],
       "characterType": [
         "human",
-        "<strong>bounty</strong>"
+        "bounty"
       ],
       "content": "<div class=\"phaseItem\"><div class=\"phaseName\">AI vs <strong>unopposed bounty</strong> <em style=\"text-transform: none\">(not protected)</em></div><div class=\"phaseElement\">If <strong>bounty</strong> <strong>contact</strong> token is:<div class=\"phaseSubElement\">on a planet.</div><div class=\"phaseSubElement\">is a <strong>Crew</strong> of another AI.</div><div class=\"phaseSubElement\">is a <strong>Crew</strong> of Player who does not want to protect it.</div></div><div class=\"phaseElement\"><strong>Bounty</strong> becomes eliminated. Do all below:<div class=\"phaseSubElement\">a. Remove the <strong>contact</strong> or <strong>crew</strong> from the game.</div><div class=\"phaseSubElement\">b. Gain the <strong>Elimination Reward</strong> on the matching <strong>bounty</strong> card, then resolve its \"After you gain a reward from this card\" text.</div><div class=\"phaseSubElement\">c. Suffer <span class=\"icon damage\">damage</span> <strong>on the character</strong> equal to the <span class=\"icon land_attack\">land attack</span> on the <strong>bounty</strong> card, <strong>or on the ship</strong> equal to its <span class=\"icon ship_attack\">ship attack</span>.</div></div></div>"
     },
@@ -604,7 +604,7 @@
       ],
       "characterType": [
         "human",
-        "<strong>bounty</strong>"
+        "bounty"
       ],
       "content": "<div class=\"phaseItem\"><div class=\"phaseName\">AI vs Player's <strong>Crew</strong> member <strong>opposed bounty</strong> <em style=\"text-transform: none\">(protected by Player)</em></div><div class=\"phaseElement\">Fight against protector Player as normal.</div><div class=\"phaseElement\">If the AI bounty hunter <strong>wins</strong> in a <strong>bounty</strong> fight:<div class=\"phaseSubElement\"><strong>Crew</strong> card and token are <strong>removed</strong> from the game.</div><div class=\"phaseSubElement\">AI player resolves \"After you gain a reward\" from the <strong>bounty</strong> card.</div></div><div class=\"phaseElement\">If the AI bounty hunter <strong>loses</strong> in a <strong>bounty</strong> fight.<div class=\"phaseSubElement\">The <strong>bounty</strong> <strong>job</strong> is <strong>discarded</strong>.</div></div></div>"
     },
@@ -614,7 +614,7 @@
       ],
       "characterType": [
         "human",
-        "<strong>bounty</strong>"
+        "bounty"
       ],
       "content": "<div class=\"phaseItem\"><div class=\"phaseName\">AI vs Player/AI</div><div class=\"phaseElement\">Fight is resolved normally.</div><div class=\"phaseElement\">If bounty hunter <strong>wins</strong>:<div class=\"phaseSubElement\"><strong>Bounty</strong> <strong>job</strong> card is <strong>removed</strong> from the game.</div><div class=\"phaseSubElement\">\"Player <strong>bounty</strong> reward\" is gained <em>(see below)</em>.</div></div><div class=\"phaseElement\">If bounty hunter <strong>loses</strong>:<div class=\"phaseSubElement\"><strong>Bounty</strong> <strong>job</strong> card is <strong>discarded</strong>.</div></div></div>"
     },
@@ -624,7 +624,7 @@
       ],
       "characterType": [
         "human",
-        "<strong>bounty</strong>"
+        "bounty"
       ],
       "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Player <strong>Bounty</strong> Rewards</div><div class=\"phaseElement\">Instead of gaining rewards from a <strong>bounty</strong> card  matching a player's character, do the following: <div class=\"phaseSubElement\">Gain <span class=\"icon credits\">credits</span><strong class=\"iconNum\">5&nbsp;000</strong> and <strong>1 fame</strong>.</div><div class=\"phaseSubElement\"><strong>Gain</strong> <strong>1 reputation</strong> with 1  faction of your choice with which that player has <span class=\"icon negative\">negative</span> <strong>reputation</strong>.</div><div class=\"phaseSubElement\"><strong>Lose</strong> <strong>1 reputation</strong> with 1 faction of your choice with which that player has <span class=\"icon positive\">positive</span> <strong>reputation</strong>.</div><div class=\"phaseSubElement appNote\">When an <strong>AI</strong> gains this, you must pick a faction the AI does <strong>not</strong> already have <span class=\"icon positive\">positive</span> <strong>reputation</strong> with, if possible.</div></div></div>"
     },
@@ -640,7 +640,7 @@
       "characterType": [
         "human"
       ],
-      "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Where to gain <strong>fame</strong></div><div class=\"phaseElement\">Personal goal.</div><div class=\"phaseElement\">Ship goal.</div><div class=\"phaseElement\"><strong>Bounties</strong>.</div><div class=\"phaseElement\"><strong>Jobs</strong>.</div><div class=\"phaseElement\">Delivering <strong>illegal</strong> <strong>cargo</strong>.</div><div class=\"phaseElement\">Defeating level 2 and 3 <strong>patrols</strong>.</div><div class=\"phaseElement\">Cards from the <span class=\"icon luxury\">luxury</span> market deck.</div></div>"
+      "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Where to gain <strong>fame</strong></div><div class=\"phaseElement\">Personal goal.</div><div class=\"phaseElement\">Ship goal.</div><div class=\"phaseElement\">Bounties.</div><div class=\"phaseElement\">Jobs.</div><div class=\"phaseElement\">Delivering illegal cargo.</div><div class=\"phaseElement\">Defeating level 2 and 3 patrols.</div><div class=\"phaseElement\">Cards from the <span class=\"icon luxury\">luxury</span> market deck.</div></div>"
     },
     {
       "gameMode": [
@@ -654,7 +654,7 @@
     {
       "gameMode": [],
       "characterType": [
-        "<strong>bounty</strong>",
+        "bounty",
         "smuggler"
       ],
       "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Cards</div><div class=\"phaseElement\">Do not resolve any encounter cards.</div><div class=\"phaseElement\">Do not use abilities on cards, except for abilities that increase the values on their ship or character (ground/space combat, <span class=\"icon hp\">HP</span>, <span class=\"icon hull\">hull</span>, <span class=\"icon hyperdrive\">hyperdrive</span>).</div>"
@@ -671,7 +671,7 @@
     {
       "gameMode": [],
       "characterType": [
-        "<strong>bounty</strong>",
+        "bounty",
         "smuggler"
       ],
       "content": "</div>"
@@ -679,7 +679,7 @@
     {
       "gameMode": [],
       "characterType": [
-        "<strong>bounty</strong>",
+        "bounty",
         "smuggler"
       ],
       "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Movement</div><div class=\"phaseElement\">Move up to the ship’s <span class=\"icon hyperdrive\">hyperdrive</span> value, toward the goal or <strong>bounty</strong> target.</div><div class=\"phaseElement\">Take the path leaving the <strong>fewest spaces</strong> from the goal. An AI <strong>never</strong> takes a longer path to avoid a <strong>patrol</strong>.</div><div class=\"phaseElement\">It must <strong>stop</strong> on entering a <strong>patrol</strong>’s space without <span class=\"icon positive\">positive</span> <strong>reputation</strong> with that <strong>patrol</strong>.</div><div class=\"phaseElement\">It moves <strong>through</strong> the Maelstrom as if it were a <strong>navpoint</strong>.</div><div class=\"phaseElement\"><strong>Would end on a navpoint</strong> after a full <span class=\"icon hyperdrive\">hyperdrive</span> move? Move <strong>one or two fewer</strong> spaces to end on a planet instead.<div class=\"phaseSubElement\">If one fewer and two fewer both reach a planet, move <strong>one</strong> fewer.</div></div><div class=\"phaseElement\">Two paths leaving it <strong>equidistant</strong>? Prefer 1) the path no <strong>patrol</strong> stops, then 2) ending on a planet.<div class=\"phaseSubElement\">If both are planets, decide randomly.</div></div>"
@@ -689,7 +689,7 @@
         "expansion"
       ],
       "characterType": [
-        "<strong>bounty</strong>",
+        "bounty",
         "smuggler"
       ],
       "content": "<div class=\"phaseElement\">Cannot go through the Core Worlds.</div>"
@@ -697,7 +697,7 @@
     {
       "gameMode": [],
       "characterType": [
-        "<strong>bounty</strong>",
+        "bounty",
         "smuggler"
       ],
       "content": "</div>"
@@ -706,7 +706,7 @@
       "gameMode": [],
       "characterType": [
         "smuggler",
-        "<strong>bounty</strong>"
+        "bounty"
       ],
       "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Buying</div><div class=\"phaseElement\">Buy makert cards as normal (if enough credits and have a free card slot).</div><div class=\"phaseElement\">Barter ship cards (pay the difference between current and new ships).</div><div class=\"phaseElement\"><strong>Discard</strong> market card "
     },
@@ -716,7 +716,7 @@
       ],
       "characterType": [
         "smuggler",
-        "<strong>bounty</strong>"
+        "bounty"
       ],
       "content": "<strong>up to 2 times</strong>"
     },
@@ -724,7 +724,7 @@
       "gameMode": [],
       "characterType": [
         "smuggler",
-        "<strong>bounty</strong>"
+        "bounty"
       ],
       "content": " if:<div class=\"phaseSubElement\">Cannot be bought on AI's planet.</div><div class=\"phaseSubElement\">Not enough credits.</div><div class=\"phaseSubElement\">No free slots.</div><div class=\"phaseSubElement\">Ship costs <strong>same or less</strong> than that the AI has.</div>"
     },
@@ -743,15 +743,15 @@
       ],
       "characterType": [
         "smuggler",
-        "<strong>bounty</strong>"
+        "bounty"
       ],
-      "content": "<div class=\"phaseSubElement\">\"Wanted\" <strong>job</strong>, \"Information Broker\" or the \"Special Order\" card</div>"
+      "content": "<div class=\"phaseSubElement\">\"Wanted\" job, \"Information Broker\" or the \"Special Order\" card</div>"
     },
     {
       "gameMode": [],
       "characterType": [
         "smuggler",
-        "<strong>bounty</strong>"
+        "bounty"
       ],
       "content": "<div class=\"phaseSubElement\">Card has restrictions (e.g. \"Limit 1 Armor per character\").</div></div><div class=\"phaseElement\">After buying a card, resolve partol movement by shortest way possible towards AI space.</div>"
     },
@@ -761,7 +761,7 @@
       ],
       "characterType": [
         "smuggler",
-        "<strong>bounty</strong>"
+        "bounty"
       ],
       "content": "<div class=\"phaseElement\">After buying a card, resolve <strong>contact</strong> token "
     },
@@ -770,7 +770,7 @@
         "expansion"
       ],
       "characterType": [
-        "<strong>bounty</strong>"
+        "bounty"
       ],
       "content": "that matches AI's <strong>lowest class</strong> <strong>bounty</strong> or thecontact token"
     },
@@ -780,7 +780,7 @@
       ],
       "characterType": [
         "smuggler",
-        "<strong>bounty</strong>"
+        "bounty"
       ],
       "content": " of the lowest class.</div>"
     },
@@ -788,7 +788,7 @@
       "gameMode": [],
       "characterType": [
         "smuggler",
-        "<strong>bounty</strong>"
+        "bounty"
       ],
       "content": "</div>"
     },
@@ -797,7 +797,7 @@
         "expansion"
       ],
       "characterType": [
-        "<strong>bounty</strong>"
+        "bounty"
       ],
       "content": "<div class=\"phaseItem\"><div class=\"phaseName\">Starting ship</div><div class=\"phaseElement\">G-1A Starfighter.</div></div>"
     },
