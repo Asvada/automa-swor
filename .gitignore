@@ -1,1 +1,5 @@
 /.idea/
+
+# Self-signed certs are generated per machine by ./docker-generate-certs.sh
+/docker-certs/*
+!/docker-certs/.gitkeep

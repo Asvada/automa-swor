@@ -441,6 +441,40 @@ both fit the footer row.
 
 - **Cache busting is manual.** Bump `appVersion` in `index.html` after changing
   `main.js` / `main.css` / `assets/cards/*.json`, or clients keep the old files.
+- **Anything reached from the top of the ready handler must be declared at the top.**
+  `autoSetupFromQuery()` runs in the first few statements and calls `seatColor()`, which
+  reads `NAMED_COLORS`; a `const` declared further down is still in its temporal dead
+  zone there, so it throws `ReferenceError` and takes the *rest of the handler* - every
+  event binding - with it. That is what broke `?debug&ai=…` deep links. `NAMED_COLORS`,
+  `VOID_TAGS`, `wakeLock` and `keepAwake` now sit in the state block at the top for this
+  reason. Function *declarations* hoist and are safe anywhere; `const`/`let` are not.
+- **Languages come from one list.** `LOCALES` in `main.js` holds every locale the app
+  ships - id, flag SVG, native label - in the order the setup picker draws them and the
+  in-game toggle cycles through them (`nextLocale()` wraps). Adding a third language is
+  a locale file in `assets/cards/`, a flag in `assets/images/flags/`, one `LOCALES` row
+  and a `UI` block; nothing else hard-codes `uk`/`en` as a pair any more. The setup
+  screen has no `<select id="locale">` - it is `#localePicker`, flag radio buttons built
+  by `renderLocalePicker()`, and `setLocale()` is the only place the choice is made.
+- **Interface strings live in `UI` in `main.js`, card text in `assets/cards/*.json`.**
+  `trans('key')` returns one in the current locale, falling back to `en` and then to the
+  key itself. `applyLocaleToUi()` relabels every *static* control and is called at
+  startup, on the setup screen's language selector, on `#localeToggle` and on restore;
+  anything built at render time (footer buttons, the saved-game dialog) calls `trans()`
+  as it is created. The table is in the script, not the locale JSON, because the setup
+  screen paints before any card data has been fetched.
+- **`showToast(text[, ms])` is the app's notification.** Defined at the top of `main.js`,
+  outside the ready handler, so anything can call it; no library. Default 3000ms, `0`
+  keeps it up, and the return value closes it early. Toasts stack in `#toastHost` and
+  never take pointer events. `.modalBackdrop`/`.modalBox` in `main.css` are the matching
+  pair for a dialog that *must* be answered - the saved-game prompt uses them.
+- **https is served by `vhost-proxy`, not by this stack.** `./start.sh` brings the proxy
+  up, then `./docker-generate-certs.sh` (self-signed `automa.lcl`, SAN, 825 days, renewed
+  inside 30 days of expiry) and `./docker-install-certs.sh` (copies the pair into the
+  proxy and restarts it so docker-gen regenerates the vhost). `./trust-cert.sh` (Linux,
+  needs sudo) and `trust-cert.bat` (Windows, as Administrator) add it to the trust store.
+  `docker-certs/` is gitignored - the certs are per machine. This is not cosmetic: the
+  Screen Wake Lock API is secure-context only, so over plain http the keep-awake button
+  hides itself. Copied from `~/projects/globusbar.com.ua`, which does the same.
 - **Debug mode is `?debug` on the URL** (`index.html?debug`), not a source edit. The old
   `debugSpecial` flag is gone; "character card every turn" is now what a second AI of a
   type does on its own. What `?debug` changes, all of it:
@@ -451,6 +485,14 @@ both fit the footer row.
   | character selector preselects the topmost free option | `populateCharacterDropdown` |
   | setup confirmations skipped — except base+bounty (`noDeckExists`) | `addPlayerFromForm` |
   | red `DEBUG` badge by the version (setup screens only — `#mainTitle` hides in play) | end of `main.js` |
+  | keep-awake button stays visible even where the Wake Lock API is absent | wake-lock section |
+
+  Every one of those switches is also reachable **by tapping the "Select Game Mode"
+  heading**, which opens an unlabelled menu of them (`openDebugMenu`). Query strings are
+  the only way in and a phone has no address bar worth typing into, so this is how they
+  are used on the device the app runs on. The heading carries no pointer cursor, no tap
+  highlight and no selectable text - you find it by knowing, or by clicking it for no
+  reason.
   | AI decks unshuffled and mode-exact | `shuffleAiDeck` (section 4) |
   | drawn card = pure function of the turn index, ignoring `aiDecks`/`aiHistory` | `showTurn` AI branch |
   | `triggersReshuffle()` disabled | `triggersReshuffle` |

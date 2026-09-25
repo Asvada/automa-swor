@@ -6,6 +6,9 @@ services:
       VIRTUAL_HOST: automa.lcl
       VIRTUAL_PORT: 80
       VIRTUAL_PROTO: http
+      # vhost-proxy picks the key pair up by this name; ./docker-install-certs.sh
+      # copies docker-certs/automa.lcl.{crt,key} into it.
+      CERT_NAME: automa.lcl
     expose:
       - "80"
       - "443"

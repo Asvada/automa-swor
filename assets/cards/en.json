@@ -811,8 +811,8 @@
   ],
   "helpTitle": {
     "human": "Player rules",
-    "smuggler": "AI rules &mdash; Smuggler",
-    "bounty": "AI rules &mdash; Bounty Hunter"
+    "smuggler": "AI &mdash; Smuggler",
+    "bounty": "AI &mdash; Bounty Hunter"
   },
   "phases": {
     "planning": {

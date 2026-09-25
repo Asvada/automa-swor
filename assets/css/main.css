@@ -9,7 +9,7 @@ body {
 
 .container {
     max-width: 450px;
-    margin: 5px auto;
+    margin: 0 auto 5px;
     /*padding: 10px;*/
     background: #222;
     border-radius: 12px;
@@ -38,17 +38,56 @@ select, input[type="text"] {
 #mainTitle {
     margin: 5px;
 }
-#helpButton{
-    margin: -2px 5px 2px 4px;
+
+/* Two deliberate lines - the game's name, then what this app is - instead of letting
+   the phrase wrap wherever the viewport happens to run out. */
+.titleLine {
+    display: block;
 }
 
-/* Same treatment as #helpButton, mirrored to the right of the turn title so the
-   title stays centred between the two. */
-#fullscreenButton{
-    margin: -2px 4px 2px 5px;
-    margin-right: 0;
+/* The two header buttons are one pair: identical square boxes, mirrored either side
+   of the turn title, so the title sits centred between them. --hdrBtn is the single
+   source of that size - #helpControls indents by it to overlay the title exactly. */
+:root {
+    --hdrBtn: 34px;
+}
+
+/* The setup screen's three actions share one row. Back is the way out rather than one
+   of the two things you came here to do, so order:-1 puts it first and the auto margin
+   pins it hard left, leaving Add/Start together on the right. They wrap onto a second
+   line rather than overflow if a translation makes them too wide for a phone. */
+.setupActions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 0 8px 5px;
+}
+
+#backPlayer {
+    order: -1;
+    margin-right: auto;
+}
+
+#helpButton,
+#fullscreenButton {
+    flex: 0 0 var(--hdrBtn);
+    width: var(--hdrBtn);
+    height: var(--hdrBtn);
+    padding: 0;
+    margin: 0 4px;
     font-size: 1.1em;
     line-height: 1;
+    text-align: center;
+}
+
+/* Lit while the help panel is open - the ? is a toggle, and the panel closes by
+   tapping it again, so the button has to show which state it is in. The colour is
+   the help screen's own ground, so the button reads as the panel's handle. */
+#helpButton.on {
+    background: #afad76;
+    color: #111;
+    font-weight: bold;
 }
 
 button {
@@ -58,6 +97,7 @@ button {
 }
 
 .backCard {
+    flex: 0 0 auto;
     width: 70px;        /* a chevron needs far less room than the old "Back" label */
     margin-right: 10px;
     font-size: 1.5em;
@@ -73,16 +113,15 @@ button {
    so they sit as an even row. Forward is a chevron in that state; without FF the button
    still reads "Next turn", so the larger glyph size only applies here. */
 .nextCard.withFF {
+    flex: 0 0 auto;
     width: 70px;
     max-width: 70px;
     font-size: 1.5em;
     line-height: 1.1;
 }
 
-/* The wordy one, so it takes the room the two chevrons gave up.
-   70 + 10 + 70 + 10 + 150 = 310px, inside a ~338px phone viewport. */
 /* "Next turn" is the one button you press every turn, so it carries more weight than
-   the history controls beside it. Kept within the 150px slot so the row is unchanged. */
+   the history controls beside it. Its width is set on .ffCard below. */
 .ffCard.mainAction {
     font-size: 1.2em;
     font-weight: bold;
@@ -112,10 +151,18 @@ button {
     margin-right: 3px;
 }
 
+/* The wordy slot. It no longer has a fixed width: "Next turn" is 9 characters but
+   "Наступний хід" is 13, and at a fixed 150px the Ukrainian label wrapped to two
+   lines. flex-grow lets it take whatever the row has left over, up to a cap, and
+   nowrap keeps it on one line; the two chevrons beside it stay exactly 70px, so the
+   slot positions the thumb learns do not move. */
 .ffCard {
-    width: 150px;
-    max-width: 150px;
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 150px;
+    max-width: 220px;
     margin-left: 10px;
+    white-space: nowrap;
 }
 
 /* A bullet ticked on a turn that is being replayed: blue, not the live green, so it is
@@ -141,8 +188,9 @@ button {
     bottom: 0;
     left: 0;
     width: 100%;
+    box-sizing: border-box;
     background: rgba(34, 34, 34, 0.9);
-    padding: 5px 0 0;
+    padding: 5px 8px 0;
     display: flex;
     justify-content: center;
     z-index: 10;
@@ -174,6 +222,7 @@ img {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    padding: 2px 0px;
     position: relative; /* anchor for #helpControls */
 }
 
@@ -183,8 +232,8 @@ img {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 42px;
-    right: 42px;
+    left: calc(var(--hdrBtn) + 8px);
+    right: calc(var(--hdrBtn) + 8px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -200,21 +249,43 @@ img {
 #helpControls button,
 #helpControls select {
     margin: 0;
-    width: auto;
-    padding: 2px 8px;
-    font-size: 14px;
     background: #444;
     color: #fff;
     border-radius: 4px;
 }
 
+/* The bar sits in the same strip as ? and the fullscreen toggle and is read as part of
+   the same set of controls, so its buttons are the same --hdrBtn square. */
+#helpControls button {
+    flex: 0 0 var(--hdrBtn);
+    width: var(--hdrBtn);
+    height: var(--hdrBtn);
+    padding: 0;
+    font-size: 1.1em;
+    line-height: 1;
+    text-align: center;
+}
+
+/* Tinted red like the DEBUG badge: it is not a control of the game, and pressing it
+   reloads the page, so it should not look like the toggles beside it. */
+/* Two ids on purpose: the shared "#helpControls button" rule above is id+element and
+   outranks a bare "#exitDebugButton", which would leave this the same grey as the rest. */
+#helpControls #exitDebugButton {
+    background: #7a3030;
+}
+
+/* A dropdown needs its label, so it matches on height only and takes what width is
+   left in the bar. */
 #helpControls select {
+    height: var(--hdrBtn);
+    width: auto;
     max-width: 62%;
+    padding: 0 6px;
+    font-size: 14px;
 }
 
 .header-row button {
     width: auto;
-    margin-right: 10px;
     flex: 0 0 auto; /* buttons keep their size; only the title gives way */
 }
 
@@ -439,6 +510,19 @@ img.icon {
     margin-bottom: 4px;
 }
 
+/* One colour per ruleset, matching .phaseContainer-<type> on the turn itself. */
+#helpScreen .helpTitle-human {
+    background-color: #cfd2d1;
+}
+
+#helpScreen .helpTitle-bounty {
+    background-color: #e0c1c3;
+}
+
+#helpScreen .helpTitle-smuggler {
+    background-color: #deccdd;
+}
+
 /* focus.png is by far the widest glyph in the set (118x73, a 1.6:1 eye against
    ~1:1 for crit/hit/hp), so sizing it by height like the rest makes it render
    nearly twice as wide and read as a much bigger icon. Size this one by width
@@ -457,6 +541,161 @@ img.icon.focus {
     white-space: nowrap;
 }
 
+
+/* ---------------------------------------------------------------------------
+   Toast - a transient, self-dismissing message. Project-wide utility: call
+   showToast(text) from anywhere; see main.js. It is an announcement, not a
+   control, so it never takes pointer events and never blocks what is underneath.
+   --------------------------------------------------------------------------- */
+#toastHost {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 3000;
+    pointer-events: none;
+}
+
+.toast {
+    max-width: min(90vw, 420px);
+    background: #2b2b2b;
+    color: #eee;
+    border: 1px solid #777;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.55);
+    padding: 10px 14px;
+    font-size: 14px;
+    line-height: 1.35;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---------------------------------------------------------------------------
+   Modal - a dialog that owns the screen until it is answered. The backdrop is
+   what makes it modal: it covers the setup screen behind so there is nothing
+   else to read or click while the question is open.
+   --------------------------------------------------------------------------- */
+.modalBackdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.82);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.modalBox {
+    width: 100%;
+    max-width: 400px;
+    background: #eee;
+    color: #111;
+    border: 2px solid #666;
+    border-radius: 10px;
+    padding: 18px 15px;
+    text-align: center;
+}
+
+.modalBox .modalButtons {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* A list of choices rather than a yes/no pair: one per line, full width, so a long
+   label never has to compete for room with the one beside it. */
+.modalBox .modalButtons.modalMenu {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+}
+
+/* The personal-goal line is also its own toggle: the character portrait that used to
+   carry the click is debug-only now, so this is the only way to flip the goal. */
+.goalToggle {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    padding: 4px 0;
+}
+
+/* Credit and the not-affiliated notice. Small and dim: it has to be there and has to
+   be readable, but it is not what anyone came to this screen to do. */
+#disclaimer {
+    margin: 14px 8px 0;
+    padding: 10px 0 14px;
+    border-top: 1px solid #333;
+    font-size: 11px;
+    line-height: 1.45;
+    color: #888;
+    text-align: left;
+}
+
+#disclaimer a {
+    color: #aaa;
+}
+
+/* Language picker on the setup screen: flags as a radio group, so the choice is one
+   tap and readable without opening anything. The selected one is ringed rather than
+   merely brighter - on a flag, "brighter" is not a state you can read. */
+#localePicker {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 8px 0;
+}
+
+#localePicker button {
+    width: auto;
+    padding: 3px;
+    margin: 0;
+    line-height: 0;
+    background: #333;
+    border: 2px solid transparent;
+    border-radius: 6px;
+}
+
+#localePicker button.on {
+    border-color: #FFD700;
+    background: #555;
+}
+
+.flagIcon {
+    display: block;
+    width: 36px;
+    height: 24px;
+    border-radius: 2px;
+}
+
+/* In the help bar the flag is the whole button, inside the --hdrBtn square. */
+.flagIcon.flagIconSmall {
+    width: 24px;
+    height: 16px;
+    margin: 0 auto;
+}
+
+/* The heading doubles as the way into the debug menu, and gives nothing away: no
+   pointer cursor, no tap flash, no text selection on a double tap. You find it by
+   knowing about it or by clicking the heading for no reason. */
+#gameModeHeading {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+}
 
 /* ---------------------------------------------------------------------------
    ?debug=whole-deck - every card on one scrollable page, both locales beside the

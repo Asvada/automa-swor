@@ -1,3 +1,154 @@
+// ---------------------------------------------------------------------------
+// showToast - a brief, self-dismissing message. Project-wide utility, deliberately
+// dependency-free and defined outside the ready handler so anything in the app can
+// call it: showToast("Saved"), showToast(text, 5000), or showToast(text, 0) for one
+// that stays until the next call. Toasts stack in #toastHost, oldest on top, and
+// each one owns its own timer so a second call never cuts the first one short.
+// ---------------------------------------------------------------------------
+function showToast(message, ms) {
+    if (!message) return null;
+    const duration = ms === undefined ? 3000 : ms;
+
+    let host = document.getElementById('toastHost');
+    if (!host) {
+        host = document.createElement('div');
+        host.id = 'toastHost';
+        document.body.appendChild(host);
+    }
+
+    const el = document.createElement('div');
+    el.className = 'toast';
+    el.setAttribute('role', 'status');      // announced without stealing focus
+    el.textContent = message;
+    host.appendChild(el);
+
+    // Two frames: the element must be laid out at opacity 0 before .show can animate.
+    requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('show')));
+
+    const dismiss = () => {
+        if (!el.isConnected) return;
+        el.classList.remove('show');
+        // Matches the CSS transition; removing sooner would cut the fade off.
+        setTimeout(() => el.remove(), 200);
+    };
+    if (duration > 0) setTimeout(dismiss, duration);
+    return dismiss;                          // caller can close it early
+}
+
+// ---------------------------------------------------------------------------
+// Interface strings, by locale. Card text lives in assets/cards/<locale>.json; this
+// is the chrome around it - buttons, their tooltips and the handful of control
+// placeholders - and it stays in the script on purpose: the setup screen paints
+// before any card data has arrived, so the buttons cannot wait on a fetch.
+// en is the fallback, so a key missing from uk still renders something.
+// ---------------------------------------------------------------------------
+const UI = {
+    en: {
+        next: "Next",
+        randomCharacter: "Random character",
+        addPlayerHeading: "Add Player #{n}",
+        addAnother: "Add Another Player",
+        startGame: "Start Game",
+        back: "Back",
+        selectCharacter: "-- Select Character --",
+        selectGameMode: "Select Game Mode",
+        disclaimerCredit: "All Automa mechanics and information are credited to {ffg}.",
+        disclaimer: "They are based on the AI cards from {game}, published by {ffg}. This is not an official {ffg} product and has no affiliation with {ffg}.",
+        debugMenuTitle: "Debug options",
+        debugPlain: "Debug mode",
+        debugWholeDeck: "Whole deck sheet",
+        debugSampleTable: "Sample table",
+        debugOff: "Turn debug off",
+        cancel: "Cancel",
+        modeExpansion: "Unfinished Business Expansion",
+        modeBase: "Base Game Only",
+        humanPlayer: "Human Player",
+        aiPlayer: "AI Player",
+        colorRed: "Red",
+        colorBlue: "Blue",
+        colorGreen: "Green",
+        colorYellow: "Yellow",
+        colorN: "Color {n}",
+        help: "Help",
+        keepAwake: "Keep screen awake",
+        keepAwakeHeld: "Screen kept awake - tap to allow sleep",
+        keepAwakeRetry: "Keep screen awake (re-acquiring)",
+        keepAwakeOnToast: "Screen will stay on while this game is open.",
+        keepAwakeOffToast: "Screen may switch off again as usual.",
+        keepAwakeUnsupported: "This browser will not hold the screen awake - it needs https.",
+        switchLanguage: "Switch language",
+        exitDebug: "Exit debug mode",
+        fullscreen: "Toggle fullscreen",
+        exitFullscreen: "Exit fullscreen",
+        rulebook: "Rulebook…",
+        rulebookTitle: "Open a rulebook in a new tab",
+        prevTurn: "Previous turn",
+        nextInHistory: "Next turn in history",
+        backToGame: "Back to game",
+        backToGameTitle: "Leave history and return to the current turn",
+        nextTurn: "Next turn",
+        historyDepth: "History depth",
+        reshuffled: "Deck reshuffled after this card",
+        goalAchieved: "Personal Goal Achieved",
+        goalNotAchieved: "Personal Goal Not Achieved",
+        continueSaved: "Continue saved game from",
+        continueGame: "Continue",
+        newGame: "New Game"
+    },
+    uk: {
+        next: "Далі",
+        randomCharacter: "Випадковий персонаж",
+        addPlayerHeading: "Додати гравця #{n}",
+        addAnother: "Додати ще гравця",
+        startGame: "Почати гру",
+        back: "Назад",
+        selectCharacter: "-- Оберіть персонажа --",
+        selectGameMode: "Оберіть режим гри",
+        disclaimerCredit: "Усі механіки та відомості про ШтІнт належать {ffg}.",
+        disclaimer: "Вони засновані на картах ШтІнту з гри {game}, виданої {ffg}. Це неофіційний продукт {ffg} і він не пов'язаний з {ffg}.",
+        debugMenuTitle: "Параметри налагодження",
+        debugPlain: "Режим налагодження",
+        debugWholeDeck: "Аркуш усієї колоди",
+        debugSampleTable: "Приклад столу",
+        debugOff: "Вимкнути налагодження",
+        cancel: "Скасувати",
+        modeExpansion: "Доповнення Unfinished Business",
+        modeBase: "Лише базова гра",
+        humanPlayer: "Гравець-людина",
+        aiPlayer: "Гравець ШтІнт",
+        colorRed: "Червоний",
+        colorBlue: "Синій",
+        colorGreen: "Зелений",
+        colorYellow: "Жовтий",
+        colorN: "Колір {n}",
+        help: "Довідка",
+        keepAwake: "Не вимикати екран",
+        keepAwakeHeld: "Екран не згасає - торкніться, щоб дозволити",
+        keepAwakeRetry: "Не вимикати екран (повторний запит)",
+        keepAwakeOnToast: "Екран не згасатиме, доки відкрита ця гра.",
+        keepAwakeOffToast: "Екран знову може згасати, як зазвичай.",
+        keepAwakeUnsupported: "Цей браузер не триматиме екран увімкненим - потрібен https.",
+        switchLanguage: "Змінити мову",
+        exitDebug: "Вийти з режиму налагодження",
+        fullscreen: "На весь екран",
+        exitFullscreen: "Вийти з повноекранного режиму",
+        rulebook: "Правила…",
+        rulebookTitle: "Відкрити правила в новій вкладці",
+        prevTurn: "Попередній хід",
+        nextInHistory: "Наступний хід в історії",
+        backToGame: "До гри",
+        backToGameTitle: "Вийти з історії і повернутись до поточного ходу",
+        nextTurn: "Наступний хід",
+        historyDepth: "Глибина історії",
+        reshuffled: "Колоду перетасовано після цієї карти",
+        goalAchieved: "Особисту мету досягнуто",
+        goalNotAchieved: "Особисту мету не досягнуто",
+        continueSaved: "Продовжити збережену гру від",
+        continueGame: "Продовжити",
+        newGame: "Нова гра"
+    }
+};
+
 $('document').ready(function () {
     let cardsData = null;
 
@@ -21,12 +172,153 @@ $('document').ready(function () {
         {name: "Maz Kanata", origin: "expansion", type: "smuggler", image: "maz.png", id: "maz"}
     ];
 
+    // Keys, not labels: the option text is produced by trans() at render time, so the
+    // dropdown follows the locale like everything else.
+    //
+    // Declared here rather than beside populateColorDropdown(), where it used to sit:
+    // autoSetupFromQuery() runs near the top of this handler and calls seatColor(),
+    // which reads it. A `const` further down the file is still in its temporal dead
+    // zone at that point, so every ?debug&ai=... deep link threw ReferenceError and
+    // took the rest of the handler - all of the event wiring - down with it.
+    // Every language the app ships. One entry per locale file in assets/cards/, in the
+    // order the setup picker shows them and the in-game toggle cycles through them.
+    const LOCALES = [
+        {id: 'uk', flag: 'assets/images/flags/uk.svg', label: '\u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430'},
+        {id: 'en', flag: 'assets/images/flags/en.svg', label: 'English'}
+    ];
+
+    // Tags that never close. Up here for the same reason as NAMED_COLORS: tagBalance()
+    // is reached from the card-data callback, which can land before this file is done.
+    const VOID_TAGS = ["br", "img", "hr", "input", "meta", "link"];
+
+    const NAMED_COLORS = [
+        {value: "#FF4C4C", key: "colorRed"},
+        {value: "#4C9EFF", key: "colorBlue"},
+        {value: "#4CFF4C", key: "colorGreen"},
+        {value: "#FFD74C", key: "colorYellow"}
+    ];
+
     let players = [];
     let usedCharacters = [];
     let currentPlayerIndex = 0;
     let playerCounter = 1;
     let gameMode = 'expansion';
     let locale = 'uk';
+    // Declared up here, not down in the wake-lock section: applyLocaleToUi() runs at
+    // startup and calls syncKeepAwakeButton(), which reads both. A `let` further down
+    // the file would still be in its temporal dead zone at that point.
+    let wakeLock = null;
+    // On unless it has been turned off before. A board-game companion is meant to sit
+    // open on the table, so the screen dimming mid-turn is the wrong default; only an
+    // explicit "0" written by the toggle opts out.
+    let keepAwake = localStorage.getItem('keepAwake') !== '0';
+
+    // The publisher's page, linked from the disclaimer. One constant, because the same
+    // link is repeated several times in the sentence.
+    const FFG_URL = "https://www.fantasyflightgames.com/en/products/star-wars-outer-rim/";
+
+    function ffgLink(text) {
+        return `<a href="${FFG_URL}" target="_blank" rel="noopener">${text}</a>`;
+    }
+
+    // Credit and the "not affiliated" notice. The translated sentence carries {game}
+    // and {ffg} placeholders rather than anchor tags, so it stays plain prose.
+    function renderDisclaimer() {
+        const fill = key => trans(key)
+            .replace(/\{game\}/g, ffgLink('Star Wars: Outer Rim'))
+            .replace(/\{ffg\}/g, ffgLink('Fantasy Flight Games'));
+        $('#disclaimer').html(`${fill('disclaimerCredit')} ${fill('disclaimer')}`);
+    }
+
+    // The locale named on the query string, or null. Shared by the plain ?locale=
+    // link and by the ?debug deep link, so both validate it the same way.
+    function queryLocaleId() {
+        const id = new URLSearchParams(location.search).get('locale');
+        return LOCALES.some(l => l.id === id) ? id : null;
+    }
+
+    function localeEntry(id) {
+        return LOCALES.find(l => l.id === id) || LOCALES[0];
+    }
+
+    // The language the in-game toggle moves to next. Wraps, so two locales behave as
+    // the old uk/en switch did and a third would simply join the cycle.
+    function nextLocale() {
+        const i = LOCALES.findIndex(l => l.id === locale);
+        return LOCALES[(i + 1) % LOCALES.length].id;
+    }
+
+    function flagImg(id, cls) {
+        const l = localeEntry(id);
+        return `<img class="${cls}" src="${l.flag}?${version}" alt="${l.label}">`;
+    }
+
+    // Flags as a radio group rather than a <select>: one tap, no dropdown, and the
+    // choice is readable without opening anything. Rebuilt rather than patched, so
+    // adding a locale to LOCALES is the only edit a new language needs.
+    function renderLocalePicker() {
+        const $picker = $('#localePicker');
+        if (!$picker.length) return;
+        $picker.empty();
+        LOCALES.forEach(l => {
+            $('<button>', {
+                type: 'button',
+                role: 'radio',
+                'aria-checked': String(l.id === locale),
+                'aria-label': l.label,
+                title: l.label,
+                class: l.id === locale ? 'on' : '',
+                html: flagImg(l.id, 'flagIcon')
+            }).on('click', () => setLocale(l.id)).appendTo($picker);
+        });
+    }
+
+    // The one place the current language is changed on the setup screen. Card text is
+    // not reloaded here - startGame() fetches it - so this only has to repaint chrome.
+    function setLocale(id) {
+        locale = id;
+        renderLocalePicker();
+        applyLocaleToUi();
+    }
+
+    // One interface string, in the current locale. Falls back to en, then to the key
+    // itself, so a typo shows up on screen instead of printing "undefined".
+    function trans(key) {
+        const table = UI[locale] || UI.en;
+        return table[key] !== undefined ? table[key] : (UI.en[key] !== undefined ? UI.en[key] : key);
+    }
+
+    // Re-labels every static control. Called at startup and again whenever the locale
+    // changes, so the chrome never lags a language behind the cards. Anything built at
+    // render time (footer buttons, the saved-game dialog) reads trans() as it is created.
+    function applyLocaleToUi() {
+        $('#nextToPlayers').text(trans('next'));
+        $('#randomCharacter').text(trans('randomCharacter'));
+        $('#addAnother').text(trans('addAnother'));
+        $('#goToGame').text(trans('startGame'));
+        $('#backPlayer').text(trans('back'));
+        $('#helpButton').attr('title', trans('help'));
+        $('#localeToggle')
+            .attr('title', trans('switchLanguage'))
+            .html(flagImg(locale, 'flagIcon flagIconSmall'));
+        $('#exitDebugButton').attr('title', trans('exitDebug'));
+        $('#refDocs').attr('title', trans('rulebookTitle'))
+            .find('option[value=""]').text(trans('rulebook'));
+        $('#playerCharacter option[value=""]').text(trans('selectCharacter'));
+        $('#gameModeHeading').text(trans('selectGameMode'));
+        $('#gameMode option[value="expansion"]').text(trans('modeExpansion'));
+        $('#gameMode option[value="base"]').text(trans('modeBase'));
+        $('#playerType option[value="human"]').text(trans('humanPlayer'));
+        $('#playerType option[value="ai"]').text(trans('aiPlayer'));
+        renderAddPlayerHeading();
+        renderDisclaimer();
+        // Relabelled in place rather than rebuilt, so the colour already picked stays picked.
+        $('#playerColor option').each(function () {
+            this.textContent = colorLabel(this.dataset.colorKey, this.dataset.colorN);
+        });
+        syncFullscreenButton();
+        syncKeepAwakeButton();
+    }
     let aiDecks = {};
     let aiHistory = {};
     // Which phase bullets were ticked, per player, per turn they have taken.
@@ -40,6 +332,14 @@ $('document').ready(function () {
     let turnNo = 0;
     let turnNoMax = 0;
 
+    // ?locale=<id> on any load, debug or not: it is how you link someone straight to
+    // the app in their language. Validated against LOCALES, so an unknown id is
+    // ignored rather than fetching assets/cards/<junk>.json.
+    const queryLocale = queryLocaleId();
+    if (queryLocale) locale = queryLocale;
+
+    renderLocalePicker();
+    applyLocaleToUi();
     initCards();
 
     const saved = loadGameState();
@@ -51,36 +351,30 @@ $('document').ready(function () {
     } else if (autoSetupFromQuery()) {
         // The URL described the table; it has already been seated and started.
     } else if (saved) {
+        // The save carries the locale it was made in, so the question is asked in the
+        // language the game was being played in, not in today's default.
+        locale = queryLocale || saved.locale || locale;
+        applyLocaleToUi();
         const date = new Date(saved.savedAt).toLocaleString();
 
+        // Modal: the backdrop covers the setup screen behind it. Continue or New Game
+        // is the only thing to answer here, and a half-visible form underneath only
+        // invites taps that go nowhere.
         const $promptDiv = $('<div>', {
-            css: {
-                position: 'fixed',
-                top: '80px',
-                width: '85%',
-                maxWidth: '400px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                background: '#eee',
-                border: '2px solid #666',
-                padding: '15px',
-                zIndex: 1000,
-                textAlign: 'center'
-            },
+            class: 'modalBackdrop',
             html: `
-                <div style="color: #111111">
-                    Continue saved game from <br><strong>${date}</strong> ?
-                </div>
-                <div style="margin-top:10px;">
-                    <button id="continueGame">Continue</button>
-                    <button id="newGame">New Game</button>
-                    <button id="fullscreen">Go Fullscreen</button>
+                <div class="modalBox">
+                    <div>
+                        ${trans('continueSaved')} <br><strong>${date}</strong> ?
+                    </div>
+                    <div class="modalButtons">
+                        <button id="continueGame">${trans('continueGame')}</button>
+                        <button id="newGame">${trans('newGame')}</button>
+                    </div>
                 </div>`
         });
 
         $('body').append($promptDiv);
-
-        $('#fullscreen').on('click', enterFullscreen);
 
         $('#continueGame').on('click', function() {
             $promptDiv.remove();
@@ -132,7 +426,9 @@ $('document').ready(function () {
         currentPlayerIndex = saved.currentPlayerIndex || 0;
         playerCounter = saved.playerCounter || 1;
         gameMode = saved.gameMode || 'expansion';
-        locale = saved.locale || 'uk';
+        locale = queryLocale || saved.locale || 'uk';
+        renderLocalePicker();              // keep the setup screen in sync
+        applyLocaleToUi();
         aiDecks = saved.aiDecks || {};
         aiHistory = saved.aiHistory || {};
         turnSel = saved.turnSel || {};   // absent in saves made before selections existed
@@ -197,13 +493,71 @@ $('document').ready(function () {
 
     document.getElementById("nextToPlayers").addEventListener("click", () => {
         gameMode = document.getElementById("gameMode").value;
-        locale = document.getElementById("locale").value;
+        applyLocaleToUi();
         populateCharacterDropdown();
         populateColorDropdown();
         document.getElementById("step1").classList.add("hidden");
         document.getElementById("step2").classList.remove("hidden");
         updatePlayerForm();
     });
+
+    // Tapping the "Select Game Mode" heading opens the ?debug switches documented in
+    // AGENTS.md section 8. They are query-string only, and a phone has no address bar
+    // worth typing into, so this is how they are reached on the device the app is
+    // actually used on. Deliberately unlabelled - it is a developer affordance, not a
+    // feature of the game.
+    function debugMenuOptions() {
+        const mode = document.getElementById('gameMode').value;
+        // `locale` is the variable, not a form field: the old <select id="locale"> is
+        // gone, replaced by #localePicker, and reading the missing element here threw
+        // inside the click handler - the menu simply never opened.
+        const options = [
+            {key: 'debugPlain', search: '?debug'},
+            {key: 'debugWholeDeck', search: '?debug=whole-deck'},
+            {key: 'debugSampleTable',
+             search: `?debug&human=erso&ai=han,boba&mode=${mode}&locale=${locale}`}
+        ];
+        // Only offered when there is something to turn off, so the list never carries
+        // a row that would do nothing.
+        if (debug) options.push({key: 'debugOff', search: ''});
+        return options;
+    }
+
+    function openDebugMenu() {
+        if ($('#debugMenu').length) return;      // already open
+
+        const rows = debugMenuOptions().map((o, i) =>
+            `<button data-debug-index="${i}">${trans(o.key)}</button>`).join('');
+
+        const $menu = $('<div>', {
+            id: 'debugMenu',
+            class: 'modalBackdrop',
+            html: `
+                <div class="modalBox">
+                    <div><strong>${trans('debugMenuTitle')}</strong></div>
+                    <div class="modalButtons modalMenu">
+                        ${rows}
+                        <button id="debugMenuCancel">${trans('cancel')}</button>
+                    </div>
+                </div>`
+        });
+
+        // Clicking the backdrop is the same as Cancel; clicking inside it is not.
+        $menu.on('click', function (e) {
+            if (e.target === this) $menu.remove();
+        });
+        $menu.find('#debugMenuCancel').on('click', () => $menu.remove());
+        $menu.find('[data-debug-index]').on('click', function () {
+            const opt = debugMenuOptions()[Number(this.dataset.debugIndex)];
+            // Every switch is read from the query string at load, so applying one
+            // means navigating - there is no way to turn ?debug on in place.
+            window.location.search = opt.search;
+        });
+
+        $('body').append($menu);
+    }
+
+    $('#gameModeHeading').on('click', openDebugMenu);
 
     function populateCharacterDropdown() {
 
@@ -236,7 +590,7 @@ $('document').ready(function () {
         select.innerHTML = "";
         const emptyOption = document.createElement("option");
         emptyOption.value = "";
-        emptyOption.textContent = "-- Select Character --";
+        emptyOption.textContent = trans('selectCharacter');
         emptyOption.disabled = true;
         emptyOption.selected = true;
         select.appendChild(emptyOption);
@@ -290,13 +644,6 @@ $('document').ready(function () {
         }
     }
 
-    const NAMED_COLORS = [
-        {value: "#FF4C4C", name: "Red"},
-        {value: "#4C9EFF", name: "Blue"},
-        {value: "#4CFF4C", name: "Green"},
-        {value: "#FFD74C", name: "Yellow"}
-    ];
-
     // Colour for seat i. The four named ones first, then a deterministic hue walk -
     // deterministic so a debug deep link seats the same colours on every load.
     function seatColor(i) {
@@ -305,13 +652,18 @@ $('document').ready(function () {
             : `hsl(${(i * 47) % 360}, 70%, 62%)`;
     }
 
+    // The four named colours translate; the generated ones past them are just numbered.
+    function colorLabel(key, n) {
+        return key ? trans(key) : trans('colorN').replace('{n}', n);
+    }
+
     function populateColorDropdown() {
         const colorSelect = document.getElementById("playerColor");
         colorSelect.innerHTML = "";
         const availableColors = NAMED_COLORS.slice();
 
         for (let i = availableColors.length; i < maxPlayers; i++) {
-            availableColors.push({value: seatColor(i), name: `Color ${i + 1}`});
+            availableColors.push({value: seatColor(i), n: i + 1});
         }
 
         availableColors
@@ -319,12 +671,22 @@ $('document').ready(function () {
             .forEach(c => {
                 const opt = document.createElement("option");
                 opt.value = c.value;
-                opt.textContent = c.name;
+                // Kept on the option so a locale switch can relabel it in place,
+                // rather than rebuilding the list and losing the current pick.
+                if (c.key) opt.dataset.colorKey = c.key;
+                if (c.n) opt.dataset.colorN = c.n;
+                opt.textContent = colorLabel(c.key, c.n);
                 colorSelect.appendChild(opt);
             });
     }
 
     document.getElementById("playerType").addEventListener("change", updatePlayerForm);
+
+    // "Add Player #3". The number is interpolated rather than left in its own <span>,
+    // because word order around it differs by language.
+    function renderAddPlayerHeading() {
+        $('#addPlayerHeading').text(trans('addPlayerHeading').replace('{n}', players.length + 1));
+    }
 
     function updatePlayerForm() {
         const type = document.getElementById("playerType").value;
@@ -334,8 +696,7 @@ $('document').ready(function () {
         populateCharacterDropdown();
         populateColorDropdown();
         toggleAddButton();
-        const playerNo = document.getElementById("playerNumber");
-        playerNo.innerHTML = players.length + 1;
+        renderAddPlayerHeading();
     }
 
     function toggleAddButton() {
@@ -491,7 +852,9 @@ $('document').ready(function () {
             // Which ruleset the panel is showing. The help fragments are filtered by
             // playerType below, so without this the three sets are indistinguishable.
             const helpTitle = (cardsData.helpTitle || {})[playerType];
-            if (helpTitle) content += `<div class="helpTitle">${helpTitle}</div>`;
+            // Painted in that ruleset's own colour, the same one the turn's phase
+            // container uses, so the panel and the card it explains read as a pair.
+            if (helpTitle) content += `<div class="helpTitle helpTitle-${playerType}">${helpTitle}</div>`;
 
             $.each(cardsData.help, function(k,v){
                 if (
@@ -548,7 +911,7 @@ $('document').ready(function () {
         const on = !!fullscreenElement();
         $('#fullscreenButton')
             .html(on ? '\u2715' : '\u26f6')
-            .attr('title', on ? 'Exit fullscreen' : 'Toggle fullscreen');
+            .attr('title', on ? trans('exitFullscreen') : trans('fullscreen'));
     }
 
     $(document).on('fullscreenchange webkitfullscreenchange', syncFullscreenButton);
@@ -558,18 +921,32 @@ $('document').ready(function () {
     // The help controls overlay the turn title while help is open, so they cost no
     // extra vertical space - the app has to fit a phone screen.
     function showHelpControls() {
-        $('#localeToggle').text(locale.toUpperCase());
+        $('#localeToggle').html(flagImg(locale, 'flagIcon flagIconSmall'));
         $('#refDocs').val('');
         $('#helpControls').removeClass('hidden');
+        // The ? is a toggle, so it has to look pressed while the panel it opened is up.
+        $('#helpButton').addClass('on').attr('aria-pressed', 'true');
     }
 
     function hideHelpControls() {
         $('#helpControls').addClass('hidden');
+        $('#helpButton').removeClass('on').attr('aria-pressed', 'false');
+    }
+
+    // A ?debug deep link drops you straight into a seated table, past both setup
+    // screens - so the debug menu on the first one is out of reach and the only way
+    // back was editing the URL. This is that way out, and it only exists when there
+    // is something to leave.
+    if (debug) {
+        $('#exitDebugButton').removeClass('hidden').on('click', function () {
+            window.location.search = '';
+        });
     }
 
     $('#localeToggle').on('click', async function () {
-        locale = (locale === 'uk') ? 'en' : 'uk';
-        $('#locale').val(locale);          // keep the setup screen in sync
+        locale = nextLocale();
+        renderLocalePicker();              // keep the setup screen in sync
+        applyLocaleToUi();                 // buttons and tooltips, card text below
         await initCards();                 // must finish before anything re-renders
         showTurn();                        // rebuilds the turn in the new language
         $('#helpButton').trigger('click'); // and reopens help, now translated
@@ -615,7 +992,7 @@ $('document').ready(function () {
             const back = document.createElement("button");
             back.className = "backCard";
             back.innerHTML = "\u2039" + depthLabel(depth + 1);
-            back.title = "Previous turn";
+            back.title = trans('prevTurn');
             back.onclick = () => { seekTurn(turnNo - 1); showTurn(); };
             row.appendChild(back);
         } else {
@@ -627,7 +1004,7 @@ $('document').ready(function () {
             const fwd = document.createElement("button");
             fwd.className = "nextCard withFF";
             fwd.innerHTML = depthLabel(fwdDepth, true) + "\u203a";
-            fwd.title = "Next turn in history";
+            fwd.title = trans('nextInHistory');
             fwd.onclick = () => { seekTurn(turnNo + 1); showTurn(); };
             row.appendChild(fwd);
         } else {
@@ -638,13 +1015,13 @@ $('document').ready(function () {
         const main = document.createElement("button");
         main.className = "ffCard";
         if (depth > 0) {
-            main.textContent = "Back to game";
-            main.title = "Leave history and return to the current turn";
+            main.textContent = trans('backToGame');
+            main.title = trans('backToGameTitle');
             main.onclick = () => { seekTurn(turnNoMax); showTurn(); };
         } else {
             main.className = "ffCard mainAction";   // the primary action during play
-            main.textContent = "Next turn";
-            main.title = "Next turn";
+            main.textContent = trans('nextTurn');
+            main.title = trans('nextTurn');
             main.onclick = () => { seekTurn(turnNo + 1); showTurn(); };
         }
         row.appendChild(main);
@@ -661,7 +1038,7 @@ $('document').ready(function () {
     function historyDepthMarker() {
         const depth = turnNoMax - turnNo;
         return depth > 0
-            ? ` <span class="turnHeaderHint" title="History depth">-${depth}</span>`
+            ? ` <span class="turnHeaderHint" title="${trans('historyDepth')}">-${depth}</span>`
             : '';
     }
 
@@ -805,25 +1182,39 @@ $('document').ready(function () {
             cardDisplay.appendChild(row2);
 
             const row3 = document.createElement("div");
-            row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
-            row3.className = "personalGoalText";
-            row3.style.color = player.personalGoalAchieved ? '#4CFF4C' : 'white';
+            row3.className = "personalGoalText goalToggle";
 
             // Character cards are cropped to the art + name (everything below the card's
-            // orange rule is gone). Silver = goal not achieved, gold = achieved; clicking
-            // the card toggles it. The label sits under the image.
-            const row4 = document.createElement("div");
-            const charImg = document.createElement("img");
+            // orange rule is gone). Silver = goal not achieved, gold = achieved. They are
+            // a review aid, not part of play, so they only render under ?debug.
             const [name, ext] = player.character.image.split(".");
-            charImg.src = `./assets/images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}?${version}`;
-            charImg.addEventListener("click", () => {
-                player.personalGoalAchieved = !player.personalGoalAchieved;
-                charImg.src = `./assets/images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}?${version}`;
-                row3.textContent = "Personal Goal Achieved: " + player.personalGoalAchieved;
+            let charImg = null;
+            if (debug) {
+                const row4 = document.createElement("div");
+                charImg = document.createElement("img");
+                charImg.addEventListener("click", toggleGoal);
+                row4.appendChild(charImg);
+                cardDisplay.appendChild(row4);
+            }
+
+            function renderGoal() {
+                row3.textContent = trans(player.personalGoalAchieved ? 'goalAchieved' : 'goalNotAchieved');
                 row3.style.color = player.personalGoalAchieved ? '#4CFF4C' : 'white';
-            });
-            row4.appendChild(charImg);
-            cardDisplay.appendChild(row4);
+                if (charImg) {
+                    charImg.src = `./assets/images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}?${version}`;
+                }
+            }
+
+            function toggleGoal() {
+                player.personalGoalAchieved = !player.personalGoalAchieved;
+                renderGoal();
+                saveGameState();
+            }
+
+            // The label is the toggle. It used to be the portrait, which is now
+            // debug-only - without this there would be no way to flip the goal at all.
+            row3.addEventListener("click", toggleGoal);
+            renderGoal();
             cardDisplay.appendChild(row3);
 
             header.innerHTML = `<span class="turnHeaderHint">${player.nickname}</span>`
@@ -883,7 +1274,7 @@ $('document').ready(function () {
             let headerMarker = "";
             const deckSize = shuffleAiDeck(player.character.type, player.character).length;
             if (reshuffleMarks(aiHistory[aiKey], deckSize)[player.currentCardIndex]) {
-                headerMarker = ' <span class="turnHeaderHint" title="Deck reshuffled after this card">↻</span>';
+                headerMarker = ` <span class="turnHeaderHint" title="${trans('reshuffled')}">↻</span>`;
             }
             headerMarker += historyDepthMarker();
 
@@ -915,13 +1306,15 @@ $('document').ready(function () {
 
             // AI players can never complete personal goals or ship goals
             // (Rules Reference p. 22), so the character card is shown unflipped and
-            // there is no goal toggle here.
-            const row4 = document.createElement("div");
-            const charImg2 = document.createElement("img");
-            const [name, ext] = player.character.image.split(".");
-            charImg2.src = `./assets/images/characters/${name}.${ext}?${version}`;
-            row4.appendChild(charImg2);
-            cardDisplay.appendChild(row4);
+            // there is no goal toggle here. Debug-only, like the human one.
+            if (debug) {
+                const row4 = document.createElement("div");
+                const charImg2 = document.createElement("img");
+                const [name, ext] = player.character.image.split(".");
+                charImg2.src = `./assets/images/characters/${name}.${ext}?${version}`;
+                row4.appendChild(charImg2);
+                cardDisplay.appendChild(row4);
+            }
 
             header.style.color = player.color;
         }
@@ -1132,7 +1525,6 @@ $('document').ready(function () {
     // =====================================================================
 
     // Tags that never carry a closer, so they must not count towards balance.
-    const VOID_TAGS = ["br", "img", "hr", "input", "meta", "link"];
 
     // Net open-minus-close count per tag, returning only the tags that do not
     // balance: positive = unclosed, negative = stray closer.
@@ -1394,9 +1786,9 @@ $('document').ready(function () {
         if (!q.has("ai") && !q.has("human")) return false;
 
         gameMode = q.get("mode") === "base" ? "base" : "expansion";
-        locale = q.get("locale") === "en" ? "en" : "uk";
+        locale = queryLocaleId() || locale;
         document.getElementById("gameMode").value = gameMode;
-        document.getElementById("locale").value = locale;
+        renderLocalePicker();
 
         players = [];
         usedCharacters = [];
@@ -1452,9 +1844,6 @@ $('document').ready(function () {
     // control never pretends to work.
     // =====================================================================
 
-    let wakeLock = null;
-    let keepAwake = localStorage.getItem('keepAwake') === '1';
-
     function wakeLockSupported() {
         return typeof navigator !== 'undefined' && 'wakeLock' in navigator;
     }
@@ -1487,15 +1876,22 @@ $('document').ready(function () {
         $('#keepAwakeToggle')
             .toggleClass('on', !!wakeLock)
             .attr('title', keepAwake
-                ? (wakeLock ? 'Screen kept awake - tap to allow sleep' : 'Keep screen awake (re-acquiring)')
-                : 'Keep screen awake');
+                ? (wakeLock ? trans('keepAwakeHeld') : trans('keepAwakeRetry'))
+                : trans('keepAwake'));
     }
 
-    if (wakeLockSupported()) {
+    // Normally the button hides itself where the API is absent, so it never pretends
+    // to work. Under ?debug it stays put even on a plain-http desktop browser - the
+    // layout of that bar has to be reviewable without a phone - and says plainly in
+    // its toast that nothing was actually locked.
+    if (wakeLockSupported() || debug) {
         $('#keepAwakeToggle').on('click', function () {
             keepAwake = !keepAwake;
             localStorage.setItem('keepAwake', keepAwake ? '1' : '0');
             if (keepAwake) acquireWakeLock(); else releaseWakeLock();
+            showToast(!wakeLockSupported() ? trans('keepAwakeUnsupported')
+                : keepAwake ? trans('keepAwakeOnToast')
+                : trans('keepAwakeOffToast'));
         });
         // A wake lock is always released when the page is hidden, so it has to be
         // taken again every time the tab comes back.
@@ -1506,6 +1902,8 @@ $('document').ready(function () {
         syncKeepAwakeButton();
     } else {
         $('#keepAwakeToggle').hide();
+    }
+    if (!wakeLockSupported()) {
         console.info('Screen Wake Lock unavailable: needs a secure context (https or localhost).');
     }
 
@@ -1541,5 +1939,7 @@ $('document').ready(function () {
 
 
     document.title += ' v' + appVersion;
-    document.getElementById("mainTitle").innerHTML += ' v' + appVersion + (debug ? ' <span style="color:red">DEBUG</span>' : '');
+    // On the second line, with "Automa Simulator" - the first line is the game's name
+    // and stays clean.
+    document.getElementById("mainTitleSub").innerHTML += ' v' + appVersion + (debug ? ' <span style="color:red">DEBUG</span>' : '');
 });

@@ -17,7 +17,7 @@
         // Two names on purpose: appVersion is what the user is shown, version is what
         // goes on every asset URL - under debug it carries a random cache-buster, which
         // has no business appearing in the title.
-        const appVersion = '1.58.9';
+        const appVersion = '1.64.3';
         const version = appVersion
             +(debug?'&_='+Math.random():'');
         // Under debug the photographed card is rendered beside the transcription, which
@@ -39,23 +39,21 @@
 </head>
 <body>
 <div class="container" id="container">
-    <h1 id="mainTitle">Star Wars Outer Rim Automa Simulator</h1>
+    <h1 id="mainTitle"><span class="titleLine">Star Wars Outer Rim</span><span class="titleLine" id="mainTitleSub">Automa Simulator</span></h1>
 
     <div id="step1">
-        <h2>Select Game Mode</h2>
+        <h2 id="gameModeHeading">Select Game Mode</h2>
         <select id="gameMode">
             <option value="expansion" selected>Unfinished Business Expansion</option>
             <option value="base">Base Game Only</option>
         </select>
-        <select id="locale">
-            <option value="en" >EN</option>
-            <option value="uk" selected>UK</option>
-        </select>
+        <div id="localePicker" role="radiogroup"></div>
         <button id="nextToPlayers">Next</button>
+        <p id="disclaimer"></p>
     </div>
 
     <div id="step2" class="hidden">
-        <h2>Add Player #<span id="playerNumber">1</span></h2>
+        <h2 id="addPlayerHeading">Add Player #1</h2>
         <select id="playerType">
             <option value="human">Human Player</option>
             <option value="ai">AI Player</option>
@@ -67,9 +65,11 @@
         <select id="playerColor"></select>
         <div id="playerFormError" style="color: #ff5555; margin: 5px 0; display: none;"></div>
 
-        <button id="addAnother">Add Another Player</button>
-        <button id="goToGame">Start Game</button>
-        <button id="backPlayer">Back</button>
+        <div class="setupActions">
+            <button id="addAnother">Add Another Player</button>
+            <button id="goToGame">Start Game</button>
+            <button id="backPlayer">Back</button>
+        </div>
     </div>
 
     <div id="gameStep" class="hidden">
@@ -77,6 +77,7 @@
             <button id="helpButton" title="Help">?</button>
             <h2 id="turnHeader"></h2>
             <div id="helpControls" class="hidden">
+                <button id="exitDebugButton" class="hidden" title="Exit debug mode">&#9099;</button>
                 <button id="keepAwakeToggle" title="Keep screen awake">☀</button>
                 <button id="localeToggle" title="Switch language">UK</button>
                 <select id="refDocs" title="Open a rulebook in a new tab">
