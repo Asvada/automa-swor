@@ -624,8 +624,8 @@ img.icon.focus {
     gap: 8px;
 }
 
-/* The personal-goal line is also its own toggle: the character portrait that used to
-   carry the click is debug-only now, so this is the only way to flip the goal. */
+/* The personal-goal line is also its own toggle. Both it and the portrait beside it are
+   ?debug-only - a normal game never shows the human's goal at all. */
 .goalToggle {
     cursor: pointer;
     user-select: none;

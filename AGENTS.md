@@ -363,6 +363,7 @@ Status: `open` / `done` / `wontfix`. Keep newest decisions at the bottom of a ro
 | D10 | ⚠ **Regression shipped in `969ed2c`:** the keyword-bolding sweep walked *every* string in the locale file, including `help[].gameMode` / `help[].characterType`. The value `"bounty"` became `"<strong>bounty</strong>"` in **19 EN entries**, so every bounty-hunter help fragment silently stopped matching and disappeared from the panel | `assets/cards/en.json`, `main.js` | **done** — arrays repaired (EN and UK now both yield 2/9/8/8/17/20 fragments across the six mode x playerType combinations). UK was untouched only by luck: its keyword regex is Cyrillic-only, and the filter values are English. **The 12-combination help tripwire did not catch this** — dropping a whole fragment leaves the concatenation perfectly balanced. `validateCardData()` now checks the filter arrays directly: any `<`/`>` in a value, or a value outside `base`/`expansion` and `human`/`smuggler`/`bounty`, is reported. **Rule for any future bulk text pass: exclude `gameMode`/`characterType` — they are filter keys, not prose.** |
 | D11 | Enumerations were bolded word-by-word, which read as emphasis on nothing | both JSONs | **done** — owner's rule: **no bold inside a list of things**. Applied to the encounter-card space list (`Planet, Maelstrom, Navpoint, Core Worlds.` / `Планета, Вирвище, Навігаційна точка, Центральні Світи.`), the `Play any "…"` card-type lists, the "Where to gain fame" bullets, and `help[18]`'s named-card list. 7 sites per locale. Emphasis is still used for *conditions* and *labels* (`If defeated`, `Master:`, `same or less`) — the rule is about enumerated items only. |
 | R14 | AI cards never showed the defeat cost, although the rules charge AI players the same 3,000 | both JSONs | **done** — all **28** AI planning bullets per locale (`a. If defeated, recover all damage.` / `а. Якщо спіткала невдача, зніми усі пошкодження.`) now carry the same `appNote` the human card got in R12: `spend 3 000 if defeated` / `витрати 3 000 кредитів якщо спіткала невдача`. Sourced from RR p. 25's blanket "obey all rules that apply to normal players" clause — see the bullet in section 4. |
+| D12 | Two display fixes from the owner (2026-09-25). (a) The "Personal Goal Achieved" line showed on every human turn in a normal game, although the app manages the *AI* and nothing reads the flag outside `?debug`. (b) Returning from the history to the live turn repainted its ticked bullets **blue** (`.replay`) instead of green. | `main.js`, `main.css` | **done** — (a) the goal line *and* the debug portrait now live in one `if (debug)` block in the human branch of `showTurn`; `personalGoalAchieved` is still stored and still restored from a save, it is just not shown in a normal game. (b) `hasRecord(player)` was the wrong test: `turnRecordFor()` creates the slot for the turn on screen, so the live turn "has a record" from its first render and every later visit read as a replay. Replaced by `isReplayTurn()` (`turnNo < turnNoMax`) — the cursor already says whether a turn is in the past. `turnsTaken()` had no other caller and is gone. |
 
 ---
 
@@ -376,9 +377,12 @@ two representations cannot drift.
 
 `turnSel[characterId][turnIndex]` records which bullets were ticked, as `"item:bullet"`
 keys. **Humans have this too** - it is what gives them a history to rewind through, since
-their Player Turn card is otherwise identical every turn. A turn that already has a record
-is repainted with `.replay` (blue) rather than the live green; clicking a bullet drops
-`.replay` and re-records. Fast-Forward (`»`) appears whenever `turnNo < turnNoMax` and
+their Player Turn card is otherwise identical every turn. A turn **in the past**
+(`isReplayTurn()`, i.e. `turnNo < turnNoMax`) is repainted with `.replay` (blue) rather
+than the live green; clicking a bullet drops `.replay` and re-records. The test is the
+cursor, never "does a record exist" - the live turn gets a record slot the moment it is
+first shown, so record-existence made the live turn blue as soon as you left it and came
+back (D12). Fast-Forward (`»`) appears whenever `turnNo < turnNoMax` and
 jumps straight to `turnNoMax`; while it is visible Forward takes `.withFF` and narrows so
 both fit the footer row.
 

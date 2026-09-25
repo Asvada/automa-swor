@@ -1042,8 +1042,6 @@ $('document').ready(function () {
             : '';
     }
 
-    // How many turns this player has already taken. Both humans and AI now keep a
-    // record per turn, so both can be rewound.
     // Point the whole game at global turn T. Player j takes turns at T = j, j+n, j+2n...
     // so the player on screen is showing turn floor(T/n), and everyone else's pointer is
     // however many of their turns have already started.
@@ -1059,14 +1057,12 @@ $('document').ready(function () {
         });
     }
 
-    function turnsTaken(player) {
-        const t = turnSel[player.character.id];
-        return t ? t.length : 0;
-    }
-
-    // This turn has been played before, so its ticked bullets are replayed (in blue).
-    function hasRecord(player) {
-        return player.currentCardIndex < turnsTaken(player);
+    // This turn lies in the past, so its ticked bullets are replayed (in blue) rather
+    // than read as a live choice. Depth decides, not whether a record exists: the live
+    // turn gets a record slot the moment it is first shown, so coming back to it from
+    // the history has to paint green again.
+    function isReplayTurn() {
+        return turnNo < turnNoMax;
     }
 
     function turnRecordFor(player) {
@@ -1181,41 +1177,37 @@ $('document').ready(function () {
             buildFooter(row2);
             cardDisplay.appendChild(row2);
 
-            const row3 = document.createElement("div");
-            row3.className = "personalGoalText goalToggle";
-
-            // Character cards are cropped to the art + name (everything below the card's
-            // orange rule is gone). Silver = goal not achieved, gold = achieved. They are
-            // a review aid, not part of play, so they only render under ?debug.
-            const [name, ext] = player.character.image.split(".");
-            let charImg = null;
+            // The personal-goal line and the character portrait are a review aid, not
+            // part of play - the app manages the AI, not the human's goal - so the whole
+            // block only renders under ?debug. The line is its own toggle; the portrait
+            // (cropped to art + name, silver = not achieved, gold = achieved) flips it too.
             if (debug) {
+                const row3 = document.createElement("div");
+                row3.className = "personalGoalText goalToggle";
+
+                const [name, ext] = player.character.image.split(".");
                 const row4 = document.createElement("div");
-                charImg = document.createElement("img");
-                charImg.addEventListener("click", toggleGoal);
+                const charImg = document.createElement("img");
                 row4.appendChild(charImg);
                 cardDisplay.appendChild(row4);
-            }
 
-            function renderGoal() {
-                row3.textContent = trans(player.personalGoalAchieved ? 'goalAchieved' : 'goalNotAchieved');
-                row3.style.color = player.personalGoalAchieved ? '#4CFF4C' : 'white';
-                if (charImg) {
+                function renderGoal() {
+                    row3.textContent = trans(player.personalGoalAchieved ? 'goalAchieved' : 'goalNotAchieved');
+                    row3.style.color = player.personalGoalAchieved ? '#4CFF4C' : 'white';
                     charImg.src = `./assets/images/characters/${name}${player.personalGoalAchieved ? "_" : ""}.${ext}?${version}`;
                 }
-            }
 
-            function toggleGoal() {
-                player.personalGoalAchieved = !player.personalGoalAchieved;
+                function toggleGoal() {
+                    player.personalGoalAchieved = !player.personalGoalAchieved;
+                    renderGoal();
+                    saveGameState();
+                }
+
+                row3.addEventListener("click", toggleGoal);
+                charImg.addEventListener("click", toggleGoal);
                 renderGoal();
-                saveGameState();
+                cardDisplay.appendChild(row3);
             }
-
-            // The label is the toggle. It used to be the portrait, which is now
-            // debug-only - without this there would be no way to flip the goal at all.
-            row3.addEventListener("click", toggleGoal);
-            renderGoal();
-            cardDisplay.appendChild(row3);
 
             header.innerHTML = `<span class="turnHeaderHint">${player.nickname}</span>`
                 + `<span class="turnHeaderName">${player.character.name}${historyDepthMarker()}</span>`;
@@ -1460,7 +1452,7 @@ $('document').ready(function () {
         cardDisplay.insertAdjacentHTML('afterbegin', `<div id="phaseContainer" class="phaseContainer phaseContainer-${type}">${html}</div>`);
         attachPhaseElementListeners();
         if (player) {
-            const replay = hasRecord(player);
+            const replay = isReplayTurn();
             turnRecordFor(player);          // make sure this turn has a slot
             applySelections(player, replay);
         }
