@@ -24,12 +24,15 @@ h1 {
 }
 
 select, input[type="text"], button {
-    width: 90%;
     padding: 10px;
     margin: 5px 0;
     border-radius: 8px;
     border: none;
     font-size: 16px;
+}
+
+select, input[type="text"] {
+    width: 90%;
 }
 
 #mainTitle {
@@ -446,20 +449,12 @@ img.icon.focus {
 }
 
 /* A count that belongs to the icon next to it ("2 damage", "credits 4 000").
-   The data puts them adjacent with no whitespace between, so the only gap left
-   is the icon's own 2px margin - pulled back to 0 on the side facing the number
-   so the pair reads as one token. */
+   The data puts them adjacent with no whitespace between, so the gap is the icon's
+   own 2px margin, both orders. The -2px pull that used to sit on the side facing
+   the count cancelled that margin out - the digit ended up touching the glyph. */
 .iconNum {
     font-weight: 700;
     white-space: nowrap;
-}
-
-img.icon + .iconNum {
-    margin-left: -2px;
-}
-
-.iconNum + img.icon {
-    margin-left: -2px;
 }
 
 
@@ -472,68 +467,72 @@ img.icon + .iconNum {
     position: fixed;
     inset: 0;
     overflow-y: auto;
-    background: #111;
+    background: lightgrey;
+    color: #000;
     z-index: 2000;
     text-align: left;
     padding: 0 12px 40px;
 }
 
+/* The icons are light glyphs cut from the dark scans, so on the sheet's grey they
+   would all but vanish; inverted they read as black line art like the text does. */
+#proofSheet img.icon {
+    filter: invert(1);
+}
+
 .proofBar {
-    position: sticky;
-    top: 0;
-    z-index: 1;
     display: flex;
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
-    background: #222;
+    background: #bfbfbf;
     border-bottom: 2px solid #666;
     margin: 0 -12px 12px;
     padding: 8px 12px;
 }
 
-.proofBar strong { color: #FFD700; }
-.proofCount { color: #999; font-size: 0.85em; margin-left: auto; }
+.proofBar strong { color: #000; }
+.proofCount { color: #444; font-size: 0.85em; margin-left: auto; }
 
 .proofProblems {
-    border: 1px solid #ff5555;
+    border: 1px solid #a00;
     border-radius: 6px;
     padding: 8px 10px;
     margin-bottom: 14px;
     font-size: 0.85em;
-    color: #ff9999;
+    color: #900;
 }
 
-.proofProblems summary { color: #ff5555; cursor: pointer; font-weight: bold; }
-.proofProblems.clean { border-color: #4CFF4C; color: #4CFF4C; }
+.proofProblems summary { color: #a00; cursor: pointer; font-weight: bold; }
+.proofProblems.clean { border-color: #0a6b0a; color: #0a6b0a; }
 
 .proofType {
-    color: #FFD700;
-    border-bottom: 1px solid #444;
+    color: #000;
+    border-bottom: 1px solid #888;
     margin: 26px 0 6px;
     font-size: 1.1em;
 }
 
-.proofCard { border-top: 1px solid #333; padding: 10px 0; }
+.proofCard { border-top: 1px solid #999; padding: 10px 0; }
 
 .proofCard h3 {
     margin: 0 0 8px;
     font-size: 0.95em;
-    color: #aaa;
+    color: #444;
     display: flex;
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
 }
 
-.proofTag { color: #eee; }
+.proofTag { color: #000; }
 
 .proofBadge {
     margin-left: auto;
     font-size: 0.8em;
     font-weight: normal;
-    color: #4CFF4C;
-    border: 1px solid #4CFF4C;
+    color: #0a6b0a;
+    border: 1px solid #0a6b0a;
     border-radius: 10px;
     padding: 1px 8px;
 }
@@ -541,12 +540,12 @@ img.icon + .iconNum {
 /* Cards the current mode does not deal stay listed - the sheet is an inventory of
    what exists, not of what is in play - but are dimmed and badged. */
 .proofOut { opacity: 0.55; }
-.proofOut .proofBadge { color: #888; border-color: #555; }
+.proofOut .proofBadge { color: #555; border-color: #888; }
 
 .proofCols { display: flex; gap: 14px; align-items: flex-start; }
 .proofCol { flex: 1 1 0; min-width: 0; }
-.proofLoc { color: #666; font-size: 0.75em; letter-spacing: 1px; margin-bottom: 4px; }
-.proofMissing { color: #ff5555; }
+.proofLoc { color: #555; font-size: 0.75em; letter-spacing: 1px; margin-bottom: 4px; }
+.proofMissing { color: #c00; }
 .proofScan { flex: 0 0 240px; }
 .proofScan img { width: 100%; height: auto; border-radius: 6px; }
 

@@ -276,3 +276,17 @@ plus 7 encounter-type lists moved out of the bullet text and into notes.
 **§3, the Ukrainian terminology pass, is also done** (R9). Beyond the term swaps, the
 repeated bullets were aligned verbatim to the UK scans, so e.g. every one of
 `smuggler/1`'s nine bullets now matches the printed card word for word.
+
+**One deliberate departure from that verbatim alignment** (owner's call, 2026-09-25). The
+encounter bullet is printed on `smuggler/1..10` as
+
+> б. Якщо ти в пункті призначення халтурки, халтурку виконано.
+
+and now reads, in all 15 UK strings that carry it,
+
+> б. Якщо ти в пункті призначення **халтурки** - її виконано.
+
+The repeated noun becomes a pronoun; the rule is untouched. It is a readability edit the
+owner asked for, not a transcription fix, so a later verbatim pass must not "correct" it
+back. (The card bolds neither `халтурки` nor `халтурку` — the first one's `<strong>` is
+the app's own keyword bolding, which applies in both locales.)

@@ -14,7 +14,11 @@
         //   ?debug&ai=han,boba&mode=base&locale=en&human=erso   seat a table and start
         const debug = new URLSearchParams(location.search).has('debug');
         const debugWholeDeck = new URLSearchParams(location.search).get('debug') === 'whole-deck';
-        const version = '1.56.1'
+        // Two names on purpose: appVersion is what the user is shown, version is what
+        // goes on every asset URL - under debug it carries a random cache-buster, which
+        // has no business appearing in the title.
+        const appVersion = '1.58.9';
+        const version = appVersion
             +(debug?'&_='+Math.random():'');
         // Under debug the photographed card is rendered beside the transcription, which
         // is the audit the project actually runs on (AGENTS.md section 2).

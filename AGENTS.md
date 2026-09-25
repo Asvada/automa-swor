@@ -417,7 +417,7 @@ both fit the footer row.
   briefly. One line, no body, imperative mood. Detail belongs in this file, not in the
   log — the worklog in section 6 is where the reasoning and the sources go.
 - **Never add a `Co-Authored-By` trailer**, or any other attribution/generated-by line.
-- **Bump `version` in `index.html` on every change**, following semver:
+- **Bump `appVersion` in `index.html` on every change**, following semver:
   - **PATCH** (`1.36.0` -> `1.36.1`) — bug fix, card-text correction, dead-code removal,
     anything that doesn't change how the app behaves for a correct user.
   - **MINOR** (`1.36.0` -> `1.37.0`) — new or changed behaviour that existing saves
@@ -426,8 +426,11 @@ both fit the footer row.
     change to the `gameSave` shape without a migration.
 
   This string is also the cache-buster appended to `main.js`, `main.css` and
-  `assets/cards/*.json`, so it must change whenever any of those change or clients keep the
-  stale file. Versions before `1.36.0` were bumped as plain `1.NN` and are not semver.
+  `assets/cards/*.json` (as `version`, which is `appVersion` plus a random `&_=` under
+  `?debug`), so it must change whenever any of those change or clients keep the stale file.
+  Anything *shown* to the user — the title, the `#mainTitle` suffix — uses `appVersion`, so
+  the debug cache-buster never leaks into the UI. Versions before `1.36.0` were bumped as
+  plain `1.NN` and are not semver.
 - The owner may override a rules finding with a house rule. When that happens, record it
   in section 4 with a ⚠ box and say so in the worklog row, so a later pass doesn't
   "correct" it back. See R1.
@@ -436,7 +439,7 @@ both fit the footer row.
 
 ## 8. Code gotchas
 
-- **Cache busting is manual.** Bump `version` in `index.html` after changing
+- **Cache busting is manual.** Bump `appVersion` in `index.html` after changing
   `main.js` / `main.css` / `assets/cards/*.json`, or clients keep the old files.
 - **Debug mode is `?debug` on the URL** (`index.html?debug`), not a source edit. The old
   `debugSpecial` flag is gone; "character card every turn" is now what a second AI of a
@@ -519,7 +522,9 @@ the mode does not deal are dimmed rather than hidden, so nothing can be silently
 `cardSectionsHtml(data, cardFileName, phases)` was extracted out of `describeCard` for
 this: the live turn and the sheet render a card through the same function, so they cannot
 drift. It is a desktop view and deliberately steps outside the 450px phone frame (it still
-collapses to one column under 800px).
+collapses to one column under 800px). The sheet is the one **light** surface in the app —
+grey ground, black text, for proofreading — so the icons, which are light glyphs cut from
+the dark scans, are `filter: invert(1)` inside `#proofSheet`.
 - Card text is raw HTML injected via `innerHTML` / `insertAdjacentHTML`. Icons are
   `<span class="icon NAME">label</span>` and get swapped for `assets/images/assets/NAME.png`.
   The icon name must be the **second** class.

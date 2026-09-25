@@ -1540,6 +1540,6 @@ $('document').ready(function () {
     }
 
 
-    document.title += ' v' + version;
-    document.getElementById("mainTitle").innerHTML += ' v' + version + (debug ? ' <span style="color:red">DEBUG</span>' : '');
+    document.title += ' v' + appVersion;
+    document.getElementById("mainTitle").innerHTML += ' v' + appVersion + (debug ? ' <span style="color:red">DEBUG</span>' : '');
 });
